@@ -107,7 +107,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("CheckForUpdateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
-  public class CheckForUpdateResponse {
+  public partial class CheckForUpdateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string UpdateItem { get; set; }
@@ -115,7 +115,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetZoneGroupAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
-  public class GetZoneGroupAttributesResponse {
+  public partial class GetZoneGroupAttributesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentZoneGroupName { get; set; }
@@ -132,7 +132,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetZoneGroupStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
-  public class GetZoneGroupStateResponse {
+  public partial class GetZoneGroupStateResponse {
 
     /// <summary>
     /// xml string, see remarks
@@ -172,7 +172,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("SubmitDiagnosticsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
-  public class SubmitDiagnosticsResponse {
+  public partial class SubmitDiagnosticsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int DiagnosticID { get; set; }

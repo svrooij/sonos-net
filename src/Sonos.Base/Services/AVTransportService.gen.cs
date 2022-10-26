@@ -401,7 +401,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("AddMultipleURIsToQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class AddMultipleURIsToQueueResponse {
+  public partial class AddMultipleURIsToQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int FirstTrackNumberEnqueued { get; set; }
@@ -439,7 +439,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("AddURIToQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class AddURIToQueueResponse {
+  public partial class AddURIToQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int FirstTrackNumberEnqueued { get; set; }
@@ -473,7 +473,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("AddURIToSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class AddURIToSavedQueueResponse {
+  public partial class AddURIToSavedQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int NumTracksAdded { get; set; }
@@ -507,7 +507,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("BecomeCoordinatorOfStandaloneGroupResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class BecomeCoordinatorOfStandaloneGroupResponse {
+  public partial class BecomeCoordinatorOfStandaloneGroupResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string DelegatedGroupCoordinatorID { get; set; }
@@ -647,7 +647,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("CreateSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class CreateSavedQueueResponse {
+  public partial class CreateSavedQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int NumTracksAdded { get; set; }
@@ -704,7 +704,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetCrossfadeModeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetCrossfadeModeResponse {
+  public partial class GetCrossfadeModeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public bool CrossfadeMode { get; set; }
@@ -722,7 +722,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetCurrentTransportActionsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetCurrentTransportActionsResponse {
+  public partial class GetCurrentTransportActionsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string Actions { get; set; }
@@ -740,7 +740,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetDeviceCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetDeviceCapabilitiesResponse {
+  public partial class GetDeviceCapabilitiesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string PlayMedia { get; set; }
@@ -764,7 +764,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetMediaInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetMediaInfoResponse {
+  public partial class GetMediaInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int NrTracks { get; set; }
@@ -806,7 +806,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetPositionInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetPositionInfoResponse {
+  public partial class GetPositionInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int Track { get; set; }
@@ -845,7 +845,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetRemainingSleepTimerDurationResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetRemainingSleepTimerDurationResponse {
+  public partial class GetRemainingSleepTimerDurationResponse {
 
     /// <summary>
     /// Format hh:mm:ss or empty string if not set
@@ -869,7 +869,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetRunningAlarmPropertiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetRunningAlarmPropertiesResponse {
+  public partial class GetRunningAlarmPropertiesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int AlarmID { get; set; }
@@ -893,7 +893,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetTransportInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetTransportInfoResponse {
+  public partial class GetTransportInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentTransportState { get; set; }
@@ -917,7 +917,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetTransportSettingsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class GetTransportSettingsResponse {
+  public partial class GetTransportSettingsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string PlayMode { get; set; }
@@ -1031,7 +1031,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("RemoveTrackRangeFromQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class RemoveTrackRangeFromQueueResponse {
+  public partial class RemoveTrackRangeFromQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int NewUpdateID { get; set; }
@@ -1075,7 +1075,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("ReorderTracksInSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class ReorderTracksInSavedQueueResponse {
+  public partial class ReorderTracksInSavedQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int QueueLengthChange { get; set; }
@@ -1135,7 +1135,7 @@ public partial class AVTransportService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("SaveQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
-  public class SaveQueueResponse {
+  public partial class SaveQueueResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string AssignedObjectID { get; set; }

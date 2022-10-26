@@ -268,7 +268,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("EnterConfigModeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class EnterConfigModeResponse {
+  public partial class EnterConfigModeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string State { get; set; }
@@ -290,7 +290,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetAutoplayLinkedZonesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetAutoplayLinkedZonesResponse {
+  public partial class GetAutoplayLinkedZonesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public bool IncludeLinkedZones { get; set; }
@@ -305,7 +305,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetAutoplayRoomUUIDResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetAutoplayRoomUUIDResponse {
+  public partial class GetAutoplayRoomUUIDResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string RoomUUID { get; set; }
@@ -320,7 +320,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetAutoplayVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetAutoplayVolumeResponse {
+  public partial class GetAutoplayVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int CurrentVolume { get; set; }
@@ -328,7 +328,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetButtonLockStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetButtonLockStateResponse {
+  public partial class GetButtonLockStateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentButtonLockState { get; set; }
@@ -336,7 +336,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetButtonStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetButtonStateResponse {
+  public partial class GetButtonStateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string State { get; set; }
@@ -344,7 +344,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetHouseholdIDResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetHouseholdIDResponse {
+  public partial class GetHouseholdIDResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentHouseholdID { get; set; }
@@ -352,7 +352,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetLEDStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetLEDStateResponse {
+  public partial class GetLEDStateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentLEDState { get; set; }
@@ -367,7 +367,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetUseAutoplayVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetUseAutoplayVolumeResponse {
+  public partial class GetUseAutoplayVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public bool UseVolume { get; set; }
@@ -375,7 +375,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetZoneAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetZoneAttributesResponse {
+  public partial class GetZoneAttributesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentZoneName { get; set; }
@@ -389,7 +389,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetZoneInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class GetZoneInfoResponse {
+  public partial class GetZoneInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string SerialNumber { get; set; }
@@ -452,7 +452,7 @@ public partial class DevicePropertiesService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("RoomDetectionStartChirpingResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
-  public class RoomDetectionStartChirpingResponse {
+  public partial class RoomDetectionStartChirpingResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int PlayId { get; set; }

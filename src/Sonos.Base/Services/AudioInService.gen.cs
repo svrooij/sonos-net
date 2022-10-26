@@ -77,7 +77,7 @@ public partial class AudioInService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetAudioInputAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
-  public class GetAudioInputAttributesResponse {
+  public partial class GetAudioInputAttributesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentName { get; set; }
@@ -88,7 +88,7 @@ public partial class AudioInService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("GetLineInLevelResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
-  public class GetLineInLevelResponse {
+  public partial class GetLineInLevelResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public int CurrentLeftLineInLevel { get; set; }
@@ -131,7 +131,7 @@ public partial class AudioInService : SonosBaseService {
 
   [System.Serializable()]
   [System.Xml.Serialization.XmlType("StartTransmissionToGroupResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
-  public class StartTransmissionToGroupResponse {
+  public partial class StartTransmissionToGroupResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
     public string CurrentTransportSettings { get; set; }
