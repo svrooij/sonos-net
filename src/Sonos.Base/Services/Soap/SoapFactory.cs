@@ -78,12 +78,21 @@ internal static class SoapFactory {
   internal static TOut ParseXml<TOut> (string service, Stream stream) {
     var overrides = GenerateResponseOverrides<TOut>(service);
     var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
-    // using var textReader = new StringReader(xml);
     var result = (Envelope<TOut>?)serializer.Deserialize(stream);
     if (result is null) {
       throw new FormatException("Response does not contain expected result");
     }
     return result.Body.Message;
+  }
+
+  internal static TOut ParseEmbeddedXml<TOut>(string xml) {
+    var serializer = new XmlSerializer(typeof(TOut));
+    using var textReader = new StringReader(xml);
+    var result = (TOut?)serializer.Deserialize(textReader);
+    if (result is null) {
+      throw new FormatException("Response does not contain expected result");
+    }
+    return result;
   }
 
 }
