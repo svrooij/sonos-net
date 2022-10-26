@@ -4,10 +4,10 @@ namespace Sonos.Base.Soap;
 internal static class SoapFactory {
 
   internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, string service, string action, TPayload payload) {
-    var xml = GenerateXml<TPayload>(service, action, payload);
+    var xml = GenerateXmlStream<TPayload>(service, action, payload);
     var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, path)) {
-      // Should optimize using streams, and writing xml directly to stream.
-      Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
+      // Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
+      Content = new StreamContent(xml)
     };
     // Sonos doesn't like content-type 'text/xml; charset=utf-8'
     request.Content.Headers.Remove("content-type");
@@ -25,6 +25,18 @@ internal static class SoapFactory {
     using var textWriter = new Utf8StringWriter();
     serializer.Serialize(textWriter, envelope, ns);
     return textWriter.ToString();
+  }
+
+  internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload){
+    var stream = new MemoryStream();
+    var envelope = new Soap.Envelope<TPayload>(payload);
+    var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
+    var ns = SoapNamespaces();
+
+    var serializer = new XmlSerializer(envelope.GetType(), overrides);
+    serializer.Serialize(stream, envelope, ns);
+    stream.Seek(0, SeekOrigin.Begin);
+    return stream;
   }
 
   internal static XmlAttributeOverrides GenerateOverrides<TBody>(string service, string elementName, string property = "Message") {

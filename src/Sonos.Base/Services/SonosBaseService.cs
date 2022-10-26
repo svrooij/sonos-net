@@ -27,7 +27,7 @@ public class SonosBaseService {
     return true;
   }
 
-  internal async Task<TOut?> ExecuteRequest<TPayload,TOut>(string action, TPayload payload,CancellationToken cancellationToken) {
+  internal async Task<TOut> ExecuteRequest<TPayload,TOut>(string action, TPayload payload,CancellationToken cancellationToken) {
     var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, this.ServiceName, action, payload);
     var response = await httpClient.SendAsync(request, cancellationToken);
     if(!response.IsSuccessStatusCode) {
