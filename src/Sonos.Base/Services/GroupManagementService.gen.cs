@@ -63,7 +63,7 @@ public partial class GroupManagementService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("AddMemberResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupManagement:1")]
+  [System.Xml.Serialization.XmlType("AddMemberResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupManagement:1")]
   public class AddMemberResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

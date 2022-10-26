@@ -37,7 +37,7 @@ public partial class QPlayService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("QPlayAuthResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:QPlay:1")]
+  [System.Xml.Serialization.XmlType("QPlayAuthResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:QPlay:1")]
   public class QPlayAuthResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

@@ -134,7 +134,7 @@ public partial class VirtualLineInService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("StartTransmissionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:VirtualLineIn:1")]
+  [System.Xml.Serialization.XmlType("StartTransmissionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:VirtualLineIn:1")]
   public class StartTransmissionResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

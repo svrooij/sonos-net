@@ -76,7 +76,7 @@ public partial class AudioInService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetAudioInputAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
+  [System.Xml.Serialization.XmlType("GetAudioInputAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
   public class GetAudioInputAttributesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -87,7 +87,7 @@ public partial class AudioInService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetLineInLevelResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
+  [System.Xml.Serialization.XmlType("GetLineInLevelResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
   public class GetLineInLevelResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -130,7 +130,7 @@ public partial class AudioInService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("StartTransmissionToGroupResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
+  [System.Xml.Serialization.XmlType("StartTransmissionToGroupResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
   public class StartTransmissionToGroupResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

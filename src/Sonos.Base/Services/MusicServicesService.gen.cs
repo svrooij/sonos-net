@@ -54,7 +54,7 @@ public partial class MusicServicesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetSessionIdResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:MusicServices:1")]
+  [System.Xml.Serialization.XmlType("GetSessionIdResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:MusicServices:1")]
   public class GetSessionIdResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -62,7 +62,7 @@ public partial class MusicServicesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("ListAvailableServicesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:MusicServices:1")]
+  [System.Xml.Serialization.XmlType("ListAvailableServicesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:MusicServices:1")]
   public class ListAvailableServicesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

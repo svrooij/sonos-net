@@ -56,7 +56,7 @@ public partial class {{serviceName}} : SonosBaseService {
   {{#if outputs}}
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("{{name}}Response", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:{{@root.name}}:1")]
+  [System.Xml.Serialization.XmlType("{{name}}Response", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:{{@root.name}}:1")]
   public class {{name}}Response {
     {{#each outputs}}
 

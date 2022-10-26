@@ -258,7 +258,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetBassResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetBassResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetBassResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -281,7 +281,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetEQResponse {
 
     /// <summary>
@@ -302,7 +302,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetHeadphoneConnectedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetHeadphoneConnectedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetHeadphoneConnectedResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -322,7 +322,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetLoudnessResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetLoudnessResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetLoudnessResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -342,7 +342,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetMuteResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetMuteResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetMuteResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -360,7 +360,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetOutputFixedResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -378,7 +378,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetRoomCalibrationStatusResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetRoomCalibrationStatusResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetRoomCalibrationStatusResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -399,7 +399,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetSupportsOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetSupportsOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetSupportsOutputFixedResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -417,7 +417,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTrebleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetTrebleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetTrebleResponse {
 
     /// <summary>
@@ -440,7 +440,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetVolumeResponse {
 
     /// <summary>
@@ -463,7 +463,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetVolumeDBResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetVolumeDBResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetVolumeDBResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -483,7 +483,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetVolumeDBRangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetVolumeDBRangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class GetVolumeDBRangeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -514,7 +514,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("RampToVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("RampToVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class RampToVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -532,7 +532,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("ResetBasicEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("ResetBasicEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class ResetBasicEQResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -674,7 +674,7 @@ public partial class RenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("SetRelativeVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
+  [System.Xml.Serialization.XmlType("SetRelativeVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
   public class SetRelativeVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

@@ -179,7 +179,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("BrowseResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("BrowseResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class BrowseResponse {
 
     /// <summary>
@@ -208,7 +208,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("CreateObjectResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("CreateObjectResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class CreateObjectResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -235,7 +235,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("FindPrefixResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("FindPrefixResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class FindPrefixResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -246,7 +246,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetAlbumArtistDisplayOptionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetAlbumArtistDisplayOptionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetAlbumArtistDisplayOptionResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -261,7 +261,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetAllPrefixLocationsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetAllPrefixLocationsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetAllPrefixLocationsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -275,7 +275,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetBrowseableResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetBrowseableResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetBrowseableResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -283,7 +283,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetLastIndexChangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetLastIndexChangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetLastIndexChangeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -291,7 +291,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetSearchCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetSearchCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetSearchCapabilitiesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -299,7 +299,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetShareIndexInProgressResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetShareIndexInProgressResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetShareIndexInProgressResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -307,7 +307,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetSortCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetSortCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetSortCapabilitiesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -315,7 +315,7 @@ public partial class ContentDirectoryService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetSystemUpdateIDResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
+  [System.Xml.Serialization.XmlType("GetSystemUpdateIDResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
   public class GetSystemUpdateIDResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

@@ -169,7 +169,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("AddAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("AddAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class AddAccountXResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -198,7 +198,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("AddOAuthAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("AddOAuthAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class AddOAuthAccountXResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -238,7 +238,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetRDMResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("GetRDMResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class GetRDMResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -256,7 +256,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetStringResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("GetStringResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class GetStringResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -271,7 +271,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetWebCodeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("GetWebCodeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class GetWebCodeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -290,7 +290,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("ProvisionCredentialedTrialAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("ProvisionCredentialedTrialAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class ProvisionCredentialedTrialAccountXResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -350,7 +350,7 @@ public partial class SystemPropertiesService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("ReplaceAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
+  [System.Xml.Serialization.XmlType("ReplaceAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
   public class ReplaceAccountXResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

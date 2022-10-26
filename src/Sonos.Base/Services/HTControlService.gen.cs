@@ -90,7 +90,7 @@ public partial class HTControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetIRRepeaterStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
+  [System.Xml.Serialization.XmlType("GetIRRepeaterStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
   public class GetIRRepeaterStateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -98,7 +98,7 @@ public partial class HTControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetLEDFeedbackStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
+  [System.Xml.Serialization.XmlType("GetLEDFeedbackStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
   public class GetLEDFeedbackStateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -113,7 +113,7 @@ public partial class HTControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("IsRemoteConfiguredResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
+  [System.Xml.Serialization.XmlType("IsRemoteConfiguredResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:HTControl:1")]
   public class IsRemoteConfiguredResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

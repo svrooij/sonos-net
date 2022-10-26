@@ -86,7 +86,7 @@ public partial class GroupRenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetGroupMuteResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetGroupMuteResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
   public class GetGroupMuteResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -104,7 +104,7 @@ public partial class GroupRenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetGroupVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
+  [System.Xml.Serialization.XmlType("GetGroupVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
   public class GetGroupVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -154,7 +154,7 @@ public partial class GroupRenderingControlService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("SetRelativeGroupVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
+  [System.Xml.Serialization.XmlType("SetRelativeGroupVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupRenderingControl:1")]
   public class SetRelativeGroupVolumeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

@@ -106,7 +106,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("CheckForUpdateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
+  [System.Xml.Serialization.XmlType("CheckForUpdateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
   public class CheckForUpdateResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -114,7 +114,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetZoneGroupAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
+  [System.Xml.Serialization.XmlType("GetZoneGroupAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
   public class GetZoneGroupAttributesResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -131,7 +131,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetZoneGroupStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
+  [System.Xml.Serialization.XmlType("GetZoneGroupStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
   public class GetZoneGroupStateResponse {
 
     /// <summary>
@@ -171,7 +171,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("SubmitDiagnosticsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
+  [System.Xml.Serialization.XmlType("SubmitDiagnosticsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
   public class SubmitDiagnosticsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]

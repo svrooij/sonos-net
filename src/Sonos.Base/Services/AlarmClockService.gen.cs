@@ -208,7 +208,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("CreateAlarmResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("CreateAlarmResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class CreateAlarmResponse {
 
     /// <summary>
@@ -229,7 +229,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetDailyIndexRefreshTimeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetDailyIndexRefreshTimeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetDailyIndexRefreshTimeResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -237,7 +237,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetFormatResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetFormatResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetFormatResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -255,7 +255,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetHouseholdTimeAtStampResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetHouseholdTimeAtStampResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetHouseholdTimeAtStampResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -263,7 +263,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTimeNowResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetTimeNowResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetTimeNowResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -280,7 +280,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTimeServerResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetTimeServerResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetTimeServerResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -288,7 +288,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTimeZoneResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetTimeZoneResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetTimeZoneResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -299,7 +299,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTimeZoneAndRuleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetTimeZoneAndRuleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetTimeZoneAndRuleResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -320,7 +320,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetTimeZoneRuleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("GetTimeZoneRuleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class GetTimeZoneRuleResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -328,7 +328,7 @@ public partial class AlarmClockService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("ListAlarmsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
+  [System.Xml.Serialization.XmlType("ListAlarmsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AlarmClock:1")]
   public class ListAlarmsResponse {
 
     /// <summary>

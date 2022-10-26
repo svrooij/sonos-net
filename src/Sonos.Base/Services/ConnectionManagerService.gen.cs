@@ -44,7 +44,7 @@ public partial class ConnectionManagerService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetCurrentConnectionIDsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
+  [System.Xml.Serialization.XmlType("GetCurrentConnectionIDsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
   public class GetCurrentConnectionIDsResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -59,7 +59,7 @@ public partial class ConnectionManagerService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetCurrentConnectionInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
+  [System.Xml.Serialization.XmlType("GetCurrentConnectionInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
   public class GetCurrentConnectionInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
@@ -85,7 +85,7 @@ public partial class ConnectionManagerService : SonosBaseService {
   }
 
   [System.Serializable()]
-  [System.Xml.Serialization.XmlTypeAttribute("GetProtocolInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
+  [System.Xml.Serialization.XmlType("GetProtocolInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
   public class GetProtocolInfoResponse {
 
     [System.Xml.Serialization.XmlElement(Namespace = "")]
