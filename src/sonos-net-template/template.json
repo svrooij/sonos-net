@@ -1,0 +1,35 @@
+{
+  "$schema": "https://svrooij.io/sonos-api-docs/schema/template.json",
+  "name": "Sonos net",
+  "slug": "net",
+  "repository": "https://github.com/svrooij/sonos-net/",
+  "author": {
+    "name": "svrooij",
+    "link": "https://svrooij.io"
+  },
+  "files": [
+    {
+      "file": "Service.hbs",
+      "outputFile": "Sonos.Base/Services/{service}Service.gen.cs",
+      "usage":"service"
+    },
+    {
+      "file": "SonosDevice.hbs",
+      "outputFile": "Sonos.Base/SonosDevice.gen.cs",
+      "usage":"index"
+    }
+  ],
+  "dataTypes": {
+    "ui4": "int",
+    "i4": "int",
+    "ui2": "int",
+    "i2": "int",
+    "boolean": "bool",
+    "MetaData": "string",
+    "ZoneGroupState": "string"
+  },
+  "serviceData": {
+    
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,18 @@
+namespace Sonos.Base;
+using Sonos.Base.Services;
+public partial class SonosDevice {
+  {{#each services}}
+  private {{name}}Service? _{{lower name}};
+  
+  public {{name}}Service {{name}}Service {
+    get {
+      if(_{{lower name}} is null) {
+        _{{lower name}} = new {{name}}Service(deviceUri, httpClient);
+      }
+      return _{{lower name}};
+    }
+  }
+  {{/each}}
+}
+
+
