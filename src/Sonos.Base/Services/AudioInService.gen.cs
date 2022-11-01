@@ -13,7 +13,7 @@ public partial class AudioInService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public AudioInService(SonosServiceOptions options): base("AudioIn", "/AudioIn/Control", "/AudioIn/Event", options) {}
+    public AudioInService(SonosServiceOptions options) : base("AudioIn", "/AudioIn/Control", "/AudioIn/Event", options) { }
 
 
     /// <summary>
@@ -21,14 +21,14 @@ public partial class AudioInService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAudioInputAttributesResponse</returns>
-    public Task<GetAudioInputAttributesResponse> GetAudioInputAttributes(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetAudioInputAttributesResponse>("GetAudioInputAttributes", new BaseRequest(), cancellationToken);
+    public Task<GetAudioInputAttributesResponse> GetAudioInputAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetAudioInputAttributesResponse>("GetAudioInputAttributes", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetLineInLevel
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetLineInLevelResponse</returns>
-    public Task<GetLineInLevelResponse> GetLineInLevel(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetLineInLevelResponse>("GetLineInLevel", new BaseRequest(), cancellationToken);
+    public Task<GetLineInLevelResponse> GetLineInLevel(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLineInLevelResponse>("GetLineInLevel", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// SelectAudio
@@ -36,7 +36,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SelectAudioRequest>("SelectAudio", request, cancellationToken);
+    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SelectAudioRequest>("SelectAudio", request, cancellationToken);
 
     /// <summary>
     /// SetAudioInputAttributes
@@ -44,7 +44,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetAudioInputAttributesRequest>("SetAudioInputAttributes", request, cancellationToken);
+    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAudioInputAttributesRequest>("SetAudioInputAttributes", request, cancellationToken);
 
     /// <summary>
     /// SetLineInLevel
@@ -52,7 +52,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetLineInLevelRequest>("SetLineInLevel", request, cancellationToken);
+    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLineInLevelRequest>("SetLineInLevel", request, cancellationToken);
 
     /// <summary>
     /// StartTransmissionToGroup
@@ -60,7 +60,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>StartTransmissionToGroupResponse</returns>
-    public Task<StartTransmissionToGroupResponse> StartTransmissionToGroup(StartTransmissionToGroupRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<StartTransmissionToGroupRequest, StartTransmissionToGroupResponse>("StartTransmissionToGroup", request, cancellationToken);
+    public Task<StartTransmissionToGroupResponse> StartTransmissionToGroup(StartTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionToGroupRequest, StartTransmissionToGroupResponse>("StartTransmissionToGroup", request, cancellationToken);
 
     /// <summary>
     /// StopTransmissionToGroup
@@ -68,14 +68,14 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<StopTransmissionToGroupRequest>("StopTransmissionToGroup", request, cancellationToken);
+    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionToGroupRequest>("StopTransmissionToGroup", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AudioIn:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AudioIn:1"), });
     }
 
     [System.Serializable()]

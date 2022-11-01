@@ -13,7 +13,7 @@ public partial class GroupManagementService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public GroupManagementService(SonosServiceOptions options): base("GroupManagement", "/GroupManagement/Control", "/GroupManagement/Event", options) {}
+    public GroupManagementService(SonosServiceOptions options) : base("GroupManagement", "/GroupManagement/Control", "/GroupManagement/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddMemberResponse</returns>
-    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AddMemberRequest, AddMemberResponse>("AddMember", request, cancellationToken);
+    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMemberRequest, AddMemberResponse>("AddMember", request, cancellationToken);
 
     /// <summary>
     /// RemoveMember
@@ -30,7 +30,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RemoveMemberRequest>("RemoveMember", request, cancellationToken);
+    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveMemberRequest>("RemoveMember", request, cancellationToken);
 
     /// <summary>
     /// ReportTrackBufferingResult
@@ -38,7 +38,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<ReportTrackBufferingResultRequest>("ReportTrackBufferingResult", request, cancellationToken);
+    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportTrackBufferingResultRequest>("ReportTrackBufferingResult", request, cancellationToken);
 
     /// <summary>
     /// SetSourceAreaIds
@@ -46,14 +46,14 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetSourceAreaIdsRequest>("SetSourceAreaIds", request, cancellationToken);
+    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetSourceAreaIdsRequest>("SetSourceAreaIds", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:GroupManagement:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:GroupManagement:1"), });
     }
 
     [System.Serializable()]

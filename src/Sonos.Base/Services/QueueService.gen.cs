@@ -13,7 +13,7 @@ public partial class QueueService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public QueueService(SonosServiceOptions options): base("Queue", "/MediaRenderer/Queue/Control", "/MediaRenderer/Queue/Event", options) {}
+    public QueueService(SonosServiceOptions options) : base("Queue", "/MediaRenderer/Queue/Control", "/MediaRenderer/Queue/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddMultipleURIsResponse</returns>
-    public Task<AddMultipleURIsResponse> AddMultipleURIs(AddMultipleURIsRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AddMultipleURIsRequest, AddMultipleURIsResponse>("AddMultipleURIs", request, cancellationToken);
+    public Task<AddMultipleURIsResponse> AddMultipleURIs(AddMultipleURIsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMultipleURIsRequest, AddMultipleURIsResponse>("AddMultipleURIs", request, cancellationToken);
 
     /// <summary>
     /// AddURI
@@ -30,7 +30,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddURIResponse</returns>
-    public Task<AddURIResponse> AddURI(AddURIRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AddURIRequest, AddURIResponse>("AddURI", request, cancellationToken);
+    public Task<AddURIResponse> AddURI(AddURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIRequest, AddURIResponse>("AddURI", request, cancellationToken);
 
     /// <summary>
     /// AttachQueue
@@ -38,14 +38,14 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AttachQueueResponse</returns>
-    public Task<AttachQueueResponse> AttachQueue(AttachQueueRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AttachQueueRequest, AttachQueueResponse>("AttachQueue", request, cancellationToken);
+    public Task<AttachQueueResponse> AttachQueue(AttachQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AttachQueueRequest, AttachQueueResponse>("AttachQueue", request, cancellationToken);
 
     /// <summary>
     /// Backup
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Backup(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest>("Backup", new BaseRequest(), cancellationToken);
+    public Task<bool> Backup(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>("Backup", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Browse
@@ -53,7 +53,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>BrowseResponse</returns>
-    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<BrowseRequest, BrowseResponse>("Browse", request, cancellationToken);
+    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BrowseRequest, BrowseResponse>("Browse", request, cancellationToken);
 
     /// <summary>
     /// CreateQueue
@@ -61,7 +61,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>CreateQueueResponse</returns>
-    public Task<CreateQueueResponse> CreateQueue(CreateQueueRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<CreateQueueRequest, CreateQueueResponse>("CreateQueue", request, cancellationToken);
+    public Task<CreateQueueResponse> CreateQueue(CreateQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateQueueRequest, CreateQueueResponse>("CreateQueue", request, cancellationToken);
 
     /// <summary>
     /// RemoveAllTracks
@@ -69,7 +69,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>RemoveAllTracksResponse</returns>
-    public Task<RemoveAllTracksResponse> RemoveAllTracks(RemoveAllTracksRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RemoveAllTracksRequest, RemoveAllTracksResponse>("RemoveAllTracks", request, cancellationToken);
+    public Task<RemoveAllTracksResponse> RemoveAllTracks(RemoveAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAllTracksRequest, RemoveAllTracksResponse>("RemoveAllTracks", request, cancellationToken);
 
     /// <summary>
     /// RemoveTrackRange
@@ -77,7 +77,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>RemoveTrackRangeResponse</returns>
-    public Task<RemoveTrackRangeResponse> RemoveTrackRange(RemoveTrackRangeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RemoveTrackRangeRequest, RemoveTrackRangeResponse>("RemoveTrackRange", request, cancellationToken);
+    public Task<RemoveTrackRangeResponse> RemoveTrackRange(RemoveTrackRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackRangeRequest, RemoveTrackRangeResponse>("RemoveTrackRange", request, cancellationToken);
 
     /// <summary>
     /// ReorderTracks
@@ -85,7 +85,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ReorderTracksResponse</returns>
-    public Task<ReorderTracksResponse> ReorderTracks(ReorderTracksRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<ReorderTracksRequest, ReorderTracksResponse>("ReorderTracks", request, cancellationToken);
+    public Task<ReorderTracksResponse> ReorderTracks(ReorderTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksRequest, ReorderTracksResponse>("ReorderTracks", request, cancellationToken);
 
     /// <summary>
     /// ReplaceAllTracks
@@ -93,7 +93,7 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ReplaceAllTracksResponse</returns>
-    public Task<ReplaceAllTracksResponse> ReplaceAllTracks(ReplaceAllTracksRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<ReplaceAllTracksRequest, ReplaceAllTracksResponse>("ReplaceAllTracks", request, cancellationToken);
+    public Task<ReplaceAllTracksResponse> ReplaceAllTracks(ReplaceAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReplaceAllTracksRequest, ReplaceAllTracksResponse>("ReplaceAllTracks", request, cancellationToken);
 
     /// <summary>
     /// SaveAsSonosPlaylist
@@ -101,14 +101,14 @@ public partial class QueueService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SaveAsSonosPlaylistResponse</returns>
-    public Task<SaveAsSonosPlaylistResponse> SaveAsSonosPlaylist(SaveAsSonosPlaylistRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SaveAsSonosPlaylistRequest, SaveAsSonosPlaylistResponse>("SaveAsSonosPlaylist", request, cancellationToken);
+    public Task<SaveAsSonosPlaylistResponse> SaveAsSonosPlaylist(SaveAsSonosPlaylistRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SaveAsSonosPlaylistRequest, SaveAsSonosPlaylistResponse>("SaveAsSonosPlaylist", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:Queue:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:Queue:1"), });
     }
 
     [System.Serializable()]

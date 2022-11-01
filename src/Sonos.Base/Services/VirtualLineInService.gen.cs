@@ -13,7 +13,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public VirtualLineInService(SonosServiceOptions options): base("VirtualLineIn", "/MediaRenderer/VirtualLineIn/Control", "/MediaRenderer/VirtualLineIn/Event", options) {}
+    public VirtualLineInService(SonosServiceOptions options) : base("VirtualLineIn", "/MediaRenderer/VirtualLineIn/Control", "/MediaRenderer/VirtualLineIn/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) =>  ExecuteRequest<NextRequest>("Next", new NextRequest(), cancellationToken);
+    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>("Next", new NextRequest(), cancellationToken);
 
     /// <summary>
     /// Pause
@@ -30,7 +30,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) =>  ExecuteRequest<PauseRequest>("Pause", new PauseRequest(), cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>("Pause", new PauseRequest(), cancellationToken);
 
     /// <summary>
     /// Play
@@ -38,7 +38,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<PlayRequest>("Play", request, cancellationToken);
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>("Play", request, cancellationToken);
 
     /// <summary>
     /// Previous
@@ -46,7 +46,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) =>  ExecuteRequest<PreviousRequest>("Previous", new PreviousRequest(), cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>("Previous", new PreviousRequest(), cancellationToken);
 
     /// <summary>
     /// SetVolume
@@ -54,7 +54,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetVolumeRequest>("SetVolume", request, cancellationToken);
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>("SetVolume", request, cancellationToken);
 
     /// <summary>
     /// StartTransmission
@@ -62,7 +62,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>StartTransmissionResponse</returns>
-    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<StartTransmissionRequest, StartTransmissionResponse>("StartTransmission", request, cancellationToken);
+    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionRequest, StartTransmissionResponse>("StartTransmission", request, cancellationToken);
 
     /// <summary>
     /// Stop
@@ -70,7 +70,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) =>  ExecuteRequest<StopRequest>("Stop", new StopRequest(), cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>("Stop", new StopRequest(), cancellationToken);
 
     /// <summary>
     /// StopTransmission
@@ -78,14 +78,14 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<StopTransmissionRequest>("StopTransmission", request, cancellationToken);
+    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionRequest>("StopTransmission", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:VirtualLineIn:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:VirtualLineIn:1"), });
     }
 
     [System.Serializable()]

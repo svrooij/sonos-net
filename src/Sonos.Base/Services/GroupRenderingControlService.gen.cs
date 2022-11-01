@@ -13,7 +13,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public GroupRenderingControlService(SonosServiceOptions options): base("GroupRenderingControl", "/MediaRenderer/GroupRenderingControl/Control", "/MediaRenderer/GroupRenderingControl/Event", options) {}
+    public GroupRenderingControlService(SonosServiceOptions options) : base("GroupRenderingControl", "/MediaRenderer/GroupRenderingControl/Control", "/MediaRenderer/GroupRenderingControl/Event", options) { }
 
 
     /// <summary>
@@ -23,7 +23,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupMuteResponse</returns>
-    public Task<GetGroupMuteResponse> GetGroupMute(CancellationToken cancellationToken = default) =>  ExecuteRequest<GetGroupMuteRequest, GetGroupMuteResponse>("GetGroupMute", new GetGroupMuteRequest(), cancellationToken);
+    public Task<GetGroupMuteResponse> GetGroupMute(CancellationToken cancellationToken = default) => ExecuteRequest<GetGroupMuteRequest, GetGroupMuteResponse>("GetGroupMute", new GetGroupMuteRequest(), cancellationToken);
 
     /// <summary>
     /// Get the group volume.
@@ -32,7 +32,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupVolumeResponse</returns>
-    public Task<GetGroupVolumeResponse> GetGroupVolume(CancellationToken cancellationToken = default) =>  ExecuteRequest<GetGroupVolumeRequest, GetGroupVolumeResponse>("GetGroupVolume", new GetGroupVolumeRequest(), cancellationToken);
+    public Task<GetGroupVolumeResponse> GetGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest<GetGroupVolumeRequest, GetGroupVolumeResponse>("GetGroupVolume", new GetGroupVolumeRequest(), cancellationToken);
 
     /// <summary>
     /// (Un-/)Mute the entire group
@@ -41,7 +41,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetGroupMuteRequest>("SetGroupMute", request, cancellationToken);
+    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetGroupMuteRequest>("SetGroupMute", request, cancellationToken);
 
     /// <summary>
     /// Change group volume. Players volume will be changed proportionally based on last snapshot
@@ -50,7 +50,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetGroupVolumeRequest>("SetGroupVolume", request, cancellationToken);
+    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetGroupVolumeRequest>("SetGroupVolume", request, cancellationToken);
 
     /// <summary>
     /// Relatively change group volume - returns final group volume. Players volume will be changed proportionally based on last snapshot
@@ -59,7 +59,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>SetRelativeGroupVolumeResponse</returns>
-    public Task<SetRelativeGroupVolumeResponse> SetRelativeGroupVolume(SetRelativeGroupVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetRelativeGroupVolumeRequest, SetRelativeGroupVolumeResponse>("SetRelativeGroupVolume", request, cancellationToken);
+    public Task<SetRelativeGroupVolumeResponse> SetRelativeGroupVolume(SetRelativeGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRelativeGroupVolumeRequest, SetRelativeGroupVolumeResponse>("SetRelativeGroupVolume", request, cancellationToken);
 
     /// <summary>
     /// Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume
@@ -68,14 +68,14 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) =>  ExecuteRequest<SnapshotGroupVolumeRequest>("SnapshotGroupVolume", new SnapshotGroupVolumeRequest(), cancellationToken);
+    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest<SnapshotGroupVolumeRequest>("SnapshotGroupVolume", new SnapshotGroupVolumeRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:GroupRenderingControl:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:GroupRenderingControl:1"), });
     }
 
     [System.Serializable()]

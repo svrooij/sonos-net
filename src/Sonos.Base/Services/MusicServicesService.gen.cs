@@ -13,7 +13,7 @@ public partial class MusicServicesService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public MusicServicesService(SonosServiceOptions options): base("MusicServices", "/MusicServices/Control", "/MusicServices/Event", options) {}
+    public MusicServicesService(SonosServiceOptions options) : base("MusicServices", "/MusicServices/Control", "/MusicServices/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class MusicServicesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSessionIdResponse</returns>
-    public Task<GetSessionIdResponse> GetSessionId(GetSessionIdRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetSessionIdRequest, GetSessionIdResponse>("GetSessionId", request, cancellationToken);
+    public Task<GetSessionIdResponse> GetSessionId(GetSessionIdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetSessionIdRequest, GetSessionIdResponse>("GetSessionId", request, cancellationToken);
 
     /// <summary>
     /// Load music service list as xml
@@ -30,21 +30,21 @@ public partial class MusicServicesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Some libraries also support ListAndParseAvailableServices</remarks>
     /// <returns>ListAvailableServicesResponse</returns>
-    public Task<ListAvailableServicesResponse> ListAvailableServices(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, ListAvailableServicesResponse>("ListAvailableServices", new BaseRequest(), cancellationToken);
+    public Task<ListAvailableServicesResponse> ListAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, ListAvailableServicesResponse>("ListAvailableServices", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// UpdateAvailableServices
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest>("UpdateAvailableServices", new BaseRequest(), cancellationToken);
+    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>("UpdateAvailableServices", new BaseRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:MusicServices:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:MusicServices:1"), });
     }
 
     [System.Serializable()]

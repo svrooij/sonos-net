@@ -13,7 +13,7 @@ public partial class HTControlService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public HTControlService(SonosServiceOptions options): base("HTControl", "/HTControl/Control", "/HTControl/Event", options) {}
+    public HTControlService(SonosServiceOptions options) : base("HTControl", "/HTControl/Control", "/HTControl/Event", options) { }
 
 
     /// <summary>
@@ -22,21 +22,21 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<CommitLearnedIRCodesRequest>("CommitLearnedIRCodes", request, cancellationToken);
+    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CommitLearnedIRCodesRequest>("CommitLearnedIRCodes", request, cancellationToken);
 
     /// <summary>
     /// GetIRRepeaterState
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetIRRepeaterStateResponse</returns>
-    public Task<GetIRRepeaterStateResponse> GetIRRepeaterState(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetIRRepeaterStateResponse>("GetIRRepeaterState", new BaseRequest(), cancellationToken);
+    public Task<GetIRRepeaterStateResponse> GetIRRepeaterState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetIRRepeaterStateResponse>("GetIRRepeaterState", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetLEDFeedbackState
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetLEDFeedbackStateResponse</returns>
-    public Task<GetLEDFeedbackStateResponse> GetLEDFeedbackState(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetLEDFeedbackStateResponse>("GetLEDFeedbackState", new BaseRequest(), cancellationToken);
+    public Task<GetLEDFeedbackStateResponse> GetLEDFeedbackState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLEDFeedbackStateResponse>("GetLEDFeedbackState", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// IdentifyIRRemote
@@ -44,14 +44,14 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<IdentifyIRRemoteRequest>("IdentifyIRRemote", request, cancellationToken);
+    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<IdentifyIRRemoteRequest>("IdentifyIRRemote", request, cancellationToken);
 
     /// <summary>
     /// IsRemoteConfigured
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>IsRemoteConfiguredResponse</returns>
-    public Task<IsRemoteConfiguredResponse> IsRemoteConfigured(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, IsRemoteConfiguredResponse>("IsRemoteConfigured", new BaseRequest(), cancellationToken);
+    public Task<IsRemoteConfiguredResponse> IsRemoteConfigured(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, IsRemoteConfiguredResponse>("IsRemoteConfigured", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// LearnIRCode
@@ -59,7 +59,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<LearnIRCodeRequest>("LearnIRCode", request, cancellationToken);
+    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<LearnIRCodeRequest>("LearnIRCode", request, cancellationToken);
 
     /// <summary>
     /// SetIRRepeaterState
@@ -67,7 +67,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetIRRepeaterStateRequest>("SetIRRepeaterState", request, cancellationToken);
+    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetIRRepeaterStateRequest>("SetIRRepeaterState", request, cancellationToken);
 
     /// <summary>
     /// SetLEDFeedbackState
@@ -75,14 +75,14 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetLEDFeedbackStateRequest>("SetLEDFeedbackState", request, cancellationToken);
+    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLEDFeedbackStateRequest>("SetLEDFeedbackState", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:HTControl:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:HTControl:1"), });
     }
 
     [System.Serializable()]

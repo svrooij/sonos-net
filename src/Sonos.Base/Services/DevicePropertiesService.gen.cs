@@ -13,7 +13,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public DevicePropertiesService(SonosServiceOptions options): base("DeviceProperties", "/DeviceProperties/Control", "/DeviceProperties/Event", options) {}
+    public DevicePropertiesService(SonosServiceOptions options) : base("DeviceProperties", "/DeviceProperties/Control", "/DeviceProperties/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> AddBondedZones(AddBondedZonesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AddBondedZonesRequest>("AddBondedZones", request, cancellationToken);
+    public Task<bool> AddBondedZones(AddBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddBondedZonesRequest>("AddBondedZones", request, cancellationToken);
 
     /// <summary>
     /// AddHTSatellite
@@ -30,7 +30,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> AddHTSatellite(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<AddHTSatelliteRequest>("AddHTSatellite", request, cancellationToken);
+    public Task<bool> AddHTSatellite(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddHTSatelliteRequest>("AddHTSatellite", request, cancellationToken);
 
     /// <summary>
     /// Create a stereo pair (left, right speakers), right one becomes hidden
@@ -39,7 +39,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>No all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> CreateStereoPair(CreateStereoPairRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<CreateStereoPairRequest>("CreateStereoPair", request, cancellationToken);
+    public Task<bool> CreateStereoPair(CreateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateStereoPairRequest>("CreateStereoPair", request, cancellationToken);
 
     /// <summary>
     /// EnterConfigMode
@@ -47,7 +47,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>EnterConfigModeResponse</returns>
-    public Task<EnterConfigModeResponse> EnterConfigMode(EnterConfigModeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<EnterConfigModeRequest, EnterConfigModeResponse>("EnterConfigMode", request, cancellationToken);
+    public Task<EnterConfigModeResponse> EnterConfigMode(EnterConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EnterConfigModeRequest, EnterConfigModeResponse>("EnterConfigMode", request, cancellationToken);
 
     /// <summary>
     /// ExitConfigMode
@@ -55,7 +55,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ExitConfigMode(ExitConfigModeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<ExitConfigModeRequest>("ExitConfigMode", request, cancellationToken);
+    public Task<bool> ExitConfigMode(ExitConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ExitConfigModeRequest>("ExitConfigMode", request, cancellationToken);
 
     /// <summary>
     /// GetAutoplayLinkedZones
@@ -63,7 +63,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAutoplayLinkedZonesResponse</returns>
-    public Task<GetAutoplayLinkedZonesResponse> GetAutoplayLinkedZones(GetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetAutoplayLinkedZonesRequest, GetAutoplayLinkedZonesResponse>("GetAutoplayLinkedZones", request, cancellationToken);
+    public Task<GetAutoplayLinkedZonesResponse> GetAutoplayLinkedZones(GetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayLinkedZonesRequest, GetAutoplayLinkedZonesResponse>("GetAutoplayLinkedZones", request, cancellationToken);
 
     /// <summary>
     /// GetAutoplayRoomUUID
@@ -71,7 +71,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAutoplayRoomUUIDResponse</returns>
-    public Task<GetAutoplayRoomUUIDResponse> GetAutoplayRoomUUID(GetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetAutoplayRoomUUIDRequest, GetAutoplayRoomUUIDResponse>("GetAutoplayRoomUUID", request, cancellationToken);
+    public Task<GetAutoplayRoomUUIDResponse> GetAutoplayRoomUUID(GetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayRoomUUIDRequest, GetAutoplayRoomUUIDResponse>("GetAutoplayRoomUUID", request, cancellationToken);
 
     /// <summary>
     /// GetAutoplayVolume
@@ -79,35 +79,35 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAutoplayVolumeResponse</returns>
-    public Task<GetAutoplayVolumeResponse> GetAutoplayVolume(GetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetAutoplayVolumeRequest, GetAutoplayVolumeResponse>("GetAutoplayVolume", request, cancellationToken);
+    public Task<GetAutoplayVolumeResponse> GetAutoplayVolume(GetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayVolumeRequest, GetAutoplayVolumeResponse>("GetAutoplayVolume", request, cancellationToken);
 
     /// <summary>
     /// Get the current button lock state
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetButtonLockStateResponse</returns>
-    public Task<GetButtonLockStateResponse> GetButtonLockState(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetButtonLockStateResponse>("GetButtonLockState", new BaseRequest(), cancellationToken);
+    public Task<GetButtonLockStateResponse> GetButtonLockState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetButtonLockStateResponse>("GetButtonLockState", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetButtonState
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetButtonStateResponse</returns>
-    public Task<GetButtonStateResponse> GetButtonState(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetButtonStateResponse>("GetButtonState", new BaseRequest(), cancellationToken);
+    public Task<GetButtonStateResponse> GetButtonState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetButtonStateResponse>("GetButtonState", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetHouseholdID
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetHouseholdIDResponse</returns>
-    public Task<GetHouseholdIDResponse> GetHouseholdID(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetHouseholdIDResponse>("GetHouseholdID", new BaseRequest(), cancellationToken);
+    public Task<GetHouseholdIDResponse> GetHouseholdID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetHouseholdIDResponse>("GetHouseholdID", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Get the current LED state
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetLEDStateResponse</returns>
-    public Task<GetLEDStateResponse> GetLEDState(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetLEDStateResponse>("GetLEDState", new BaseRequest(), cancellationToken);
+    public Task<GetLEDStateResponse> GetLEDState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLEDStateResponse>("GetLEDState", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetUseAutoplayVolume
@@ -115,21 +115,21 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetUseAutoplayVolumeResponse</returns>
-    public Task<GetUseAutoplayVolumeResponse> GetUseAutoplayVolume(GetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetUseAutoplayVolumeRequest, GetUseAutoplayVolumeResponse>("GetUseAutoplayVolume", request, cancellationToken);
+    public Task<GetUseAutoplayVolumeResponse> GetUseAutoplayVolume(GetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetUseAutoplayVolumeRequest, GetUseAutoplayVolumeResponse>("GetUseAutoplayVolume", request, cancellationToken);
 
     /// <summary>
     /// GetZoneAttributes
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetZoneAttributesResponse</returns>
-    public Task<GetZoneAttributesResponse> GetZoneAttributes(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetZoneAttributesResponse>("GetZoneAttributes", new BaseRequest(), cancellationToken);
+    public Task<GetZoneAttributesResponse> GetZoneAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneAttributesResponse>("GetZoneAttributes", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Get information about this specific speaker
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetZoneInfoResponse</returns>
-    public Task<GetZoneInfoResponse> GetZoneInfo(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetZoneInfoResponse>("GetZoneInfo", new BaseRequest(), cancellationToken);
+    public Task<GetZoneInfoResponse> GetZoneInfo(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneInfoResponse>("GetZoneInfo", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// RemoveBondedZones
@@ -137,7 +137,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveBondedZones(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RemoveBondedZonesRequest>("RemoveBondedZones", request, cancellationToken);
+    public Task<bool> RemoveBondedZones(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveBondedZonesRequest>("RemoveBondedZones", request, cancellationToken);
 
     /// <summary>
     /// RemoveHTSatellite
@@ -145,7 +145,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveHTSatellite(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RemoveHTSatelliteRequest>("RemoveHTSatellite", request, cancellationToken);
+    public Task<bool> RemoveHTSatellite(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveHTSatelliteRequest>("RemoveHTSatellite", request, cancellationToken);
 
     /// <summary>
     /// RoomDetectionStartChirping
@@ -153,7 +153,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>RoomDetectionStartChirpingResponse</returns>
-    public Task<RoomDetectionStartChirpingResponse> RoomDetectionStartChirping(RoomDetectionStartChirpingRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RoomDetectionStartChirpingRequest, RoomDetectionStartChirpingResponse>("RoomDetectionStartChirping", request, cancellationToken);
+    public Task<RoomDetectionStartChirpingResponse> RoomDetectionStartChirping(RoomDetectionStartChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RoomDetectionStartChirpingRequest, RoomDetectionStartChirpingResponse>("RoomDetectionStartChirping", request, cancellationToken);
 
     /// <summary>
     /// RoomDetectionStopChirping
@@ -161,7 +161,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RoomDetectionStopChirping(RoomDetectionStopChirpingRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<RoomDetectionStopChirpingRequest>("RoomDetectionStopChirping", request, cancellationToken);
+    public Task<bool> RoomDetectionStopChirping(RoomDetectionStopChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RoomDetectionStopChirpingRequest>("RoomDetectionStopChirping", request, cancellationToken);
 
     /// <summary>
     /// Separate a stereo pair
@@ -170,7 +170,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>No all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SeparateStereoPair(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SeparateStereoPairRequest>("SeparateStereoPair", request, cancellationToken);
+    public Task<bool> SeparateStereoPair(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SeparateStereoPairRequest>("SeparateStereoPair", request, cancellationToken);
 
     /// <summary>
     /// SetAutoplayLinkedZones
@@ -178,7 +178,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayLinkedZones(SetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetAutoplayLinkedZonesRequest>("SetAutoplayLinkedZones", request, cancellationToken);
+    public Task<bool> SetAutoplayLinkedZones(SetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAutoplayLinkedZonesRequest>("SetAutoplayLinkedZones", request, cancellationToken);
 
     /// <summary>
     /// SetAutoplayRoomUUID
@@ -186,7 +186,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayRoomUUID(SetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetAutoplayRoomUUIDRequest>("SetAutoplayRoomUUID", request, cancellationToken);
+    public Task<bool> SetAutoplayRoomUUID(SetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAutoplayRoomUUIDRequest>("SetAutoplayRoomUUID", request, cancellationToken);
 
     /// <summary>
     /// SetAutoplayVolume
@@ -194,7 +194,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayVolume(SetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetAutoplayVolumeRequest>("SetAutoplayVolume", request, cancellationToken);
+    public Task<bool> SetAutoplayVolume(SetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAutoplayVolumeRequest>("SetAutoplayVolume", request, cancellationToken);
 
     /// <summary>
     /// Set the button lock state
@@ -202,7 +202,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetButtonLockState(SetButtonLockStateRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetButtonLockStateRequest>("SetButtonLockState", request, cancellationToken);
+    public Task<bool> SetButtonLockState(SetButtonLockStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetButtonLockStateRequest>("SetButtonLockState", request, cancellationToken);
 
     /// <summary>
     /// Set the LED state
@@ -210,7 +210,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLEDState(SetLEDStateRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetLEDStateRequest>("SetLEDState", request, cancellationToken);
+    public Task<bool> SetLEDState(SetLEDStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLEDStateRequest>("SetLEDState", request, cancellationToken);
 
     /// <summary>
     /// SetUseAutoplayVolume
@@ -218,7 +218,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetUseAutoplayVolume(SetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetUseAutoplayVolumeRequest>("SetUseAutoplayVolume", request, cancellationToken);
+    public Task<bool> SetUseAutoplayVolume(SetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetUseAutoplayVolumeRequest>("SetUseAutoplayVolume", request, cancellationToken);
 
     /// <summary>
     /// SetZoneAttributes
@@ -226,14 +226,14 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetZoneAttributes(SetZoneAttributesRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetZoneAttributesRequest>("SetZoneAttributes", request, cancellationToken);
+    public Task<bool> SetZoneAttributes(SetZoneAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetZoneAttributesRequest>("SetZoneAttributes", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:DeviceProperties:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:DeviceProperties:1"), });
     }
 
     [System.Serializable()]

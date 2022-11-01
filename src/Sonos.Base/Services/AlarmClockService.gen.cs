@@ -13,7 +13,7 @@ public partial class AlarmClockService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public AlarmClockService(SonosServiceOptions options): base("AlarmClock", "/AlarmClock/Control", "/AlarmClock/Event", options) {}
+    public AlarmClockService(SonosServiceOptions options) : base("AlarmClock", "/AlarmClock/Control", "/AlarmClock/Event", options) { }
 
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>CreateAlarmResponse</returns>
-    public Task<CreateAlarmResponse> CreateAlarm(CreateAlarmRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<CreateAlarmRequest, CreateAlarmResponse>("CreateAlarm", request, cancellationToken);
+    public Task<CreateAlarmResponse> CreateAlarm(CreateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateAlarmRequest, CreateAlarmResponse>("CreateAlarm", request, cancellationToken);
 
     /// <summary>
     /// Delete an alarm
@@ -30,21 +30,21 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DestroyAlarm(DestroyAlarmRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<DestroyAlarmRequest>("DestroyAlarm", request, cancellationToken);
+    public Task<bool> DestroyAlarm(DestroyAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DestroyAlarmRequest>("DestroyAlarm", request, cancellationToken);
 
     /// <summary>
     /// GetDailyIndexRefreshTime
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetDailyIndexRefreshTimeResponse</returns>
-    public Task<GetDailyIndexRefreshTimeResponse> GetDailyIndexRefreshTime(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetDailyIndexRefreshTimeResponse>("GetDailyIndexRefreshTime", new BaseRequest(), cancellationToken);
+    public Task<GetDailyIndexRefreshTimeResponse> GetDailyIndexRefreshTime(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetDailyIndexRefreshTimeResponse>("GetDailyIndexRefreshTime", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetFormat
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetFormatResponse</returns>
-    public Task<GetFormatResponse> GetFormat(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetFormatResponse>("GetFormat", new BaseRequest(), cancellationToken);
+    public Task<GetFormatResponse> GetFormat(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetFormatResponse>("GetFormat", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetHouseholdTimeAtStamp
@@ -52,35 +52,35 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetHouseholdTimeAtStampResponse</returns>
-    public Task<GetHouseholdTimeAtStampResponse> GetHouseholdTimeAtStamp(GetHouseholdTimeAtStampRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetHouseholdTimeAtStampRequest, GetHouseholdTimeAtStampResponse>("GetHouseholdTimeAtStamp", request, cancellationToken);
+    public Task<GetHouseholdTimeAtStampResponse> GetHouseholdTimeAtStamp(GetHouseholdTimeAtStampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetHouseholdTimeAtStampRequest, GetHouseholdTimeAtStampResponse>("GetHouseholdTimeAtStamp", request, cancellationToken);
 
     /// <summary>
     /// GetTimeNow
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTimeNowResponse</returns>
-    public Task<GetTimeNowResponse> GetTimeNow(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetTimeNowResponse>("GetTimeNow", new BaseRequest(), cancellationToken);
+    public Task<GetTimeNowResponse> GetTimeNow(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeNowResponse>("GetTimeNow", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetTimeServer
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTimeServerResponse</returns>
-    public Task<GetTimeServerResponse> GetTimeServer(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetTimeServerResponse>("GetTimeServer", new BaseRequest(), cancellationToken);
+    public Task<GetTimeServerResponse> GetTimeServer(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeServerResponse>("GetTimeServer", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetTimeZone
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTimeZoneResponse</returns>
-    public Task<GetTimeZoneResponse> GetTimeZone(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetTimeZoneResponse>("GetTimeZone", new BaseRequest(), cancellationToken);
+    public Task<GetTimeZoneResponse> GetTimeZone(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeZoneResponse>("GetTimeZone", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetTimeZoneAndRule
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTimeZoneAndRuleResponse</returns>
-    public Task<GetTimeZoneAndRuleResponse> GetTimeZoneAndRule(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetTimeZoneAndRuleResponse>("GetTimeZoneAndRule", new BaseRequest(), cancellationToken);
+    public Task<GetTimeZoneAndRuleResponse> GetTimeZoneAndRule(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeZoneAndRuleResponse>("GetTimeZoneAndRule", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetTimeZoneRule
@@ -88,7 +88,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTimeZoneRuleResponse</returns>
-    public Task<GetTimeZoneRuleResponse> GetTimeZoneRule(GetTimeZoneRuleRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetTimeZoneRuleRequest, GetTimeZoneRuleResponse>("GetTimeZoneRule", request, cancellationToken);
+    public Task<GetTimeZoneRuleResponse> GetTimeZoneRule(GetTimeZoneRuleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetTimeZoneRuleRequest, GetTimeZoneRuleResponse>("GetTimeZoneRule", request, cancellationToken);
 
     /// <summary>
     /// Get the AlarmList as XML
@@ -96,7 +96,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Some libraries also provide a ListAndParseAlarms where the alarm list xml is parsed</remarks>
     /// <returns>ListAlarmsResponse</returns>
-    public Task<ListAlarmsResponse> ListAlarms(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, ListAlarmsResponse>("ListAlarms", new BaseRequest(), cancellationToken);
+    public Task<ListAlarmsResponse> ListAlarms(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, ListAlarmsResponse>("ListAlarms", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// SetDailyIndexRefreshTime
@@ -104,7 +104,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetDailyIndexRefreshTime(SetDailyIndexRefreshTimeRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetDailyIndexRefreshTimeRequest>("SetDailyIndexRefreshTime", request, cancellationToken);
+    public Task<bool> SetDailyIndexRefreshTime(SetDailyIndexRefreshTimeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetDailyIndexRefreshTimeRequest>("SetDailyIndexRefreshTime", request, cancellationToken);
 
     /// <summary>
     /// SetFormat
@@ -112,7 +112,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetFormat(SetFormatRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetFormatRequest>("SetFormat", request, cancellationToken);
+    public Task<bool> SetFormat(SetFormatRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetFormatRequest>("SetFormat", request, cancellationToken);
 
     /// <summary>
     /// SetTimeNow
@@ -120,7 +120,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeNow(SetTimeNowRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetTimeNowRequest>("SetTimeNow", request, cancellationToken);
+    public Task<bool> SetTimeNow(SetTimeNowRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTimeNowRequest>("SetTimeNow", request, cancellationToken);
 
     /// <summary>
     /// SetTimeServer
@@ -128,7 +128,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeServer(SetTimeServerRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetTimeServerRequest>("SetTimeServer", request, cancellationToken);
+    public Task<bool> SetTimeServer(SetTimeServerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTimeServerRequest>("SetTimeServer", request, cancellationToken);
 
     /// <summary>
     /// SetTimeZone
@@ -136,7 +136,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeZone(SetTimeZoneRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<SetTimeZoneRequest>("SetTimeZone", request, cancellationToken);
+    public Task<bool> SetTimeZone(SetTimeZoneRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTimeZoneRequest>("SetTimeZone", request, cancellationToken);
 
     /// <summary>
     /// Update an alarm, all parameters are required.
@@ -145,14 +145,14 @@ public partial class AlarmClockService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Some libraries support PatchAlarm where you can update a single parameter</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateAlarm(UpdateAlarmRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<UpdateAlarmRequest>("UpdateAlarm", request, cancellationToken);
+    public Task<bool> UpdateAlarm(UpdateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<UpdateAlarmRequest>("UpdateAlarm", request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AlarmClock:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AlarmClock:1"), });
     }
 
     [System.Serializable()]

@@ -13,7 +13,7 @@ public partial class ConnectionManagerService : SonosBaseService
     /// </summary>
     /// <param name="sonosUri">Base URL of the speaker</param>
     /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-    public ConnectionManagerService(SonosServiceOptions options): base("ConnectionManager", "/MediaRenderer/ConnectionManager/Control", "/MediaRenderer/ConnectionManager/Event", options) {}
+    public ConnectionManagerService(SonosServiceOptions options) : base("ConnectionManager", "/MediaRenderer/ConnectionManager/Control", "/MediaRenderer/ConnectionManager/Event", options) { }
 
 
     /// <summary>
@@ -21,7 +21,7 @@ public partial class ConnectionManagerService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetCurrentConnectionIDsResponse</returns>
-    public Task<GetCurrentConnectionIDsResponse> GetCurrentConnectionIDs(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetCurrentConnectionIDsResponse>("GetCurrentConnectionIDs", new BaseRequest(), cancellationToken);
+    public Task<GetCurrentConnectionIDsResponse> GetCurrentConnectionIDs(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetCurrentConnectionIDsResponse>("GetCurrentConnectionIDs", new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetCurrentConnectionInfo
@@ -29,21 +29,21 @@ public partial class ConnectionManagerService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetCurrentConnectionInfoResponse</returns>
-    public Task<GetCurrentConnectionInfoResponse> GetCurrentConnectionInfo(GetCurrentConnectionInfoRequest request, CancellationToken cancellationToken = default) =>  ExecuteRequest<GetCurrentConnectionInfoRequest, GetCurrentConnectionInfoResponse>("GetCurrentConnectionInfo", request, cancellationToken);
+    public Task<GetCurrentConnectionInfoResponse> GetCurrentConnectionInfo(GetCurrentConnectionInfoRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetCurrentConnectionInfoRequest, GetCurrentConnectionInfoResponse>("GetCurrentConnectionInfo", request, cancellationToken);
 
     /// <summary>
     /// GetProtocolInfo
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetProtocolInfoResponse</returns>
-    public Task<GetProtocolInfoResponse> GetProtocolInfo(CancellationToken cancellationToken = default) =>  ExecuteRequest<BaseRequest, GetProtocolInfoResponse>("GetProtocolInfo", new BaseRequest(), cancellationToken);
+    public Task<GetProtocolInfoResponse> GetProtocolInfo(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetProtocolInfoResponse>("GetProtocolInfo", new BaseRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     public class BaseRequest
     {
-      [System.Xml.Serialization.XmlNamespaceDeclarations]
-      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:ConnectionManager:1"), });
+        [System.Xml.Serialization.XmlNamespaceDeclarations]
+        public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+          new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:ConnectionManager:1"), });
     }
 
     [System.Serializable()]
