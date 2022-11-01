@@ -1,30 +1,24 @@
 ﻿using Sonos.Base.Soap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Sonos.Base.Services.ZoneGroupTopologyService;
 using System.Xml.Serialization;
 
-namespace Sonos.Base.Services
+namespace Sonos.Base.Services;
+
+public partial class AlarmClockService
 {
-    public partial class AlarmClockService
+    public partial class ListAlarmsResponse
     {
-        public partial class ListAlarmsResponse
+        private AlarmCollection _alarms;
+
+        [XmlIgnore]
+        public Alarm[] Alarms
         {
-            private AlarmCollection _alarms;
-            [XmlIgnore]
-            public Alarm[] Alarms
+            get
             {
-                get
+                if (_alarms == null)
                 {
-                    if (_alarms == null)
-                    {
-                        _alarms = SoapFactory.ParseEmbeddedXml<AlarmCollection>(this.CurrentAlarmList);
-                    }
-                    return _alarms.Alarms;
+                    _alarms = SoapFactory.ParseEmbeddedXml<AlarmCollection>(this.CurrentAlarmList);
                 }
+                return _alarms.Alarms;
             }
         }
     }

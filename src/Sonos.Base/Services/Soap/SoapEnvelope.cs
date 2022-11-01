@@ -1,11 +1,15 @@
 namespace Sonos.Base.Soap;
+
 [System.Serializable()]
 [System.ComponentModel.DesignerCategory("code")]
 [System.Xml.Serialization.XmlRoot("Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", IsNullable = false)]
 public class Envelope<TBody>
 {
-    public Envelope() { }
-    public Envelope(TBody body) {
+    public Envelope()
+    { }
+
+    public Envelope(TBody body)
+    {
         Body = new EnvelopeBody<TBody> { Message = body };
     }
 
@@ -48,8 +52,7 @@ public class EnvelopeBody<TBody>
 // {
 //     // [System.Xml.Serialization.XmlElement("GetBassResponse", Namespace = "urn:schemas-upnp-org:service:RenderingControl:1", Type = typeof(Services.RenderingControlService.GetBassResponse))]
 //     public TBody Message { get; set; }
-    
+
 //     // [System.Xml.Serialization.XmlAnyElement()]
 //     // public System.Xml.XmlNode Other { get; set; }
 // }
-

@@ -1,74 +1,79 @@
 namespace Sonos.Base.Services;
+
 using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
 /// {{serviceName}} {{#if description}} - {{{description}}}{{/if}}
 /// </summary>
-public partial class {{serviceName}} : SonosBaseService {
-  /// <summary>
-  /// Create a new {{serviceName}}
-  /// </summary>
-  /// <param name="sonosUri">Base URL of the speaker</param>
-  /// <param name="httpClient">Optionally, a custom HttpClient.</param>
-  public {{serviceName}}(Uri sonosUri, HttpClient? httpClient): base("{{name}}", "{{controlURL}}", "{{eventSubURL}}", sonosUri, httpClient) {}
-
-  {{#each actions}}
-
-  /// <summary>
-  /// {{#if description}}{{{description}}}{{else}}{{name}}{{/if}}
-  /// </summary>{{#if inputs}}
-  /// <param name="request">Body payload</param>{{/if}}
-  /// <param name="cancellationToken">CancellationToken</param>{{#if remarks}}
-  /// <remarks>{{{remarks}}}</remarks>{{/if}}
-  /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>
-  public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
-  {{~#if outputs}}
- {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
-  {{else}}
- {{#if inputs}}ExecuteRequest<{{name}}Request>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
-  {{/if}}
-  {{/each}}
-
-  [System.Xml.Serialization.XmlRoot(Namespace = "")]
-  public class BaseRequest {
-    [System.Xml.Serialization.XmlNamespaceDeclarations]
-    public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
-      new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:{{name}}:1"), });
-  }
-  {{#each actions}}
-  {{#if inputs}}
-
-  [System.Serializable()]
-  [System.Xml.Serialization.XmlRoot(Namespace = "")]
-  public class {{name}}Request : BaseRequest {
-    {{#each inputs}}
-
-    {{#if description}}
+public partial class {{serviceName}} : SonosBaseService
+{
     /// <summary>
-    /// {{{description}}}
+    /// Create a new {{serviceName}}
     /// </summary>
-    {{/if}}
-    public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }{{#if (are_equal name 'InstanceID')}} = 0;{{/if}}
-    {{/each}}
-  }
-  {{/if}}
-  {{#if outputs}}
+    /// <param name="sonosUri">Base URL of the speaker</param>
+    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    public {{serviceName}}(SonosServiceOptions options): base("{{name}}", "{{controlURL}}", "{{eventSubURL}}", options) {}
 
-  [System.Serializable()]
-  [System.Xml.Serialization.XmlType("{{name}}Response", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:{{@root.name}}:1")]
-  public partial class {{name}}Response {
-    {{#each outputs}}
+    {{#each actions}}
 
-    {{#if description}}
     /// <summary>
-    /// {{{description}}}
-    /// </summary>
+    /// {{#if description}}{{{description}}}{{else}}{{name}}{{/if}}
+    /// </summary>{{#if inputs}}
+    /// <param name="request">Body payload</param>{{/if}}
+    /// <param name="cancellationToken">CancellationToken</param>{{#if remarks}}
+    /// <remarks>{{{remarks}}}</remarks>{{/if}}
+    /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>
+    public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
+    {{~#if outputs}}
+  {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
+    {{else}}
+  {{#if inputs}}ExecuteRequest<{{name}}Request>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
     {{/if}}
-    [System.Xml.Serialization.XmlElement(Namespace = "")]
-    public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }
     {{/each}}
-  }
-  {{/if}}
-  {{/each}}
+
+    [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    public class BaseRequest
+    {
+      [System.Xml.Serialization.XmlNamespaceDeclarations]
+      public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
+        new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:{{name}}:1"), });
+    }
+    {{#each actions}}
+    {{#if inputs}}
+
+    [System.Serializable()]
+    [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    public class {{name}}Request : BaseRequest
+    {
+        {{#each inputs}}
+
+        {{#if description}}
+        /// <summary>
+        /// {{{description}}}
+        /// </summary>
+        {{/if}}
+        public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }{{#if (are_equal name 'InstanceID')}} = 0;{{/if}}
+        {{/each}}
+    }
+    {{/if}}
+    {{#if outputs}}
+
+    [System.Serializable()]
+    [System.Xml.Serialization.XmlType("{{name}}Response", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:{{@root.name}}:1")]
+    public partial class {{name}}Response
+    {
+        {{#each outputs}}
+
+        {{#if description}}
+        /// <summary>
+        /// {{{description}}}
+        /// </summary>
+        {{/if}}
+        [System.Xml.Serialization.XmlElement(Namespace = "")]
+        public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }
+        {{/each}}
+    }
+    {{/if}}
+    {{/each}}
 }

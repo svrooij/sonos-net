@@ -1,419 +1,402 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Sonos.Base.Services;
 
-namespace Sonos.Base.Services
+public partial class MusicServicesService
 {
-    public partial class MusicServicesService
+    // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRoot("Services", Namespace = "", IsNullable = false)]
+    public partial class MusicServiceCollection
     {
+        private MusicService[] serviceField;
 
-        // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+        private byte schemaVersionField;
+
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        [System.Xml.Serialization.XmlRoot("Services", Namespace = "", IsNullable = false)]
-        public partial class MusicServiceCollection
+        [System.Xml.Serialization.XmlElement("Service")]
+        public MusicService[] Services
         {
-
-            private MusicService[] serviceField;
-
-            private byte schemaVersionField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlElement("Service")]
-            public MusicService[] Services
+            get
             {
-                get
-                {
-                    return this.serviceField;
-                }
-                set
-                {
-                    this.serviceField = value;
-                }
+                return this.serviceField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public byte SchemaVersion
+            set
             {
-                get
-                {
-                    return this.schemaVersionField;
-                }
-                set
-                {
-                    this.schemaVersionField = value;
-                }
+                this.serviceField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class MusicService
+        [System.Xml.Serialization.XmlAttribute()]
+        public byte SchemaVersion
         {
-
-            private ServicesServicePolicy policyField;
-
-            private ServicesServicePresentation presentationField;
-
-            private ServicesServiceManifest manifestField;
-
-            private ushort idField;
-
-            private string nameField;
-
-            private decimal versionField;
-
-            private string uriField;
-
-            private string secureUriField;
-
-            private string containerTypeField;
-
-            private uint capabilitiesField;
-
-            /// <remarks/>
-            public ServicesServicePolicy Policy
+            get
             {
-                get
-                {
-                    return this.policyField;
-                }
-                set
-                {
-                    this.policyField = value;
-                }
+                return this.schemaVersionField;
             }
-
-            /// <remarks/>
-            public ServicesServicePresentation Presentation
+            set
             {
-                get
-                {
-                    return this.presentationField;
-                }
-                set
-                {
-                    this.presentationField = value;
-                }
+                this.schemaVersionField = value;
             }
+        }
+    }
 
-            /// <remarks/>
-            public ServicesServiceManifest Manifest
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class MusicService
+    {
+        private ServicesServicePolicy policyField;
+
+        private ServicesServicePresentation presentationField;
+
+        private ServicesServiceManifest manifestField;
+
+        private ushort idField;
+
+        private string nameField;
+
+        private decimal versionField;
+
+        private string uriField;
+
+        private string secureUriField;
+
+        private string containerTypeField;
+
+        private uint capabilitiesField;
+
+        /// <remarks/>
+        public ServicesServicePolicy Policy
+        {
+            get
             {
-                get
-                {
-                    return this.manifestField;
-                }
-                set
-                {
-                    this.manifestField = value;
-                }
+                return this.policyField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public ushort Id
+            set
             {
-                get
-                {
-                    return this.idField;
-                }
-                set
-                {
-                    this.idField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Name
-            {
-                get
-                {
-                    return this.nameField;
-                }
-                set
-                {
-                    this.nameField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public decimal Version
-            {
-                get
-                {
-                    return this.versionField;
-                }
-                set
-                {
-                    this.versionField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Uri
-            {
-                get
-                {
-                    return this.uriField;
-                }
-                set
-                {
-                    this.uriField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string SecureUri
-            {
-                get
-                {
-                    return this.secureUriField;
-                }
-                set
-                {
-                    this.secureUriField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string ContainerType
-            {
-                get
-                {
-                    return this.containerTypeField;
-                }
-                set
-                {
-                    this.containerTypeField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public uint Capabilities
-            {
-                get
-                {
-                    return this.capabilitiesField;
-                }
-                set
-                {
-                    this.capabilitiesField = value;
-                }
+                this.policyField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class ServicesServicePolicy
+        public ServicesServicePresentation Presentation
         {
-
-            private string authField;
-
-            private ushort pollIntervalField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Auth
+            get
             {
-                get
-                {
-                    return this.authField;
-                }
-                set
-                {
-                    this.authField = value;
-                }
+                return this.presentationField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public ushort PollInterval
+            set
             {
-                get
-                {
-                    return this.pollIntervalField;
-                }
-                set
-                {
-                    this.pollIntervalField = value;
-                }
+                this.presentationField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class ServicesServicePresentation
+        public ServicesServiceManifest Manifest
         {
-
-            private ServicesServicePresentationStrings stringsField;
-
-            private ServicesServicePresentationPresentationMap presentationMapField;
-
-            /// <remarks/>
-            public ServicesServicePresentationStrings Strings
+            get
             {
-                get
-                {
-                    return this.stringsField;
-                }
-                set
-                {
-                    this.stringsField = value;
-                }
+                return this.manifestField;
             }
-
-            /// <remarks/>
-            public ServicesServicePresentationPresentationMap PresentationMap
+            set
             {
-                get
-                {
-                    return this.presentationMapField;
-                }
-                set
-                {
-                    this.presentationMapField = value;
-                }
+                this.manifestField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class ServicesServicePresentationStrings
+        [System.Xml.Serialization.XmlAttribute()]
+        public ushort Id
         {
-
-            private byte versionField;
-
-            private string uriField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public byte Version
+            get
             {
-                get
-                {
-                    return this.versionField;
-                }
-                set
-                {
-                    this.versionField = value;
-                }
+                return this.idField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Uri
+            set
             {
-                get
-                {
-                    return this.uriField;
-                }
-                set
-                {
-                    this.uriField = value;
-                }
+                this.idField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class ServicesServicePresentationPresentationMap
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Name
         {
-
-            private byte versionField;
-
-            private string uriField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public byte Version
+            get
             {
-                get
-                {
-                    return this.versionField;
-                }
-                set
-                {
-                    this.versionField = value;
-                }
+                return this.nameField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Uri
+            set
             {
-                get
-                {
-                    return this.uriField;
-                }
-                set
-                {
-                    this.uriField = value;
-                }
+                this.nameField = value;
             }
         }
 
         /// <remarks/>
-        [System.Serializable()]
-        [System.ComponentModel.DesignerCategory("code")]
-        [System.Xml.Serialization.XmlType(AnonymousType = true)]
-        public partial class ServicesServiceManifest
+        [System.Xml.Serialization.XmlAttribute()]
+        public decimal Version
         {
-
-            private byte versionField;
-
-            private string uriField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public byte Version
+            get
             {
-                get
-                {
-                    return this.versionField;
-                }
-                set
-                {
-                    this.versionField = value;
-                }
+                return this.versionField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttribute()]
-            public string Uri
+            set
             {
-                get
-                {
-                    return this.uriField;
-                }
-                set
-                {
-                    this.uriField = value;
-                }
+                this.versionField = value;
             }
         }
 
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Uri
+        {
+            get
+            {
+                return this.uriField;
+            }
+            set
+            {
+                this.uriField = value;
+            }
+        }
 
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string SecureUri
+        {
+            get
+            {
+                return this.secureUriField;
+            }
+            set
+            {
+                this.secureUriField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string ContainerType
+        {
+            get
+            {
+                return this.containerTypeField;
+            }
+            set
+            {
+                this.containerTypeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public uint Capabilities
+        {
+            get
+            {
+                return this.capabilitiesField;
+            }
+            set
+            {
+                this.capabilitiesField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ServicesServicePolicy
+    {
+        private string authField;
+
+        private ushort pollIntervalField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Auth
+        {
+            get
+            {
+                return this.authField;
+            }
+            set
+            {
+                this.authField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public ushort PollInterval
+        {
+            get
+            {
+                return this.pollIntervalField;
+            }
+            set
+            {
+                this.pollIntervalField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ServicesServicePresentation
+    {
+        private ServicesServicePresentationStrings stringsField;
+
+        private ServicesServicePresentationPresentationMap presentationMapField;
+
+        /// <remarks/>
+        public ServicesServicePresentationStrings Strings
+        {
+            get
+            {
+                return this.stringsField;
+            }
+            set
+            {
+                this.stringsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ServicesServicePresentationPresentationMap PresentationMap
+        {
+            get
+            {
+                return this.presentationMapField;
+            }
+            set
+            {
+                this.presentationMapField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ServicesServicePresentationStrings
+    {
+        private byte versionField;
+
+        private string uriField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public byte Version
+        {
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Uri
+        {
+            get
+            {
+                return this.uriField;
+            }
+            set
+            {
+                this.uriField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ServicesServicePresentationPresentationMap
+    {
+        private byte versionField;
+
+        private string uriField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public byte Version
+        {
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Uri
+        {
+            get
+            {
+                return this.uriField;
+            }
+            set
+            {
+                this.uriField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ServicesServiceManifest
+    {
+        private byte versionField;
+
+        private string uriField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public byte Version
+        {
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string Uri
+        {
+            get
+            {
+                return this.uriField;
+            }
+            set
+            {
+                this.uriField = value;
+            }
+        }
     }
 }
