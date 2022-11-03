@@ -109,47 +109,47 @@ public partial class ZoneGroupTopologyService
 
         private string iconField;
 
-        private byte configurationField;
+        private int configurationField;
 
         private string softwareVersionField;
 
-        private byte sWGenField;
+        private int sWGenField;
 
         private string minCompatibleVersionField;
 
         private string legacyCompatibleVersionField;
 
-        private byte bootSeqField;
+        private int bootSeqField;
 
-        private byte tVConfigurationErrorField;
+        private int tVConfigurationErrorField;
 
-        private byte hdmiCecAvailableField;
+        private int hdmiCecAvailableField;
 
-        private byte wirelessModeField;
+        private int wirelessModeField;
 
-        private byte wirelessLeafOnlyField;
+        private int wirelessLeafOnlyField;
 
         private ushort channelFreqField;
 
-        private byte behindWifiExtenderField;
+        private int behindWifiExtenderField;
 
-        private byte wifiEnabledField;
+        private int wifiEnabledField;
 
-        private byte ethLinkField;
+        private int ethLinkField;
 
-        private byte orientationField;
+        private int orientationField;
 
-        private byte roomCalibrationStateField;
+        private int roomCalibrationStateField;
 
-        private byte secureRegStateField;
+        private int secureRegStateField;
 
-        private byte voiceConfigStateField;
+        private int voiceConfigStateField;
 
-        private byte micEnabledField;
+        private int micEnabledField;
 
-        private byte airPlayEnabledField;
+        private int airPlayEnabledField;
 
-        private byte idleStateField;
+        private int idleStateField;
 
         private string moreInfoField;
 
@@ -215,7 +215,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Configuration
+        public int Configuration
         {
             get
             {
@@ -243,7 +243,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SWGen
+        public int SWGen
         {
             get
             {
@@ -285,7 +285,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte BootSeq
+        public int BootSeq
         {
             get
             {
@@ -299,7 +299,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte TVConfigurationError
+        public int TVConfigurationError
         {
             get
             {
@@ -313,7 +313,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte HdmiCecAvailable
+        public int HdmiCecAvailable
         {
             get
             {
@@ -327,7 +327,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WirelessMode
+        public int WirelessMode
         {
             get
             {
@@ -341,7 +341,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WirelessLeafOnly
+        public int WirelessLeafOnly
         {
             get
             {
@@ -369,7 +369,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte BehindWifiExtender
+        public int BehindWifiExtender
         {
             get
             {
@@ -383,7 +383,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WifiEnabled
+        public int WifiEnabled
         {
             get
             {
@@ -397,7 +397,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte EthLink
+        public int EthLink
         {
             get
             {
@@ -411,7 +411,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Orientation
+        public int Orientation
         {
             get
             {
@@ -425,7 +425,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte RoomCalibrationState
+        public int RoomCalibrationState
         {
             get
             {
@@ -439,7 +439,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SecureRegState
+        public int SecureRegState
         {
             get
             {
@@ -453,7 +453,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte VoiceConfigState
+        public int VoiceConfigState
         {
             get
             {
@@ -467,7 +467,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte MicEnabled
+        public int MicEnabled
         {
             get
             {
@@ -481,7 +481,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte AirPlayEnabled
+        public int AirPlayEnabled
         {
             get
             {
@@ -495,7 +495,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte IdleState
+        public int IdleState
         {
             get
             {

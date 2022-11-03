@@ -12,7 +12,7 @@ public partial class MusicServicesService
     {
         private MusicService[] serviceField;
 
-        private byte schemaVersionField;
+        private int schemaVersionField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("Service")]
@@ -30,7 +30,7 @@ public partial class MusicServicesService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SchemaVersion
+        public int SchemaVersion
         {
             get
             {
@@ -289,13 +289,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationStrings
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {
@@ -328,13 +328,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationPresentationMap
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {
@@ -367,13 +367,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServiceManifest
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {

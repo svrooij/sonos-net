@@ -89,6 +89,23 @@ internal static class SoapFactory
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
+//         serializer.UnknownAttribute += (sender, args) =>
+// {
+//     System.Xml.XmlAttribute attr = args.Attr;
+//     Console.WriteLine($"Unknown attribute {attr.Name}=\'{attr.Value}\'");
+// };
+//         serializer.UnknownNode += (sender, args) =>
+//         {
+//             Console.WriteLine($"Unknown Node:{args.Name}\t{args.Text}");
+//         };
+//         serializer.UnknownElement +=
+//             (sender, args) =>
+//                 Console.WriteLine("Unknown Element:"
+//                     + args.Element.Name + "\t" + args.Element.InnerXml);
+//         serializer.UnreferencedObject +=
+//             (sender, args) =>
+//                 Console.WriteLine("Unreferenced Object:"
+//                     + args.UnreferencedId + "\t" + args.UnreferencedObject.ToString());
         var result = (Envelope<TOut>?)serializer.Deserialize(stream);
         if (result is null)
         {

@@ -33,7 +33,7 @@ public partial class AlarmClockService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class Alarm
     {
-        private byte idField;
+        private int idField;
 
         private System.DateTime startTimeField;
 
@@ -41,7 +41,7 @@ public partial class AlarmClockService
 
         private string recurrenceField;
 
-        private byte enabledField;
+        private int enabledField;
 
         private string roomUUIDField;
 
@@ -51,13 +51,13 @@ public partial class AlarmClockService
 
         private string playModeField;
 
-        private byte volumeField;
+        private int volumeField;
 
-        private byte includeLinkedZonesField;
+        private int includeLinkedZonesField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte ID
+        public int ID
         {
             get
             {
@@ -113,7 +113,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Enabled
+        public int Enabled
         {
             get
             {
@@ -183,7 +183,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Volume
+        public int Volume
         {
             get
             {
@@ -197,7 +197,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte IncludeLinkedZones
+        public int IncludeLinkedZones
         {
             get
             {
