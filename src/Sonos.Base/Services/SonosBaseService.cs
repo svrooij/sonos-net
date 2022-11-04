@@ -46,18 +46,23 @@ public class SonosBaseService
     internal async Task HandleErrorResponse(HttpResponseMessage response, CancellationToken cancellationToken)
     {
         // TODO HandleErrorResponse needs implementation
-        var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
+        // var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
+        using var errorContent = await response.Content.ReadAsStreamAsync(cancellationToken);
+        var error = SoapFactory.ParseFaultXml(errorContent);
+        if (error is not null)
+        {
+            var code = error.UpnpErrorCode;
+            string? message = code is not null ? ServiceErrors[(int)code].Message : null;
+            throw new SonosServiceException(error.FaultCode, error.FaultString, code, message);
+        }
         throw new Exception();
     }
-
-    // internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken) {
-    //   var xml = await response.Content.ReadAsStringAsync(cancellationToken);
-    //   return SoapFactory.ParseXml<TOut>(this.ServiceName, xml);
-    // }
 
     internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken)
     {
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
         return SoapFactory.ParseXml<TOut>(this.ServiceName, xml);
     }
+
+    internal virtual Dictionary<int, SonosUpnpError> ServiceErrors { get => SonosUpnpError.DefaultErrors; }
 }

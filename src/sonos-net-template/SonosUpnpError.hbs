@@ -1,0 +1,11 @@
+namespace Sonos.Base.Services;
+
+public partial class SonosUpnpError
+{
+    public static readonly Dictionary<int, SonosUpnpError> DefaultErrors = new Dictionary<int, SonosUpnpError>
+    {
+        {{#each errors}}
+        { {{code}}, new SonosUpnpError({{code}}, "{{description}}") },
+        {{/each}}
+    };
+}

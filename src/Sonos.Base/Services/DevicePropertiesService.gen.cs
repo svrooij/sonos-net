@@ -103,6 +103,13 @@ public partial class DevicePropertiesService : SonosBaseService
     public Task<GetHouseholdIDResponse> GetHouseholdID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetHouseholdIDResponse>("GetHouseholdID", new BaseRequest(), cancellationToken);
 
     /// <summary>
+    /// GetHTForwardState
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetHTForwardStateResponse</returns>
+    public Task<GetHTForwardStateResponse> GetHTForwardState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetHTForwardStateResponse>("GetHTForwardState", new BaseRequest(), cancellationToken);
+
+    /// <summary>
     /// Get the current LED state
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
@@ -369,6 +376,15 @@ public partial class DevicePropertiesService : SonosBaseService
     }
 
     [System.Serializable()]
+    [System.Xml.Serialization.XmlType("GetHTForwardStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
+    public partial class GetHTForwardStateResponse
+    {
+
+        [System.Xml.Serialization.XmlElement(Namespace = "")]
+        public bool IsHTForwardEnabled { get; set; }
+    }
+
+    [System.Serializable()]
     [System.Xml.Serialization.XmlType("GetLEDStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:DeviceProperties:1")]
     public partial class GetLEDStateResponse
     {
@@ -407,6 +423,9 @@ public partial class DevicePropertiesService : SonosBaseService
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentConfiguration { get; set; }
+
+        [System.Xml.Serialization.XmlElement(Namespace = "")]
+        public string CurrentTargetRoomName { get; set; }
     }
 
     [System.Serializable()]
@@ -474,6 +493,8 @@ public partial class DevicePropertiesService : SonosBaseService
         public int Channel { get; set; }
 
         public int DurationMilliseconds { get; set; }
+
+        public bool ChirpIfPlayingSwappableAudio { get; set; }
     }
 
     [System.Serializable()]
@@ -483,9 +504,6 @@ public partial class DevicePropertiesService : SonosBaseService
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int PlayId { get; set; }
-
-        [System.Xml.Serialization.XmlElement(Namespace = "")]
-        public bool ChirpIfPlayingSwappableAudio { get; set; }
     }
 
     [System.Serializable()]
@@ -573,5 +591,7 @@ public partial class DevicePropertiesService : SonosBaseService
         public string DesiredIcon { get; set; }
 
         public string DesiredConfiguration { get; set; }
+
+        public string DesiredTargetRoomName { get; set; }
     }
 }

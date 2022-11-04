@@ -64,6 +64,16 @@ internal static class SoapFactory
         return overrides;
     }
 
+    internal static XmlAttributeOverrides GenerateFaultResponseOverrides()
+    {
+        XmlElementAttribute messageAttribute = new XmlElementAttribute("Fault") { Namespace = "http://schemas.xmlsoap.org/soap/envelope/", Type = typeof(SoapFault) };
+        var myAttributes = new XmlAttributes();
+        myAttributes.XmlElements.Add(messageAttribute);
+        var overrides = new XmlAttributeOverrides();
+        overrides.Add(typeof(EnvelopeBody<SoapFault>), nameof(EnvelopeBody<SoapFault>.Message), myAttributes);
+        return overrides;
+    }
+
     internal static XmlSerializerNamespaces SoapNamespaces()
     {
         var ns = new XmlSerializerNamespaces();
@@ -89,23 +99,7 @@ internal static class SoapFactory
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
-//         serializer.UnknownAttribute += (sender, args) =>
-// {
-//     System.Xml.XmlAttribute attr = args.Attr;
-//     Console.WriteLine($"Unknown attribute {attr.Name}=\'{attr.Value}\'");
-// };
-//         serializer.UnknownNode += (sender, args) =>
-//         {
-//             Console.WriteLine($"Unknown Node:{args.Name}\t{args.Text}");
-//         };
-//         serializer.UnknownElement +=
-//             (sender, args) =>
-//                 Console.WriteLine("Unknown Element:"
-//                     + args.Element.Name + "\t" + args.Element.InnerXml);
-//         serializer.UnreferencedObject +=
-//             (sender, args) =>
-//                 Console.WriteLine("Unreferenced Object:"
-//                     + args.UnreferencedId + "\t" + args.UnreferencedObject.ToString());
+
         var result = (Envelope<TOut>?)serializer.Deserialize(stream);
         if (result is null)
         {
@@ -124,5 +118,32 @@ internal static class SoapFactory
             throw new FormatException("Response does not contain expected result");
         }
         return result;
+    }
+
+    internal static SoapFault? ParseFaultXml(string xml)
+    {
+        var overrides = GenerateFaultResponseOverrides();
+        var serializer = new XmlSerializer(typeof(Envelope<SoapFault>), overrides);
+        using var textReader = new StringReader(xml);
+        var result = (Envelope<SoapFault>?)serializer.Deserialize(textReader);
+        if (result is null)
+        {
+            return null;
+            //throw new FormatException("Response does not contain expected result");
+        }
+        return result.Body.Message;
+    }
+
+    internal static SoapFault? ParseFaultXml(Stream stream)
+    {
+        var overrides = GenerateFaultResponseOverrides();
+        var serializer = new XmlSerializer(typeof(Envelope<SoapFault>), overrides);
+        var result = (Envelope<SoapFault>?)serializer.Deserialize(stream);
+        if (result is null)
+        {
+            return null;
+            //throw new FormatException("Response does not contain expected result");
+        }
+        return result.Body.Message;
     }
 }

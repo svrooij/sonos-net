@@ -196,6 +196,17 @@ public partial class AlarmClockService : SonosBaseService
         public string ProgramMetaData { get; set; }
 
         /// <summary>
+        /// Generate ProgramMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ProgramMetaDataObject
+        {
+            set
+            {
+                ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
+        /// <summary>
         /// Alarm play mode
         /// </summary>
         public string PlayMode { get; set; }
@@ -450,6 +461,17 @@ public partial class AlarmClockService : SonosBaseService
         public string ProgramMetaData { get; set; }
 
         /// <summary>
+        /// Generate ProgramMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ProgramMetaDataObject
+        {
+            set
+            {
+                ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
+        /// <summary>
         /// Alarm play mode
         /// </summary>
         public string PlayMode { get; set; }
@@ -464,4 +486,10 @@ public partial class AlarmClockService : SonosBaseService
         /// </summary>
         public bool IncludeLinkedZones { get; set; }
     }
+
+    private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{
+        { 801, new SonosUpnpError(801, "Duplicate alarm time") },
+    };
+
+    internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
 }

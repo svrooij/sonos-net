@@ -182,4 +182,10 @@ public partial class GroupRenderingControlService : SonosBaseService
         /// </summary>
         public int InstanceID { get; set; } = 0;
     }
+
+    private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{
+        { 701, new SonosUpnpError(701, "Player isn't the coordinator") },
+    };
+
+    internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
 }

@@ -54,6 +54,19 @@ public partial class {{serviceName}} : SonosBaseService
         /// </summary>
         {{/if}}
         public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }{{#if (are_equal name 'InstanceID')}} = 0;{{/if}}
+        {{#if (ends_with name 'MetaData')}}
+
+        /// <summary>
+        /// Generate {{name}} xml from Didl data
+        /// </summary>
+        public Metadata.Didl {{name}}Object
+        {
+            set
+            {
+                {{name}} = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+        {{/if}}
         {{/each}}
     }
     {{/if}}
@@ -72,8 +85,31 @@ public partial class {{serviceName}} : SonosBaseService
         {{/if}}
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }
+        {{#if (ends_with name 'MetaData')}}
+
+        /// <summary>
+        /// Parsed version of {{name}}
+        /// </summary>
+        public Metadata.Didl {{name}}Object
+        {
+            get
+            {
+                return Metadata.DidlSerializer.DeserializeMetadata({{name}});
+            }
+        }
+        {{/if}}
         {{/each}}
     }
     {{/if}}
     {{/each}}
+    {{#if errors}}
+
+    private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{
+        {{#each errors}}
+        { {{code}}, new SonosUpnpError({{code}}, "{{{description}}}") },
+        {{/each}}
+    };
+
+    internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+    {{/if}}
 }

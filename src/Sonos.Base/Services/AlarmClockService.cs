@@ -22,7 +22,7 @@ public partial class AlarmClockService
             }
         }
     }
-    
+
     public async Task<bool> PatchAlarm(PatchAlarmRequest request, CancellationToken cancellationToken = default)
     {
         var alarm = (await this.ListAlarms(cancellationToken)).Alarms?.FirstOrDefault(a => a.ID == request.ID);

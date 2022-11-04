@@ -376,4 +376,28 @@ public partial class ContentDirectoryService : SonosBaseService
 
         public string NewTagValue { get; set; }
     }
+
+    private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{
+        { 701, new SonosUpnpError(701, "No such object") },
+        { 702, new SonosUpnpError(702, "Invalid CurrentTagValue") },
+        { 703, new SonosUpnpError(703, "Invalid NewTagValue") },
+        { 704, new SonosUpnpError(704, "Required tag") },
+        { 705, new SonosUpnpError(705, "Read-only tag") },
+        { 706, new SonosUpnpError(706, "Parameter mismatch") },
+        { 708, new SonosUpnpError(708, "Invalid search criteria") },
+        { 709, new SonosUpnpError(709, "Invalid sort criteria") },
+        { 710, new SonosUpnpError(710, "No such container") },
+        { 711, new SonosUpnpError(711, "Restricted object") },
+        { 712, new SonosUpnpError(712, "Bad metadata") },
+        { 713, new SonosUpnpError(713, "Restricted parent object") },
+        { 714, new SonosUpnpError(714, "No such source resource") },
+        { 715, new SonosUpnpError(715, "Resource access denied") },
+        { 716, new SonosUpnpError(716, "Transfer busy") },
+        { 717, new SonosUpnpError(717, "No such file transfer") },
+        { 718, new SonosUpnpError(718, "No such destination resource") },
+        { 719, new SonosUpnpError(719, "Destination resource access denied") },
+        { 720, new SonosUpnpError(720, "Cannot process the request") },
+    };
+
+    internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
 }

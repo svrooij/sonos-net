@@ -17,6 +17,11 @@
       "file": "SonosDevice.hbs",
       "outputFile": "Sonos.Base/SonosDevice.gen.cs",
       "usage":"index"
+    },
+    {
+      "file": "SonosUpnpError.hbs",
+      "outputFile": "Sonos.Base/Services/SonosUpnpError.gen.cs",
+      "usage":"index"
     }
   ],
   "dataTypes": {

@@ -124,6 +124,17 @@ public partial class QueueService : SonosBaseService
 
         public string ContainerMetaData { get; set; }
 
+        /// <summary>
+        /// Generate ContainerMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ContainerMetaDataObject
+        {
+            set
+            {
+                ContainerMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
         public bool EnqueueAsNext { get; set; }
@@ -131,6 +142,17 @@ public partial class QueueService : SonosBaseService
         public int NumberOfURIs { get; set; }
 
         public string EnqueuedURIsAndMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIsAndMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIsAndMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIsAndMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
     }
 
     [System.Serializable()]
@@ -163,6 +185,17 @@ public partial class QueueService : SonosBaseService
         public string EnqueuedURI { get; set; }
 
         public string EnqueuedURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
 
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
@@ -338,6 +371,17 @@ public partial class QueueService : SonosBaseService
 
         public string ContainerMetaData { get; set; }
 
+        /// <summary>
+        /// Generate ContainerMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ContainerMetaDataObject
+        {
+            set
+            {
+                ContainerMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public int CurrentTrackIndex { get; set; }
 
         public string NewCurrentTrackIndices { get; set; }
@@ -345,6 +389,17 @@ public partial class QueueService : SonosBaseService
         public int NumberOfURIs { get; set; }
 
         public string EnqueuedURIsAndMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIsAndMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIsAndMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIsAndMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
     }
 
     [System.Serializable()]

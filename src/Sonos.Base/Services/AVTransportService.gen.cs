@@ -394,9 +394,31 @@ public partial class AVTransportService : SonosBaseService
 
         public string EnqueuedURIsMetaData { get; set; }
 
+        /// <summary>
+        /// Generate EnqueuedURIsMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIsMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIsMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public string ContainerURI { get; set; }
 
         public string ContainerMetaData { get; set; }
+
+        /// <summary>
+        /// Generate ContainerMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ContainerMetaDataObject
+        {
+            set
+            {
+                ContainerMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
 
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
@@ -434,6 +456,17 @@ public partial class AVTransportService : SonosBaseService
         public string EnqueuedURI { get; set; }
 
         public string EnqueuedURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
 
         /// <summary>
         /// use `0` to add at the end or `1` to insert at the beginning
@@ -475,6 +508,17 @@ public partial class AVTransportService : SonosBaseService
         public string EnqueuedURI { get; set; }
 
         public string EnqueuedURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
 
         public int AddAtIndex { get; set; }
     }
@@ -550,6 +594,17 @@ public partial class AVTransportService : SonosBaseService
 
         public string CurrentURIMetaData { get; set; }
 
+        /// <summary>
+        /// Generate CurrentURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl CurrentURIMetaDataObject
+        {
+            set
+            {
+                CurrentURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public string SleepTimerState { get; set; }
 
         public string AlarmState { get; set; }
@@ -580,6 +635,17 @@ public partial class AVTransportService : SonosBaseService
         public string CurrentURI { get; set; }
 
         public string CurrentURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate CurrentURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl CurrentURIMetaDataObject
+        {
+            set
+            {
+                CurrentURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
 
         public string SleepTimerState { get; set; }
 
@@ -661,6 +727,17 @@ public partial class AVTransportService : SonosBaseService
         public string EnqueuedURI { get; set; }
 
         public string EnqueuedURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate EnqueuedURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl EnqueuedURIMetaDataObject
+        {
+            set
+            {
+                EnqueuedURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
     }
 
     [System.Serializable()]
@@ -807,11 +884,33 @@ public partial class AVTransportService : SonosBaseService
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentURIMetaData { get; set; }
 
+        /// <summary>
+        /// Parsed version of CurrentURIMetaData
+        /// </summary>
+        public Metadata.Didl CurrentURIMetaDataObject
+        {
+            get
+            {
+                return Metadata.DidlSerializer.DeserializeMetadata(CurrentURIMetaData);
+            }
+        }
+
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string NextURI { get; set; }
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string NextURIMetaData { get; set; }
+
+        /// <summary>
+        /// Parsed version of NextURIMetaData
+        /// </summary>
+        public Metadata.Didl NextURIMetaDataObject
+        {
+            get
+            {
+                return Metadata.DidlSerializer.DeserializeMetadata(NextURIMetaData);
+            }
+        }
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string PlayMedium { get; set; }
@@ -847,6 +946,17 @@ public partial class AVTransportService : SonosBaseService
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string TrackMetaData { get; set; }
+
+        /// <summary>
+        /// Parsed version of TrackMetaData
+        /// </summary>
+        public Metadata.Didl TrackMetaDataObject
+        {
+            get
+            {
+                return Metadata.DidlSerializer.DeserializeMetadata(TrackMetaData);
+            }
+        }
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string TrackURI { get; set; }
@@ -1158,6 +1268,17 @@ public partial class AVTransportService : SonosBaseService
 
         public string ProgramMetaData { get; set; }
 
+        /// <summary>
+        /// Generate ProgramMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ProgramMetaDataObject
+        {
+            set
+            {
+                ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public string PlayMode { get; set; }
 
         public int Volume { get; set; }
@@ -1235,6 +1356,17 @@ public partial class AVTransportService : SonosBaseService
         /// Track Metadata, see MetadataHelper.GuessTrack to guess based on track uri
         /// </summary>
         public string CurrentURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate CurrentURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl CurrentURIMetaDataObject
+        {
+            set
+            {
+                CurrentURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
     }
 
     [System.Serializable()]
@@ -1263,6 +1395,17 @@ public partial class AVTransportService : SonosBaseService
         public string NextURI { get; set; }
 
         public string NextURIMetaData { get; set; }
+
+        /// <summary>
+        /// Generate NextURIMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl NextURIMetaDataObject
+        {
+            set
+            {
+                NextURIMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
     }
 
     [System.Serializable()]
@@ -1311,6 +1454,17 @@ public partial class AVTransportService : SonosBaseService
 
         public string ProgramMetaData { get; set; }
 
+        /// <summary>
+        /// Generate ProgramMetaData xml from Didl data
+        /// </summary>
+        public Metadata.Didl ProgramMetaDataObject
+        {
+            set
+            {
+                ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value);
+            }
+        }
+
         public int Volume { get; set; }
 
         public bool IncludeLinkedZones { get; set; }
@@ -1328,4 +1482,31 @@ public partial class AVTransportService : SonosBaseService
         /// </summary>
         public int InstanceID { get; set; } = 0;
     }
+
+    private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{
+        { 701, new SonosUpnpError(701, "Transition not available") },
+        { 702, new SonosUpnpError(702, "No content") },
+        { 703, new SonosUpnpError(703, "Read error") },
+        { 704, new SonosUpnpError(704, "Format not supported for playback") },
+        { 705, new SonosUpnpError(705, "Transport is locked") },
+        { 706, new SonosUpnpError(706, "Write error") },
+        { 707, new SonosUpnpError(707, "Media protected or not writeable") },
+        { 708, new SonosUpnpError(708, "Format not supported for recording") },
+        { 709, new SonosUpnpError(709, "Media is full") },
+        { 710, new SonosUpnpError(710, "Seek mode not supported") },
+        { 711, new SonosUpnpError(711, "Illegal seek target") },
+        { 712, new SonosUpnpError(712, "Play mode not supported") },
+        { 713, new SonosUpnpError(713, "Record quality not supported") },
+        { 714, new SonosUpnpError(714, "Illegal MIME-Type") },
+        { 715, new SonosUpnpError(715, "Content busy") },
+        { 716, new SonosUpnpError(716, "Resource not found") },
+        { 717, new SonosUpnpError(717, "Play speed not supported") },
+        { 718, new SonosUpnpError(718, "Invalid InstanceID") },
+        { 737, new SonosUpnpError(737, "No dns configured") },
+        { 738, new SonosUpnpError(738, "Bad domain") },
+        { 739, new SonosUpnpError(739, "Server error") },
+        { 800, new SonosUpnpError(800, "Command not supported or not a coordinator") },
+    };
+
+    internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
 }
