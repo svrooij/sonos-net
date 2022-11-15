@@ -5,5 +5,9 @@ internal static class HttpContentExtensions {
     internal static Task<Stream> ReadAsStreamAsync(this HttpContent input, CancellationToken cancellationToken) {
         return input.ReadAsStreamAsync();
     }
+
+    internal static Task<String> ReadAsStringAsync(this HttpContent input, CancellationToken cancellationToken) {
+        return input.ReadAsStringAsync();
+    }
 }
 #endif
