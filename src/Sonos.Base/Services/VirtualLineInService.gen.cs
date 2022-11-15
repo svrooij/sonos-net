@@ -42,7 +42,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>("Next", new NextRequest(), cancellationToken);
+    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>(new NextRequest(), cancellationToken);
 
     /// <summary>
     /// Pause
@@ -50,7 +50,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>("Pause", new PauseRequest(), cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
 
     /// <summary>
     /// Play
@@ -58,7 +58,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>("Play", request, cancellationToken);
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>(request, cancellationToken);
 
     /// <summary>
     /// Previous
@@ -66,7 +66,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>("Previous", new PreviousRequest(), cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>(new PreviousRequest(), cancellationToken);
 
     /// <summary>
     /// SetVolume
@@ -74,7 +74,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>("SetVolume", request, cancellationToken);
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>(request, cancellationToken);
 
     /// <summary>
     /// StartTransmission
@@ -82,7 +82,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>StartTransmissionResponse</returns>
-    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionRequest, StartTransmissionResponse>("StartTransmission", request, cancellationToken);
+    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionRequest, StartTransmissionResponse>(request, cancellationToken);
 
     /// <summary>
     /// Stop
@@ -90,7 +90,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>("Stop", new StopRequest(), cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);
 
     /// <summary>
     /// StopTransmission
@@ -98,9 +98,10 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionRequest>("StopTransmission", request, cancellationToken);
+    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionRequest>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -110,25 +111,25 @@ public partial class VirtualLineInService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "Next")]
     public class NextRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "Pause")]
     public class PauseRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "Play")]
     public class PlayRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
 
         public string Speed { get; set; }
@@ -136,17 +137,17 @@ public partial class VirtualLineInService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "Previous")]
     public class PreviousRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "SetVolume")]
     public class SetVolumeRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
 
         public int DesiredVolume { get; set; }
@@ -154,9 +155,9 @@ public partial class VirtualLineInService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "StartTransmission")]
     public class StartTransmissionRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
 
         public string CoordinatorID { get; set; }
@@ -166,24 +167,23 @@ public partial class VirtualLineInService : SonosBaseService
     [System.Xml.Serialization.XmlType("StartTransmissionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:VirtualLineIn:1")]
     public partial class StartTransmissionResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentTransportSettings { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "Stop")]
     public class StopRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn", "StopTransmission")]
     public class StopTransmissionRequest : BaseRequest
     {
-
         public int InstanceID { get; set; } = 0;
 
         public string CoordinatorID { get; set; }

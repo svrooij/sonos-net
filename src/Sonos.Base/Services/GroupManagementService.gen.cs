@@ -42,7 +42,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddMemberResponse</returns>
-    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMemberRequest, AddMemberResponse>("AddMember", request, cancellationToken);
+    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMemberRequest, AddMemberResponse>(request, cancellationToken);
 
     /// <summary>
     /// RemoveMember
@@ -50,7 +50,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveMemberRequest>("RemoveMember", request, cancellationToken);
+    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveMemberRequest>(request, cancellationToken);
 
     /// <summary>
     /// ReportTrackBufferingResult
@@ -58,7 +58,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportTrackBufferingResultRequest>("ReportTrackBufferingResult", request, cancellationToken);
+    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportTrackBufferingResultRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetSourceAreaIds
@@ -66,9 +66,10 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetSourceAreaIdsRequest>("SetSourceAreaIds", request, cancellationToken);
+    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetSourceAreaIdsRequest>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/GroupManagement/Control", "GroupManagement")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -78,9 +79,9 @@ public partial class GroupManagementService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/GroupManagement/Control", "GroupManagement", "AddMember")]
     public class AddMemberRequest : BaseRequest
     {
-
         public string MemberID { get; set; }
 
         public int BootSeq { get; set; }
@@ -90,7 +91,6 @@ public partial class GroupManagementService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddMemberResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:GroupManagement:1")]
     public partial class AddMemberResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentTransportSettings { get; set; }
 
@@ -109,17 +109,17 @@ public partial class GroupManagementService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/GroupManagement/Control", "GroupManagement", "RemoveMember")]
     public class RemoveMemberRequest : BaseRequest
     {
-
         public string MemberID { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/GroupManagement/Control", "GroupManagement", "ReportTrackBufferingResult")]
     public class ReportTrackBufferingResultRequest : BaseRequest
     {
-
         public string MemberID { get; set; }
 
         public int ResultCode { get; set; }
@@ -127,9 +127,9 @@ public partial class GroupManagementService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/GroupManagement/Control", "GroupManagement", "SetSourceAreaIds")]
     public class SetSourceAreaIdsRequest : BaseRequest
     {
-
         public string DesiredSourceAreaIds { get; set; }
     }
 }

@@ -43,7 +43,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>(1) If the title contains an apostrophe the returned uri will contain a `&apos;`. (2) Some libraries support a BrowseAndParse, so you don't have to parse the xml.</remarks>
     /// <returns>BrowseResponse</returns>
-    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BrowseRequest, BrowseResponse>("Browse", request, cancellationToken);
+    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BrowseRequest, BrowseResponse>(request, cancellationToken);
 
     /// <summary>
     /// CreateObject
@@ -51,7 +51,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>CreateObjectResponse</returns>
-    public Task<CreateObjectResponse> CreateObject(CreateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateObjectRequest, CreateObjectResponse>("CreateObject", request, cancellationToken);
+    public Task<CreateObjectResponse> CreateObject(CreateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateObjectRequest, CreateObjectResponse>(request, cancellationToken);
 
     /// <summary>
     /// DestroyObject
@@ -59,7 +59,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DestroyObjectRequest>("DestroyObject", request, cancellationToken);
+    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DestroyObjectRequest>(request, cancellationToken);
 
     /// <summary>
     /// FindPrefix
@@ -67,14 +67,14 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>FindPrefixResponse</returns>
-    public Task<FindPrefixResponse> FindPrefix(FindPrefixRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<FindPrefixRequest, FindPrefixResponse>("FindPrefix", request, cancellationToken);
+    public Task<FindPrefixResponse> FindPrefix(FindPrefixRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<FindPrefixRequest, FindPrefixResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetAlbumArtistDisplayOption
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAlbumArtistDisplayOptionResponse</returns>
-    public Task<GetAlbumArtistDisplayOptionResponse> GetAlbumArtistDisplayOption(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetAlbumArtistDisplayOptionResponse>("GetAlbumArtistDisplayOption", new BaseRequest(), cancellationToken);
+    public Task<GetAlbumArtistDisplayOptionResponse> GetAlbumArtistDisplayOption(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetAlbumArtistDisplayOptionResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetAllPrefixLocations
@@ -82,49 +82,49 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAllPrefixLocationsResponse</returns>
-    public Task<GetAllPrefixLocationsResponse> GetAllPrefixLocations(GetAllPrefixLocationsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAllPrefixLocationsRequest, GetAllPrefixLocationsResponse>("GetAllPrefixLocations", request, cancellationToken);
+    public Task<GetAllPrefixLocationsResponse> GetAllPrefixLocations(GetAllPrefixLocationsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAllPrefixLocationsRequest, GetAllPrefixLocationsResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetBrowseable
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetBrowseableResponse</returns>
-    public Task<GetBrowseableResponse> GetBrowseable(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetBrowseableResponse>("GetBrowseable", new BaseRequest(), cancellationToken);
+    public Task<GetBrowseableResponse> GetBrowseable(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetBrowseableResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetLastIndexChange
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetLastIndexChangeResponse</returns>
-    public Task<GetLastIndexChangeResponse> GetLastIndexChange(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLastIndexChangeResponse>("GetLastIndexChange", new BaseRequest(), cancellationToken);
+    public Task<GetLastIndexChangeResponse> GetLastIndexChange(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLastIndexChangeResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetSearchCapabilities
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSearchCapabilitiesResponse</returns>
-    public Task<GetSearchCapabilitiesResponse> GetSearchCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSearchCapabilitiesResponse>("GetSearchCapabilities", new BaseRequest(), cancellationToken);
+    public Task<GetSearchCapabilitiesResponse> GetSearchCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSearchCapabilitiesResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetShareIndexInProgress
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetShareIndexInProgressResponse</returns>
-    public Task<GetShareIndexInProgressResponse> GetShareIndexInProgress(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetShareIndexInProgressResponse>("GetShareIndexInProgress", new BaseRequest(), cancellationToken);
+    public Task<GetShareIndexInProgressResponse> GetShareIndexInProgress(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetShareIndexInProgressResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetSortCapabilities
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSortCapabilitiesResponse</returns>
-    public Task<GetSortCapabilitiesResponse> GetSortCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSortCapabilitiesResponse>("GetSortCapabilities", new BaseRequest(), cancellationToken);
+    public Task<GetSortCapabilitiesResponse> GetSortCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSortCapabilitiesResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// GetSystemUpdateID
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSystemUpdateIDResponse</returns>
-    public Task<GetSystemUpdateIDResponse> GetSystemUpdateID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSystemUpdateIDResponse>("GetSystemUpdateID", new BaseRequest(), cancellationToken);
+    public Task<GetSystemUpdateIDResponse> GetSystemUpdateID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSystemUpdateIDResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// RefreshShareIndex
@@ -132,7 +132,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshShareIndexRequest>("RefreshShareIndex", request, cancellationToken);
+    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshShareIndexRequest>(request, cancellationToken);
 
     /// <summary>
     /// RequestResort
@@ -140,7 +140,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RequestResortRequest>("RequestResort", request, cancellationToken);
+    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RequestResortRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetBrowseable
@@ -148,7 +148,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBrowseableRequest>("SetBrowseable", request, cancellationToken);
+    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBrowseableRequest>(request, cancellationToken);
 
     /// <summary>
     /// UpdateObject
@@ -156,9 +156,10 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<UpdateObjectRequest>("UpdateObject", request, cancellationToken);
+    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<UpdateObjectRequest>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -168,9 +169,9 @@ public partial class ContentDirectoryService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "Browse")]
     public class BrowseRequest : BaseRequest
     {
-
         /// <summary>
         /// The search query, (`A:ARTIST` / `A:ALBUMARTIST` / `A:ALBUM` / `A:GENRE` / `A:COMPOSER` / `A:TRACKS` / `A:PLAYLISTS` / `S:` / `SQ:` / `FV:2` / `R:0/0` / `R:0/1`) with optionally `:search+query` behind it.
         /// </summary>
@@ -206,7 +207,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("BrowseResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class BrowseResponse
     {
-
         /// <summary>
         /// Encoded DIDL-Lite XML. See remark (2)
         /// </summary>
@@ -225,9 +225,9 @@ public partial class ContentDirectoryService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "CreateObject")]
     public class CreateObjectRequest : BaseRequest
     {
-
         public string ContainerID { get; set; }
 
         public string Elements { get; set; }
@@ -237,7 +237,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("CreateObjectResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class CreateObjectResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string ObjectID { get; set; }
 
@@ -247,17 +246,17 @@ public partial class ContentDirectoryService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "DestroyObject")]
     public class DestroyObjectRequest : BaseRequest
     {
-
         public string ObjectID { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "FindPrefix")]
     public class FindPrefixRequest : BaseRequest
     {
-
         public string ObjectID { get; set; }
 
         public string Prefix { get; set; }
@@ -267,7 +266,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("FindPrefixResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class FindPrefixResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int StartingIndex { get; set; }
 
@@ -279,16 +277,15 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetAlbumArtistDisplayOptionResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetAlbumArtistDisplayOptionResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AlbumArtistDisplayOption { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "GetAllPrefixLocations")]
     public class GetAllPrefixLocationsRequest : BaseRequest
     {
-
         public string ObjectID { get; set; }
     }
 
@@ -296,7 +293,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetAllPrefixLocationsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetAllPrefixLocationsResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int TotalPrefixes { get; set; }
 
@@ -311,7 +307,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetBrowseableResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetBrowseableResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool IsBrowseable { get; set; }
     }
@@ -320,7 +315,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetLastIndexChangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetLastIndexChangeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string LastIndexChange { get; set; }
     }
@@ -329,7 +323,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetSearchCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetSearchCapabilitiesResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string SearchCaps { get; set; }
     }
@@ -338,7 +331,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetShareIndexInProgressResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetShareIndexInProgressResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool IsIndexing { get; set; }
     }
@@ -347,7 +339,6 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetSortCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetSortCapabilitiesResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string SortCaps { get; set; }
     }
@@ -356,40 +347,39 @@ public partial class ContentDirectoryService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetSystemUpdateIDResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ContentDirectory:1")]
     public partial class GetSystemUpdateIDResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int Id { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "RefreshShareIndex")]
     public class RefreshShareIndexRequest : BaseRequest
     {
-
         public string AlbumArtistDisplayOption { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "RequestResort")]
     public class RequestResortRequest : BaseRequest
     {
-
         public string SortOrder { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "SetBrowseable")]
     public class SetBrowseableRequest : BaseRequest
     {
-
         public bool Browseable { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "UpdateObject")]
     public class UpdateObjectRequest : BaseRequest
     {
-
         public string ObjectID { get; set; }
 
         public string CurrentTagValue { get; set; }

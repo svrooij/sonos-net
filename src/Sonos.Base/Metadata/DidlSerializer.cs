@@ -6,7 +6,7 @@ namespace Sonos.Base.Metadata;
 public static class DidlSerializer
 {
     internal const string NotImplemented = "NOT_IMPLEMENTED";
-    public static Didl? DeserializeMetadata(string xml)
+    public static Didl? DeserializeMetadata(string? xml)
     {
         if (string.IsNullOrWhiteSpace(xml) || xml == NotImplemented)
         {

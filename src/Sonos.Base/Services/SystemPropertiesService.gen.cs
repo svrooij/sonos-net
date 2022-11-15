@@ -42,7 +42,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddAccountXResponse</returns>
-    public Task<AddAccountXResponse> AddAccountX(AddAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddAccountXRequest, AddAccountXResponse>("AddAccountX", request, cancellationToken);
+    public Task<AddAccountXResponse> AddAccountX(AddAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddAccountXRequest, AddAccountXResponse>(request, cancellationToken);
 
     /// <summary>
     /// AddOAuthAccountX
@@ -50,14 +50,14 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddOAuthAccountXResponse</returns>
-    public Task<AddOAuthAccountXResponse> AddOAuthAccountX(AddOAuthAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddOAuthAccountXRequest, AddOAuthAccountXResponse>("AddOAuthAccountX", request, cancellationToken);
+    public Task<AddOAuthAccountXResponse> AddOAuthAccountX(AddOAuthAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddOAuthAccountXRequest, AddOAuthAccountXResponse>(request, cancellationToken);
 
     /// <summary>
     /// DoPostUpdateTasks
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>("DoPostUpdateTasks", new BaseRequest(), cancellationToken);
+    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// EditAccountMd
@@ -65,7 +65,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountMdRequest>("EditAccountMd", request, cancellationToken);
+    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountMdRequest>(request, cancellationToken);
 
     /// <summary>
     /// EditAccountPasswordX
@@ -73,7 +73,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountPasswordXRequest>("EditAccountPasswordX", request, cancellationToken);
+    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountPasswordXRequest>(request, cancellationToken);
 
     /// <summary>
     /// EnableRDM
@@ -81,14 +81,14 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EnableRDMRequest>("EnableRDM", request, cancellationToken);
+    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EnableRDMRequest>(request, cancellationToken);
 
     /// <summary>
     /// GetRDM
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetRDMResponse</returns>
-    public Task<GetRDMResponse> GetRDM(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetRDMResponse>("GetRDM", new BaseRequest(), cancellationToken);
+    public Task<GetRDMResponse> GetRDM(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetRDMResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Get a saved string.
@@ -97,7 +97,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Strings are saved in the system with SetString, every speaker should return the same data. Will error when not existing</remarks>
     /// <returns>GetStringResponse</returns>
-    public Task<GetStringResponse> GetString(GetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetStringRequest, GetStringResponse>("GetString", request, cancellationToken);
+    public Task<GetStringResponse> GetString(GetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetStringRequest, GetStringResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetWebCode
@@ -105,7 +105,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetWebCodeResponse</returns>
-    public Task<GetWebCodeResponse> GetWebCode(GetWebCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetWebCodeRequest, GetWebCodeResponse>("GetWebCode", request, cancellationToken);
+    public Task<GetWebCodeResponse> GetWebCode(GetWebCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetWebCodeRequest, GetWebCodeResponse>(request, cancellationToken);
 
     /// <summary>
     /// ProvisionCredentialedTrialAccountX
@@ -113,7 +113,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ProvisionCredentialedTrialAccountXResponse</returns>
-    public Task<ProvisionCredentialedTrialAccountXResponse> ProvisionCredentialedTrialAccountX(ProvisionCredentialedTrialAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ProvisionCredentialedTrialAccountXRequest, ProvisionCredentialedTrialAccountXResponse>("ProvisionCredentialedTrialAccountX", request, cancellationToken);
+    public Task<ProvisionCredentialedTrialAccountXResponse> ProvisionCredentialedTrialAccountX(ProvisionCredentialedTrialAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ProvisionCredentialedTrialAccountXRequest, ProvisionCredentialedTrialAccountXResponse>(request, cancellationToken);
 
     /// <summary>
     /// RefreshAccountCredentialsX
@@ -121,7 +121,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshAccountCredentialsXRequest>("RefreshAccountCredentialsX", request, cancellationToken);
+    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshAccountCredentialsXRequest>(request, cancellationToken);
 
     /// <summary>
     /// Remove a saved string
@@ -130,7 +130,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Not sure what happens if you call this with a VariableName that doesn't exists.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveRequest>("Remove", request, cancellationToken);
+    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveRequest>(request, cancellationToken);
 
     /// <summary>
     /// RemoveAccount
@@ -138,7 +138,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAccountRequest>("RemoveAccount", request, cancellationToken);
+    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAccountRequest>(request, cancellationToken);
 
     /// <summary>
     /// ReplaceAccountX
@@ -146,14 +146,14 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ReplaceAccountXResponse</returns>
-    public Task<ReplaceAccountXResponse> ReplaceAccountX(ReplaceAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReplaceAccountXRequest, ReplaceAccountXResponse>("ReplaceAccountX", request, cancellationToken);
+    public Task<ReplaceAccountXResponse> ReplaceAccountX(ReplaceAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReplaceAccountXRequest, ReplaceAccountXResponse>(request, cancellationToken);
 
     /// <summary>
     /// ResetThirdPartyCredentials
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>("ResetThirdPartyCredentials", new BaseRequest(), cancellationToken);
+    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// SetAccountNicknameX
@@ -161,7 +161,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAccountNicknameXRequest>("SetAccountNicknameX", request, cancellationToken);
+    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAccountNicknameXRequest>(request, cancellationToken);
 
     /// <summary>
     /// Save a string in the system
@@ -170,9 +170,10 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Strings are saved in the system, retrieve values with GetString.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetStringRequest>("SetString", request, cancellationToken);
+    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetStringRequest>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -182,9 +183,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "AddAccountX")]
     public class AddAccountXRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountID { get; set; }
@@ -196,16 +197,15 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class AddAccountXResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AccountUDN { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "AddOAuthAccountX")]
     public class AddOAuthAccountXRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountToken { get; set; }
@@ -227,7 +227,6 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddOAuthAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class AddOAuthAccountXResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AccountUDN { get; set; }
 
@@ -237,9 +236,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "EditAccountMd")]
     public class EditAccountMdRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountID { get; set; }
@@ -249,9 +248,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "EditAccountPasswordX")]
     public class EditAccountPasswordXRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountID { get; set; }
@@ -261,9 +260,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "EnableRDM")]
     public class EnableRDMRequest : BaseRequest
     {
-
         public bool RDMValue { get; set; }
     }
 
@@ -271,16 +270,15 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetRDMResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class GetRDMResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool RDMValue { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "GetString")]
     public class GetStringRequest : BaseRequest
     {
-
         /// <summary>
         /// The key for this variable
         /// </summary>
@@ -291,16 +289,15 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetStringResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class GetStringResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string StringValue { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "GetWebCode")]
     public class GetWebCodeRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
     }
 
@@ -308,16 +305,15 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetWebCodeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class GetWebCodeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string WebCode { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "ProvisionCredentialedTrialAccountX")]
     public class ProvisionCredentialedTrialAccountXRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountID { get; set; }
@@ -329,7 +325,6 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("ProvisionCredentialedTrialAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class ProvisionCredentialedTrialAccountXResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool IsExpired { get; set; }
 
@@ -339,9 +334,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "RefreshAccountCredentialsX")]
     public class RefreshAccountCredentialsXRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public int AccountUID { get; set; }
@@ -353,9 +348,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "Remove")]
     public class RemoveRequest : BaseRequest
     {
-
         /// <summary>
         /// The key for this variable
         /// </summary>
@@ -364,9 +359,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "RemoveAccount")]
     public class RemoveAccountRequest : BaseRequest
     {
-
         public int AccountType { get; set; }
 
         public string AccountID { get; set; }
@@ -374,9 +369,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "ReplaceAccountX")]
     public class ReplaceAccountXRequest : BaseRequest
     {
-
         public string AccountUDN { get; set; }
 
         public string NewAccountID { get; set; }
@@ -394,16 +389,15 @@ public partial class SystemPropertiesService : SonosBaseService
     [System.Xml.Serialization.XmlType("ReplaceAccountXResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:SystemProperties:1")]
     public partial class ReplaceAccountXResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string NewAccountUDN { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "SetAccountNicknameX")]
     public class SetAccountNicknameXRequest : BaseRequest
     {
-
         public string AccountUDN { get; set; }
 
         public string AccountNickname { get; set; }
@@ -411,9 +405,9 @@ public partial class SystemPropertiesService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "SetString")]
     public class SetStringRequest : BaseRequest
     {
-
         /// <summary>
         /// The key for this variable, use something unique
         /// </summary>

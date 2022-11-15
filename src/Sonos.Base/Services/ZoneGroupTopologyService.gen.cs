@@ -42,7 +42,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BeginSoftwareUpdateRequest>("BeginSoftwareUpdate", request, cancellationToken);
+    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BeginSoftwareUpdateRequest>(request, cancellationToken);
 
     /// <summary>
     /// CheckForUpdate
@@ -50,14 +50,14 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>CheckForUpdateResponse</returns>
-    public Task<CheckForUpdateResponse> CheckForUpdate(CheckForUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CheckForUpdateRequest, CheckForUpdateResponse>("CheckForUpdate", request, cancellationToken);
+    public Task<CheckForUpdateResponse> CheckForUpdate(CheckForUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CheckForUpdateRequest, CheckForUpdateResponse>(request, cancellationToken);
 
     /// <summary>
     /// Get information about the current Zone
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetZoneGroupAttributesResponse</returns>
-    public Task<GetZoneGroupAttributesResponse> GetZoneGroupAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupAttributesResponse>("GetZoneGroupAttributes", new BaseRequest(), cancellationToken);
+    public Task<GetZoneGroupAttributesResponse> GetZoneGroupAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupAttributesResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Get all the Sonos groups, (as XML)
@@ -65,7 +65,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Some libraries also support GetParsedZoneGroupState that parses the xml for you.</remarks>
     /// <returns>GetZoneGroupStateResponse</returns>
-    public Task<GetZoneGroupStateResponse> GetZoneGroupState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupStateResponse>("GetZoneGroupState", new BaseRequest(), cancellationToken);
+    public Task<GetZoneGroupStateResponse> GetZoneGroupState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupStateResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// RegisterMobileDevice
@@ -73,14 +73,14 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RegisterMobileDeviceRequest>("RegisterMobileDevice", request, cancellationToken);
+    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RegisterMobileDeviceRequest>(request, cancellationToken);
 
     /// <summary>
     /// ReportAlarmStartedRunning
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>("ReportAlarmStartedRunning", new BaseRequest(), cancellationToken);
+    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// ReportUnresponsiveDevice
@@ -88,7 +88,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportUnresponsiveDeviceRequest>("ReportUnresponsiveDevice", request, cancellationToken);
+    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportUnresponsiveDeviceRequest>(request, cancellationToken);
 
     /// <summary>
     /// SubmitDiagnostics
@@ -96,9 +96,10 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SubmitDiagnosticsResponse</returns>
-    public Task<SubmitDiagnosticsResponse> SubmitDiagnostics(SubmitDiagnosticsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SubmitDiagnosticsRequest, SubmitDiagnosticsResponse>("SubmitDiagnostics", request, cancellationToken);
+    public Task<SubmitDiagnosticsResponse> SubmitDiagnostics(SubmitDiagnosticsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SubmitDiagnosticsRequest, SubmitDiagnosticsResponse>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -108,9 +109,9 @@ public partial class ZoneGroupTopologyService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "BeginSoftwareUpdate")]
     public class BeginSoftwareUpdateRequest : BaseRequest
     {
-
         public string UpdateURL { get; set; }
 
         public int Flags { get; set; }
@@ -120,9 +121,9 @@ public partial class ZoneGroupTopologyService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "CheckForUpdate")]
     public class CheckForUpdateRequest : BaseRequest
     {
-
         public string UpdateType { get; set; }
 
         public bool CachedOnly { get; set; }
@@ -134,7 +135,6 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     [System.Xml.Serialization.XmlType("CheckForUpdateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
     public partial class CheckForUpdateResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string UpdateItem { get; set; }
     }
@@ -143,7 +143,6 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetZoneGroupAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
     public partial class GetZoneGroupAttributesResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentZoneGroupName { get; set; }
 
@@ -161,7 +160,6 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetZoneGroupStateResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
     public partial class GetZoneGroupStateResponse
     {
-
         /// <summary>
         /// xml string, see remarks
         /// </summary>
@@ -171,9 +169,9 @@ public partial class ZoneGroupTopologyService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "RegisterMobileDevice")]
     public class RegisterMobileDeviceRequest : BaseRequest
     {
-
         public string MobileDeviceName { get; set; }
 
         public string MobileDeviceUDN { get; set; }
@@ -183,9 +181,9 @@ public partial class ZoneGroupTopologyService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "ReportUnresponsiveDevice")]
     public class ReportUnresponsiveDeviceRequest : BaseRequest
     {
-
         public string DeviceUUID { get; set; }
 
         public string DesiredAction { get; set; }
@@ -193,9 +191,9 @@ public partial class ZoneGroupTopologyService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "SubmitDiagnostics")]
     public class SubmitDiagnosticsRequest : BaseRequest
     {
-
         public bool IncludeControllers { get; set; }
 
         public string Type { get; set; }
@@ -205,7 +203,6 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     [System.Xml.Serialization.XmlType("SubmitDiagnosticsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ZoneGroupTopology:1")]
     public partial class SubmitDiagnosticsResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int DiagnosticID { get; set; }
     }

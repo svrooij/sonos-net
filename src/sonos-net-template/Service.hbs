@@ -46,13 +46,14 @@ public partial class {{serviceName}} : SonosBaseService
     /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>
     public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
 {{~#if outputs}}
- {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
+ {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>(new BaseRequest(), cancellationToken);{{/if}}
 {{else}}
- {{#if inputs}}ExecuteRequest<{{name}}Request>("{{name}}", {{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest>("{{name}}", new BaseRequest(), cancellationToken);{{/if}}
+ {{#if inputs}}ExecuteRequest<{{name}}Request>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);{{/if}}
 {{/if}}
     {{/each}}
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("{{controlURL}}", "{{name}}")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -64,10 +65,10 @@ public partial class {{serviceName}} : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("{{@root.controlURL}}", "{{@root.name}}", "{{name}}")]
     public class {{name}}Request : BaseRequest
     {
-        {{#each inputs}}
-
+        {{#each inputs ~}}
         {{#if description}}
         /// <summary>
         /// {{{description}}}
@@ -87,6 +88,9 @@ public partial class {{serviceName}} : SonosBaseService
             }
         }
         {{/if}}
+        {{#unless @last}}
+
+        {{/unless}}
         {{/each}}
     }
     {{/if}}
@@ -96,8 +100,7 @@ public partial class {{serviceName}} : SonosBaseService
     [System.Xml.Serialization.XmlType("{{name}}Response", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:{{@root.name}}:1")]
     public partial class {{name}}Response
     {
-        {{#each outputs}}
-
+        {{#each outputs ~}}
         {{#if description}}
         /// <summary>
         /// {{{description}}}
@@ -118,6 +121,9 @@ public partial class {{serviceName}} : SonosBaseService
             }
         }
         {{/if}}
+        {{#unless @last}}
+
+        {{/unless}}
         {{/each}}
     }
     {{/if}}

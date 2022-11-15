@@ -19,6 +19,7 @@
 namespace Sonos.Base.Services;
 
 using Sonos.Base.Soap;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,9 +40,9 @@ public class SonosBaseService
         this.httpClient = options.HttpClient ?? new HttpClient();
     }
 
-    internal async Task<bool> ExecuteRequest<TPayload>(string action, TPayload payload, CancellationToken cancellationToken)
+    internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null)
     {
-        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, this.ServiceName, action, payload);
+        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
@@ -50,9 +51,9 @@ public class SonosBaseService
         return true;
     }
 
-    internal async Task<TOut> ExecuteRequest<TPayload, TOut>(string action, TPayload payload, CancellationToken cancellationToken)
+    internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null)
     {
-        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, this.ServiceName, action, payload);
+        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
@@ -70,7 +71,7 @@ public class SonosBaseService
         if (error is not null)
         {
             var code = error.UpnpErrorCode;
-            string? message = code is not null ? ServiceErrors[(int)code].Message : null;
+            string? message = (code is not null && ServiceErrors.ContainsKey((int)code)) ? ServiceErrors[(int)code].Message : null;
             throw new SonosServiceException(error.FaultCode, error.FaultString, code, message);
         }
         throw new Exception();

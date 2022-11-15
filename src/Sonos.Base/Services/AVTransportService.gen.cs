@@ -42,7 +42,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddMultipleURIsToQueueResponse</returns>
-    public Task<AddMultipleURIsToQueueResponse> AddMultipleURIsToQueue(AddMultipleURIsToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMultipleURIsToQueueRequest, AddMultipleURIsToQueueResponse>("AddMultipleURIsToQueue", request, cancellationToken);
+    public Task<AddMultipleURIsToQueueResponse> AddMultipleURIsToQueue(AddMultipleURIsToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMultipleURIsToQueueRequest, AddMultipleURIsToQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// Adds songs to the SONOS queue
@@ -51,7 +51,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>In NORMAL play mode the songs are added prior to the specified `DesiredFirstTrackNumberEnqueued`.</remarks>
     /// <returns>AddURIToQueueResponse</returns>
-    public Task<AddURIToQueueResponse> AddURIToQueue(AddURIToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToQueueRequest, AddURIToQueueResponse>("AddURIToQueue", request, cancellationToken);
+    public Task<AddURIToQueueResponse> AddURIToQueue(AddURIToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToQueueRequest, AddURIToQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// AddURIToSavedQueue
@@ -59,7 +59,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>AddURIToSavedQueueResponse</returns>
-    public Task<AddURIToSavedQueueResponse> AddURIToSavedQueue(AddURIToSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToSavedQueueRequest, AddURIToSavedQueueResponse>("AddURIToSavedQueue", request, cancellationToken);
+    public Task<AddURIToSavedQueueResponse> AddURIToSavedQueue(AddURIToSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToSavedQueueRequest, AddURIToSavedQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// BackupQueue
@@ -67,7 +67,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest<BackupQueueRequest>("BackupQueue", new BackupQueueRequest(), cancellationToken);
+    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest<BackupQueueRequest>(new BackupQueueRequest(), cancellationToken);
 
     /// <summary>
     /// Leave the current group and revert to a single player.
@@ -75,7 +75,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>BecomeCoordinatorOfStandaloneGroupResponse</returns>
-    public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroup(CancellationToken cancellationToken = default) => ExecuteRequest<BecomeCoordinatorOfStandaloneGroupRequest, BecomeCoordinatorOfStandaloneGroupResponse>("BecomeCoordinatorOfStandaloneGroup", new BecomeCoordinatorOfStandaloneGroupRequest(), cancellationToken);
+    public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroup(CancellationToken cancellationToken = default) => ExecuteRequest<BecomeCoordinatorOfStandaloneGroupRequest, BecomeCoordinatorOfStandaloneGroupResponse>(new BecomeCoordinatorOfStandaloneGroupRequest(), cancellationToken);
 
     /// <summary>
     /// BecomeGroupCoordinator
@@ -83,7 +83,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorRequest>("BecomeGroupCoordinator", request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorRequest>(request, cancellationToken);
 
     /// <summary>
     /// BecomeGroupCoordinatorAndSource
@@ -91,7 +91,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorAndSourceRequest>("BecomeGroupCoordinatorAndSource", request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorAndSourceRequest>(request, cancellationToken);
 
     /// <summary>
     /// ChangeCoordinator
@@ -99,7 +99,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeCoordinatorRequest>("ChangeCoordinator", request, cancellationToken);
+    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeCoordinatorRequest>(request, cancellationToken);
 
     /// <summary>
     /// ChangeTransportSettings
@@ -107,7 +107,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeTransportSettingsRequest>("ChangeTransportSettings", request, cancellationToken);
+    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeTransportSettingsRequest>(request, cancellationToken);
 
     /// <summary>
     /// Stop playing after set sleep timer or cancel
@@ -116,7 +116,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ConfigureSleepTimerRequest>("ConfigureSleepTimer", request, cancellationToken);
+    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ConfigureSleepTimerRequest>(request, cancellationToken);
 
     /// <summary>
     /// CreateSavedQueue
@@ -124,7 +124,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>CreateSavedQueueResponse</returns>
-    public Task<CreateSavedQueueResponse> CreateSavedQueue(CreateSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateSavedQueueRequest, CreateSavedQueueResponse>("CreateSavedQueue", request, cancellationToken);
+    public Task<CreateSavedQueueResponse> CreateSavedQueue(CreateSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateSavedQueueRequest, CreateSavedQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// Delegates the coordinator role to another player in the same group
@@ -133,7 +133,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator has no results - should be avoided.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DelegateGroupCoordinationToRequest>("DelegateGroupCoordinationTo", request, cancellationToken);
+    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DelegateGroupCoordinationToRequest>(request, cancellationToken);
 
     /// <summary>
     /// EndDirectControlSession
@@ -141,7 +141,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest<EndDirectControlSessionRequest>("EndDirectControlSession", new EndDirectControlSessionRequest(), cancellationToken);
+    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest<EndDirectControlSessionRequest>(new EndDirectControlSessionRequest(), cancellationToken);
 
     /// <summary>
     /// Get crossfade mode
@@ -150,7 +150,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator may return wrong value as only the coordinator value in a group</remarks>
     /// <returns>GetCrossfadeModeResponse</returns>
-    public Task<GetCrossfadeModeResponse> GetCrossfadeMode(CancellationToken cancellationToken = default) => ExecuteRequest<GetCrossfadeModeRequest, GetCrossfadeModeResponse>("GetCrossfadeMode", new GetCrossfadeModeRequest(), cancellationToken);
+    public Task<GetCrossfadeModeResponse> GetCrossfadeMode(CancellationToken cancellationToken = default) => ExecuteRequest<GetCrossfadeModeRequest, GetCrossfadeModeResponse>(new GetCrossfadeModeRequest(), cancellationToken);
 
     /// <summary>
     /// Get current transport actions such as Set, Stop, Pause, Play, X_DLNA_SeekTime, Next, X_DLNA_SeekTrackNr
@@ -159,7 +159,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns only `Start` and `Stop` since it cannot control the stream.</remarks>
     /// <returns>GetCurrentTransportActionsResponse</returns>
-    public Task<GetCurrentTransportActionsResponse> GetCurrentTransportActions(CancellationToken cancellationToken = default) => ExecuteRequest<GetCurrentTransportActionsRequest, GetCurrentTransportActionsResponse>("GetCurrentTransportActions", new GetCurrentTransportActionsRequest(), cancellationToken);
+    public Task<GetCurrentTransportActionsResponse> GetCurrentTransportActions(CancellationToken cancellationToken = default) => ExecuteRequest<GetCurrentTransportActionsRequest, GetCurrentTransportActionsResponse>(new GetCurrentTransportActionsRequest(), cancellationToken);
 
     /// <summary>
     /// GetDeviceCapabilities
@@ -167,7 +167,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetDeviceCapabilitiesResponse</returns>
-    public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<GetDeviceCapabilitiesRequest, GetDeviceCapabilitiesResponse>("GetDeviceCapabilities", new GetDeviceCapabilitiesRequest(), cancellationToken);
+    public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<GetDeviceCapabilitiesRequest, GetDeviceCapabilitiesResponse>(new GetDeviceCapabilitiesRequest(), cancellationToken);
 
     /// <summary>
     /// Get information about the current playing media (queue)
@@ -175,7 +175,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetMediaInfoResponse</returns>
-    public Task<GetMediaInfoResponse> GetMediaInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetMediaInfoRequest, GetMediaInfoResponse>("GetMediaInfo", new GetMediaInfoRequest(), cancellationToken);
+    public Task<GetMediaInfoResponse> GetMediaInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetMediaInfoRequest, GetMediaInfoResponse>(new GetMediaInfoRequest(), cancellationToken);
 
     /// <summary>
     /// Get information about current position (position in queue and time in current song)
@@ -183,7 +183,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetPositionInfoResponse</returns>
-    public Task<GetPositionInfoResponse> GetPositionInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetPositionInfoRequest, GetPositionInfoResponse>("GetPositionInfo", new GetPositionInfoRequest(), cancellationToken);
+    public Task<GetPositionInfoResponse> GetPositionInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetPositionInfoRequest, GetPositionInfoResponse>(new GetPositionInfoRequest(), cancellationToken);
 
     /// <summary>
     /// Get time left on sleeptimer.
@@ -192,7 +192,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>GetRemainingSleepTimerDurationResponse</returns>
-    public Task<GetRemainingSleepTimerDurationResponse> GetRemainingSleepTimerDuration(CancellationToken cancellationToken = default) => ExecuteRequest<GetRemainingSleepTimerDurationRequest, GetRemainingSleepTimerDurationResponse>("GetRemainingSleepTimerDuration", new GetRemainingSleepTimerDurationRequest(), cancellationToken);
+    public Task<GetRemainingSleepTimerDurationResponse> GetRemainingSleepTimerDuration(CancellationToken cancellationToken = default) => ExecuteRequest<GetRemainingSleepTimerDurationRequest, GetRemainingSleepTimerDurationResponse>(new GetRemainingSleepTimerDurationRequest(), cancellationToken);
 
     /// <summary>
     /// GetRunningAlarmProperties
@@ -200,7 +200,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetRunningAlarmPropertiesResponse</returns>
-    public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmProperties(CancellationToken cancellationToken = default) => ExecuteRequest<GetRunningAlarmPropertiesRequest, GetRunningAlarmPropertiesResponse>("GetRunningAlarmProperties", new GetRunningAlarmPropertiesRequest(), cancellationToken);
+    public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmProperties(CancellationToken cancellationToken = default) => ExecuteRequest<GetRunningAlarmPropertiesRequest, GetRunningAlarmPropertiesResponse>(new GetRunningAlarmPropertiesRequest(), cancellationToken);
 
     /// <summary>
     /// Get current transport status, speed and state such as PLAYING, STOPPED, PLAYING, PAUSED_PLAYBACK, TRANSITIONING, NO_MEDIA_PRESENT
@@ -209,7 +209,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator always returns PLAYING</remarks>
     /// <returns>GetTransportInfoResponse</returns>
-    public Task<GetTransportInfoResponse> GetTransportInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportInfoRequest, GetTransportInfoResponse>("GetTransportInfo", new GetTransportInfoRequest(), cancellationToken);
+    public Task<GetTransportInfoResponse> GetTransportInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportInfoRequest, GetTransportInfoResponse>(new GetTransportInfoRequest(), cancellationToken);
 
     /// <summary>
     /// Get transport settings
@@ -218,7 +218,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns the settings of it's queue</remarks>
     /// <returns>GetTransportSettingsResponse</returns>
-    public Task<GetTransportSettingsResponse> GetTransportSettings(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportSettingsRequest, GetTransportSettingsResponse>("GetTransportSettings", new GetTransportSettingsRequest(), cancellationToken);
+    public Task<GetTransportSettingsResponse> GetTransportSettings(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportSettingsRequest, GetTransportSettingsResponse>(new GetTransportSettingsRequest(), cancellationToken);
 
     /// <summary>
     /// Go to next song
@@ -227,7 +227,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>("Next", new NextRequest(), cancellationToken);
+    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>(new NextRequest(), cancellationToken);
 
     /// <summary>
     /// NotifyDeletedURI
@@ -235,7 +235,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<NotifyDeletedURIRequest>("NotifyDeletedURI", request, cancellationToken);
+    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<NotifyDeletedURIRequest>(request, cancellationToken);
 
     /// <summary>
     /// Pause playback
@@ -243,7 +243,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>("Pause", new PauseRequest(), cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
 
     /// <summary>
     /// Start playing the set TransportURI
@@ -251,7 +251,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>("Play", request, cancellationToken);
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>(request, cancellationToken);
 
     /// <summary>
     /// Go to previous song
@@ -260,7 +260,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>("Previous", new PreviousRequest(), cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>(new PreviousRequest(), cancellationToken);
 
     /// <summary>
     /// Flushes the SONOS queue.
@@ -269,7 +269,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>If queue is already empty it throw error 804. Send to non-coordinator returns error code 800.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAllTracksFromQueueRequest>("RemoveAllTracksFromQueue", new RemoveAllTracksFromQueueRequest(), cancellationToken);
+    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAllTracksFromQueueRequest>(new RemoveAllTracksFromQueueRequest(), cancellationToken);
 
     /// <summary>
     /// RemoveTrackFromQueue
@@ -277,7 +277,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackFromQueueRequest>("RemoveTrackFromQueue", request, cancellationToken);
+    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackFromQueueRequest>(request, cancellationToken);
 
     /// <summary>
     /// Removes the specified range of songs from the SONOS queue.
@@ -285,7 +285,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>RemoveTrackRangeFromQueueResponse</returns>
-    public Task<RemoveTrackRangeFromQueueResponse> RemoveTrackRangeFromQueue(RemoveTrackRangeFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackRangeFromQueueRequest, RemoveTrackRangeFromQueueResponse>("RemoveTrackRangeFromQueue", request, cancellationToken);
+    public Task<RemoveTrackRangeFromQueueResponse> RemoveTrackRangeFromQueue(RemoveTrackRangeFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackRangeFromQueueRequest, RemoveTrackRangeFromQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// ReorderTracksInQueue
@@ -293,7 +293,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInQueueRequest>("ReorderTracksInQueue", request, cancellationToken);
+    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInQueueRequest>(request, cancellationToken);
 
     /// <summary>
     /// ReorderTracksInSavedQueue
@@ -301,7 +301,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ReorderTracksInSavedQueueResponse</returns>
-    public Task<ReorderTracksInSavedQueueResponse> ReorderTracksInSavedQueue(ReorderTracksInSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInSavedQueueRequest, ReorderTracksInSavedQueueResponse>("ReorderTracksInSavedQueue", request, cancellationToken);
+    public Task<ReorderTracksInSavedQueueResponse> ReorderTracksInSavedQueue(ReorderTracksInSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInSavedQueueRequest, ReorderTracksInSavedQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// RunAlarm
@@ -309,7 +309,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RunAlarmRequest>("RunAlarm", request, cancellationToken);
+    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RunAlarmRequest>(request, cancellationToken);
 
     /// <summary>
     /// Saves the current SONOS queue as a SONOS playlist and outputs objectID
@@ -318,7 +318,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>SaveQueueResponse</returns>
-    public Task<SaveQueueResponse> SaveQueue(SaveQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SaveQueueRequest, SaveQueueResponse>("SaveQueue", request, cancellationToken);
+    public Task<SaveQueueResponse> SaveQueue(SaveQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SaveQueueRequest, SaveQueueResponse>(request, cancellationToken);
 
     /// <summary>
     /// Seek track in queue, time delta or absolute time in song
@@ -327,7 +327,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Returns error code 701 in case that content does not support Seek or send to non-coordinator</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SeekRequest>("Seek", request, cancellationToken);
+    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SeekRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set the transport URI to a song, a stream, the queue, another player-rincon and a lot more
@@ -336,7 +336,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>If set to another player RINCON, the player is grouped with that one.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAVTransportURIRequest>("SetAVTransportURI", request, cancellationToken);
+    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAVTransportURIRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set crossfade mode
@@ -345,7 +345,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800. Same for content, which does not support crossfade mode.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetCrossfadeModeRequest>("SetCrossfadeMode", request, cancellationToken);
+    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetCrossfadeModeRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetNextAVTransportURI
@@ -353,7 +353,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetNextAVTransportURIRequest>("SetNextAVTransportURI", request, cancellationToken);
+    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetNextAVTransportURIRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set the PlayMode
@@ -362,7 +362,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 712. If SONOS queue is not activated returns error code 712.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetPlayModeRequest>("SetPlayMode", request, cancellationToken);
+    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetPlayModeRequest>(request, cancellationToken);
 
     /// <summary>
     /// Snooze the current alarm for some time.
@@ -370,7 +370,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SnoozeAlarmRequest>("SnoozeAlarm", request, cancellationToken);
+    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SnoozeAlarmRequest>(request, cancellationToken);
 
     /// <summary>
     /// StartAutoplay
@@ -378,7 +378,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartAutoplayRequest>("StartAutoplay", request, cancellationToken);
+    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartAutoplayRequest>(request, cancellationToken);
 
     /// <summary>
     /// Stop playback
@@ -386,9 +386,10 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>("Stop", new StopRequest(), cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -398,9 +399,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "AddMultipleURIsToQueue")]
     public class AddMultipleURIsToQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -449,7 +450,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddMultipleURIsToQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class AddMultipleURIsToQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int FirstTrackNumberEnqueued { get; set; }
 
@@ -465,9 +465,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "AddURIToQueue")]
     public class AddURIToQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -500,7 +500,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddURIToQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class AddURIToQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int FirstTrackNumberEnqueued { get; set; }
 
@@ -513,9 +512,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "AddURIToSavedQueue")]
     public class AddURIToSavedQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -547,7 +546,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("AddURIToSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class AddURIToSavedQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int NumTracksAdded { get; set; }
 
@@ -560,9 +558,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "BackupQueue")]
     public class BackupQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -571,9 +569,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "BecomeCoordinatorOfStandaloneGroup")]
     public class BecomeCoordinatorOfStandaloneGroupRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -584,7 +582,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("BecomeCoordinatorOfStandaloneGroupResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class BecomeCoordinatorOfStandaloneGroupResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string DelegatedGroupCoordinatorID { get; set; }
 
@@ -594,9 +591,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "BecomeGroupCoordinator")]
     public class BecomeGroupCoordinatorRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -638,9 +635,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "BecomeGroupCoordinatorAndSource")]
     public class BecomeGroupCoordinatorAndSourceRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -684,9 +681,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "ChangeCoordinator")]
     public class ChangeCoordinatorRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -703,9 +700,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "ChangeTransportSettings")]
     public class ChangeTransportSettingsRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -718,9 +715,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "ConfigureSleepTimer")]
     public class ConfigureSleepTimerRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -734,9 +731,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "CreateSavedQueue")]
     public class CreateSavedQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -764,7 +761,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("CreateSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class CreateSavedQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int NumTracksAdded { get; set; }
 
@@ -780,9 +776,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "DelegateGroupCoordinationTo")]
     public class DelegateGroupCoordinationToRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -801,9 +797,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "EndDirectControlSession")]
     public class EndDirectControlSessionRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -812,9 +808,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetCrossfadeMode")]
     public class GetCrossfadeModeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -825,16 +821,15 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetCrossfadeModeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetCrossfadeModeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CrossfadeMode { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetCurrentTransportActions")]
     public class GetCurrentTransportActionsRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -845,16 +840,15 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetCurrentTransportActionsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetCurrentTransportActionsResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string Actions { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetDeviceCapabilities")]
     public class GetDeviceCapabilitiesRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -865,7 +859,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetDeviceCapabilitiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetDeviceCapabilitiesResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string PlayMedia { get; set; }
 
@@ -878,9 +871,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetMediaInfo")]
     public class GetMediaInfoRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -891,7 +884,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetMediaInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetMediaInfoResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int NrTracks { get; set; }
 
@@ -944,9 +936,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetPositionInfo")]
     public class GetPositionInfoRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -957,7 +949,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetPositionInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetPositionInfoResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int Track { get; set; }
 
@@ -996,9 +987,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetRemainingSleepTimerDuration")]
     public class GetRemainingSleepTimerDurationRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1009,7 +1000,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetRemainingSleepTimerDurationResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetRemainingSleepTimerDurationResponse
     {
-
         /// <summary>
         /// Format hh:mm:ss or empty string if not set
         /// </summary>
@@ -1022,9 +1012,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetRunningAlarmProperties")]
     public class GetRunningAlarmPropertiesRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1035,7 +1025,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetRunningAlarmPropertiesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetRunningAlarmPropertiesResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int AlarmID { get; set; }
 
@@ -1048,9 +1037,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetTransportInfo")]
     public class GetTransportInfoRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1061,7 +1050,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetTransportInfoResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetTransportInfoResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentTransportState { get; set; }
 
@@ -1074,9 +1062,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "GetTransportSettings")]
     public class GetTransportSettingsRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1087,7 +1075,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetTransportSettingsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class GetTransportSettingsResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string PlayMode { get; set; }
 
@@ -1097,9 +1084,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Next")]
     public class NextRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1108,9 +1095,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "NotifyDeletedURI")]
     public class NotifyDeletedURIRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1121,9 +1108,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Pause")]
     public class PauseRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1132,9 +1119,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Play")]
     public class PlayRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1148,9 +1135,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Previous")]
     public class PreviousRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1159,9 +1146,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "RemoveAllTracksFromQueue")]
     public class RemoveAllTracksFromQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1170,9 +1157,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "RemoveTrackFromQueue")]
     public class RemoveTrackFromQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1185,9 +1172,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "RemoveTrackRangeFromQueue")]
     public class RemoveTrackRangeFromQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1210,16 +1197,15 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("RemoveTrackRangeFromQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class RemoveTrackRangeFromQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int NewUpdateID { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "ReorderTracksInQueue")]
     public class ReorderTracksInQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1236,9 +1222,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "ReorderTracksInSavedQueue")]
     public class ReorderTracksInSavedQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1257,7 +1243,6 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("ReorderTracksInSavedQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class ReorderTracksInSavedQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int QueueLengthChange { get; set; }
 
@@ -1270,9 +1255,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "RunAlarm")]
     public class RunAlarmRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1308,9 +1293,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SaveQueue")]
     public class SaveQueueRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1331,16 +1316,15 @@ public partial class AVTransportService : SonosBaseService
     [System.Xml.Serialization.XmlType("SaveQueueResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AVTransport:1")]
     public partial class SaveQueueResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AssignedObjectID { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Seek")]
     public class SeekRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1359,9 +1343,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SetAVTransportURI")]
     public class SetAVTransportURIRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1391,9 +1375,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SetCrossfadeMode")]
     public class SetCrossfadeModeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1404,9 +1388,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SetNextAVTransportURI")]
     public class SetNextAVTransportURIRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1430,9 +1414,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SetPlayMode")]
     public class SetPlayModeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1446,9 +1430,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "SnoozeAlarm")]
     public class SnoozeAlarmRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1462,9 +1446,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "StartAutoplay")]
     public class StartAutoplayRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -1494,9 +1478,9 @@ public partial class AVTransportService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport", "Stop")]
     public class StopRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>

@@ -42,9 +42,10 @@ public partial class QPlayService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>QPlayAuthResponse</returns>
-    public Task<QPlayAuthResponse> QPlayAuth(QPlayAuthRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<QPlayAuthRequest, QPlayAuthResponse>("QPlayAuth", request, cancellationToken);
+    public Task<QPlayAuthResponse> QPlayAuth(QPlayAuthRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<QPlayAuthRequest, QPlayAuthResponse>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/QPlay/Control", "QPlay")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -54,9 +55,9 @@ public partial class QPlayService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/QPlay/Control", "QPlay", "QPlayAuth")]
     public class QPlayAuthRequest : BaseRequest
     {
-
         public string Seed { get; set; }
     }
 
@@ -64,7 +65,6 @@ public partial class QPlayService : SonosBaseService
     [System.Xml.Serialization.XmlType("QPlayAuthResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:QPlay:1")]
     public partial class QPlayAuthResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string Code { get; set; }
 

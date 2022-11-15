@@ -42,7 +42,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetBassResponse</returns>
-    public Task<GetBassResponse> GetBass(CancellationToken cancellationToken = default) => ExecuteRequest<GetBassRequest, GetBassResponse>("GetBass", new GetBassRequest(), cancellationToken);
+    public Task<GetBassResponse> GetBass(CancellationToken cancellationToken = default) => ExecuteRequest<GetBassRequest, GetBassResponse>(new GetBassRequest(), cancellationToken);
 
     /// <summary>
     /// Get equalizer value
@@ -51,7 +51,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Not all EQ types are available on every speaker</remarks>
     /// <returns>GetEQResponse</returns>
-    public Task<GetEQResponse> GetEQ(GetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetEQRequest, GetEQResponse>("GetEQ", request, cancellationToken);
+    public Task<GetEQResponse> GetEQ(GetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetEQRequest, GetEQResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetHeadphoneConnected
@@ -59,7 +59,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetHeadphoneConnectedResponse</returns>
-    public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnected(CancellationToken cancellationToken = default) => ExecuteRequest<GetHeadphoneConnectedRequest, GetHeadphoneConnectedResponse>("GetHeadphoneConnected", new GetHeadphoneConnectedRequest(), cancellationToken);
+    public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnected(CancellationToken cancellationToken = default) => ExecuteRequest<GetHeadphoneConnectedRequest, GetHeadphoneConnectedResponse>(new GetHeadphoneConnectedRequest(), cancellationToken);
 
     /// <summary>
     /// Whether or not Loudness is on
@@ -67,7 +67,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetLoudnessResponse</returns>
-    public Task<GetLoudnessResponse> GetLoudness(GetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetLoudnessRequest, GetLoudnessResponse>("GetLoudness", request, cancellationToken);
+    public Task<GetLoudnessResponse> GetLoudness(GetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetLoudnessRequest, GetLoudnessResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetMute
@@ -75,7 +75,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetMuteResponse</returns>
-    public Task<GetMuteResponse> GetMute(GetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetMuteRequest, GetMuteResponse>("GetMute", request, cancellationToken);
+    public Task<GetMuteResponse> GetMute(GetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetMuteRequest, GetMuteResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetOutputFixed
@@ -83,7 +83,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetOutputFixedResponse</returns>
-    public Task<GetOutputFixedResponse> GetOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetOutputFixedRequest, GetOutputFixedResponse>("GetOutputFixed", new GetOutputFixedRequest(), cancellationToken);
+    public Task<GetOutputFixedResponse> GetOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetOutputFixedRequest, GetOutputFixedResponse>(new GetOutputFixedRequest(), cancellationToken);
 
     /// <summary>
     /// GetRoomCalibrationStatus
@@ -91,7 +91,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetRoomCalibrationStatusResponse</returns>
-    public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatus(CancellationToken cancellationToken = default) => ExecuteRequest<GetRoomCalibrationStatusRequest, GetRoomCalibrationStatusResponse>("GetRoomCalibrationStatus", new GetRoomCalibrationStatusRequest(), cancellationToken);
+    public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatus(CancellationToken cancellationToken = default) => ExecuteRequest<GetRoomCalibrationStatusRequest, GetRoomCalibrationStatusResponse>(new GetRoomCalibrationStatusRequest(), cancellationToken);
 
     /// <summary>
     /// GetSupportsOutputFixed
@@ -99,7 +99,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSupportsOutputFixedResponse</returns>
-    public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetSupportsOutputFixedRequest, GetSupportsOutputFixedResponse>("GetSupportsOutputFixed", new GetSupportsOutputFixedRequest(), cancellationToken);
+    public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetSupportsOutputFixedRequest, GetSupportsOutputFixedResponse>(new GetSupportsOutputFixedRequest(), cancellationToken);
 
     /// <summary>
     /// Get treble
@@ -107,7 +107,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTrebleResponse</returns>
-    public Task<GetTrebleResponse> GetTreble(CancellationToken cancellationToken = default) => ExecuteRequest<GetTrebleRequest, GetTrebleResponse>("GetTreble", new GetTrebleRequest(), cancellationToken);
+    public Task<GetTrebleResponse> GetTreble(CancellationToken cancellationToken = default) => ExecuteRequest<GetTrebleRequest, GetTrebleResponse>(new GetTrebleRequest(), cancellationToken);
 
     /// <summary>
     /// Get volume
@@ -115,7 +115,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetVolumeResponse</returns>
-    public Task<GetVolumeResponse> GetVolume(GetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeRequest, GetVolumeResponse>("GetVolume", request, cancellationToken);
+    public Task<GetVolumeResponse> GetVolume(GetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeRequest, GetVolumeResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetVolumeDB
@@ -123,7 +123,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetVolumeDBResponse</returns>
-    public Task<GetVolumeDBResponse> GetVolumeDB(GetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRequest, GetVolumeDBResponse>("GetVolumeDB", request, cancellationToken);
+    public Task<GetVolumeDBResponse> GetVolumeDB(GetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRequest, GetVolumeDBResponse>(request, cancellationToken);
 
     /// <summary>
     /// GetVolumeDBRange
@@ -131,7 +131,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetVolumeDBRangeResponse</returns>
-    public Task<GetVolumeDBRangeResponse> GetVolumeDBRange(GetVolumeDBRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRangeRequest, GetVolumeDBRangeResponse>("GetVolumeDBRange", request, cancellationToken);
+    public Task<GetVolumeDBRangeResponse> GetVolumeDBRange(GetVolumeDBRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRangeRequest, GetVolumeDBRangeResponse>(request, cancellationToken);
 
     /// <summary>
     /// RampToVolume
@@ -139,7 +139,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>RampToVolumeResponse</returns>
-    public Task<RampToVolumeResponse> RampToVolume(RampToVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RampToVolumeRequest, RampToVolumeResponse>("RampToVolume", request, cancellationToken);
+    public Task<RampToVolumeResponse> RampToVolume(RampToVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RampToVolumeRequest, RampToVolumeResponse>(request, cancellationToken);
 
     /// <summary>
     /// ResetBasicEQ
@@ -147,7 +147,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ResetBasicEQResponse</returns>
-    public Task<ResetBasicEQResponse> ResetBasicEQ(CancellationToken cancellationToken = default) => ExecuteRequest<ResetBasicEQRequest, ResetBasicEQResponse>("ResetBasicEQ", new ResetBasicEQRequest(), cancellationToken);
+    public Task<ResetBasicEQResponse> ResetBasicEQ(CancellationToken cancellationToken = default) => ExecuteRequest<ResetBasicEQRequest, ResetBasicEQResponse>(new ResetBasicEQRequest(), cancellationToken);
 
     /// <summary>
     /// ResetExtEQ
@@ -155,7 +155,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ResetExtEQRequest>("ResetExtEQ", request, cancellationToken);
+    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ResetExtEQRequest>(request, cancellationToken);
 
     /// <summary>
     /// RestoreVolumePriorToRamp
@@ -163,7 +163,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RestoreVolumePriorToRampRequest>("RestoreVolumePriorToRamp", request, cancellationToken);
+    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RestoreVolumePriorToRampRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set bass level, between -10 and 10
@@ -171,7 +171,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBassRequest>("SetBass", request, cancellationToken);
+    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBassRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetChannelMap
@@ -179,7 +179,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetChannelMapRequest>("SetChannelMap", request, cancellationToken);
+    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetChannelMapRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set equalizer value for different types
@@ -188,7 +188,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Not supported by all speakers, TV related</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetEQRequest>("SetEQ", request, cancellationToken);
+    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetEQRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set loudness on / off
@@ -196,7 +196,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLoudnessRequest>("SetLoudness", request, cancellationToken);
+    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLoudnessRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetMute
@@ -204,7 +204,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetMuteRequest>("SetMute", request, cancellationToken);
+    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetMuteRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetOutputFixed
@@ -212,7 +212,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetOutputFixedRequest>("SetOutputFixed", request, cancellationToken);
+    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetOutputFixedRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetRelativeVolume
@@ -220,7 +220,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>SetRelativeVolumeResponse</returns>
-    public Task<SetRelativeVolumeResponse> SetRelativeVolume(SetRelativeVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRelativeVolumeRequest, SetRelativeVolumeResponse>("SetRelativeVolume", request, cancellationToken);
+    public Task<SetRelativeVolumeResponse> SetRelativeVolume(SetRelativeVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRelativeVolumeRequest, SetRelativeVolumeResponse>(request, cancellationToken);
 
     /// <summary>
     /// SetRoomCalibrationStatus
@@ -228,7 +228,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationStatusRequest>("SetRoomCalibrationStatus", request, cancellationToken);
+    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationStatusRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetRoomCalibrationX
@@ -236,7 +236,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationXRequest>("SetRoomCalibrationX", request, cancellationToken);
+    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationXRequest>(request, cancellationToken);
 
     /// <summary>
     /// Set treble level
@@ -244,7 +244,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTrebleRequest>("SetTreble", request, cancellationToken);
+    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTrebleRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetVolume
@@ -252,7 +252,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>("SetVolume", request, cancellationToken);
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>(request, cancellationToken);
 
     /// <summary>
     /// SetVolumeDB
@@ -260,9 +260,10 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeDBRequest>("SetVolumeDB", request, cancellationToken);
+    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeDBRequest>(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl")]
     public class BaseRequest
     {
         [System.Xml.Serialization.XmlNamespaceDeclarations]
@@ -272,9 +273,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetBass")]
     public class GetBassRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -285,16 +286,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetBassResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetBassResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentBass { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetEQ")]
     public class GetEQRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -310,7 +310,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetEQResponse
     {
-
         /// <summary>
         /// Booleans return `1` / `0`, rest number as specified
         /// </summary>
@@ -320,9 +319,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetHeadphoneConnected")]
     public class GetHeadphoneConnectedRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -333,16 +332,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetHeadphoneConnectedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetHeadphoneConnectedResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CurrentHeadphoneConnected { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetLoudness")]
     public class GetLoudnessRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -355,16 +353,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetLoudnessResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetLoudnessResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CurrentLoudness { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetMute")]
     public class GetMuteRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -377,16 +374,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetMuteResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetMuteResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CurrentMute { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetOutputFixed")]
     public class GetOutputFixedRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -397,16 +393,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetOutputFixedResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CurrentFixed { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetRoomCalibrationStatus")]
     public class GetRoomCalibrationStatusRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -417,7 +412,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetRoomCalibrationStatusResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetRoomCalibrationStatusResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool RoomCalibrationEnabled { get; set; }
 
@@ -427,9 +421,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetSupportsOutputFixed")]
     public class GetSupportsOutputFixedRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -440,16 +434,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetSupportsOutputFixedResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetSupportsOutputFixedResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public bool CurrentSupportsFixed { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetTreble")]
     public class GetTrebleRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -460,7 +453,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetTrebleResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetTrebleResponse
     {
-
         /// <summary>
         /// Number between -10 and 10
         /// </summary>
@@ -470,9 +462,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetVolume")]
     public class GetVolumeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -485,7 +477,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetVolumeResponse
     {
-
         /// <summary>
         /// Number between 0 and 100
         /// </summary>
@@ -495,9 +486,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetVolumeDB")]
     public class GetVolumeDBRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -510,16 +501,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetVolumeDBResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetVolumeDBResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentVolume { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "GetVolumeDBRange")]
     public class GetVolumeDBRangeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -532,7 +522,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("GetVolumeDBRangeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class GetVolumeDBRangeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int MinValue { get; set; }
 
@@ -542,9 +531,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "RampToVolume")]
     public class RampToVolumeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -565,16 +554,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("RampToVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class RampToVolumeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int RampTime { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "ResetBasicEQ")]
     public class ResetBasicEQRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -585,7 +573,6 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("ResetBasicEQResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class ResetBasicEQResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int Bass { get; set; }
 
@@ -604,9 +591,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "ResetExtEQ")]
     public class ResetExtEQRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -617,9 +604,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "RestoreVolumePriorToRamp")]
     public class RestoreVolumePriorToRampRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -630,9 +617,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetBass")]
     public class SetBassRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -643,9 +630,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetChannelMap")]
     public class SetChannelMapRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -656,9 +643,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetEQ")]
     public class SetEQRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -677,9 +664,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetLoudness")]
     public class SetLoudnessRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -692,9 +679,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetMute")]
     public class SetMuteRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -707,9 +694,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetOutputFixed")]
     public class SetOutputFixedRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -720,9 +707,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetRelativeVolume")]
     public class SetRelativeVolumeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -737,16 +724,15 @@ public partial class RenderingControlService : SonosBaseService
     [System.Xml.Serialization.XmlType("SetRelativeVolumeResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:RenderingControl:1")]
     public partial class SetRelativeVolumeResponse
     {
-
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int NewVolume { get; set; }
     }
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetRoomCalibrationStatus")]
     public class SetRoomCalibrationStatusRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -757,9 +743,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetRoomCalibrationX")]
     public class SetRoomCalibrationXRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -774,9 +760,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetTreble")]
     public class SetTrebleRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -790,9 +776,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetVolume")]
     public class SetVolumeRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
@@ -805,9 +791,9 @@ public partial class RenderingControlService : SonosBaseService
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
+    [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl", "SetVolumeDB")]
     public class SetVolumeDBRequest : BaseRequest
     {
-
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
