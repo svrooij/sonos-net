@@ -1,13 +1,25 @@
 # Control sonos speakers from dotnet
 
-[![Follow on Twitter][badge_twitter]][link_twitter]
+[![Latest version][badge_nuget]][link_nuget]
+[![Github Issues][badge_issues]][link_issues]
 [![Star on Github][badge_repo_stars]][link_repo]
-[![Support me on Github][badge_sponsor]][link_sponsor]
-[![Check my blog][badge_blog]][link_blog]
 
 Always wanted to control sonos speakers right from your dotnet application? I've created this library for you to do just that.
 
 **Warning** This library is far from complete at the moment, it's just an experiment for now.
+
+## Control sonos in other languages
+
+[![Sonos net][badge_sonos-csharp]][link_repo]
+[![Sonos typescript][badge_sonos-typescript]][link_sonos-typescript]
+[![Sonos api documentation][badge_sonos-docs]][link_sonos-docs]
+[![Sonos2mqtt][badge_sonos-mqtt]][link_sonos-mqtt]
+
+## Show your support
+
+[![Support me on Github][badge_sponsor]][link_sponsor]
+[![Follow on Twitter][badge_twitter]][link_twitter]
+[![Check my blog][badge_blog]][link_blog]
 
 ## Developer
 
@@ -31,13 +43,23 @@ sonos-docs generate ./src/sonos-net-template/ ./src/
 dotnet-format
 ```
 
-
 [badge_blog]: https://img.shields.io/badge/blog-svrooij.io-blue?style=for-the-badge
-[badge_repo_stars]: https://img.shields.io/github/stars/svrooij/sonos-net?logo=github&style=for-the-badge
+[badge_issues]: https://img.shields.io/github/issues/svrooij/sonos-net?style=for-the-badge
+[badge_nuget]: https://img.shields.io/nuget/v/Sonos.Base?style=for-the-badge
+[badge_sonos-csharp]: https://img.shields.io/badge/sonos-C%23-blue?style=for-the-badge
+[badge_sonos-docs]: https://img.shields.io/badge/sonos-documentation-blue?style=for-the-badge
+[badge_sonos-mqtt]: https://img.shields.io/badge/sonos-mqtt-blue?style=for-the-badge
+[badge_sonos-typescript]: https://img.shields.io/badge/sonos-typescript-blue?style=for-the-badge
 [badge_sponsor]: https://img.shields.io/github/sponsors/svrooij?logo=github&style=for-the-badge
+[badge_repo_stars]: https://img.shields.io/github/stars/svrooij/sonos-net?logo=github&style=for-the-badge
 [badge_twitter]: https://img.shields.io/twitter/follow/svrooij?logo=twitter&style=for-the-badge
 
 [link_blog]: https://svrooij.io
-[link_repo]: https://github.com/svrooij/sonos-net
+[link_issues]: https://github.com/svrooij/sonos-api-docs/issues
+[link_nuget]: https://www.nuget.org/packages/Sonos.Base/
+[link_sonos-docs]: https://svrooij.io/sonos-api-docs
+[link_sonos-mqtt]: https://svrooij.io/sonos2mqtt
+[link_sonos-typescript]: https://svrooij.io/node-sonos-ts
 [link_sponsor]: https://github.com/sponsors/svrooij
+[link_repo]: https://github.com/svrooij/sonos-net
 [link_twitter]: https://twitter.com/svrooij
