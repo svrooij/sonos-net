@@ -38,7 +38,6 @@ public partial class VirtualLineInService : SonosBaseService
     /// <summary>
     /// Next
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>(new NextRequest(), cancellationToken);
@@ -46,7 +45,6 @@ public partial class VirtualLineInService : SonosBaseService
     /// <summary>
     /// Pause
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
@@ -62,7 +60,6 @@ public partial class VirtualLineInService : SonosBaseService
     /// <summary>
     /// Previous
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>(new PreviousRequest(), cancellationToken);
@@ -86,7 +83,6 @@ public partial class VirtualLineInService : SonosBaseService
     /// <summary>
     /// Stop
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);

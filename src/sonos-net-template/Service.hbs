@@ -38,8 +38,8 @@ public partial class {{serviceName}} : SonosBaseService
 
     /// <summary>
     /// {{#if description}}{{{description}}}{{else}}{{name}}{{/if}}
-    /// </summary>{{#if inputs}}
-    /// <param name="request">Body payload</param>{{/if}}
+    /// </summary>{{#if inputs}}{{#unless (sonos_if_only_instance_id inputs 'true')}}
+    /// <param name="request">Body payload</param>{{/unless}}{{/if}}
     /// <param name="cancellationToken">CancellationToken</param>{{#if remarks}}
     /// <remarks>{{{remarks}}}</remarks>{{/if}}
     /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>

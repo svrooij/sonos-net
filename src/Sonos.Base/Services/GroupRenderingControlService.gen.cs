@@ -38,7 +38,6 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <summary>
     /// Get the group mute state.
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupMuteResponse</returns>
@@ -47,7 +46,6 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <summary>
     /// Get the group volume.
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupVolumeResponse</returns>
@@ -83,7 +81,6 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <summary>
     /// Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>

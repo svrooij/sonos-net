@@ -38,7 +38,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// Get bass level between -10 and 10
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetBassResponse</returns>
     public Task<GetBassResponse> GetBass(CancellationToken cancellationToken = default) => ExecuteRequest<GetBassRequest, GetBassResponse>(new GetBassRequest(), cancellationToken);
@@ -55,7 +54,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// GetHeadphoneConnected
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetHeadphoneConnectedResponse</returns>
     public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnected(CancellationToken cancellationToken = default) => ExecuteRequest<GetHeadphoneConnectedRequest, GetHeadphoneConnectedResponse>(new GetHeadphoneConnectedRequest(), cancellationToken);
@@ -79,7 +77,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// GetOutputFixed
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetOutputFixedResponse</returns>
     public Task<GetOutputFixedResponse> GetOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetOutputFixedRequest, GetOutputFixedResponse>(new GetOutputFixedRequest(), cancellationToken);
@@ -87,7 +84,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// GetRoomCalibrationStatus
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetRoomCalibrationStatusResponse</returns>
     public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatus(CancellationToken cancellationToken = default) => ExecuteRequest<GetRoomCalibrationStatusRequest, GetRoomCalibrationStatusResponse>(new GetRoomCalibrationStatusRequest(), cancellationToken);
@@ -95,7 +91,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// GetSupportsOutputFixed
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetSupportsOutputFixedResponse</returns>
     public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetSupportsOutputFixedRequest, GetSupportsOutputFixedResponse>(new GetSupportsOutputFixedRequest(), cancellationToken);
@@ -103,7 +98,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// Get treble
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetTrebleResponse</returns>
     public Task<GetTrebleResponse> GetTreble(CancellationToken cancellationToken = default) => ExecuteRequest<GetTrebleRequest, GetTrebleResponse>(new GetTrebleRequest(), cancellationToken);
@@ -143,7 +137,6 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// ResetBasicEQ
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>ResetBasicEQResponse</returns>
     public Task<ResetBasicEQResponse> ResetBasicEQ(CancellationToken cancellationToken = default) => ExecuteRequest<ResetBasicEQRequest, ResetBasicEQResponse>(new ResetBasicEQRequest(), cancellationToken);

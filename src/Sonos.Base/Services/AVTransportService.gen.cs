@@ -63,7 +63,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// BackupQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest<BackupQueueRequest>(new BackupQueueRequest(), cancellationToken);
@@ -71,7 +70,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Leave the current group and revert to a single player.
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>BecomeCoordinatorOfStandaloneGroupResponse</returns>
     public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroup(CancellationToken cancellationToken = default) => ExecuteRequest<BecomeCoordinatorOfStandaloneGroupRequest, BecomeCoordinatorOfStandaloneGroupResponse>(new BecomeCoordinatorOfStandaloneGroupRequest(), cancellationToken);
@@ -137,7 +135,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// EndDirectControlSession
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest<EndDirectControlSessionRequest>(new EndDirectControlSessionRequest(), cancellationToken);
@@ -145,7 +142,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get crossfade mode
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator may return wrong value as only the coordinator value in a group</remarks>
     /// <returns>GetCrossfadeModeResponse</returns>
@@ -154,7 +150,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get current transport actions such as Set, Stop, Pause, Play, X_DLNA_SeekTime, Next, X_DLNA_SeekTrackNr
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns only `Start` and `Stop` since it cannot control the stream.</remarks>
     /// <returns>GetCurrentTransportActionsResponse</returns>
@@ -163,7 +158,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// GetDeviceCapabilities
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetDeviceCapabilitiesResponse</returns>
     public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<GetDeviceCapabilitiesRequest, GetDeviceCapabilitiesResponse>(new GetDeviceCapabilitiesRequest(), cancellationToken);
@@ -171,7 +165,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get information about the current playing media (queue)
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetMediaInfoResponse</returns>
     public Task<GetMediaInfoResponse> GetMediaInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetMediaInfoRequest, GetMediaInfoResponse>(new GetMediaInfoRequest(), cancellationToken);
@@ -179,7 +172,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get information about current position (position in queue and time in current song)
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetPositionInfoResponse</returns>
     public Task<GetPositionInfoResponse> GetPositionInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetPositionInfoRequest, GetPositionInfoResponse>(new GetPositionInfoRequest(), cancellationToken);
@@ -187,7 +179,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get time left on sleeptimer.
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>GetRemainingSleepTimerDurationResponse</returns>
@@ -196,7 +187,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// GetRunningAlarmProperties
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetRunningAlarmPropertiesResponse</returns>
     public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmProperties(CancellationToken cancellationToken = default) => ExecuteRequest<GetRunningAlarmPropertiesRequest, GetRunningAlarmPropertiesResponse>(new GetRunningAlarmPropertiesRequest(), cancellationToken);
@@ -204,7 +194,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get current transport status, speed and state such as PLAYING, STOPPED, PLAYING, PAUSED_PLAYBACK, TRANSITIONING, NO_MEDIA_PRESENT
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator always returns PLAYING</remarks>
     /// <returns>GetTransportInfoResponse</returns>
@@ -213,7 +202,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Get transport settings
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns the settings of it's queue</remarks>
     /// <returns>GetTransportSettingsResponse</returns>
@@ -222,7 +210,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Go to next song
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
@@ -239,7 +226,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Pause playback
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
@@ -255,7 +241,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Go to previous song
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
@@ -264,7 +249,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Flushes the SONOS queue.
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>If queue is already empty it throw error 804. Send to non-coordinator returns error code 800.</remarks>
     /// <returns>Success boolean</returns>
@@ -382,7 +366,6 @@ public partial class AVTransportService : SonosBaseService
     /// <summary>
     /// Stop playback
     /// </summary>
-    /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
     public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);
