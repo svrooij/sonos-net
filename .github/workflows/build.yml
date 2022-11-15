@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name: Build and test
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
@@ -11,9 +12,41 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      # - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.x
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --configuration Release --no-restore --collect:"XPlat Code Coverage" --no-build --verbosity minimal --logger trx
+      - name: Test Report
+        uses: dorny/test-reporter@v1.6.0
+        if: success() || failure()            # run this step even if previous step failed
+        with:
+          name: Test results           # Name of the check run which will be created
+          path: tests/**/TestResults/*.trx    # Path to test results
+          reporter: dotnet-trx                # Format of test results
+          list-tests: failed                  # Only list failed tests vs all tests
+
+  publish:
+    name: Publish nuget library
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      # - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
@@ -38,13 +71,5 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --configuration Release --no-restore --collect:"XPlat Code Coverage" --no-build --verbosity minimal --logger trx
-      - name: Test Report
-        uses: dorny/test-reporter@v1.6.0
-        if: success() || failure()            # run this step even if previous step failed
-        with:
-          name: Test results           # Name of the check run which will be created
-          path: tests/**/TestResults/*.trx    # Path to test results
-          reporter: dotnet-trx                # Format of test results
-          list-tests: failed                  # Only list failed tests vs all tests
+      - name: Pack library
+        run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base/Sonos.Base.csproj
