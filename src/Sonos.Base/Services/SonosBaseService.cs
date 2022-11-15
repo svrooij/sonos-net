@@ -40,7 +40,7 @@ public class SonosBaseService
         this.httpClient = options.HttpClient ?? new HttpClient();
     }
 
-    internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null)
+    internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
     {
         var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
@@ -51,7 +51,7 @@ public class SonosBaseService
         return true;
     }
 
-    internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null)
+    internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class where TOut : class
     {
         var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
@@ -77,7 +77,7 @@ public class SonosBaseService
         throw new Exception();
     }
 
-    internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken)
+    internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken) where TOut : class
     {
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
         return SoapFactory.ParseXml<TOut>(this.ServiceName, xml);

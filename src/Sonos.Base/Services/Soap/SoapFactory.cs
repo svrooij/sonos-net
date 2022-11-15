@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 
 internal static class SoapFactory
 {
-    internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action)
+    internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action) where TPayload : class
     {
         var attr = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
         if (action is null) {
@@ -42,7 +42,7 @@ internal static class SoapFactory
         return request;
     }
 
-    internal static string GenerateXml<TPayload>(string service, string action, TPayload payload)
+    internal static string GenerateXml<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
         var envelope = new Soap.Envelope<TPayload>(payload);
         var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
@@ -54,7 +54,7 @@ internal static class SoapFactory
         return textWriter.ToString();
     }
 
-    internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload)
+    internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
         var stream = new MemoryStream();
         var envelope = new Soap.Envelope<TPayload>(payload);
@@ -67,7 +67,7 @@ internal static class SoapFactory
         return stream;
     }
 
-    internal static XmlAttributeOverrides GenerateOverrides<TBody>(string service, string elementName, string property = "Message")
+    internal static XmlAttributeOverrides GenerateOverrides<TBody>(string service, string elementName, string property = "Message") where TBody : class
     {
         XmlElementAttribute messageAttribute = new XmlElementAttribute(elementName) { Namespace = $"urn:schemas-upnp-org:service:{service}:1", Form = System.Xml.Schema.XmlSchemaForm.Qualified };
         var myAttributes = new XmlAttributes();
@@ -77,7 +77,7 @@ internal static class SoapFactory
         return overrides;
     }
 
-    internal static XmlAttributeOverrides GenerateResponseOverrides<TBody>(string service, string property = "Message")
+    internal static XmlAttributeOverrides GenerateResponseOverrides<TBody>(string service, string property = "Message") where TBody : class
     {
         XmlElementAttribute messageAttribute = new XmlElementAttribute(typeof(TBody).Name) { Namespace = $"urn:schemas-upnp-org:service:{service}:1", Type = typeof(TBody) };
         var myAttributes = new XmlAttributes();
@@ -105,7 +105,7 @@ internal static class SoapFactory
         return ns;
     }
 
-    internal static TOut ParseXml<TOut>(string service, string xml)
+    internal static TOut ParseXml<TOut>(string service, string xml) where TOut : class
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
@@ -118,7 +118,7 @@ internal static class SoapFactory
         return result.Body.Message;
     }
 
-    internal static TOut ParseXml<TOut>(string service, Stream stream)
+    internal static TOut ParseXml<TOut>(string service, Stream stream) where TOut : class
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
@@ -131,7 +131,7 @@ internal static class SoapFactory
         return result.Body.Message;
     }
 
-    internal static TOut ParseEmbeddedXml<TOut>(string xml)
+    internal static TOut ParseEmbeddedXml<TOut>(string xml) where TOut : class
     {
         var serializer = new XmlSerializer(typeof(TOut));
         using var textReader = new StringReader(xml);
