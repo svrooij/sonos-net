@@ -907,7 +907,7 @@ public partial class AVTransportService : SonosBaseService
         /// <summary>
         /// Parsed version of CurrentURIMetaData
         /// </summary>
-        public Metadata.Didl CurrentURIMetaDataObject
+        public Metadata.Didl? CurrentURIMetaDataObject
         {
             get
             {
@@ -924,7 +924,7 @@ public partial class AVTransportService : SonosBaseService
         /// <summary>
         /// Parsed version of NextURIMetaData
         /// </summary>
-        public Metadata.Didl NextURIMetaDataObject
+        public Metadata.Didl? NextURIMetaDataObject
         {
             get
             {
@@ -970,7 +970,7 @@ public partial class AVTransportService : SonosBaseService
         /// <summary>
         /// Parsed version of TrackMetaData
         /// </summary>
-        public Metadata.Didl TrackMetaDataObject
+        public Metadata.Didl? TrackMetaDataObject
         {
             get
             {
