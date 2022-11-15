@@ -31,8 +31,7 @@ public partial class AlarmClockService : SonosBaseService
     /// <summary>
     /// Create a new AlarmClockService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public AlarmClockService(SonosServiceOptions options) : base("AlarmClock", "/AlarmClock/Control", "/AlarmClock/Event", options) { }
 
 

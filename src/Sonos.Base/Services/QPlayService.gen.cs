@@ -31,8 +31,7 @@ public partial class QPlayService : SonosBaseService
     /// <summary>
     /// Create a new QPlayService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public QPlayService(SonosServiceOptions options) : base("QPlay", "/QPlay/Control", "/QPlay/Event", options) { }
 
 

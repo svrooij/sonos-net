@@ -33,6 +33,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.15
         with:
           useConfigFile: true
+          additionalArguments: /updateprojectfiles
       - name: Install dependencies
         run: dotnet restore
       - name: Build

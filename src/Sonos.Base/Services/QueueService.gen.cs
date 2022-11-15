@@ -31,8 +31,7 @@ public partial class QueueService : SonosBaseService
     /// <summary>
     /// Create a new QueueService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public QueueService(SonosServiceOptions options) : base("Queue", "/MediaRenderer/Queue/Control", "/MediaRenderer/Queue/Event", options) { }
 
 

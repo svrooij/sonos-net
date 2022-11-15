@@ -1,5 +1,14 @@
 mode: Mainline
-branches: {}
+branches:
+  main:
+    regex: ^master$|^main$
+    increment: Patch
+    is-mainline: true
+  develop:
+    regex: ^dev(elop)?(ment)?$
+    mode: ContinuousDeployment
+    tag: beta
+    increment: Minor
 ignore:
   sha: []
 merge-message-formats: {}

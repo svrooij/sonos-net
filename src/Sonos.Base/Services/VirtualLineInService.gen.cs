@@ -31,8 +31,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <summary>
     /// Create a new VirtualLineInService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public VirtualLineInService(SonosServiceOptions options) : base("VirtualLineIn", "/MediaRenderer/VirtualLineIn/Control", "/MediaRenderer/VirtualLineIn/Event", options) { }
 
 

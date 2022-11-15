@@ -31,8 +31,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <summary>
     /// Create a new RenderingControlService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public RenderingControlService(SonosServiceOptions options) : base("RenderingControl", "/MediaRenderer/RenderingControl/Control", "/MediaRenderer/RenderingControl/Event", options) { }
 
 

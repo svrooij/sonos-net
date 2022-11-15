@@ -31,8 +31,7 @@ public partial class ConnectionManagerService : SonosBaseService
     /// <summary>
     /// Create a new ConnectionManagerService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public ConnectionManagerService(SonosServiceOptions options) : base("ConnectionManager", "/MediaRenderer/ConnectionManager/Control", "/MediaRenderer/ConnectionManager/Event", options) { }
 
 

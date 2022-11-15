@@ -31,8 +31,7 @@ public partial class DevicePropertiesService : SonosBaseService
     /// <summary>
     /// Create a new DevicePropertiesService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public DevicePropertiesService(SonosServiceOptions options) : base("DeviceProperties", "/DeviceProperties/Control", "/DeviceProperties/Event", options) { }
 
 

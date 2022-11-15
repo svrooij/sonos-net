@@ -31,8 +31,7 @@ public partial class AudioInService : SonosBaseService
     /// <summary>
     /// Create a new AudioInService
     /// </summary>
-    /// <param name="sonosUri">Base URL of the speaker</param>
-    /// <param name="httpClient">Optionally, a custom HttpClient.</param>
+    /// <param name="options">Service options</param>
     public AudioInService(SonosServiceOptions options) : base("AudioIn", "/AudioIn/Control", "/AudioIn/Event", options) { }
 
 

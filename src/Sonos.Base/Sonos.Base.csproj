@@ -1,18 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <PackageId>Sonos.Base</PackageId>
+    <Authors>Stephan van Rooij</Authors>
+    <PackageProjectUrl>https://github.com/svrooij/sonos-net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/svrooij/sonos-net.git</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Sonos</PackageTags>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;CS8618</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;CS8618</NoWarn>
+    <NoWarn>1701;1702;CS8618;CS1591</NoWarn>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\README.md" />
+    <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\LICENSE.md" />
+  </ItemGroup>
 </Project>
