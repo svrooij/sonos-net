@@ -6,7 +6,7 @@
 
 Always wanted to control sonos speakers right from your dotnet application? I've created this library for you to do just that.
 
-**Warning** This library is far from complete at the moment, it's just an experiment for now.
+**Warning** This library is far from complete at the moment, it's just an experiment for now check [features](#features) for more details.
 
 ## Control sonos in other languages
 
@@ -20,6 +20,16 @@ Always wanted to control sonos speakers right from your dotnet application? I've
 [![Support me on Github][badge_sponsor]][link_sponsor]
 [![Follow on Twitter][badge_twitter]][link_twitter]
 [![Check my blog][badge_blog]][link_blog]
+
+## Features
+
+Currently this library is not at version one, these are the planned features that need to be build before this can be called a version one.
+
+- [X] All sonos services generated from service discovery
+- [ ] Event subscriptions
+- [ ] Dynamic metadata generation based on [these docs](https://svrooij.io/sonos-api-docs/metadata.html)
+- [ ] SonosManager class that keeps track of speaker groups
+- [ ] Device discovery, though it hardly works
 
 ## Developer
 
