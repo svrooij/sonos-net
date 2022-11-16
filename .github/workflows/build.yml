@@ -1,6 +1,15 @@
 name: Building library
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
 
 jobs:
   build:
@@ -42,6 +51,7 @@ jobs:
   publish:
     name: Publish nuget library
     runs-on: ubuntu-latest
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && github.event_name == 'push'
     needs: [build]
     steps:
       - uses: actions/checkout@v3
@@ -71,5 +81,9 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      - name: Pack library
+      - name: Pack Sonos.Base
         run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base/Sonos.Base.csproj
+      - name: Publish Sonos.Base to nuget.org
+        run: dotnet nuget push ./src/Sonos.Base/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
