@@ -58,7 +58,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DestroyObjectRequest>(request, cancellationToken);
+    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// FindPrefix
@@ -131,7 +131,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshShareIndexRequest>(request, cancellationToken);
+    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// RequestResort
@@ -139,7 +139,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RequestResortRequest>(request, cancellationToken);
+    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetBrowseable
@@ -147,7 +147,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBrowseableRequest>(request, cancellationToken);
+    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// UpdateObject
@@ -155,7 +155,7 @@ public partial class ContentDirectoryService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<UpdateObjectRequest>(request, cancellationToken);
+    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory")]

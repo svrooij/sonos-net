@@ -65,7 +65,7 @@ public partial class AVTransportService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest<BackupQueueRequest>(new BackupQueueRequest(), cancellationToken);
+    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest(new BackupQueueRequest(), cancellationToken);
 
     /// <summary>
     /// Leave the current group and revert to a single player.
@@ -80,7 +80,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorRequest>(request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// BecomeGroupCoordinatorAndSource
@@ -88,7 +88,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BecomeGroupCoordinatorAndSourceRequest>(request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ChangeCoordinator
@@ -96,7 +96,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeCoordinatorRequest>(request, cancellationToken);
+    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ChangeTransportSettings
@@ -104,7 +104,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ChangeTransportSettingsRequest>(request, cancellationToken);
+    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Stop playing after set sleep timer or cancel
@@ -113,7 +113,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ConfigureSleepTimerRequest>(request, cancellationToken);
+    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// CreateSavedQueue
@@ -130,14 +130,14 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator has no results - should be avoided.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<DelegateGroupCoordinationToRequest>(request, cancellationToken);
+    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// EndDirectControlSession
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest<EndDirectControlSessionRequest>(new EndDirectControlSessionRequest(), cancellationToken);
+    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest(new EndDirectControlSessionRequest(), cancellationToken);
 
     /// <summary>
     /// Get crossfade mode
@@ -213,7 +213,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>(new NextRequest(), cancellationToken);
+    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest(new NextRequest(), cancellationToken);
 
     /// <summary>
     /// NotifyDeletedURI
@@ -221,14 +221,14 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<NotifyDeletedURIRequest>(request, cancellationToken);
+    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Pause playback
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest(new PauseRequest(), cancellationToken);
 
     /// <summary>
     /// Start playing the set TransportURI
@@ -236,7 +236,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>(request, cancellationToken);
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Go to previous song
@@ -244,7 +244,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>(new PreviousRequest(), cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest(new PreviousRequest(), cancellationToken);
 
     /// <summary>
     /// Flushes the SONOS queue.
@@ -252,7 +252,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>If queue is already empty it throw error 804. Send to non-coordinator returns error code 800.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAllTracksFromQueueRequest>(new RemoveAllTracksFromQueueRequest(), cancellationToken);
+    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => ExecuteRequest(new RemoveAllTracksFromQueueRequest(), cancellationToken);
 
     /// <summary>
     /// RemoveTrackFromQueue
@@ -260,7 +260,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackFromQueueRequest>(request, cancellationToken);
+    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Removes the specified range of songs from the SONOS queue.
@@ -276,7 +276,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInQueueRequest>(request, cancellationToken);
+    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ReorderTracksInSavedQueue
@@ -292,7 +292,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RunAlarmRequest>(request, cancellationToken);
+    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Saves the current SONOS queue as a SONOS playlist and outputs objectID
@@ -310,7 +310,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Returns error code 701 in case that content does not support Seek or send to non-coordinator</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SeekRequest>(request, cancellationToken);
+    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set the transport URI to a song, a stream, the queue, another player-rincon and a lot more
@@ -319,7 +319,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>If set to another player RINCON, the player is grouped with that one.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAVTransportURIRequest>(request, cancellationToken);
+    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set crossfade mode
@@ -328,7 +328,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 800. Same for content, which does not support crossfade mode.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetCrossfadeModeRequest>(request, cancellationToken);
+    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetNextAVTransportURI
@@ -336,7 +336,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetNextAVTransportURIRequest>(request, cancellationToken);
+    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set the PlayMode
@@ -345,7 +345,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Send to non-coordinator returns error code 712. If SONOS queue is not activated returns error code 712.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetPlayModeRequest>(request, cancellationToken);
+    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Snooze the current alarm for some time.
@@ -353,7 +353,7 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SnoozeAlarmRequest>(request, cancellationToken);
+    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// StartAutoplay
@@ -361,14 +361,14 @@ public partial class AVTransportService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartAutoplayRequest>(request, cancellationToken);
+    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Stop playback
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest(new StopRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport")]

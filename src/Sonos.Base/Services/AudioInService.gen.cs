@@ -55,7 +55,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SelectAudioRequest>(request, cancellationToken);
+    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetAudioInputAttributes
@@ -63,7 +63,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAudioInputAttributesRequest>(request, cancellationToken);
+    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetLineInLevel
@@ -71,7 +71,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLineInLevelRequest>(request, cancellationToken);
+    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// StartTransmissionToGroup
@@ -87,7 +87,7 @@ public partial class AudioInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionToGroupRequest>(request, cancellationToken);
+    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/AudioIn/Control", "AudioIn")]

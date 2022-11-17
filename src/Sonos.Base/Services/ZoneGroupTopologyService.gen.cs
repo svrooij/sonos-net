@@ -41,7 +41,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BeginSoftwareUpdateRequest>(request, cancellationToken);
+    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// CheckForUpdate
@@ -72,14 +72,14 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RegisterMobileDeviceRequest>(request, cancellationToken);
+    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ReportAlarmStartedRunning
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
+    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// ReportUnresponsiveDevice
@@ -87,7 +87,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportUnresponsiveDeviceRequest>(request, cancellationToken);
+    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SubmitDiagnostics

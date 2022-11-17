@@ -47,7 +47,7 @@ public partial class {{serviceName}} : SonosBaseService
 {{~#if outputs}}
  {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>(new BaseRequest(), cancellationToken);{{/if}}
 {{else}}
- {{#if inputs}}ExecuteRequest<{{name}}Request>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);{{/if}}
+ {{#if inputs}}ExecuteRequest({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest(new BaseRequest(), cancellationToken);{{/if}}
 {{/if}}
     {{/each}}
 

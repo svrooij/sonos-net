@@ -56,7 +56,7 @@ public partial class MusicServicesService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
+    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MusicServices/Control", "MusicServices")]

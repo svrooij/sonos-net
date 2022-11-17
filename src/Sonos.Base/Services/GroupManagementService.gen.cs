@@ -49,7 +49,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveMemberRequest>(request, cancellationToken);
+    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ReportTrackBufferingResult
@@ -57,7 +57,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReportTrackBufferingResultRequest>(request, cancellationToken);
+    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetSourceAreaIds
@@ -65,7 +65,7 @@ public partial class GroupManagementService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetSourceAreaIdsRequest>(request, cancellationToken);
+    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/GroupManagement/Control", "GroupManagement")]

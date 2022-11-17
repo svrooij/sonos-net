@@ -64,7 +64,7 @@ public partial class QueueService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Backup(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
+    public Task<bool> Backup(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// Browse

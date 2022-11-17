@@ -147,7 +147,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ResetExtEQRequest>(request, cancellationToken);
+    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// RestoreVolumePriorToRamp
@@ -155,7 +155,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RestoreVolumePriorToRampRequest>(request, cancellationToken);
+    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set bass level, between -10 and 10
@@ -163,7 +163,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetBassRequest>(request, cancellationToken);
+    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetChannelMap
@@ -171,7 +171,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetChannelMapRequest>(request, cancellationToken);
+    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set equalizer value for different types
@@ -180,7 +180,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Not supported by all speakers, TV related</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetEQRequest>(request, cancellationToken);
+    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set loudness on / off
@@ -188,7 +188,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLoudnessRequest>(request, cancellationToken);
+    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetMute
@@ -196,7 +196,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetMuteRequest>(request, cancellationToken);
+    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetOutputFixed
@@ -204,7 +204,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetOutputFixedRequest>(request, cancellationToken);
+    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetRelativeVolume
@@ -220,7 +220,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationStatusRequest>(request, cancellationToken);
+    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetRoomCalibrationX
@@ -228,7 +228,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRoomCalibrationXRequest>(request, cancellationToken);
+    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Set treble level
@@ -236,7 +236,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetTrebleRequest>(request, cancellationToken);
+    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetVolume
@@ -244,7 +244,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>(request, cancellationToken);
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetVolumeDB
@@ -252,7 +252,7 @@ public partial class RenderingControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeDBRequest>(request, cancellationToken);
+    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl")]

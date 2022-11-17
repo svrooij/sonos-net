@@ -56,7 +56,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
+    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// EditAccountMd
@@ -64,7 +64,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountMdRequest>(request, cancellationToken);
+    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// EditAccountPasswordX
@@ -72,7 +72,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EditAccountPasswordXRequest>(request, cancellationToken);
+    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// EnableRDM
@@ -80,7 +80,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EnableRDMRequest>(request, cancellationToken);
+    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// GetRDM
@@ -120,7 +120,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RefreshAccountCredentialsXRequest>(request, cancellationToken);
+    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Remove a saved string
@@ -129,7 +129,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Not sure what happens if you call this with a VariableName that doesn't exists.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveRequest>(request, cancellationToken);
+    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// RemoveAccount
@@ -137,7 +137,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAccountRequest>(request, cancellationToken);
+    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// ReplaceAccountX
@@ -152,7 +152,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest>(new BaseRequest(), cancellationToken);
+    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
 
     /// <summary>
     /// SetAccountNicknameX
@@ -160,7 +160,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetAccountNicknameXRequest>(request, cancellationToken);
+    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Save a string in the system
@@ -169,7 +169,7 @@ public partial class SystemPropertiesService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Strings are saved in the system, retrieve values with GetString.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetStringRequest>(request, cancellationToken);
+    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/SystemProperties/Control", "SystemProperties")]

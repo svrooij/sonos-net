@@ -58,7 +58,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetGroupMuteRequest>(request, cancellationToken);
+    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Change group volume. Players volume will be changed proportionally based on last snapshot
@@ -67,7 +67,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetGroupVolumeRequest>(request, cancellationToken);
+    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Relatively change group volume - returns final group volume. Players volume will be changed proportionally based on last snapshot
@@ -84,7 +84,7 @@ public partial class GroupRenderingControlService : SonosBaseService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest<SnapshotGroupVolumeRequest>(new SnapshotGroupVolumeRequest(), cancellationToken);
+    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest(new SnapshotGroupVolumeRequest(), cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/GroupRenderingControl/Control", "GroupRenderingControl")]

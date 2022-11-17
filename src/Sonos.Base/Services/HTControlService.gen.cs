@@ -41,7 +41,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CommitLearnedIRCodesRequest>(request, cancellationToken);
+    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// GetIRRepeaterState
@@ -63,7 +63,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<IdentifyIRRemoteRequest>(request, cancellationToken);
+    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// IsRemoteConfigured
@@ -78,7 +78,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<LearnIRCodeRequest>(request, cancellationToken);
+    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetIRRepeaterState
@@ -86,7 +86,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetIRRepeaterStateRequest>(request, cancellationToken);
+    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// SetLEDFeedbackState
@@ -94,7 +94,7 @@ public partial class HTControlService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetLEDFeedbackStateRequest>(request, cancellationToken);
+    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/HTControl/Control", "HTControl")]

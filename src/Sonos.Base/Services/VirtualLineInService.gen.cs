@@ -40,14 +40,14 @@ public partial class VirtualLineInService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest<NextRequest>(new NextRequest(), cancellationToken);
+    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest(new NextRequest(), cancellationToken);
 
     /// <summary>
     /// Pause
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest<PauseRequest>(new PauseRequest(), cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest(new PauseRequest(), cancellationToken);
 
     /// <summary>
     /// Play
@@ -55,14 +55,14 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<PlayRequest>(request, cancellationToken);
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// Previous
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest<PreviousRequest>(new PreviousRequest(), cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest(new PreviousRequest(), cancellationToken);
 
     /// <summary>
     /// SetVolume
@@ -70,7 +70,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetVolumeRequest>(request, cancellationToken);
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
     /// StartTransmission
@@ -85,7 +85,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest<StopRequest>(new StopRequest(), cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest(new StopRequest(), cancellationToken);
 
     /// <summary>
     /// StopTransmission
@@ -93,7 +93,7 @@ public partial class VirtualLineInService : SonosBaseService
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StopTransmissionRequest>(request, cancellationToken);
+    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn")]
