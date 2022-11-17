@@ -13,6 +13,9 @@ public static class DidlSerializer
             return null;
         }
         var serializer = new XmlSerializer(typeof(Didl));
+        //serializer.UnknownElement += Serializer_UnknownElement;
+        // Hack for not parsing elements with namespace prefix defined but not used. 
+        xml = xml.Replace("<desc ", "<r:desc ").Replace("</desc>", "</r:desc>");
         using var textReader = new StringReader(xml);
         var result = (Didl?)serializer.Deserialize(textReader);
         if (result is null)
@@ -20,6 +23,14 @@ public static class DidlSerializer
             throw new FormatException("Metadata not found");
         }
         return result;
+    }
+
+    private static void Serializer_UnknownElement(object? sender, XmlElementEventArgs e)
+    {
+        if (sender == null)
+        {
+
+        }
     }
 
     public static string SerializeMetadata(Didl metadata)

@@ -31,7 +31,7 @@ public class SoapFactoryTests {
         Assert.Equal(xmlInputNextRequest, xml);
     }
 
-    const string xmlGetZoneInfoResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetZoneInfoResponse xmlns:u=""urn:schemas-upnp-org:service:DeviceProperties:1""><SerialNumber>AA-2A-1B-AA-AA-AA:C</SerialNumber><SoftwareVersion>70.1-34112</SoftwareVersion><DisplaySoftwareVersion>14.18</DisplaySoftwareVersion><HardwareVersion>1.26.1.7-2.1</HardwareVersion><IPAddress>192.168.10.20</IPAddress><MACAddress>AA:2A:1B:AA:AA:AA</MACAddress><CopyrightInfo>© 2003-2021, Sonos, Inc. All rights reserved.</CopyrightInfo><ExtraInfo></ExtraInfo><HTAudioIn>0</HTAudioIn><Flags>0</Flags></u:GetZoneInfoResponse></s:Body></s:Envelope>";
+    const string xmlGetZoneInfoResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetZoneInfoResponse xmlns:u=""urn:schemas-upnp-org:service:DeviceProperties:1""><SerialNumber>AA-2A-1B-AA-AA-AA:C</SerialNumber><SoftwareVersion>70.1-34112</SoftwareVersion><DisplaySoftwareVersion>14.18</DisplaySoftwareVersion><HardwareVersion>1.26.1.7-2.1</HardwareVersion><IPAddress>192.168.10.20</IPAddress><MACAddress>AA:2A:1B:AA:AA:AA</MACAddress><CopyrightInfo>ï¿½ 2003-2021, Sonos, Inc. All rights reserved.</CopyrightInfo><ExtraInfo></ExtraInfo><HTAudioIn>0</HTAudioIn><Flags>0</Flags></u:GetZoneInfoResponse></s:Body></s:Envelope>";
 
 
     [Fact]

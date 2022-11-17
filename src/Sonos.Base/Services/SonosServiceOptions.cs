@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+using Microsoft.Extensions.Logging;
+
 namespace Sonos.Base.Services;
 
 public class SonosServiceOptions
@@ -29,4 +31,9 @@ public class SonosServiceOptions
     /// Pre-configured HTTP Client
     /// </summary>
     public HttpClient? HttpClient { get; set; }
+
+    /// <summary>
+    /// Set logger factor to enable logging
+    /// </summary>
+    public ILoggerFactory? LoggerFactory { get; set; }
 }

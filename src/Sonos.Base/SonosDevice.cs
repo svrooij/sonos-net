@@ -18,6 +18,7 @@
 
 namespace Sonos.Base;
 
+using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
 
 public partial class SonosDevice
@@ -26,7 +27,7 @@ public partial class SonosDevice
     private readonly HttpClient httpClient;
     public string Uuid { get; private set; }
 
-    public SonosDevice(Uri deviceUri, string? uuid, HttpClient? httpClient)
+    public SonosDevice(Uri deviceUri, string? uuid = null, HttpClient? httpClient = null, ILoggerFactory? loggerFactory = null)
     {
         this.deviceUri = deviceUri;
         this.httpClient = httpClient ?? new HttpClient();
@@ -34,9 +35,18 @@ public partial class SonosDevice
         ServiceOptions = new SonosServiceOptions
         {
             DeviceUri = deviceUri,
-            HttpClient = httpClient
+            HttpClient = httpClient,
+            LoggerFactory = loggerFactory,
         };
     }
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
+
+    #region Shortcuts
+    public Task<bool> Next(CancellationToken cancellationToken = default) => this.AVTransportService.Next(cancellationToken);
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => this.AVTransportService.Pause(cancellationToken);
+    public Task<bool> Play(CancellationToken cancellationToken = default) => this.AVTransportService.Play(cancellationToken);
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => this.AVTransportService.Previous(cancellationToken);
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => this.AVTransportService.Stop(cancellationToken);
+    #endregion
 }

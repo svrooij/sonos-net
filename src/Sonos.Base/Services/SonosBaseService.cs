@@ -18,6 +18,7 @@
 
 namespace Sonos.Base.Services;
 
+using Microsoft.Extensions.Logging;
 using Sonos.Base.Soap;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -30,6 +31,7 @@ public class SonosBaseService
     private readonly string ServiceName;
     private readonly Uri BaseUri;
     private readonly HttpClient httpClient;
+    private readonly ILogger? logger;
 
     internal SonosBaseService(string serviceName, string controlPath, string eventPath, SonosServiceOptions options)
     {
@@ -38,11 +40,13 @@ public class SonosBaseService
         this.ServiceName = serviceName;
         this.BaseUri = options.DeviceUri;
         this.httpClient = options.HttpClient ?? new HttpClient();
+        this.logger = options.LoggerFactory?.CreateLogger($"Sonos.Base.Services.{serviceName}");
     }
 
     internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
     {
-        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
+        logger?.LogDebug("Starting ExecuteRequest {caller}", caller);
+        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
@@ -53,7 +57,8 @@ public class SonosBaseService
 
     internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class where TOut : class
     {
-        var request = SoapFactory.CreateRequest(this.BaseUri, this.ControlPath, payload, caller);
+        logger?.LogDebug("Starting ExecuteRequest {caller}", caller);
+        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
@@ -64,6 +69,8 @@ public class SonosBaseService
 
     internal async Task HandleErrorResponse(HttpResponseMessage response, CancellationToken cancellationToken)
     {
+        logger?.LogDebug("HandleErrorResponse");
+
         // TODO HandleErrorResponse needs implementation
         // var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
         using var errorContent = await response.Content.ReadAsStreamAsync(cancellationToken);
@@ -72,15 +79,18 @@ public class SonosBaseService
         {
             var code = error.UpnpErrorCode;
             string? message = (code is not null && ServiceErrors.ContainsKey((int)code)) ? ServiceErrors[(int)code].Message : null;
-            throw new SonosServiceException(error.FaultCode, error.FaultString, code, message);
+            var ex = new SonosServiceException(error.FaultCode, error.FaultString, code, message);
+            logger?.LogWarning(ex, "Sonos request failed");
+            throw ex;
         }
         throw new Exception();
     }
 
     internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken) where TOut : class
     {
+        logger?.LogDebug("ParseResponse");
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
-        return SoapFactory.ParseXml<TOut>(this.ServiceName, xml);
+        return SoapFactory.ParseXml<TOut>(ServiceName, xml);
     }
 
     internal virtual Dictionary<int, SonosUpnpError> ServiceErrors { get => SonosUpnpError.DefaultErrors; }

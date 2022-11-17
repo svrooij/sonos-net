@@ -1,27 +1,40 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Sonos.Base;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.CommandLine.Builder;
+using System.CommandLine;
+using System.CommandLine.Hosting;
+using System.Threading.Tasks;
+using System.CommandLine.Parsing;
+using Sonos.Cli.Commands;
 
-Console.WriteLine("Hello, World!");
+namespace Sonos.Cli;
 
-var sonos = new SonosDevice(new Uri("http://192.168.200.52:1400/"), null, null);
-// await sonos.AVTransportService.Play(new Sonos.Base.Services.AVTransportService.PlayRequest(){Speed = "1"});
-
-// var bass = await sonos.RenderingControlService.GetBass();
-// var info = await sonos.DevicePropertiesService.GetZoneInfo();
-// var zoneGroupState = await sonos.ZoneGroupTopologyService.GetZoneGroupState();
-// foreach(var group in zoneGroupState.ParsedState.ZoneGroups) {
-//   Console.WriteLine("Group: {0}", group.ZoneGroupMember.First().ZoneName);
-// }
-
-// var alarmState = await sonos.AlarmClockService.ListAlarms();
-// foreach(var alarm in alarmState.Alarms) {
-//   Console.WriteLine("Alarm ID: {0} time: {1}", alarm.ID, alarm.StartTime);
-// }
-
-var musicServices = await sonos.MusicServicesService.ListAvailableServices();
-foreach (var service in musicServices.MusicServices)
+public class Program
 {
-    Console.WriteLine("Music service ID: {0} Name: {1}", service.Id, service.Name);
+    static async Task Main(string[] args) => await BuildCommandLine()
+        .UseHost(_ => Host.CreateDefaultBuilder(),
+            host =>
+            {
+                host.ConfigureServices(services =>
+                {
+                    services.AddHttpClient();
+                });
+            })
+        .UseDefaults()
+        .Build()
+        .InvokeAsync(args);
+
+    private static CommandLineBuilder BuildCommandLine()
+    {
+        var root = new RootCommand("Sonos command line controller"){
+              new Argument<string>("host"),
+                ControlCommand.GetCommand(),
+                InfoCommand.GetCommand(),
+                VolumeCommand.GetCommand(),
+                AlarmsCommand.GetCommand(),
+            };
+        //root.Handler = CommandHandler.Create<IHost>(Run);
+        return new CommandLineBuilder(root);
+    }
 }
-Console.WriteLine(musicServices.AvailableServiceTypeList);
-// Console.WriteLine(musicServices.AvailableServiceDescriptorList);

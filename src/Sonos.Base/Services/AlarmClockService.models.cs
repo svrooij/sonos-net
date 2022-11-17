@@ -185,6 +185,13 @@ public partial class AlarmClockService
             }
         }
 
+        //[System.Xml.Serialization.XmlIgnore]
+        public Metadata.Didl? ProgramMetaDataObject
+        {
+            get { return Metadata.DidlSerializer.DeserializeMetadata(this.programMetaDataField); }
+            set { ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value); }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
         public string PlayMode
