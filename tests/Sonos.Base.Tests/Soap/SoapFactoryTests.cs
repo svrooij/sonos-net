@@ -2,11 +2,11 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-
 namespace Sonos.Base.Soap.Tests;
 
-public class SoapFactoryTests {
-    const string xmlInputNextRequest = @"<?xml version=""1.0"" encoding=""utf-8""?>
+public class SoapFactoryTests
+{
+    private const string xmlInputNextRequest = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
   <s:Body>
     <u:Next xmlns:u=""urn:schemas-upnp-org:service:AVTransport:1"">
@@ -16,7 +16,8 @@ public class SoapFactoryTests {
 </s:Envelope>";
 
     [Fact]
-    public void GeneratesXmlStream_AvTransportNextRequest_GeneratesExpectedXml() {
+    public void GeneratesXmlStream_AvTransportNextRequest_GeneratesExpectedXml()
+    {
         using var stream = SoapFactory.GenerateXmlStream("AVTransport", "Next", new Services.AVTransportService.NextRequest());
         using var reader = new StreamReader(stream);
         var xml = reader.ReadToEnd();
@@ -31,8 +32,7 @@ public class SoapFactoryTests {
         Assert.Equal(xmlInputNextRequest, xml);
     }
 
-    const string xmlGetZoneInfoResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetZoneInfoResponse xmlns:u=""urn:schemas-upnp-org:service:DeviceProperties:1""><SerialNumber>AA-2A-1B-AA-AA-AA:C</SerialNumber><SoftwareVersion>70.1-34112</SoftwareVersion><DisplaySoftwareVersion>14.18</DisplaySoftwareVersion><HardwareVersion>1.26.1.7-2.1</HardwareVersion><IPAddress>192.168.10.20</IPAddress><MACAddress>AA:2A:1B:AA:AA:AA</MACAddress><CopyrightInfo>� 2003-2021, Sonos, Inc. All rights reserved.</CopyrightInfo><ExtraInfo></ExtraInfo><HTAudioIn>0</HTAudioIn><Flags>0</Flags></u:GetZoneInfoResponse></s:Body></s:Envelope>";
-
+    private const string xmlGetZoneInfoResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetZoneInfoResponse xmlns:u=""urn:schemas-upnp-org:service:DeviceProperties:1""><SerialNumber>AA-2A-1B-AA-AA-AA:C</SerialNumber><SoftwareVersion>70.1-34112</SoftwareVersion><DisplaySoftwareVersion>14.18</DisplaySoftwareVersion><HardwareVersion>1.26.1.7-2.1</HardwareVersion><IPAddress>192.168.10.20</IPAddress><MACAddress>AA:2A:1B:AA:AA:AA</MACAddress><CopyrightInfo>� 2003-2021, Sonos, Inc. All rights reserved.</CopyrightInfo><ExtraInfo></ExtraInfo><HTAudioIn>0</HTAudioIn><Flags>0</Flags></u:GetZoneInfoResponse></s:Body></s:Envelope>";
 
     [Fact]
     public void ParseXml_GetZoneInfoXmlStream_CreatesCorrectObject()
@@ -42,7 +42,6 @@ public class SoapFactoryTests {
 
         Assert.NotNull(parsedObject);
         Assert.Equal("AA:2A:1B:AA:AA:AA", parsedObject.MACAddress);
-
     }
 
     [Fact]
@@ -52,6 +51,5 @@ public class SoapFactoryTests {
 
         Assert.NotNull(parsedObject);
         Assert.Equal("AA:2A:1B:AA:AA:AA", parsedObject.MACAddress);
-
     }
 }

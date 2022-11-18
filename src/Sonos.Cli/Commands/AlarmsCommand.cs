@@ -12,7 +12,6 @@ namespace Sonos.Cli.Commands
         {
             var command = new Command("alarms", "Manage Sonos alarms")
             {
-                
             };
             command.Handler = CommandHandler.Create<BaseOptions, IHost>(Run);
             return command;
@@ -25,7 +24,6 @@ namespace Sonos.Cli.Commands
             var sonos = host.CreateSonosDeviceWithOptions(options);
             var response = await sonos.AlarmClockService.ListAlarms();
             CommandHelpers.WriteJson(response.Alarms);
-
         }
     }
 }

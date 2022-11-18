@@ -1,13 +1,11 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 
-namespace Sonos.Cli.Commands
+namespace Sonos.Cli.Commands;
+
+internal static class CommandHelpers
 {
-    internal static class CommandHelpers
+    internal static void WriteJson(object o, bool intended = true)
     {
-        internal static void WriteJson(object o, bool intended = true)
-        {
-            Console.WriteLine(JsonSerializer.Serialize(o, new JsonSerializerOptions { WriteIndented = intended, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault }));
-        }
+        Console.WriteLine(JsonSerializer.Serialize(o, new JsonSerializerOptions { WriteIndented = intended, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault }));
     }
 }

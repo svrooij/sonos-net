@@ -98,6 +98,11 @@ public partial class ZoneGroupTopologyService
             }
         }
 
+        [System.Xml.Serialization.XmlIgnore]
+
+        public ZoneGroupStateZoneGroupZoneGroupMember CoordinatorMember => ZoneGroupMember.Single(m => m.UUID == Coordinator);
+        public ZoneGroupStateZoneGroupZoneGroupMember[] Members => ZoneGroupMember.Where(m => m.UUID != Coordinator).ToArray();
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
         public string ID
@@ -110,6 +115,28 @@ public partial class ZoneGroupTopologyService
             {
                 this.idField = value;
             }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public string GroupName
+        {
+            get
+            {
+                if(ZoneGroupMember.Length == 1)
+                {
+                    return CoordinatorMember.ZoneName;
+                }
+                if (ZoneGroupMember.Length == 2)
+                {
+                    return $"{CoordinatorMember.ZoneName} + {ZoneGroupMember.Single(m => m.UUID != Coordinator).ZoneName}";
+                }
+                return $"{CoordinatorMember.ZoneName} + {ZoneGroupMember.Length - 1} speakers";
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"ZoneGroup {GroupName} ({Coordinator})";
         }
     }
 
@@ -200,6 +227,15 @@ public partial class ZoneGroupTopologyService
             set
             {
                 this.locationField = value;
+            }
+        }
+
+        public Uri BaseUri
+        {
+            get
+            {
+                var uri = new Uri(Location);
+                return new Uri($"{uri.Scheme}://{uri.Authority}/");
             }
         }
 
@@ -565,6 +601,11 @@ public partial class ZoneGroupTopologyService
             {
                 this.hHSSLPortField = value;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"ZoneGroupMember {ZoneName} ({UUID})";
         }
     }
 }

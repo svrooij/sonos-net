@@ -25,6 +25,22 @@ public partial class SonosDevice
 {
     private readonly Uri deviceUri;
     private readonly HttpClient httpClient;
+    private SonosDevice? coordinator;
+
+    public SonosDevice Coordinator
+    {
+        get
+        {
+            return coordinator ?? this;
+        }
+        init
+        {
+            coordinator = value;
+        }
+    }
+
+    public string DeviceName { get; init; }
+    public string GroupName { get; init; }
     public string Uuid { get; private set; }
 
     public SonosDevice(Uri deviceUri, string? uuid = null, HttpClient? httpClient = null, ILoggerFactory? loggerFactory = null)
@@ -40,13 +56,32 @@ public partial class SonosDevice
         };
     }
 
+    public SonosDevice(SonosDeviceOptions options)
+    {
+        ServiceOptions = (SonosServiceOptions)options;
+        coordinator = options.Coordinator;
+        DeviceName = options.DeviceName ?? "Not specified";
+        Uuid = options.Uuid ?? Guid.NewGuid().ToString();
+    }
+
     internal SonosServiceOptions ServiceOptions { get; private set; }
 
     #region Shortcuts
-    public Task<bool> Next(CancellationToken cancellationToken = default) => this.AVTransportService.Next(cancellationToken);
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => this.AVTransportService.Pause(cancellationToken);
-    public Task<bool> Play(CancellationToken cancellationToken = default) => this.AVTransportService.Play(cancellationToken);
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => this.AVTransportService.Previous(cancellationToken);
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => this.AVTransportService.Stop(cancellationToken);
-    #endregion
+
+    public Task<bool> Next(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Next(cancellationToken);
+
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Pause(cancellationToken);
+
+    public Task<bool> Play(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Play(cancellationToken);
+
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Previous(cancellationToken);
+
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
+
+    #endregion Shortcuts
+
+    public override string ToString()
+    {
+        return $"SonosSpeaker {DeviceName} ({Uuid})";
+    }
 }
