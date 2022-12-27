@@ -14,8 +14,18 @@
       "usage":"service"
     },
     {
+      "file": "ServiceEventParsing.hbs",
+      "outputFile": "Sonos.Base.Events/Models/{service}Event.g.cs",
+      "usage":"service"
+    },
+    {
       "file": "SonosDevice.hbs",
       "outputFile": "Sonos.Base/SonosDevice.gen.cs",
+      "usage":"index"
+    },
+    {
+      "file": "SonosService.hbs",
+      "outputFile": "Sonos.Base/Services/SonosService.g.cs",
       "usage":"index"
     },
     {

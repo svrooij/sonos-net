@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// AudioInService  - Control line in
 /// </summary>
-public partial class AudioInService : SonosBaseService
+public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEvent>
 {
     /// <summary>
     /// Create a new AudioInService
     /// </summary>
     /// <param name="options">Service options</param>
-    public AudioInService(SonosServiceOptions options) : base("AudioIn", "/AudioIn/Control", "/AudioIn/Event", options) { }
+    public AudioInService(SonosServiceOptions options) : base(SonosService.AudioIn, "/AudioIn/Control", "/AudioIn/Event", options) { }
 
 
     /// <summary>
@@ -170,5 +170,23 @@ public partial class AudioInService : SonosBaseService
     public class StopTransmissionToGroupRequest : BaseRequest
     {
         public string CoordinatorID { get; set; }
+    }
+
+    /// <summary>
+    /// AudioIn is set to might emit these properties in events
+    /// </summary>
+    public interface IAudioInEvent : IServiceEvent
+    {
+        public string? AudioInputName { get; }
+
+        public string? Icon { get; }
+
+        public int? LeftLineInLevel { get; }
+
+        public bool? LineInConnected { get; }
+
+        public bool? Playing { get; }
+
+        public int? RightLineInLevel { get; }
     }
 }

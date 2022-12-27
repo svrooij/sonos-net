@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// RenderingControlService  - Volume related controls
 /// </summary>
-public partial class RenderingControlService : SonosBaseService
+public partial class RenderingControlService : SonosBaseService<RenderingControlService.IRenderingControlEvent>
 {
     /// <summary>
     /// Create a new RenderingControlService
     /// </summary>
     /// <param name="options">Service options</param>
-    public RenderingControlService(SonosServiceOptions options) : base("RenderingControl", "/MediaRenderer/RenderingControl/Control", "/MediaRenderer/RenderingControl/Event", options) { }
+    public RenderingControlService(SonosServiceOptions options) : base(SonosService.RenderingControl, "/MediaRenderer/RenderingControl/Control", "/MediaRenderer/RenderingControl/Event", options) { }
 
 
     /// <summary>
@@ -794,5 +794,75 @@ public partial class RenderingControlService : SonosBaseService
         public string Channel { get; set; }
 
         public int DesiredVolume { get; set; }
+    }
+
+    /// <summary>
+    /// RenderingControl is set to might emit these properties in events
+    /// </summary>
+    public interface IRenderingControlEvent : IServiceEvent
+    {
+        public string? AudioDelay { get; }
+
+        public string? AudioDelayLeftRear { get; }
+
+        public string? AudioDelayRightRear { get; }
+
+        public int? Bass { get; }
+
+        public string? DialogLevel { get; }
+
+        public int? EQValue { get; }
+
+        public bool? HeadphoneConnected { get; }
+
+        public int? HeightChannelLevel { get; }
+
+        public string? LastChange { get; }
+
+        public bool? Loudness { get; }
+
+        public string? MusicSurroundLevel { get; }
+
+        public ChannelMapBool? Mute { get; }
+
+        public bool? NightMode { get; }
+
+        public bool? OutputFixed { get; }
+
+        public string? PresetNameList { get; }
+
+        public bool? RoomCalibrationAvailable { get; }
+
+        public string? RoomCalibrationCalibrationMode { get; }
+
+        public string? RoomCalibrationCoefficients { get; }
+
+        public bool? RoomCalibrationEnabled { get; }
+
+        public string? RoomCalibrationID { get; }
+
+        public int? SpeakerSize { get; }
+
+        public string? SubCrossover { get; }
+
+        public bool? SubEnabled { get; }
+
+        public string? SubGain { get; }
+
+        public string? SubPolarity { get; }
+
+        public bool? SupportsOutputFixed { get; }
+
+        public bool? SurroundEnabled { get; }
+
+        public string? SurroundLevel { get; }
+
+        public string? SurroundMode { get; }
+
+        public int? Treble { get; }
+
+        public ChannelMapInt? Volume { get; }
+
+        public int? VolumeDB { get; }
     }
 }

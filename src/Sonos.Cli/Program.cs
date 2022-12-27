@@ -1,6 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sonos.Base;
+using Sonos.Base.Events;
 using Sonos.Cli.Commands;
 using System.CommandLine;
 using System.CommandLine.Builder;
@@ -18,7 +21,18 @@ public class Program
                 host.ConfigureServices(services =>
                 {
                     services.AddHttpClient();
+                    if (args.Contains("events"))
+                    {
+                        services.Configure<SonosEventReceiverOptions>(options =>
+                        {
+                            options.Port = 6329;
+                            options.Host = "192.168.200.127";
+                        });
+                        services.AddSingleton<ISonosEventBus, SonosEventReceiver>();
+                        services.AddHostedService(factory => (SonosEventReceiver)factory.GetRequiredService<ISonosEventBus>());
+                    }
                 });
+
             })
         .UseDefaults()
         .Build()
@@ -33,6 +47,7 @@ public class Program
                 VolumeCommand.GetCommand(),
                 ZonesCommand.GetCommand(),
                 AlarmsCommand.GetCommand(),
+                EventsCommand.GetCommand(),
             };
         //root.Handler = CommandHandler.Create<IHost>(Run);
         return new CommandLineBuilder(root);

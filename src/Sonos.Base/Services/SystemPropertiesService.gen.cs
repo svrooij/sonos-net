@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// SystemPropertiesService  - Manage system-wide settings, mainly account stuff
 /// </summary>
-public partial class SystemPropertiesService : SonosBaseService
+public partial class SystemPropertiesService : SonosBaseService<SystemPropertiesService.ISystemPropertiesEvent>
 {
     /// <summary>
     /// Create a new SystemPropertiesService
     /// </summary>
     /// <param name="options">Service options</param>
-    public SystemPropertiesService(SonosServiceOptions options) : base("SystemProperties", "/SystemProperties/Control", "/SystemProperties/Event", options) { }
+    public SystemPropertiesService(SonosServiceOptions options) : base(SonosService.SystemProperties, "/SystemProperties/Control", "/SystemProperties/Event", options) { }
 
 
     /// <summary>
@@ -413,5 +413,21 @@ public partial class SystemPropertiesService : SonosBaseService
         public string VariableName { get; set; }
 
         public string StringValue { get; set; }
+    }
+
+    /// <summary>
+    /// SystemProperties is set to might emit these properties in events
+    /// </summary>
+    public interface ISystemPropertiesEvent : IServiceEvent
+    {
+        public string? CustomerID { get; }
+
+        public string? ThirdPartyHash { get; }
+
+        public int? UpdateID { get; }
+
+        public int? UpdateIDX { get; }
+
+        public int? VoiceUpdateID { get; }
     }
 }

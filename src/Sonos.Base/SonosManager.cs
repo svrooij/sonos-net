@@ -15,10 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
 using System.Collections.Concurrent;
+using System.Diagnostics.Metrics;
 
 namespace Sonos.Base
 {
@@ -26,16 +27,16 @@ namespace Sonos.Base
     {
         private readonly ConcurrentDictionary<string, SonosDeviceGroup> groups;
         private ZoneGroupTopologyService? zoneGroupTopologyService;
-        private readonly HttpClient httpClient;
+        private readonly IServiceProvider? provider;
         private readonly ILogger? logger;
         private readonly ILoggerFactory? loggerFactory;
 
-        public SonosManager(HttpClient? httpClient = null, ILoggerFactory? loggerFactory = null)
+        public SonosManager(IServiceProvider? provider = null)
         {
             groups = new ConcurrentDictionary<string, SonosDeviceGroup>();
-            this.httpClient = httpClient ?? new HttpClient();
-            this.logger = loggerFactory?.CreateLogger<SonosManager>();
-            this.loggerFactory = loggerFactory;
+            this.provider = provider;
+            loggerFactory = provider?.GetService<ILoggerFactory>();
+            logger = loggerFactory?.CreateLogger<SonosManager>();
         }
 
         public async Task InitializeFromDevice(Uri deviceUri, CancellationToken cancellationToken = default)
@@ -43,35 +44,19 @@ namespace Sonos.Base
             logger?.LogDebug("Initialize manager from device {deviceUri}", deviceUri);
             if (zoneGroupTopologyService == null)
             {
-                zoneGroupTopologyService = new ZoneGroupTopologyService(new SonosServiceOptions { DeviceUri = deviceUri, HttpClient = httpClient, LoggerFactory = loggerFactory });
+                zoneGroupTopologyService = new ZoneGroupTopologyService(SonosServiceOptions.CreateWithProvider(deviceUri, null, provider));
                 var zoneState = await zoneGroupTopologyService.GetZoneGroupState(cancellationToken);
 
                 foreach (var zone in zoneState.ParsedState.ZoneGroups)
                 {
-                    var coordinator = new SonosDevice(new SonosDeviceOptions
-                    {
-                        DeviceUri = zone.CoordinatorMember.BaseUri,
-                        Uuid = zone.CoordinatorMember.UUID,
-                        DeviceName = zone.CoordinatorMember.ZoneName,
-                        GroupName = zone.GroupName,
-                        HttpClient = httpClient,
-                        LoggerFactory = loggerFactory,
-                    });
+                    var coordinator = new SonosDevice(SonosDeviceOptions.CreateWithProvider(zone.CoordinatorMember.BaseUri, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null, provider));
+                    
 
                     groups.TryAdd(zone.ID, new SonosDeviceGroup
                     {
                         Coordinator = coordinator,
                         GroupName = zone.GroupName,
-                        Members = zone.Members.Select(member => new SonosDevice(new SonosDeviceOptions
-                        {
-                            DeviceUri = member.BaseUri,
-                            Uuid = member.UUID,
-                            DeviceName = member.ZoneName,
-                            GroupName = coordinator.GroupName,
-                            HttpClient = httpClient,
-                            LoggerFactory = loggerFactory,
-                            Coordinator = coordinator
-                        })).ToArray()
+                        Members = zone.Members.Select(member => new SonosDevice(SonosDeviceOptions.CreateWithProvider(member.BaseUri, member.UUID, member.ZoneName, coordinator.GroupName, coordinator, provider))).ToArray()
                     });
                 }
             }

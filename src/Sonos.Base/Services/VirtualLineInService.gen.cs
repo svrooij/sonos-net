@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// VirtualLineInService 
 /// </summary>
-public partial class VirtualLineInService : SonosBaseService
+public partial class VirtualLineInService : SonosBaseService<VirtualLineInService.IVirtualLineInEvent>
 {
     /// <summary>
     /// Create a new VirtualLineInService
     /// </summary>
     /// <param name="options">Service options</param>
-    public VirtualLineInService(SonosServiceOptions options) : base("VirtualLineIn", "/MediaRenderer/VirtualLineIn/Control", "/MediaRenderer/VirtualLineIn/Event", options) { }
+    public VirtualLineInService(SonosServiceOptions options) : base(SonosService.VirtualLineIn, "/MediaRenderer/VirtualLineIn/Control", "/MediaRenderer/VirtualLineIn/Event", options) { }
 
 
     /// <summary>
@@ -182,5 +182,36 @@ public partial class VirtualLineInService : SonosBaseService
         public int InstanceID { get; set; } = 0;
 
         public string CoordinatorID { get; set; }
+    }
+
+    /// <summary>
+    /// VirtualLineIn is set to might emit these properties in events
+    /// </summary>
+    public interface IVirtualLineInEvent : IServiceEvent
+    {
+        public string? AVTransportURIMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of AVTransportURIMetaData
+        /// </summary>
+        public Metadata.Didl? AVTransportURIMetaDataObject { get; }
+
+        public string? CurrentTrackMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of CurrentTrackMetaData
+        /// </summary>
+        public Metadata.Didl? CurrentTrackMetaDataObject { get; }
+
+        public string? CurrentTransportActions { get; }
+
+        public string? EnqueuedTransportURIMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of EnqueuedTransportURIMetaData
+        /// </summary>
+        public Metadata.Didl? EnqueuedTransportURIMetaDataObject { get; }
+
+        public string? LastChange { get; }
     }
 }

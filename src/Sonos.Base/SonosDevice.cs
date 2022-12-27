@@ -18,10 +18,12 @@
 
 namespace Sonos.Base;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
+using System.Net.Http;
 
-public partial class SonosDevice
+public partial class SonosDevice : IDisposable
 {
     private readonly Uri deviceUri;
     private readonly HttpClient httpClient;
@@ -43,17 +45,35 @@ public partial class SonosDevice
     public string GroupName { get; init; }
     public string Uuid { get; private set; }
 
-    public SonosDevice(Uri deviceUri, string? uuid = null, HttpClient? httpClient = null, ILoggerFactory? loggerFactory = null)
+    public SonosDevice(Uri deviceUri, string? uuid = null, IServiceProvider? provider = null)
     {
         this.deviceUri = deviceUri;
-        this.httpClient = httpClient ?? new HttpClient();
         this.Uuid = uuid ?? Guid.NewGuid().ToString();
-        ServiceOptions = new SonosServiceOptions
+
+        if (provider is null)
         {
-            DeviceUri = deviceUri,
-            HttpClient = httpClient,
-            LoggerFactory = loggerFactory,
-        };
+            this.httpClient = new HttpClient();
+            ServiceOptions = new SonosServiceOptions
+            {
+                DeviceUri = deviceUri,
+                Uuid = Uuid
+            };
+        } else
+        {
+            var httpClientFactory = provider.GetService<IHttpClientFactory>();
+            var loggerFactory = provider.GetService<ILoggerFactory>();
+            this.httpClient = httpClientFactory?.CreateClient()  ?? new HttpClient();
+            ServiceOptions = new SonosServiceOptions
+            {
+                DeviceUri = deviceUri,
+                Uuid = Uuid,
+                HttpClientFactory = httpClientFactory,
+                LoggerFactory = loggerFactory,
+                EventBus = provider.GetService<ISonosEventBus>()
+            };
+        }
+
+        
     }
 
     public SonosDevice(SonosDeviceOptions options)
@@ -83,5 +103,10 @@ public partial class SonosDevice
     public override string ToString()
     {
         return $"SonosSpeaker {DeviceName} ({Uuid})";
+    }
+
+    public void Dispose()
+    {
+        DisposeServices();
     }
 }

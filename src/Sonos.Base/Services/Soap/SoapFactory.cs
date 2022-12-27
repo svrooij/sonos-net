@@ -25,7 +25,8 @@ internal static class SoapFactory
     internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action) where TPayload : class
     {
         var attr = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
-        if (action is null) {
+        if (action is null)
+        {
             throw new ArgumentException("Could not determine action");
         }
 

@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Sonos.Base.Services;
@@ -28,12 +29,34 @@ public class SonosServiceOptions
     public Uri DeviceUri { get; set; }
 
     /// <summary>
+    /// Device UUID, eg. RINCON_AAAAAAAAAA01400
+    /// </summary>
+    public string Uuid { get; set; }
+
+    /// <summary>
     /// Pre-configured HTTP Client
     /// </summary>
-    public HttpClient? HttpClient { get; set; }
+    public IHttpClientFactory? HttpClientFactory { get; set; }
 
     /// <summary>
     /// Set logger factor to enable logging
     /// </summary>
     public ILoggerFactory? LoggerFactory { get; set; }
+
+    /// <summary>
+    /// Optional event bus that has to be set for receiving events.
+    /// </summary>
+    public ISonosEventBus? EventBus { get; set; }
+
+    public static SonosServiceOptions CreateWithProvider(Uri deviceUri, string? uuid, IServiceProvider? provider)
+    {
+        return new SonosServiceOptions
+        {
+            DeviceUri = deviceUri,
+            Uuid = uuid ?? Guid.NewGuid().ToString(),
+            HttpClientFactory = provider?.GetService<IHttpClientFactory>(),
+            LoggerFactory = provider?.GetService<ILoggerFactory>(),
+            EventBus = provider?.GetService<ISonosEventBus>()
+        };
+    }
 }

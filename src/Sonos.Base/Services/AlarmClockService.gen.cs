@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// AlarmClockService  - Control the sonos alarms and times
 /// </summary>
-public partial class AlarmClockService : SonosBaseService
+public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAlarmClockEvent>
 {
     /// <summary>
     /// Create a new AlarmClockService
     /// </summary>
     /// <param name="options">Service options</param>
-    public AlarmClockService(SonosServiceOptions options) : base("AlarmClock", "/AlarmClock/Control", "/AlarmClock/Event", options) { }
+    public AlarmClockService(SonosServiceOptions options) : base(SonosService.AlarmClock, "/AlarmClock/Control", "/AlarmClock/Event", options) { }
 
 
     /// <summary>
@@ -502,4 +502,24 @@ public partial class AlarmClockService : SonosBaseService
     };
 
     internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+
+    /// <summary>
+    /// AlarmClock is set to might emit these properties in events
+    /// </summary>
+    public interface IAlarmClockEvent : IServiceEvent
+    {
+        public string? AlarmListVersion { get; }
+
+        public string? DailyIndexRefreshTime { get; }
+
+        public string? DateFormat { get; }
+
+        public string? TimeFormat { get; }
+
+        public int? TimeGeneration { get; }
+
+        public string? TimeServer { get; }
+
+        public string? TimeZone { get; }
+    }
 }

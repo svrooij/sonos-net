@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// DevicePropertiesService  - Modify device properties, like LED status and stereo pairs
 /// </summary>
-public partial class DevicePropertiesService : SonosBaseService
+public partial class DevicePropertiesService : SonosBaseService<DevicePropertiesService.IDevicePropertiesEvent>
 {
     /// <summary>
     /// Create a new DevicePropertiesService
     /// </summary>
     /// <param name="options">Service options</param>
-    public DevicePropertiesService(SonosServiceOptions options) : base("DeviceProperties", "/DeviceProperties/Control", "/DeviceProperties/Event", options) { }
+    public DevicePropertiesService(SonosServiceOptions options) : base(SonosService.DeviceProperties, "/DeviceProperties/Control", "/DeviceProperties/Event", options) { }
 
 
     /// <summary>
@@ -600,5 +600,119 @@ public partial class DevicePropertiesService : SonosBaseService
         public string DesiredConfiguration { get; set; }
 
         public string DesiredTargetRoomName { get; set; }
+    }
+
+    /// <summary>
+    /// DeviceProperties is set to might emit these properties in events
+    /// </summary>
+    public interface IDevicePropertiesEvent : IServiceEvent
+    {
+        public bool? AirPlayEnabled { get; }
+
+        public bool? AutoplayIncludeLinkedZones { get; }
+
+        public string? AutoplayRoomUUID { get; }
+
+        public string? AutoplaySource { get; }
+
+        public bool? AutoplayUseVolume { get; }
+
+        public int? AutoplayVolume { get; }
+
+        public string? AvailableRoomCalibration { get; }
+
+        public int? BehindWifiExtender { get; }
+
+        public string? ButtonLockState { get; }
+
+        public int? ChannelFreq { get; }
+
+        public string? ChannelMapSet { get; }
+
+        public string? ConfigMode { get; }
+
+        public string? Configuration { get; }
+
+        public string? CopyrightInfo { get; }
+
+        public string? DisplaySoftwareVersion { get; }
+
+        public bool? EthLink { get; }
+
+        public string? ExtraInfo { get; }
+
+        public int? Flags { get; }
+
+        public string? HardwareVersion { get; }
+
+        public bool? HasConfiguredSSID { get; }
+
+        public bool? HdmiCecAvailable { get; }
+
+        public string? HouseholdID { get; }
+
+        public int? HTAudioIn { get; }
+
+        public int? HTBondedZoneCommitState { get; }
+
+        public bool? HTForwardEnabled { get; }
+
+        public int? HTFreq { get; }
+
+        public string? HTSatChanMapSet { get; }
+
+        public string? Icon { get; }
+
+        public bool? Invisible { get; }
+
+        public string? IPAddress { get; }
+
+        public bool? IsIdle { get; }
+
+        public bool? IsZoneBridge { get; }
+
+        public bool? KeepGrouped { get; }
+
+        public string? LastChangedPlayState { get; }
+
+        public string? LEDState { get; }
+
+        public string? MACAddress { get; }
+
+        public int? MicEnabled { get; }
+
+        public string? MoreInfo { get; }
+
+        public int? Orientation { get; }
+
+        public int? RoomCalibrationState { get; }
+
+        public string? SatRoomUUID { get; }
+
+        public int? SecureRegState { get; }
+
+        public string? SerialNumber { get; }
+
+        public string? SettingsReplicationState { get; }
+
+        public string? SoftwareVersion { get; }
+
+        public bool? SupportsAudioClip { get; }
+
+        public bool? SupportsAudioIn { get; }
+
+        public string? TargetRoomName { get; }
+
+        public bool? TVConfigurationError { get; }
+
+        public int? VoiceConfigState { get; }
+
+        public bool? WifiEnabled { get; }
+
+        public bool? WirelessLeafOnly { get; }
+
+        public int? WirelessMode { get; }
+
+        public string? ZoneName { get; }
     }
 }

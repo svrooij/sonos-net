@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// ConnectionManagerService  - Services related to connections and protocols
 /// </summary>
-public partial class ConnectionManagerService : SonosBaseService
+public partial class ConnectionManagerService : SonosBaseService<ConnectionManagerService.IConnectionManagerEvent>
 {
     /// <summary>
     /// Create a new ConnectionManagerService
     /// </summary>
     /// <param name="options">Service options</param>
-    public ConnectionManagerService(SonosServiceOptions options) : base("ConnectionManager", "/MediaRenderer/ConnectionManager/Control", "/MediaRenderer/ConnectionManager/Event", options) { }
+    public ConnectionManagerService(SonosServiceOptions options) : base(SonosService.ConnectionManager, "/MediaRenderer/ConnectionManager/Control", "/MediaRenderer/ConnectionManager/Event", options) { }
 
 
     /// <summary>
@@ -117,5 +117,17 @@ public partial class ConnectionManagerService : SonosBaseService
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string Sink { get; set; }
+    }
+
+    /// <summary>
+    /// ConnectionManager is set to might emit these properties in events
+    /// </summary>
+    public interface IConnectionManagerEvent : IServiceEvent
+    {
+        public string? CurrentConnectionIDs { get; }
+
+        public string? SinkProtocolInfo { get; }
+
+        public string? SourceProtocolInfo { get; }
     }
 }

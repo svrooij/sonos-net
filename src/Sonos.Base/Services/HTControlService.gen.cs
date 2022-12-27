@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// HTControlService  - Service related to the TV remote control
 /// </summary>
-public partial class HTControlService : SonosBaseService
+public partial class HTControlService : SonosBaseService<HTControlService.IHTControlEvent>
 {
     /// <summary>
     /// Create a new HTControlService
     /// </summary>
     /// <param name="options">Service options</param>
-    public HTControlService(SonosServiceOptions options) : base("HTControl", "/HTControl/Control", "/HTControl/Event", options) { }
+    public HTControlService(SonosServiceOptions options) : base(SonosService.HTControl, "/HTControl/Control", "/HTControl/Event", options) { }
 
 
     /// <summary>
@@ -169,5 +169,19 @@ public partial class HTControlService : SonosBaseService
     public class SetLEDFeedbackStateRequest : BaseRequest
     {
         public string LEDFeedbackState { get; set; }
+    }
+
+    /// <summary>
+    /// HTControl is set to might emit these properties in events
+    /// </summary>
+    public interface IHTControlEvent : IServiceEvent
+    {
+        public string? IRRepeaterState { get; }
+
+        public string? LEDFeedbackState { get; }
+
+        public bool? RemoteConfigured { get; }
+
+        public bool? TOSLinkConnected { get; }
     }
 }

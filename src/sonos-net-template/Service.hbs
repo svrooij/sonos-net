@@ -26,13 +26,17 @@ using System.Threading.Tasks;
 /// <summary>
 /// {{serviceName}} {{#if description}} - {{{description}}}{{/if}}
 /// </summary>
+{{#if eventVariables}}
+public partial class {{serviceName}} : SonosBaseService<{{serviceName}}.I{{name}}Event>
+{{else}}
 public partial class {{serviceName}} : SonosBaseService
+{{/if}}
 {
     /// <summary>
     /// Create a new {{serviceName}}
     /// </summary>
     /// <param name="options">Service options</param>
-    public {{serviceName}}(SonosServiceOptions options) : base("{{name}}", "{{controlURL}}", "{{eventSubURL}}", options) { }
+    public {{serviceName}}(SonosServiceOptions options) : base(SonosService.{{name}}, "{{controlURL}}", "{{eventSubURL}}", options) { }
 
     {{#each actions}}
 
@@ -136,5 +140,27 @@ public partial class {{serviceName}} : SonosBaseService
     };
 
     internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+    {{/if}}
+    {{#if eventVariables}}
+
+    /// <summary>
+    /// {{name}} is set to might emit these properties in events
+    /// </summary>
+    public interface I{{name}}Event : IServiceEvent
+    {
+    {{#each eventVariables}}
+        public {{#if (or (are_equal name 'Volume') (are_equal name 'Mute'))}}{{#if (are_equal name 'Mute')}}ChannelMapBool{{else}}ChannelMapInt{{/if}}{{else}}{{{dataType}}}{{/if}}? {{name}} { get; }
+        {{#if (ends_with name 'MetaData')}}
+
+        /// <summary>
+        /// Parsed version of {{name}}
+        /// </summary>
+        public Metadata.Didl? {{name}}Object { get; }
+        {{/if}}
+        {{#unless @last}}
+
+        {{/unless}}
+    {{/each}}
+    }
     {{/if}}
 }

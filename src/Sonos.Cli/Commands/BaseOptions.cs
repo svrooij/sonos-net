@@ -2,5 +2,5 @@
 
 public class BaseOptions
 {
-    public string Host { get; set; }
+    public string? Host { get; set; }
 }

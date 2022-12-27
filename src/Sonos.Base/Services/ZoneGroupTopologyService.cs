@@ -23,21 +23,35 @@ namespace Sonos.Base.Services;
 
 public partial class ZoneGroupTopologyService
 {
+    public static ZoneGroupState? ParseState(string? zoneGroupXml)
+    {
+        if (zoneGroupXml is null || string.IsNullOrEmpty(zoneGroupXml))
+        {
+            return null;
+        }
+        return SoapFactory.ParseEmbeddedXml<ZoneGroupState>(zoneGroupXml);
+    }
+
     public partial class GetZoneGroupStateResponse
     {
-        private ZoneGroupState _zoneGroupState;
+        private ZoneGroupState? _zoneGroupState;
 
         [XmlIgnore]
-        public ZoneGroupState ParsedState
+        public ZoneGroupState? ParsedState
         {
             get
             {
                 if (_zoneGroupState == null)
                 {
-                    _zoneGroupState = SoapFactory.ParseEmbeddedXml<ZoneGroupState>(ZoneGroupState);
+                    _zoneGroupState = ParseState(ZoneGroupState);
                 }
                 return _zoneGroupState;
             }
         }
+    }
+
+    public partial interface IZoneGroupTopologyEvent
+    {
+        public ZoneGroupState? ParsedState { get; }
     }
 }

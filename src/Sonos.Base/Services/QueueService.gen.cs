@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// QueueService  - Modify and browse queues
 /// </summary>
-public partial class QueueService : SonosBaseService
+public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
 {
     /// <summary>
     /// Create a new QueueService
     /// </summary>
     /// <param name="options">Service options</param>
-    public QueueService(SonosServiceOptions options) : base("Queue", "/MediaRenderer/Queue/Control", "/MediaRenderer/Queue/Event", options) { }
+    public QueueService(SonosServiceOptions options) : base(SonosService.Queue, "/MediaRenderer/Queue/Control", "/MediaRenderer/Queue/Event", options) { }
 
 
     /// <summary>
@@ -443,5 +443,17 @@ public partial class QueueService : SonosBaseService
     {
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AssignedObjectID { get; set; }
+    }
+
+    /// <summary>
+    /// Queue is set to might emit these properties in events
+    /// </summary>
+    public interface IQueueEvent : IServiceEvent
+    {
+        public bool? Curated { get; }
+
+        public string? LastChange { get; }
+
+        public int? UpdateID { get; }
     }
 }

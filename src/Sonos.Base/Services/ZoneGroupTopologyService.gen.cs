@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// ZoneGroupTopologyService  - Zone config stuff, eg getting all the configured sonos zones
 /// </summary>
-public partial class ZoneGroupTopologyService : SonosBaseService
+public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopologyService.IZoneGroupTopologyEvent>
 {
     /// <summary>
     /// Create a new ZoneGroupTopologyService
     /// </summary>
     /// <param name="options">Service options</param>
-    public ZoneGroupTopologyService(SonosServiceOptions options) : base("ZoneGroupTopology", "/ZoneGroupTopology/Control", "/ZoneGroupTopology/Event", options) { }
+    public ZoneGroupTopologyService(SonosServiceOptions options) : base(SonosService.ZoneGroupTopology, "/ZoneGroupTopology/Control", "/ZoneGroupTopology/Event", options) { }
 
 
     /// <summary>
@@ -204,5 +204,35 @@ public partial class ZoneGroupTopologyService : SonosBaseService
     {
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int DiagnosticID { get; set; }
+    }
+
+    /// <summary>
+    /// ZoneGroupTopology is set to might emit these properties in events
+    /// </summary>
+    public partial interface IZoneGroupTopologyEvent : IServiceEvent
+    {
+        public string? AlarmRunSequence { get; }
+
+        public string? AreasUpdateID { get; }
+
+        public string? AvailableSoftwareUpdate { get; }
+
+        public int? DiagnosticID { get; }
+
+        public string? MuseHouseholdId { get; }
+
+        public string? NetsettingsUpdateID { get; }
+
+        public string? SourceAreasUpdateID { get; }
+
+        public string? ThirdPartyMediaServersX { get; }
+
+        public string? ZoneGroupID { get; }
+
+        public string? ZoneGroupName { get; }
+
+        public string? ZoneGroupState { get; }
+
+        public string? ZonePlayerUUIDsInGroup { get; }
     }
 }

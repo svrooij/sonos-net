@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// ContentDirectoryService  - Browse for local content
 /// </summary>
-public partial class ContentDirectoryService : SonosBaseService
+public partial class ContentDirectoryService : SonosBaseService<ContentDirectoryService.IContentDirectoryEvent>
 {
     /// <summary>
     /// Create a new ContentDirectoryService
     /// </summary>
     /// <param name="options">Service options</param>
-    public ContentDirectoryService(SonosServiceOptions options) : base("ContentDirectory", "/MediaServer/ContentDirectory/Control", "/MediaServer/ContentDirectory/Event", options) { }
+    public ContentDirectoryService(SonosServiceOptions options) : base(SonosService.ContentDirectory, "/MediaServer/ContentDirectory/Control", "/MediaServer/ContentDirectory/Event", options) { }
 
 
     /// <summary>
@@ -409,4 +409,40 @@ public partial class ContentDirectoryService : SonosBaseService
     };
 
     internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+
+    /// <summary>
+    /// ContentDirectory is set to might emit these properties in events
+    /// </summary>
+    public interface IContentDirectoryEvent : IServiceEvent
+    {
+        public bool? Browseable { get; }
+
+        public string? ContainerUpdateIDs { get; }
+
+        public string? FavoritePresetsUpdateID { get; }
+
+        public string? FavoritesUpdateID { get; }
+
+        public int? RadioFavoritesUpdateID { get; }
+
+        public int? RadioLocationUpdateID { get; }
+
+        public string? RecentlyPlayedUpdateID { get; }
+
+        public string? SavedQueuesUpdateID { get; }
+
+        public string? SearchCapabilities { get; }
+
+        public bool? ShareIndexInProgress { get; }
+
+        public string? ShareIndexLastError { get; }
+
+        public string? ShareListUpdateID { get; }
+
+        public string? SortCapabilities { get; }
+
+        public int? SystemUpdateID { get; }
+
+        public string? UserRadioUpdateID { get; }
+    }
 }

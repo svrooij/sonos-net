@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// GroupRenderingControlService  - Volume related controls for groups
 /// </summary>
-public partial class GroupRenderingControlService : SonosBaseService
+public partial class GroupRenderingControlService : SonosBaseService<GroupRenderingControlService.IGroupRenderingControlEvent>
 {
     /// <summary>
     /// Create a new GroupRenderingControlService
     /// </summary>
     /// <param name="options">Service options</param>
-    public GroupRenderingControlService(SonosServiceOptions options) : base("GroupRenderingControl", "/MediaRenderer/GroupRenderingControl/Control", "/MediaRenderer/GroupRenderingControl/Event", options) { }
+    public GroupRenderingControlService(SonosServiceOptions options) : base(SonosService.GroupRenderingControl, "/MediaRenderer/GroupRenderingControl/Control", "/MediaRenderer/GroupRenderingControl/Event", options) { }
 
 
     /// <summary>
@@ -202,4 +202,16 @@ public partial class GroupRenderingControlService : SonosBaseService
     };
 
     internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+
+    /// <summary>
+    /// GroupRenderingControl is set to might emit these properties in events
+    /// </summary>
+    public interface IGroupRenderingControlEvent : IServiceEvent
+    {
+        public bool? GroupMute { get; }
+
+        public int? GroupVolume { get; }
+
+        public bool? GroupVolumeChangeable { get; }
+    }
 }

@@ -122,7 +122,7 @@ public partial class ZoneGroupTopologyService
         {
             get
             {
-                if(ZoneGroupMember.Length == 1)
+                if (ZoneGroupMember.Length == 1)
                 {
                     return CoordinatorMember.ZoneName;
                 }

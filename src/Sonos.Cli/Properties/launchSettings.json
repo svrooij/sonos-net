@@ -2,7 +2,7 @@
   "profiles": {
     "Sonos.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "192.168.200.52 alarms",
+      "commandLineArgs": "192.168.200.61 events",
       "hotReloadEnabled": false
     }
   }

@@ -55,7 +55,7 @@ public partial class ContentDirectoryService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public Task<BrowseResponse> CurrentQueue(int count = 100, CancellationToken cancellationToken = default) => Browse("Q:0", Count: count, cancellationToken: cancellationToken);
-    
+
     /// <summary>
     /// Browse the favorite radio shows
     /// </summary>

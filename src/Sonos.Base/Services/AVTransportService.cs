@@ -8,6 +8,6 @@ namespace Sonos.Base.Services
 {
     public partial class AVTransportService
     {
-        public Task<bool> Play(CancellationToken cancellationToken = default) => Play(new PlayRequest {  Speed = "1" }, cancellationToken);
+        public Task<bool> Play(CancellationToken cancellationToken = default) => Play(new PlayRequest { Speed = "1" }, cancellationToken);
     }
 }

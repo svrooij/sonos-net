@@ -32,7 +32,7 @@ public partial class QPlayService : SonosBaseService
     /// Create a new QPlayService
     /// </summary>
     /// <param name="options">Service options</param>
-    public QPlayService(SonosServiceOptions options) : base("QPlay", "/QPlay/Control", "/QPlay/Event", options) { }
+    public QPlayService(SonosServiceOptions options) : base(SonosService.QPlay, "/QPlay/Control", "/QPlay/Event", options) { }
 
 
     /// <summary>

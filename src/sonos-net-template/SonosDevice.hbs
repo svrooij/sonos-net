@@ -38,4 +38,11 @@ public partial class SonosDevice
         }
     }
     {{/each}}
+
+    private void DisposeServices()
+    {
+        {{#each services}}
+        _{{lower name}}?.Dispose();
+        {{/each}}
+    }
 }

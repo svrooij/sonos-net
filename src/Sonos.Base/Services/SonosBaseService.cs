@@ -20,27 +20,33 @@ namespace Sonos.Base.Services;
 
 using Microsoft.Extensions.Logging;
 using Sonos.Base.Soap;
+using System.Net.Http;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-public class SonosBaseService
+public class SonosBaseService : IDisposable
 {
-    private readonly string ControlPath;
-    private readonly string EventPath;
-    private readonly string ServiceName;
-    private readonly Uri BaseUri;
-    private readonly HttpClient httpClient;
-    private readonly ILogger? logger;
+    protected readonly string ControlPath;
+    protected readonly string EventPath;
+    protected readonly SonosService ServiceName;
+    protected readonly Uri BaseUri;
+    protected readonly HttpClient httpClient;
+    protected readonly ILogger? logger;
+    protected readonly ISonosEventBus? eventBus;
+    protected readonly string uuid;
 
-    internal SonosBaseService(string serviceName, string controlPath, string eventPath, SonosServiceOptions options)
+    internal SonosBaseService(SonosService serviceName, string controlPath, string eventPath, SonosServiceOptions options)
     {
         this.ControlPath = controlPath;
         this.EventPath = eventPath;
         this.ServiceName = serviceName;
         this.BaseUri = options.DeviceUri;
-        this.httpClient = options.HttpClient ?? new HttpClient();
+        this.httpClient = options.HttpClientFactory?.CreateClient() ?? new HttpClient();
         this.logger = options.LoggerFactory?.CreateLogger($"Sonos.Base.Services.{serviceName}");
+        this.uuid = options.Uuid;
+        this.eventBus = options.EventBus;
     }
 
     internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
@@ -90,8 +96,49 @@ public class SonosBaseService
     {
         logger?.LogDebug("ParseResponse");
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
-        return SoapFactory.ParseXml<TOut>(ServiceName, xml);
+        return SoapFactory.ParseXml<TOut>(ServiceName.ToString(), xml);
+    }
+
+    public virtual void Dispose()
+    {
+
     }
 
     internal virtual Dictionary<int, SonosUpnpError> ServiceErrors { get => SonosUpnpError.DefaultErrors; }
+}
+
+public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IServiceEvent
+{
+    internal SonosBaseService(SonosService serviceName, string controlPath, string eventPath, SonosServiceOptions options) : base(serviceName, controlPath, eventPath, options)
+    {
+    }
+
+    public Task<bool> SubscribeForEventsAsync(CancellationToken cancellationToken = default)
+    {
+        return eventBus?.Subscribe(uuid, ServiceName, new Uri(BaseUri, EventPath), EmitEvent, cancellationToken) ?? Task.FromResult(false);
+    }
+
+    public Task<bool> RenewEventSubscriptionAsync(CancellationToken cancellationToken = default)
+    {
+        return eventBus?.RenewSubscription(uuid, ServiceName, cancellationToken) ?? Task.FromResult(false);
+    }
+
+    private Task<bool> CancelEventSubscriptionAsync(CancellationToken cancellationToken = default)
+    {
+        return eventBus?.Unsubscribe(uuid, ServiceName, cancellationToken) ?? Task.FromResult(false);
+    }
+
+    public override void Dispose()
+    {
+        CancelEventSubscriptionAsync(CancellationToken.None).GetAwaiter().GetResult();
+        base.Dispose();
+        
+    }
+
+    public event EventHandler<TEvent> OnEvent;
+
+    private void EmitEvent(IServiceEvent e)
+    {
+        OnEvent?.Invoke(this, (TEvent)e);
+    }
 }

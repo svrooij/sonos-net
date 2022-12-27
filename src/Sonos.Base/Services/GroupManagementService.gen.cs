@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// GroupManagementService  - Services related to groups
 /// </summary>
-public partial class GroupManagementService : SonosBaseService
+public partial class GroupManagementService : SonosBaseService<GroupManagementService.IGroupManagementEvent>
 {
     /// <summary>
     /// Create a new GroupManagementService
     /// </summary>
     /// <param name="options">Service options</param>
-    public GroupManagementService(SonosServiceOptions options) : base("GroupManagement", "/GroupManagement/Control", "/GroupManagement/Event", options) { }
+    public GroupManagementService(SonosServiceOptions options) : base(SonosService.GroupManagement, "/GroupManagement/Control", "/GroupManagement/Event", options) { }
 
 
     /// <summary>
@@ -130,5 +130,23 @@ public partial class GroupManagementService : SonosBaseService
     public class SetSourceAreaIdsRequest : BaseRequest
     {
         public string DesiredSourceAreaIds { get; set; }
+    }
+
+    /// <summary>
+    /// GroupManagement is set to might emit these properties in events
+    /// </summary>
+    public interface IGroupManagementEvent : IServiceEvent
+    {
+        public bool? GroupCoordinatorIsLocal { get; }
+
+        public string? LocalGroupUUID { get; }
+
+        public bool? ResetVolumeAfter { get; }
+
+        public string? SourceAreaIds { get; }
+
+        public string? VirtualLineInGroupID { get; }
+
+        public string? VolumeAVTransportURI { get; }
     }
 }

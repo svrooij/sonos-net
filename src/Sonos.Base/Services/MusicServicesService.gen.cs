@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// MusicServicesService  - Access to external music services, like Spotify or Youtube Music
 /// </summary>
-public partial class MusicServicesService : SonosBaseService
+public partial class MusicServicesService : SonosBaseService<MusicServicesService.IMusicServicesEvent>
 {
     /// <summary>
     /// Create a new MusicServicesService
     /// </summary>
     /// <param name="options">Service options</param>
-    public MusicServicesService(SonosServiceOptions options) : base("MusicServices", "/MusicServices/Control", "/MusicServices/Event", options) { }
+    public MusicServicesService(SonosServiceOptions options) : base(SonosService.MusicServices, "/MusicServices/Control", "/MusicServices/Event", options) { }
 
 
     /// <summary>
@@ -97,5 +97,19 @@ public partial class MusicServicesService : SonosBaseService
 
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string AvailableServiceListVersion { get; set; }
+    }
+
+    /// <summary>
+    /// MusicServices is set to might emit these properties in events
+    /// </summary>
+    public interface IMusicServicesEvent : IServiceEvent
+    {
+        public int? ServiceId { get; }
+
+        public string? ServiceListVersion { get; }
+
+        public string? SessionId { get; }
+
+        public string? Username { get; }
     }
 }

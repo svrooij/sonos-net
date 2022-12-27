@@ -231,4 +231,24 @@ public partial class SonosDevice
             return _zonegrouptopology;
         }
     }
+
+    private void DisposeServices()
+    {
+        _alarmclock?.Dispose();
+        _audioin?.Dispose();
+        _avtransport?.Dispose();
+        _connectionmanager?.Dispose();
+        _contentdirectory?.Dispose();
+        _deviceproperties?.Dispose();
+        _groupmanagement?.Dispose();
+        _grouprenderingcontrol?.Dispose();
+        _htcontrol?.Dispose();
+        _musicservices?.Dispose();
+        _qplay?.Dispose();
+        _queue?.Dispose();
+        _renderingcontrol?.Dispose();
+        _systemproperties?.Dispose();
+        _virtuallinein?.Dispose();
+        _zonegrouptopology?.Dispose();
+    }
 }

@@ -26,13 +26,13 @@ using System.Threading.Tasks;
 /// <summary>
 /// AVTransportService  - Service that controls stuff related to transport (play/pause/next/special urls)
 /// </summary>
-public partial class AVTransportService : SonosBaseService
+public partial class AVTransportService : SonosBaseService<AVTransportService.IAVTransportEvent>
 {
     /// <summary>
     /// Create a new AVTransportService
     /// </summary>
     /// <param name="options">Service options</param>
-    public AVTransportService(SonosServiceOptions options) : base("AVTransport", "/MediaRenderer/AVTransport/Control", "/MediaRenderer/AVTransport/Event", options) { }
+    public AVTransportService(SonosServiceOptions options) : base(SonosService.AVTransport, "/MediaRenderer/AVTransport/Control", "/MediaRenderer/AVTransport/Event", options) { }
 
 
     /// <summary>
@@ -1495,4 +1495,133 @@ public partial class AVTransportService : SonosBaseService
     };
 
     internal override Dictionary<int, SonosUpnpError> ServiceErrors => serviceSpecificErrors.Merge(base.ServiceErrors);
+
+    /// <summary>
+    /// AVTransport is set to might emit these properties in events
+    /// </summary>
+    public interface IAVTransportEvent : IServiceEvent
+    {
+        public int? AbsoluteCounterPosition { get; }
+
+        public string? AbsoluteTimePosition { get; }
+
+        public int? AlarmIDRunning { get; }
+
+        public string? AlarmLoggedStartTime { get; }
+
+        public bool? AlarmRunning { get; }
+
+        public string? AVTransportURI { get; }
+
+        public string? AVTransportURIMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of AVTransportURIMetaData
+        /// </summary>
+        public Metadata.Didl? AVTransportURIMetaDataObject { get; }
+
+        public bool? CurrentCrossfadeMode { get; }
+
+        public string? CurrentMediaDuration { get; }
+
+        public string? CurrentPlayMode { get; }
+
+        public string? CurrentRecordQualityMode { get; }
+
+        public int? CurrentSection { get; }
+
+        public int? CurrentTrack { get; }
+
+        public string? CurrentTrackDuration { get; }
+
+        public string? CurrentTrackMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of CurrentTrackMetaData
+        /// </summary>
+        public Metadata.Didl? CurrentTrackMetaDataObject { get; }
+
+        public string? CurrentTrackURI { get; }
+
+        public string? CurrentTransportActions { get; }
+
+        public string? CurrentValidPlayModes { get; }
+
+        public string? DirectControlAccountID { get; }
+
+        public string? DirectControlClientID { get; }
+
+        public bool? DirectControlIsSuspended { get; }
+
+        public string? EnqueuedTransportURI { get; }
+
+        public string? EnqueuedTransportURIMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of EnqueuedTransportURIMetaData
+        /// </summary>
+        public Metadata.Didl? EnqueuedTransportURIMetaDataObject { get; }
+
+        public string? LastChange { get; }
+
+        public string? MuseSessions { get; }
+
+        public string? NextAVTransportURI { get; }
+
+        public string? NextAVTransportURIMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of NextAVTransportURIMetaData
+        /// </summary>
+        public Metadata.Didl? NextAVTransportURIMetaDataObject { get; }
+
+        public string? NextTrackMetaData { get; }
+
+        /// <summary>
+        /// Parsed version of NextTrackMetaData
+        /// </summary>
+        public Metadata.Didl? NextTrackMetaDataObject { get; }
+
+        public string? NextTrackURI { get; }
+
+        public int? NumberOfTracks { get; }
+
+        public string? PlaybackStorageMedium { get; }
+
+        public string? PossiblePlaybackStorageMedia { get; }
+
+        public string? PossibleRecordQualityModes { get; }
+
+        public string? PossibleRecordStorageMedia { get; }
+
+        public int? QueueUpdateID { get; }
+
+        public string? RecordMediumWriteStatus { get; }
+
+        public string? RecordStorageMedium { get; }
+
+        public int? RelativeCounterPosition { get; }
+
+        public string? RelativeTimePosition { get; }
+
+        public bool? RestartPending { get; }
+
+        public int? SleepTimerGeneration { get; }
+
+        public bool? SnoozeRunning { get; }
+
+        public string? TransportErrorDescription { get; }
+
+        public string? TransportErrorHttpCode { get; }
+
+        public string? TransportErrorHttpHeaders { get; }
+
+        public string? TransportErrorURI { get; }
+
+        public string? TransportPlaySpeed { get; }
+
+        public string? TransportState { get; }
+
+        public string? TransportStatus { get; }
+    }
 }
