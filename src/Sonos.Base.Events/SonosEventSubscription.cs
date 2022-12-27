@@ -22,6 +22,6 @@ namespace Sonos.Base.Events
         public SonosService Service { get; init; }
         public Uri EventUri { get; init; }
         public string Sid { get; init; }
-        public Action<IServiceEvent> Callback { get; init;}
+        public Action<IServiceEvent> Callback { get; init; }
     }
 }

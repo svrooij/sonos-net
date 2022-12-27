@@ -18,16 +18,13 @@
 
 namespace Sonos.Base;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
-using System.Net.Http;
 
 public partial class SonosDevice : IDisposable
 {
-    private readonly Uri deviceUri;
-    private readonly HttpClient httpClient;
     private SonosDevice? coordinator;
+    protected readonly ILogger? logger;
 
     public SonosDevice Coordinator
     {
@@ -41,47 +38,17 @@ public partial class SonosDevice : IDisposable
         }
     }
 
-    public string DeviceName { get; init; }
-    public string GroupName { get; init; }
+    public string DeviceName { get; private set; }
+    public string GroupName { get; private set; }
     public string Uuid { get; private set; }
-
-    public SonosDevice(Uri deviceUri, string? uuid = null, IServiceProvider? provider = null)
-    {
-        this.deviceUri = deviceUri;
-        this.Uuid = uuid ?? Guid.NewGuid().ToString();
-
-        if (provider is null)
-        {
-            this.httpClient = new HttpClient();
-            ServiceOptions = new SonosServiceOptions
-            {
-                DeviceUri = deviceUri,
-                Uuid = Uuid
-            };
-        } else
-        {
-            var httpClientFactory = provider.GetService<IHttpClientFactory>();
-            var loggerFactory = provider.GetService<ILoggerFactory>();
-            this.httpClient = httpClientFactory?.CreateClient()  ?? new HttpClient();
-            ServiceOptions = new SonosServiceOptions
-            {
-                DeviceUri = deviceUri,
-                Uuid = Uuid,
-                HttpClientFactory = httpClientFactory,
-                LoggerFactory = loggerFactory,
-                EventBus = provider.GetService<ISonosEventBus>()
-            };
-        }
-
-        
-    }
 
     public SonosDevice(SonosDeviceOptions options)
     {
-        ServiceOptions = (SonosServiceOptions)options;
+        ServiceOptions = options;
         coordinator = options.Coordinator;
         DeviceName = options.DeviceName ?? "Not specified";
         Uuid = options.Uuid ?? Guid.NewGuid().ToString();
+        logger = options.ServiceProvider.CreateLogger<SonosDevice>();
     }
 
     internal SonosServiceOptions ServiceOptions { get; private set; }

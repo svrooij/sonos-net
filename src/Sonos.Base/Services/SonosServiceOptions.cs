@@ -23,6 +23,14 @@ namespace Sonos.Base.Services;
 
 public class SonosServiceOptions
 {
+    public SonosServiceOptions(Uri deviceUri, ISonosServiceProvider serviceProvider, string? uuid = null)
+    {
+        DeviceUri = deviceUri;
+        Uuid = uuid ?? Guid.NewGuid().ToString();
+        ServiceProvider = serviceProvider;
+    }
+
+
     /// <summary>
     /// Base URI of the device, eg. http://ip:1400/
     /// </summary>
@@ -34,29 +42,39 @@ public class SonosServiceOptions
     public string Uuid { get; set; }
 
     /// <summary>
-    /// Pre-configured HTTP Client
+    /// ServiceProvider where the Sonos device gets all the required services.
     /// </summary>
-    public IHttpClientFactory? HttpClientFactory { get; set; }
+    public ISonosServiceProvider ServiceProvider { get; set; }
 
-    /// <summary>
-    /// Set logger factor to enable logging
-    /// </summary>
-    public ILoggerFactory? LoggerFactory { get; set; }
+    ///// <summary>
+    ///// Pre-configured HTTP Client
+    ///// </summary>
+    //public IHttpClientFactory? HttpClientFactory { get; set; }
 
-    /// <summary>
-    /// Optional event bus that has to be set for receiving events.
-    /// </summary>
-    public ISonosEventBus? EventBus { get; set; }
+    /////// <summary>
+    /////// Set HttpClient for mocking.
+    /////// </summary>
+    ////internal HttpClient? HttpClient { get; set; }
 
-    public static SonosServiceOptions CreateWithProvider(Uri deviceUri, string? uuid, IServiceProvider? provider)
-    {
-        return new SonosServiceOptions
-        {
-            DeviceUri = deviceUri,
-            Uuid = uuid ?? Guid.NewGuid().ToString(),
-            HttpClientFactory = provider?.GetService<IHttpClientFactory>(),
-            LoggerFactory = provider?.GetService<ILoggerFactory>(),
-            EventBus = provider?.GetService<ISonosEventBus>()
-        };
-    }
+    ///// <summary>
+    ///// Set logger factor to enable logging
+    ///// </summary>
+    //public ILoggerFactory? LoggerFactory { get; set; }
+
+    ///// <summary>
+    ///// Optional event bus that has to be set for receiving events.
+    ///// </summary>
+    //public ISonosEventBus? EventBus { get; set; }
+
+    //public static SonosServiceOptions CreateWithProvider(Uri deviceUri, ISonosServiceProvider provider, string? uuid = null)
+    //{
+    //    return new SonosServiceOptions
+    //    {
+    //        DeviceUri = deviceUri,
+    //        Uuid = uuid ?? Guid.NewGuid().ToString(),
+    //        HttpClientFactory = provider.GetService<IHttpClientFactory>(),
+    //        LoggerFactory = provider.GetService<ILoggerFactory>(),
+    //        EventBus = provider.GetService<ISonosEventBus>()
+    //    };
+    //}
 }

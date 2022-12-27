@@ -18,17 +18,15 @@ public class Program
         .UseHost(_ => Host.CreateDefaultBuilder(),
             host =>
             {
-                host.ConfigureServices(services =>
+                host.ConfigureServices((context, services) =>
                 {
                     services.AddHttpClient();
+                    services.AddTransient<ISonosServiceProvider, SonosServiceProvider>();
                     if (args.Contains("events"))
                     {
-                        services.Configure<SonosEventReceiverOptions>(options =>
-                        {
-                            options.Port = 6329;
-                            options.Host = "192.168.200.127";
-                        });
+                        services.Configure<SonosEventReceiverOptions>(context.Configuration.GetSection("SONOSEVENTS"));
                         services.AddSingleton<ISonosEventBus, SonosEventReceiver>();
+                        
                         services.AddHostedService(factory => (SonosEventReceiver)factory.GetRequiredService<ISonosEventBus>());
                     }
                 });

@@ -25,22 +25,13 @@ namespace Sonos.Base;
 /// </summary>
 public class SonosDeviceOptions : Sonos.Base.Services.SonosServiceOptions
 {
+    public SonosDeviceOptions(Uri deviceUri, ISonosServiceProvider serviceProvider, string? uuid = null, string? deviceName = null, string? groupName = null, SonosDevice? coordinator = null) : base(deviceUri, serviceProvider, uuid)
+    {
+        DeviceName = deviceName;
+        GroupName = groupName;
+        Coordinator = coordinator;
+    }
     public string? DeviceName { get; init; }
     public string? GroupName { get; init; }
     public SonosDevice? Coordinator { get; init; }
-
-    public static SonosDeviceOptions CreateWithProvider(Uri deviceUri, string? uuid, string? deviceName, string? groupName, SonosDevice? coordinator, IServiceProvider? provider)
-    {
-        return new SonosDeviceOptions
-        {
-            DeviceUri = deviceUri,
-            Uuid = uuid ?? Guid.NewGuid().ToString(),
-            DeviceName = deviceName,
-            GroupName = groupName,
-            Coordinator = coordinator,
-            HttpClientFactory = provider?.GetService<IHttpClientFactory>(),
-            LoggerFactory = provider?.GetService<ILoggerFactory>(),
-            EventBus = provider?.GetService<ISonosEventBus>(),
-        };
-    }
 }

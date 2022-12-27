@@ -43,10 +43,10 @@ public class SonosBaseService : IDisposable
         this.EventPath = eventPath;
         this.ServiceName = serviceName;
         this.BaseUri = options.DeviceUri;
-        this.httpClient = options.HttpClientFactory?.CreateClient() ?? new HttpClient();
-        this.logger = options.LoggerFactory?.CreateLogger($"Sonos.Base.Services.{serviceName}");
+        this.httpClient = options.ServiceProvider.GetHttpClient();
+        this.logger = options.ServiceProvider.CreateLogger($"Sonos.Base.Services.{serviceName}");
         this.uuid = options.Uuid;
-        this.eventBus = options.EventBus;
+        this.eventBus = options.ServiceProvider.GetSonosEventBus();
     }
 
     internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
@@ -123,7 +123,7 @@ public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IService
         return eventBus?.RenewSubscription(uuid, ServiceName, cancellationToken) ?? Task.FromResult(false);
     }
 
-    private Task<bool> CancelEventSubscriptionAsync(CancellationToken cancellationToken = default)
+    public Task<bool> CancelEventSubscriptionAsync(CancellationToken cancellationToken = default)
     {
         return eventBus?.Unsubscribe(uuid, ServiceName, cancellationToken) ?? Task.FromResult(false);
     }
@@ -132,7 +132,7 @@ public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IService
     {
         CancelEventSubscriptionAsync(CancellationToken.None).GetAwaiter().GetResult();
         base.Dispose();
-        
+
     }
 
     public event EventHandler<TEvent> OnEvent;

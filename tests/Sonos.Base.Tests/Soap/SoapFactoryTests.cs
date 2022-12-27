@@ -18,7 +18,7 @@ public class SoapFactoryTests
     [Fact]
     public void GeneratesXmlStream_AvTransportNextRequest_GeneratesExpectedXml()
     {
-        using var stream = SoapFactory.GenerateXmlStream("AVTransport", "Next", new Services.AVTransportService.NextRequest());
+        using var stream = SoapFactory.GenerateXmlStream(nameof(Services.SonosService.AVTransport), "Next", new Services.AVTransportService.NextRequest());
         using var reader = new StreamReader(stream);
         var xml = reader.ReadToEnd();
 
@@ -28,7 +28,7 @@ public class SoapFactoryTests
     [Fact]
     public void GeneratesXml_AvTransportNextRequest_GeneratesExpectedXml()
     {
-        var xml = SoapFactory.GenerateXml("AVTransport", "Next", new Services.AVTransportService.NextRequest());
+        var xml = SoapFactory.GenerateXml(nameof(Services.SonosService.AVTransport), "Next", new Services.AVTransportService.NextRequest());
         Assert.Equal(xmlInputNextRequest, xml);
     }
 
@@ -38,7 +38,7 @@ public class SoapFactoryTests
     public void ParseXml_GetZoneInfoXmlStream_CreatesCorrectObject()
     {
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(xmlGetZoneInfoResponse));
-        var parsedObject = SoapFactory.ParseXml<Sonos.Base.Services.DevicePropertiesService.GetZoneInfoResponse>("DeviceProperties", stream);
+        var parsedObject = SoapFactory.ParseXml<Sonos.Base.Services.DevicePropertiesService.GetZoneInfoResponse>(nameof(Services.SonosService.DeviceProperties), stream);
 
         Assert.NotNull(parsedObject);
         Assert.Equal("AA:2A:1B:AA:AA:AA", parsedObject.MACAddress);
@@ -47,7 +47,7 @@ public class SoapFactoryTests
     [Fact]
     public void ParseXml_GetZoneInfoXml_CreatesCorrectObject()
     {
-        var parsedObject = SoapFactory.ParseXml<Sonos.Base.Services.DevicePropertiesService.GetZoneInfoResponse>("DeviceProperties", xmlGetZoneInfoResponse);
+        var parsedObject = SoapFactory.ParseXml<Sonos.Base.Services.DevicePropertiesService.GetZoneInfoResponse>(nameof(Services.SonosService.DeviceProperties), xmlGetZoneInfoResponse);
 
         Assert.NotNull(parsedObject);
         Assert.Equal("AA:2A:1B:AA:AA:AA", parsedObject.MACAddress);

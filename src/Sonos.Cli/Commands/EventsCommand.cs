@@ -118,7 +118,7 @@ public class EventsCommand
 
     private static void SomeService_OnEvent(object? sender, dynamic e)
     {
-        Console.WriteLine(JsonSerializer.Serialize(e, new JsonSerializerOptions { WriteIndented = true }));
+        CommandHelpers.WriteJson(e, true);
     }
 
 }

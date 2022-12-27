@@ -18,7 +18,7 @@ internal static class DictionaryExtensions
         return dic.ContainsKey(key) && int.TryParse(dic[key], out var value) ? value : null;
     }
 
-    private static string[] DefaultChannels => new[] { "Master", "LF", "RF" }; 
+    private static string[] DefaultChannels => new[] { "Master", "LF", "RF" };
 
     internal static ChannelMapBool? TryGetMapBool(this Dictionary<string, string> dic, string key, params string[]? channels)
     {
@@ -44,7 +44,7 @@ internal static class DictionaryExtensions
         foreach (var channel in channels)
         {
             var value = dic.TryGetInt($"{key}{channel}");
-            if(value is not null)
+            if (value is not null)
             {
                 result.Add(channel, value.Value);
             }

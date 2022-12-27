@@ -27,16 +27,14 @@ namespace Sonos.Base
     {
         private readonly ConcurrentDictionary<string, SonosDeviceGroup> groups;
         private ZoneGroupTopologyService? zoneGroupTopologyService;
-        private readonly IServiceProvider? provider;
+        private readonly ISonosServiceProvider provider;
         private readonly ILogger? logger;
-        private readonly ILoggerFactory? loggerFactory;
 
-        public SonosManager(IServiceProvider? provider = null)
+        public SonosManager(ISonosServiceProvider provider, ILogger<SonosManager>? logger = null)
         {
             groups = new ConcurrentDictionary<string, SonosDeviceGroup>();
             this.provider = provider;
-            loggerFactory = provider?.GetService<ILoggerFactory>();
-            logger = loggerFactory?.CreateLogger<SonosManager>();
+            this.logger = logger ?? provider.CreateLogger<SonosManager>();
         }
 
         public async Task InitializeFromDevice(Uri deviceUri, CancellationToken cancellationToken = default)
@@ -44,19 +42,24 @@ namespace Sonos.Base
             logger?.LogDebug("Initialize manager from device {deviceUri}", deviceUri);
             if (zoneGroupTopologyService == null)
             {
-                zoneGroupTopologyService = new ZoneGroupTopologyService(SonosServiceOptions.CreateWithProvider(deviceUri, null, provider));
+                zoneGroupTopologyService = new ZoneGroupTopologyService(new SonosServiceOptions(deviceUri, provider));
                 var zoneState = await zoneGroupTopologyService.GetZoneGroupState(cancellationToken);
+
+                if (zoneState is null || zoneState.ParsedState is null)
+                {
+                    return;
+                }
 
                 foreach (var zone in zoneState.ParsedState.ZoneGroups)
                 {
-                    var coordinator = new SonosDevice(SonosDeviceOptions.CreateWithProvider(zone.CoordinatorMember.BaseUri, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null, provider));
-                    
+                    var coordinator = new SonosDevice(new SonosDeviceOptions(zone.CoordinatorMember.BaseUri, provider, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null));
+
 
                     groups.TryAdd(zone.ID, new SonosDeviceGroup
                     {
                         Coordinator = coordinator,
                         GroupName = zone.GroupName,
-                        Members = zone.Members.Select(member => new SonosDevice(SonosDeviceOptions.CreateWithProvider(member.BaseUri, member.UUID, member.ZoneName, coordinator.GroupName, coordinator, provider))).ToArray()
+                        Members = zone.Members.Select(member => new SonosDevice(new SonosDeviceOptions(member.BaseUri, provider, member.UUID, member.ZoneName, coordinator.GroupName, coordinator))).ToArray()
                     });
                 }
             }

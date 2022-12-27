@@ -14,11 +14,13 @@ internal static class IHostExtensions
             throw new ArgumentNullException(nameof(options.Host));
         }
 
-        return new SonosDevice(new Uri($"http://{options.Host}:1400/"), provider: host.Services);
+        var sonosServiceProvider = host.Services.GetRequiredService<ISonosServiceProvider>();
+
+        return new SonosDevice(new SonosDeviceOptions(new Uri($"http://{options.Host}:1400/"), sonosServiceProvider));
     }
 
     internal static SonosManager CreateSonosManager(this IHost host)
     {
-        return new SonosManager(host.Services);
+        return new SonosManager(host.Services.GetRequiredService<ISonosServiceProvider>());
     }
 }

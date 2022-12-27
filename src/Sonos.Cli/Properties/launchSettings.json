@@ -2,8 +2,13 @@
   "profiles": {
     "Sonos.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "192.168.200.61 events",
-      "hotReloadEnabled": false
+      "commandLineArgs": "192.168.200.61 events AVTransport",
+      "hotReloadEnabled": false,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "SONOSEVENTS__HOST": "192.168.200.127"
+          
+      }
     }
   }
 }

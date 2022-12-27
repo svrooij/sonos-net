@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Moq.Protected;
 using System;
@@ -93,5 +94,21 @@ namespace Sonos.Base
         };
 
         internal static Uri DefaultUri => new Uri(defaultUri);
+
+        internal static IServiceCollection CreateProviderWithClientHandler(HttpClientHandler clientHandler)
+        {
+            var result = new ServiceCollection();
+            result.AddMockedHttpClient(clientHandler);
+            return result;
+        }
+
+        internal static IServiceCollection AddMockedHttpClient(this IServiceCollection services, HttpClientHandler clientHandler)
+        {
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
+            var client = new HttpClient(clientHandler);
+            mockHttpClientFactory.Setup(c => c.CreateClient(It.IsAny<string>())).Returns(client);
+            services.AddTransient<IHttpClientFactory>(_ => mockHttpClientFactory.Object);
+            return services;
+        }
     }
 }

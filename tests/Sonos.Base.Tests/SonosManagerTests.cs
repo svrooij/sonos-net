@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,7 +33,8 @@ namespace Sonos.Base.Tests
         {
             var mockedHandler = new Mock<HttpClientHandler>();
             mockedHandler.MockSonosRequest("ZoneGroupTopology", nameof(Services.ZoneGroupTopologyService.GetZoneGroupState), responseBody: ZoneTopologyResponse);
-            var sonosManager = new SonosManager(new HttpClient(mockedHandler.Object));
+
+            var sonosManager = new SonosManager(new StaticSonosServiceProvider(mockedHandler.Object));
             await sonosManager.InitializeFromDevice(TestHelpers.DefaultUri);
 
             var groups = sonosManager.GetGroups();
