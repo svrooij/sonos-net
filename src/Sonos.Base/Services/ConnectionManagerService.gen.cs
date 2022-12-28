@@ -122,7 +122,7 @@ public partial class ConnectionManagerService : SonosBaseService<ConnectionManag
     /// <summary>
     /// ConnectionManager is set to might emit these properties in events
     /// </summary>
-    public interface IConnectionManagerEvent : IServiceEvent
+    public partial interface IConnectionManagerEvent : IServiceEvent
     {
         public string? CurrentConnectionIDs { get; }
 

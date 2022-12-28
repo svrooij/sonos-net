@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Sonos.Base.Events.Parsing;
+namespace Sonos.Base.Events.Http.Parsing;
 
 
 // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.

@@ -187,7 +187,7 @@ public partial class VirtualLineInService : SonosBaseService<VirtualLineInServic
     /// <summary>
     /// VirtualLineIn is set to might emit these properties in events
     /// </summary>
-    public interface IVirtualLineInEvent : IServiceEvent
+    public partial interface IVirtualLineInEvent : IServiceEvent
     {
         public string? AVTransportURIMetaData { get; }
 

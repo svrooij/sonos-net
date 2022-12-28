@@ -1,8 +1,8 @@
-﻿using Sonos.Base.Events.Models;
+﻿using Sonos.Base.Events.Http.Models;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Sonos.Base.Events.Parsing;
+namespace Sonos.Base.Events.Http.Parsing;
 
 [Serializable]
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-upnp-org:metadata-1-0/RCS/")]

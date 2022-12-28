@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sonos.Base.Events.Parsing
+namespace Sonos.Base.Events.Http.Parsing
 {
     //internal interface IParsedEvent
     //{

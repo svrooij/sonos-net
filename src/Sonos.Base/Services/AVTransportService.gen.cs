@@ -1499,7 +1499,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
     /// <summary>
     /// AVTransport is set to might emit these properties in events
     /// </summary>
-    public interface IAVTransportEvent : IServiceEvent
+    public partial interface IAVTransportEvent : IServiceEvent
     {
         public int? AbsoluteCounterPosition { get; }
 

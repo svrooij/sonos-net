@@ -12,7 +12,7 @@
     <PackageReference Include="System.CommandLine.Hosting" Version="0.4.0-alpha.22272.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sonos.Base.Events\Sonos.Base.Events.csproj" />
+    <ProjectReference Include="..\Sonos.Base.Events.Http\Sonos.Base.Events.Http.csproj" />
     <ProjectReference Include="..\Sonos.Base\Sonos.Base.csproj" />
   </ItemGroup>
   <ItemGroup>

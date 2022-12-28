@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sonos.Base;
-using Sonos.Base.Events;
+using Sonos.Base.Events.Http;
 using Sonos.Cli.Commands;
 using System.CommandLine;
 using System.CommandLine.Builder;

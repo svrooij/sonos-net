@@ -174,7 +174,7 @@ public partial class HTControlService : SonosBaseService<HTControlService.IHTCon
     /// <summary>
     /// HTControl is set to might emit these properties in events
     /// </summary>
-    public interface IHTControlEvent : IServiceEvent
+    public partial interface IHTControlEvent : IServiceEvent
     {
         public string? IRRepeaterState { get; }
 

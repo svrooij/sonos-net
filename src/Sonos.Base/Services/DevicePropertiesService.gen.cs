@@ -605,7 +605,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     /// <summary>
     /// DeviceProperties is set to might emit these properties in events
     /// </summary>
-    public interface IDevicePropertiesEvent : IServiceEvent
+    public partial interface IDevicePropertiesEvent : IServiceEvent
     {
         public bool? AirPlayEnabled { get; }
 

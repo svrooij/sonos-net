@@ -146,7 +146,7 @@ public partial class {{serviceName}} : SonosBaseService
     /// <summary>
     /// {{name}} is set to might emit these properties in events
     /// </summary>
-    public interface I{{name}}Event : IServiceEvent
+    public partial interface I{{name}}Event : IServiceEvent
     {
     {{#each eventVariables}}
         public {{#if (or (are_equal name 'Volume') (are_equal name 'Mute'))}}{{#if (are_equal name 'Mute')}}ChannelMapBool{{else}}ChannelMapInt{{/if}}{{else}}{{{dataType}}}{{/if}}? {{name}} { get; }

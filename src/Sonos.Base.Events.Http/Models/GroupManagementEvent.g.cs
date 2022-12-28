@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-namespace Sonos.Base.Events.Models;
+namespace Sonos.Base.Events.Http.Models;
 
 using Sonos.Base.Services;
 

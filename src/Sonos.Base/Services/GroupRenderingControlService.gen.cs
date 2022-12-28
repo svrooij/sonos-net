@@ -206,7 +206,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
     /// <summary>
     /// GroupRenderingControl is set to might emit these properties in events
     /// </summary>
-    public interface IGroupRenderingControlEvent : IServiceEvent
+    public partial interface IGroupRenderingControlEvent : IServiceEvent
     {
         public bool? GroupMute { get; }
 

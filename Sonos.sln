@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sonos.Base.Tests", "tests\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7881F890-1564-4DED-A230-4B7D28684B51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sonos.Base.Events", "src\Sonos.Base.Events\Sonos.Base.Events.csproj", "{6F4DFE52-24F8-450A-80D8-E8541EDA59ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sonos.Base.Events", "src\Sonos.Base.Events.Http\Sonos.Base.Events.Http.csproj", "{6F4DFE52-24F8-450A-80D8-E8541EDA59ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

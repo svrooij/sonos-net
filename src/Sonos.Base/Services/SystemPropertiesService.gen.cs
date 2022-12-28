@@ -418,7 +418,7 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
     /// <summary>
     /// SystemProperties is set to might emit these properties in events
     /// </summary>
-    public interface ISystemPropertiesEvent : IServiceEvent
+    public partial interface ISystemPropertiesEvent : IServiceEvent
     {
         public string? CustomerID { get; }
 

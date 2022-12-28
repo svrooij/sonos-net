@@ -102,7 +102,7 @@ public partial class MusicServicesService : SonosBaseService<MusicServicesServic
     /// <summary>
     /// MusicServices is set to might emit these properties in events
     /// </summary>
-    public interface IMusicServicesEvent : IServiceEvent
+    public partial interface IMusicServicesEvent : IServiceEvent
     {
         public int? ServiceId { get; }
 

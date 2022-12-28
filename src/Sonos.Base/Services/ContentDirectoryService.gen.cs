@@ -413,7 +413,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     /// <summary>
     /// ContentDirectory is set to might emit these properties in events
     /// </summary>
-    public interface IContentDirectoryEvent : IServiceEvent
+    public partial interface IContentDirectoryEvent : IServiceEvent
     {
         public bool? Browseable { get; }
 

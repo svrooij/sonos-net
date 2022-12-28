@@ -1,4 +1,4 @@
-﻿namespace Sonos.Base.Events;
+﻿namespace Sonos.Base.Events.Http;
 
 public class SonosEventReceiverOptions
 {

@@ -506,7 +506,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
     /// <summary>
     /// AlarmClock is set to might emit these properties in events
     /// </summary>
-    public interface IAlarmClockEvent : IServiceEvent
+    public partial interface IAlarmClockEvent : IServiceEvent
     {
         public string? AlarmListVersion { get; }
 

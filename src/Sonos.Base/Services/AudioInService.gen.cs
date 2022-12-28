@@ -175,7 +175,7 @@ public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEv
     /// <summary>
     /// AudioIn is set to might emit these properties in events
     /// </summary>
-    public interface IAudioInEvent : IServiceEvent
+    public partial interface IAudioInEvent : IServiceEvent
     {
         public string? AudioInputName { get; }
 

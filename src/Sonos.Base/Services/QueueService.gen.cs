@@ -448,7 +448,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
     /// <summary>
     /// Queue is set to might emit these properties in events
     /// </summary>
-    public interface IQueueEvent : IServiceEvent
+    public partial interface IQueueEvent : IServiceEvent
     {
         public bool? Curated { get; }
 

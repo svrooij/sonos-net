@@ -15,7 +15,7 @@
     },
     {
       "file": "ServiceEventParsing.hbs",
-      "outputFile": "Sonos.Base.Events/Models/{service}Event.g.cs",
+      "outputFile": "Sonos.Base.Events.Http/Models/{service}Event.g.cs",
       "usage":"service"
     },
     {

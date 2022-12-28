@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Sonos.Base.Events.Models;
-using Sonos.Base.Events.Parsing;
+using Sonos.Base.Events.Http.Models;
+using Sonos.Base.Events.Http.Parsing;
 using Sonos.Base.Services;
 using System.Collections.Concurrent;
 using System.Xml.Serialization;
 
-namespace Sonos.Base.Events;
+namespace Sonos.Base.Events.Http;
 
 public class SonosEventReceiver : IHostedService, ISonosEventBus
 {

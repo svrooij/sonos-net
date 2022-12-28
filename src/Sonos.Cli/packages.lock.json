@@ -321,7 +321,7 @@
           "Microsoft.Extensions.Logging.Abstractions": "[7.0.0, )"
         }
       },
-      "sonos.base.events": {
+      "sonos.base.events.http": {
         "type": "Project",
         "dependencies": {
           "Microsoft.Extensions.Hosting.Abstractions": "[7.0.0, )",

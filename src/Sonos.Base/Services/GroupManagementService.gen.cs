@@ -135,7 +135,7 @@ public partial class GroupManagementService : SonosBaseService<GroupManagementSe
     /// <summary>
     /// GroupManagement is set to might emit these properties in events
     /// </summary>
-    public interface IGroupManagementEvent : IServiceEvent
+    public partial interface IGroupManagementEvent : IServiceEvent
     {
         public bool? GroupCoordinatorIsLocal { get; }
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sonos.Base.Events.Models
+namespace Sonos.Base.Events.Http.Models
 {
     public partial class ZoneGroupTopologyEvent
     {

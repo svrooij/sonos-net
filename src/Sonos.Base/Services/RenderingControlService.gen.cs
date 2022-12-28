@@ -799,7 +799,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
     /// <summary>
     /// RenderingControl is set to might emit these properties in events
     /// </summary>
-    public interface IRenderingControlEvent : IServiceEvent
+    public partial interface IRenderingControlEvent : IServiceEvent
     {
         public string? AudioDelay { get; }
 
