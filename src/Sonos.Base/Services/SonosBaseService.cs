@@ -25,15 +25,16 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Abstractions;
 
-public class SonosBaseService : IDisposable
+public partial class SonosBaseService : IDisposable
 {
     protected readonly string ControlPath;
     protected readonly string EventPath;
     protected readonly SonosService ServiceName;
     protected readonly Uri BaseUri;
     protected readonly HttpClient httpClient;
-    protected readonly ILogger? logger;
+    protected readonly ILogger logger;
     protected readonly ISonosEventBus? eventBus;
     protected readonly string uuid;
 
@@ -44,38 +45,38 @@ public class SonosBaseService : IDisposable
         this.ServiceName = serviceName;
         this.BaseUri = options.DeviceUri;
         this.httpClient = options.ServiceProvider.GetHttpClient();
-        this.logger = options.ServiceProvider.CreateLogger($"Sonos.Base.Services.{serviceName}");
+        this.logger = options.ServiceProvider.CreateLogger($"Sonos.Base.Services.{serviceName}") ?? (ILogger)NullLogger.Instance;
         this.uuid = options.Uuid;
         this.eventBus = options.ServiceProvider.GetSonosEventBus();
     }
 
     internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
     {
-        logger?.LogDebug("Starting ExecuteRequest {caller}", caller);
+        LogExecuteRequestStarted(uuid, ServiceName, caller);
         var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
-            await HandleErrorResponse(response, cancellationToken);
+            await HandleErrorResponse(response, cancellationToken, caller);
         }
         return true;
     }
 
     internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class where TOut : class
     {
-        logger?.LogDebug("Starting ExecuteRequest {caller}", caller);
+        LogExecuteRequestStarted(uuid, ServiceName, caller);
         var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
-            await HandleErrorResponse(response, cancellationToken);
+            await HandleErrorResponse(response, cancellationToken, caller);
         }
-        return await ParseResponse<TOut>(response, cancellationToken);
+        return await ParseResponse<TOut>(response, cancellationToken, caller);
     }
 
-    internal async Task HandleErrorResponse(HttpResponseMessage response, CancellationToken cancellationToken)
+    internal async Task HandleErrorResponse(HttpResponseMessage response, CancellationToken cancellationToken, string? caller = null)
     {
-        logger?.LogDebug("HandleErrorResponse");
+        LogHandleErrorResponseStarted(this.uuid, ServiceName, caller);
 
         // TODO HandleErrorResponse needs implementation
         // var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -86,15 +87,15 @@ public class SonosBaseService : IDisposable
             var code = error.UpnpErrorCode;
             string? message = (code is not null && ServiceErrors.ContainsKey((int)code)) ? ServiceErrors[(int)code].Message : null;
             var ex = new SonosServiceException(error.FaultCode, error.FaultString, code, message);
-            logger?.LogWarning(ex, "Sonos request failed");
+            LogHandleErrorResponse(ex, uuid, ServiceName, caller);
             throw ex;
         }
         throw new Exception();
     }
 
-    internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken) where TOut : class
+    internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken, string? caller = null) where TOut : class
     {
-        logger?.LogDebug("ParseResponse");
+        LogParseResponseStarted(uuid, ServiceName, caller);
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
         return SoapFactory.ParseXml<TOut>(ServiceName.ToString(), xml);
     }
@@ -105,6 +106,18 @@ public class SonosBaseService : IDisposable
     }
 
     internal virtual Dictionary<int, SonosUpnpError> ServiceErrors { get => SonosUpnpError.DefaultErrors; }
+
+    [LoggerMessage(EventId = 100, Level = LogLevel.Debug, Message = "ExecuteRequest started {Uuid}/{Service} {Action}")]
+    private partial void LogExecuteRequestStarted(string uuid, SonosService service, string? action);
+
+    [LoggerMessage(EventId = 102, Level = LogLevel.Debug, Message = "ParseResponse started {Uuid}/{Service} {Action}")]
+    private partial void LogParseResponseStarted(string uuid, SonosService service, string? action);
+
+    [LoggerMessage(EventId = 103, Level = LogLevel.Debug, Message = "HandleErrorResponse started {Uuid}/{Service} {Action}")]
+    private partial void LogHandleErrorResponseStarted(string uuid, SonosService service, string? action);
+
+    [LoggerMessage(EventId = 104, Level = LogLevel.Warning, Message = "Sonos request failed {Uuid}/{Service} {Action}")]
+    private partial void LogHandleErrorResponse(SonosServiceException e, string uuid, SonosService service, string? action);
 }
 
 public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IServiceEvent
@@ -130,7 +143,11 @@ public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IService
 
     public override void Dispose()
     {
-        CancelEventSubscriptionAsync(CancellationToken.None).GetAwaiter().GetResult();
+        if(eventBus is not null)
+        {
+            CancelEventSubscriptionAsync(CancellationToken.None).GetAwaiter().GetResult();
+        }
+            
         base.Dispose();
 
     }
