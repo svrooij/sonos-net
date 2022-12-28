@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Sonos.Base.Events.Http.Models;
 using Sonos.Base.Events.Http.Parsing;
@@ -12,18 +13,19 @@ using System.Xml.Serialization;
 
 namespace Sonos.Base.Events.Http;
 
-public class SonosEventReceiver : IHostedService, ISonosEventBus
+public partial class SonosEventReceiver : IHostedService, ISonosEventBus
 {
     private readonly HttpClient httpClient;
-    private readonly ILogger? logger;
+    private readonly ILogger logger;
+    private readonly SonosEventReceiverOptions options;
     private readonly ConcurrentBag<SonosEventSubscription> subscriptions = new ConcurrentBag<SonosEventSubscription>();
     private WebApplication WebApplication;
 
-    public SonosEventReceiver(ILogger<SonosEventReceiver> logger, HttpClient httpClient, IOptions<SonosEventReceiverOptions>? settings = null)
+    public SonosEventReceiver(HttpClient httpClient, ILogger<SonosEventReceiver>? logger = null, IOptions<SonosEventReceiverOptions>? settings = null)
     {
-        this.logger = logger;
+        this.logger = logger ?? (ILogger)NullLogger.Instance;
         this.httpClient = httpClient;
-        var options = settings?.Value ?? new SonosEventReceiverOptions();
+        options = settings?.Value ?? new SonosEventReceiverOptions();
         WebApplication = CreateWebApplication(options.Port);
     }
 
@@ -42,6 +44,8 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
 
         var response = await httpClient.SendAsync(req, cancellationToken);
 
+        LogRenewedSubscription(uuid, service, response.IsSuccessStatusCode);
+
         return response.IsSuccessStatusCode;
     }
 
@@ -54,6 +58,7 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
     {
         WebApplication.Run();
     }
+
     public Task StartAsync(CancellationToken cancellationToken)
     {
         return WebApplication.StartAsync(cancellationToken);
@@ -69,7 +74,7 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
     {
         int timeoutInSeconds = 1800;
         var callbackUri = GenerateCallback(uuid, service);
-        logger?.LogDebug("Subscribing to events for {uuid} from {service}, callback: {callbackUri}", uuid, service, callbackUri);
+        LogSubscribeStart(uuid, service, callbackUri);
         var req = new HttpRequestMessage(new HttpMethod("SUBSCRIBE"), eventEndpoint);
         req.Headers.Add("callback", $"<{callbackUri}>");
         req.Headers.Add("NT", "upnp:event");
@@ -79,36 +84,44 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new SonosException("Event subscription failed");
+            var e = new SonosException("Event subscription failed") { StatusCode = (int)response.StatusCode };
+            LogSubscribingFailed(e, uuid, service, callbackUri);
+            throw e;
         }
 
         var sid = response.Headers.TryGetValues("sid", out var values) ? values.FirstOrDefault() : null;
         if (sid is null || string.IsNullOrEmpty(sid))
         {
-            throw new SonosException("Event subscription failed, no subscription ID");
+            var e = new SonosException("Event subscription failed, no subscription ID");
+            LogSubscribingFailed(e, uuid, service, callbackUri);
+            throw e;
         }
 
         this.subscriptions.Add(new SonosEventSubscription(uuid, service, eventEndpoint, sid, callback));
 
-        logger?.LogInformation("Subscribed for events for {uuid} from {service}, sid: {sid}", uuid, service, sid);
+        LogSubscribingFinished(uuid, service, sid);
 
         return true;
     }
 
-    public Task<bool> Unsubscribe(string uuid, SonosService service, CancellationToken cancellationToken = default)
+    public async Task<bool> Unsubscribe(string uuid, SonosService service, CancellationToken cancellationToken = default)
     {
-        logger?.LogDebug("Unsubscribing to events for {uuid} from {service}", uuid, service);
+        LogUnsubscribeStart(uuid, service);
         var subscription = GetSubscription(uuid, service);
         if (subscription is null)
         {
-            return Task.FromResult(false);
+            LogSubscriptionNotFound(uuid, service);
+            return false;
         }
 
-        return Unsubscribe(subscription.EventUri, subscription.Sid, cancellationToken);
+        var result = await Unsubscribe(subscription.EventUri, subscription.Sid, cancellationToken);
+        LogUnsubscribeFinished(uuid, service, result);
+        return result;
     }
 
     public async Task<bool> UnsubscribeAll(CancellationToken cancellationToken = default)
     {
+        LogUnsubscribeAllStart();
         var result = false;
         while (subscriptions.TryTake(out var sub))
         {
@@ -118,7 +131,7 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
             }
             catch (Exception ex)
             {
-                logger?.LogWarning(ex, "Error unsubscribing from {eventUri}", sub.EventUri);
+                LogUnsubscribeFailed(ex, sub.EventUri, sub.Sid);
             }
         }
         return result;
@@ -141,7 +154,7 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
 
     internal void EmitParsedEvent(string uuid, SonosService service, IServiceEvent? serviceEvent)
     {
-        logger?.LogDebug("{service} event received {@event}", service, serviceEvent);
+        LogEventParsed(uuid, service, serviceEvent);
 
         var subscription = GetSubscription(uuid, service);
         if (serviceEvent is not null && subscription is not null)
@@ -157,20 +170,20 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
         EmitParsedEvent(uuid, SonosService.ZoneGroupTopology, eventData);
     }
 
-    internal async Task<IResult> HandleEventAsync([FromRoute] string uuid, [FromRoute] Sonos.Base.Services.SonosService service, HttpContext ctx)
+    internal async Task<IResult> HandleEventAsync([FromRoute] string uuid, [FromRoute] SonosService service, HttpContext ctx)
     {
         try
         {
             using var reader = new StreamReader(ctx.Request.Body);
             var body = await reader.ReadToEndAsync();
-            logger?.LogDebug("Got XML: \r\n{xml}", body);
+            LogRawXml(uuid, service, body);
             using var stringReader = new StringReader(body);
             var serializer = new XmlSerializer(typeof(PropertyCollection));
             var result = (PropertyCollection?)serializer.Deserialize(stringReader);
 
             if (result is null || result.property is null) // result?.property?[0].LastChange is null
             {
-                logger?.LogWarning("Event is empty");
+                LogEventEmpty(uuid, service);
                 return Results.Ok();
             }
             var eventData = result?.GetEventProperties();
@@ -240,7 +253,6 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
 
                 case SonosService.ZoneGroupTopology:
                     EmitZoneGroupTopologyEvent(uuid, eventData);
-                    //EmitParsedEvent(uuid, service, ZoneGroupTopologyEvent.FromDictionary(eventData));
                     break;
 
                 default:
@@ -253,7 +265,7 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
         }
         catch (Exception ex)
         {
-            logger?.LogWarning(ex, "Error parsing event");
+            LogEventParsingError(ex, uuid, service);
         }
 
         return Results.StatusCode(500);
@@ -290,13 +302,50 @@ public class SonosEventReceiver : IHostedService, ISonosEventBus
 
         return app;
     }
+
     private string GenerateCallback(string uuid, SonosService service)
     {
-        // TODO Generate from settings!
-        return new Uri(new Uri("http://192.168.200.127:6329/event/"), $"{uuid}/{service}").ToString();
+        return new Uri(new Uri($"http://{options.Host ?? "sonosevents.local"}:{options.Port}/event/"), $"{uuid}/{service}").ToString();
     }
+
     private SonosEventSubscription? GetSubscription(string uuid, SonosService service) => subscriptions.FirstOrDefault(s => s.Uuid == uuid && s.Service == service);
 
+    [LoggerMessage(EventId = 201, Level = LogLevel.Debug, Message = "Empty event received {Uuid}/{Service}")]
+    private partial void LogEventEmpty(string uuid, SonosService service);
+
+    [LoggerMessage(EventId = 200, Level = LogLevel.Debug, Message = "Event parsed {Uuid}/{Service} {Data}")]
+    private partial void LogEventParsed(string uuid, SonosService service, dynamic? data);
+
+    [LoggerMessage(EventId = 202, Level = LogLevel.Warning, Message = "Error parsing event {Uuid}/{Service}")]
+    private partial void LogEventParsingError(Exception e, string uuid, SonosService service);
+
+    [LoggerMessage(EventId = 300, Level = LogLevel.Trace, Message = "Event XML for {Uuid}/{Service}\r\n{Xml}")]
+    private partial void LogRawXml(string uuid, SonosService service, string xml);
+
+    [LoggerMessage(EventId = 100, Level = LogLevel.Debug, Message = "Renewed subscription to {Uuid}/{Service} success: {Success}")]
+    private partial void LogRenewedSubscription(string uuid, SonosService service, bool success);
+    [LoggerMessage(EventId = 110, Level = LogLevel.Debug, Message = "Subscribe request {Uuid}/{Service}, callback: {CallbackUri}")]
+    private partial void LogSubscribeStart(string uuid, SonosService service, string callbackUri);
+
+    [LoggerMessage(EventId = 111, Level = LogLevel.Warning, Message = "Subscribing failed {Uuid}/{Service}, callback: {CallbackUri}")]
+    private partial void LogSubscribingFailed(Exception e, string uuid, SonosService service, string callbackUri);
+
+    [LoggerMessage(EventId = 112, Level = LogLevel.Information, Message = "Subscribing finished {Uuid}/{Service}, sid: {Sid}")]
+    private partial void LogSubscribingFinished(string uuid, SonosService service, string sid);
+    [LoggerMessage(EventId = 121, Level = LogLevel.Warning, Message = "Subscription not found {Uuid}/{Service}")]
+    private partial void LogSubscriptionNotFound(string uuid, SonosService service);
+
+    [LoggerMessage(EventId = 140, Level = LogLevel.Debug, Message = "Unsubscribe all services")]
+    private partial void LogUnsubscribeAllStart();
+
+    [LoggerMessage(EventId = 141, Level = LogLevel.Warning, Message = "Unsubscribing failed {EventUri} {Sid}")]
+    private partial void LogUnsubscribeFailed(Exception e, Uri eventUri, string sid);
+
+    [LoggerMessage(EventId = 122, Level = LogLevel.Information, Message = "Unsubscribe finished {Uuid}/{Service} success {Success}")]
+    private partial void LogUnsubscribeFinished(string uuid, SonosService service, bool success);
+
+    [LoggerMessage(EventId = 120, Level = LogLevel.Debug, Message = "Unsubscribe request {Uuid}/{Service}")]
+    private partial void LogUnsubscribeStart(string uuid, SonosService service);
     private async Task<bool> Unsubscribe(Uri eventUri, string sid, CancellationToken cancellationToken)
     {
         var req = new HttpRequestMessage(new HttpMethod("UNSUBSCRIBE"), eventUri);
