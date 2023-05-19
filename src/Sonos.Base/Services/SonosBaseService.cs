@@ -35,7 +35,6 @@ public partial class SonosBaseService : IDisposable
     protected readonly Uri BaseUri;
     protected readonly HttpClient httpClient;
     protected readonly ILogger logger;
-    protected readonly ISonosEventBus? eventBus;
     protected readonly string uuid;
 
     internal SonosBaseService(SonosService serviceName, string controlPath, string eventPath, SonosServiceOptions options)
@@ -47,7 +46,7 @@ public partial class SonosBaseService : IDisposable
         this.httpClient = options.ServiceProvider.GetHttpClient();
         this.logger = options.ServiceProvider.CreateLogger($"Sonos.Base.Services.{serviceName}") ?? (ILogger)NullLogger.Instance;
         this.uuid = options.Uuid;
-        this.eventBus = options.ServiceProvider.GetSonosEventBus();
+        
     }
 
     internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
@@ -122,8 +121,10 @@ public partial class SonosBaseService : IDisposable
 
 public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IServiceEvent
 {
+    protected readonly ISonosEventBus? eventBus;
     internal SonosBaseService(SonosService serviceName, string controlPath, string eventPath, SonosServiceOptions options) : base(serviceName, controlPath, eventPath, options)
     {
+        this.eventBus = options.ServiceProvider.GetSonosEventBus();
     }
 
     public Task<bool> SubscribeForEventsAsync(CancellationToken cancellationToken = default)

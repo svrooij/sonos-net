@@ -35,8 +35,11 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
   </ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'netstandard2.0' ">
-		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-	</ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'netstandard2.0' ">
+	<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+	<PackageReference Include="System.Text.Json" Version="7.0.2" />
+  </ItemGroup>
 </Project>

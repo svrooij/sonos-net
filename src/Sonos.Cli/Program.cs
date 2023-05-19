@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sonos.Base;
 using Sonos.Base.Events.Http;
@@ -41,6 +39,7 @@ public class Program
         var root = new RootCommand("Sonos command line controller"){
               new Argument<string>("host"),
                 ControlCommand.GetCommand(),
+                NotifyCommand.GetCommand(),
                 InfoCommand.GetCommand(),
                 VolumeCommand.GetCommand(),
                 ZonesCommand.GetCommand(),

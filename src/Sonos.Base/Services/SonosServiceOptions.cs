@@ -46,6 +46,11 @@ public class SonosServiceOptions
     /// </summary>
     public ISonosServiceProvider ServiceProvider { get; set; }
 
+    public Uri GetWebsocketUri()
+    {
+        return new Uri($"wss://{DeviceUri.Host}:1443/websocket/api");
+    }
+
     ///// <summary>
     ///// Pre-configured HTTP Client
     ///// </summary>

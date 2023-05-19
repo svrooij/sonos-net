@@ -20,10 +20,13 @@ namespace Sonos.Base;
 
 using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
+using Sonos.Base.Internal;
+using System.Threading.Tasks;
 
-public partial class SonosDevice : IDisposable
+public partial class SonosDevice : IDisposable, IAsyncDisposable
 {
     private SonosDevice? coordinator;
+    private SonosWebSocket? SonosWebSocket;
     protected readonly ILogger? logger;
 
     public SonosDevice Coordinator
@@ -53,6 +56,31 @@ public partial class SonosDevice : IDisposable
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
 
+    public async Task LoadUuid(CancellationToken cancellationToken = default)
+    {
+        if (!Uuid.StartsWith("RINCON"))
+        {
+            var attributes = await DevicePropertiesService.GetZoneInfo();
+            Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}0{this.ServiceOptions.DeviceUri.Port}";
+        }
+    }
+
+    public async Task<bool> QueueNotification(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
+    {
+        //TODO Check if speaker is playing else skip
+        if (notificationOptions.Volume < 1 || notificationOptions.Volume > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(NotificationOptions.Volume), "Volume must be between 1 and 100");
+        }
+        await LoadUuid(cancellationToken);
+        if (SonosWebSocket is null)
+        {
+            SonosWebSocket = new SonosWebSocket(ServiceOptions);
+        }
+        await SonosWebSocket.QueueNoticiationAsync(Uuid, notificationOptions.SoundUri.ToString(), notificationOptions.Volume, cancellationToken);
+        return true;
+    }
+
     #region Shortcuts
 
     public Task<bool> Next(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Next(cancellationToken);
@@ -75,5 +103,15 @@ public partial class SonosDevice : IDisposable
     public void Dispose()
     {
         DisposeServices();
+        SonosWebSocket?.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (SonosWebSocket is not null)
+        {
+            await SonosWebSocket.DisposeAsync();
+            SonosWebSocket = null;
+        }
     }
 }
