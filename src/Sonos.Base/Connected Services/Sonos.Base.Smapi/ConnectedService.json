@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "https://smapi.radioshop.net/SonosService.svc?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, Sonos.Base.Smapi"
+    ],
+    "targetFramework": "netstandard2.0",
+    "typeReuseMode": "None"
+  }
+}

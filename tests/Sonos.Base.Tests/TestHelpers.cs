@@ -63,6 +63,7 @@ namespace Sonos.Base
 
         internal static bool VerifySonosRequest(this HttpRequestMessage message, string baseUrl, string service, string action, string? requestBody)
         {
+            // TODO: Verify body in tests
             return
                 message.RequestUri == new Uri(new Uri(baseUrl), GetPathForService(service)) &&
                 message.Headers.ContainsHeaderWithValue(SoapActionHeader, $"urn:schemas-upnp-org:service:{service}:1#{action}");
