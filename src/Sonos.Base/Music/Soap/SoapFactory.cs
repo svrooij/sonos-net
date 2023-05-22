@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Xml;
+using System.Xml.Serialization;
 
 namespace Sonos.Base.Music.Soap
 {
@@ -11,7 +12,7 @@ namespace Sonos.Base.Music.Soap
             //    throw new ArgumentException("Could not determine action");
             //}
 
-            var xml = GenerateXmlStream<TPayload>(action, header, payload);
+            var xml = GenerateXmlStream(action, header, payload);
             var request = new HttpRequestMessage(HttpMethod.Post, baseUri)
             {
                 // Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
@@ -44,7 +45,13 @@ namespace Sonos.Base.Music.Soap
             var ns = SoapNamespaces();
 
             var serializer = new XmlSerializer(envelope.GetType(), overrides);
-            serializer.Serialize(stream, envelope, ns);
+            using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
+            {
+                Indent = false,
+                NewLineHandling = NewLineHandling.None,
+            });
+
+            serializer.Serialize(xmlWriter, envelope, ns);
             stream.Seek(0, SeekOrigin.Begin);
             return stream;
         }
@@ -63,14 +70,14 @@ namespace Sonos.Base.Music.Soap
         {
             var ns = new XmlSerializerNamespaces();
             ns.Add("", ""); // Remove unwanted xsd namespaces.
-            ns.Add("soap", "http://schemas.xmlsoap.org/soap/envelope/");
-            ns.Add("s", "http://www.sonos.com/Services/1.1");
+            ns.Add("s", "http://schemas.xmlsoap.org/soap/envelope/");
+            ns.Add("u", "http://www.sonos.com/Services/1.1");
             return ns;
         }
 
         internal static XmlAttributeOverrides GenerateResponseOverrides<TBody>(string action, string property = "Message") where TBody : class
         {
-            XmlElementAttribute messageAttribute = new XmlElementAttribute(action) { Namespace = $"http://www.sonos.com/Services/1.1", Type = typeof(TBody) };
+            XmlElementAttribute messageAttribute = new XmlElementAttribute($"{action}Response") { Namespace = $"http://www.sonos.com/Services/1.1", Type = typeof(TBody) };
             var myAttributes = new XmlAttributes();
             myAttributes.XmlElements.Add(messageAttribute);
             var overrides = new XmlAttributeOverrides();

@@ -18,6 +18,7 @@
 
 namespace Sonos.Base.Soap;
 
+using System.Xml;
 using System.Xml.Serialization;
 
 internal static class SoapFactory
@@ -30,7 +31,7 @@ internal static class SoapFactory
             throw new ArgumentException("Could not determine action");
         }
 
-        var xml = GenerateXmlStream<TPayload>(attr.ServiceName, attr.Action ?? action, payload);
+        var xml = GenerateXmlStream(attr.ServiceName, attr.Action ?? action, payload);
         var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
         {
             // Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
@@ -63,7 +64,13 @@ internal static class SoapFactory
         var ns = SoapNamespaces();
 
         var serializer = new XmlSerializer(envelope.GetType(), overrides);
-        serializer.Serialize(stream, envelope, ns);
+        using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
+        {
+            Indent = false,
+            NewLineHandling = NewLineHandling.None,
+        });
+        
+        serializer.Serialize(xmlWriter, envelope, ns);
         stream.Seek(0, SeekOrigin.Begin);
         return stream;
     }

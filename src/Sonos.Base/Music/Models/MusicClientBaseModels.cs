@@ -7,4 +7,9 @@
         //public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
         //  new[] { new System.Xml.XmlQualifiedName("sns", "http://www.sonos.com/Services/1.1"), });
     }
+
+    internal interface ISmapiResponse<TResult>
+    {
+        TResult Result { get; }
+    }
 }

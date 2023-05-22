@@ -6,6 +6,9 @@ namespace Sonos.Base.Music.Soap
     {
         [XmlElement(ElementName = "deviceId", Namespace = "http://www.sonos.com/Services/1.1")]
         public string? DeviceId { get; set; }
+
+        [XmlElement(ElementName = "loginToken", Namespace = "http://www.sonos.com/Services/1.1")]
+        public SoapHeaderToken? LoginToken { get; set; }
     }
 
     public class SoapHeaderSessionCredentials : SoapHeaderCredentials
@@ -54,21 +57,6 @@ namespace Sonos.Base.Music.Soap
 
         [XmlElement(ElementName = "password", Namespace = "http://www.sonos.com/Services/1.1")]
         public string Password { get; set; }
-    }
-
-    public class SoapHeaderTokenCredentials : SoapHeaderCredentials
-    {
-        public SoapHeaderTokenCredentials()
-        { }
-
-        public SoapHeaderTokenCredentials(string token, string key, string householdId, string deviceId)
-        {
-            DeviceId = deviceId;
-            LoginToken = new SoapHeaderToken(token, key, householdId);
-        }
-
-        [XmlElement(ElementName = "loginToken", Namespace = "http://www.sonos.com/Services/1.1")]
-        public SoapHeaderToken? LoginToken { get; set; }
     }
 
     public class SoapHeaderToken

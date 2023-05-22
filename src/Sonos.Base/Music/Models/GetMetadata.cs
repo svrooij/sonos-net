@@ -26,10 +26,12 @@ namespace Sonos.Base.Music.Models
     [System.ComponentModel.DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     [XmlRoot(Namespace = "http://www.sonos.com/Services/1.1", IsNullable = false)]
-    public partial class GetMetadataResponse
+    public partial class GetMetadataResponse: ISmapiResponse<GetMetadataResult>
     {
         [XmlElement("getMetadataResult")]
         public GetMetadataResult Result { get; set; }
+
+        //public GetMetadataResult GetResult() => Result;
     }
 
     /// <remarks/>
@@ -58,6 +60,11 @@ namespace Sonos.Base.Music.Models
         public MediaMetadata[]? MediaMetadata
         {
             get; set;
+        }
+
+        public override string ToString()
+        {
+            return $"Metadata result with {Count} results";
         }
     }
 
@@ -126,6 +133,11 @@ namespace Sonos.Base.Music.Models
 
         [XmlElement("itemType")]
         public string ItemType { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{Id}] {Title} ({ItemType})";
+        }
     }
 
     [Serializable()]
