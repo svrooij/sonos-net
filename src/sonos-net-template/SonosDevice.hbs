@@ -26,6 +26,9 @@ public partial class SonosDevice
     {{#each services}}
     private {{name}}Service? _{{lower name}};
 
+    /// <summary>
+    /// Auto initialized {{name}} Service for this device
+    /// </summary>
     public {{name}}Service {{name}}Service
     {
         get

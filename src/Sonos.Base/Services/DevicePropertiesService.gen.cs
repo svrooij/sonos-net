@@ -44,10 +44,11 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     public Task<bool> AddBondedZones(AddBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
-    /// AddHTSatellite
+    /// Adds satellites and/or a sub woofer to a (main) player. The satellites become hidden. The main player RINCON_* is mandatory. RR: right - rear, LF: left - front, SW: subwoofer
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support satellites or sub woofer. Satellites should be of same type (e.g. Play:1)</remarks>
     /// <returns>Success boolean</returns>
     public Task<bool> AddHTSatellite(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
@@ -56,7 +57,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    /// <remarks>No all speakers support StereoPairs</remarks>
+    /// <remarks>Not all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
     public Task<bool> CreateStereoPair(CreateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
@@ -166,10 +167,11 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     public Task<bool> RemoveBondedZones(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
     /// <summary>
-    /// RemoveHTSatellite
+    /// Removes a satellite or a sub woofer from (main) player. The satellite becomes visible.
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support satellites or sub woofer. Multiples RINCON_* are not allowed.</remarks>
     /// <returns>Success boolean</returns>
     public Task<bool> RemoveHTSatellite(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
@@ -194,7 +196,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    /// <remarks>No all speakers support StereoPairs</remarks>
+    /// <remarks>Not all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
     public Task<bool> SeparateStereoPair(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
@@ -276,6 +278,9 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     [SonosServiceRequest("/DeviceProperties/Control", "DeviceProperties", "AddHTSatellite")]
     public class AddHTSatelliteRequest : BaseRequest
     {
+        /// <summary>
+        /// example: `RINCON_000PPP1400:LF,RF;RINCON_000RRR1400:RR;RINCON_000SSS1400:LR;RINCON_000QQQ1400:SW`
+        /// </summary>
         public string HTSatChanMapSet { get; set; }
     }
 
@@ -490,6 +495,9 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     [SonosServiceRequest("/DeviceProperties/Control", "DeviceProperties", "RemoveHTSatellite")]
     public class RemoveHTSatelliteRequest : BaseRequest
     {
+        /// <summary>
+        /// example: `RINCON_000RRR1400`
+        /// </summary>
         public string SatRoomUUID { get; set; }
     }
 

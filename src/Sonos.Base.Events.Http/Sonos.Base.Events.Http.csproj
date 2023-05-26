@@ -1,32 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>10.0</LangVersion>
+	  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	  <PackageId>Sonos.Base.Events.Http</PackageId>
+	  <Authors>Stephan van Rooij</Authors>
+	  <PackageProjectUrl>https://github.com/svrooij/sonos-net</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/svrooij/sonos-net.git</RepositoryUrl>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>Sonos</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
-    <NoWarn>1701;1702;CS8616</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;CS8616;CS1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
-    <NoWarn>1701;1702;CS8616</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-    <NoWarn>1701;1702;CS8616</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-    <NoWarn>1701;1702;CS8616</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CS8616;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sonos.Base\Sonos.Base.csproj" />
   </ItemGroup>
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0' ">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0' ">
@@ -34,6 +40,11 @@
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0' ">
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include=".\README.md" Pack="true" PackagePath="\README.md" />
+		<None Include="..\..\LICENSE.md" Pack="true" PackagePath="\LICENSE.md" />
 	</ItemGroup>
 
 </Project>

@@ -36,7 +36,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
 
 
     /// <summary>
-    /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1). Recommendation: Send one request, check the `TotalMatches` and - if necessary - do additional requests with higher `StartingIndex`. In case of duplicates only the first is returned! Example: albums with same title, even if artists are different
+    /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the `TotalMatches` and - if necessary - do additional requests with higher `StartingIndex`. In case of duplicates only the first is returned! Example: albums with same title, even if artists are different
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
@@ -69,7 +69,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     public Task<FindPrefixResponse> FindPrefix(FindPrefixRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<FindPrefixRequest, FindPrefixResponse>(request, cancellationToken);
 
     /// <summary>
-    /// GetAlbumArtistDisplayOption
+    /// Get the current album art display option such as `WMP`, `ITUNES` or `NONE`
     /// </summary>
     /// <param name="cancellationToken">CancellationToken</param>
     /// <returns>GetAlbumArtistDisplayOptionResponse</returns>
@@ -126,7 +126,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     public Task<GetSystemUpdateIDResponse> GetSystemUpdateID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSystemUpdateIDResponse>(new BaseRequest(), cancellationToken);
 
     /// <summary>
-    /// RefreshShareIndex
+    /// Updates the music library (share) index
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
@@ -172,7 +172,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     public class BrowseRequest : BaseRequest
     {
         /// <summary>
-        /// The search query, (`A:ARTIST` / `A:ALBUMARTIST` / `A:ALBUM` / `A:GENRE` / `A:COMPOSER` / `A:TRACKS` / `A:PLAYLISTS` / `S:` / `SQ:` / `FV:2` / `R:0/0` / `R:0/1`) with optionally `:search+query` behind it.
+        /// The search query, (`A:ARTIST` / `A:ALBUMARTIST` / `A:ALBUM` / `A:GENRE` / `A:COMPOSER` / `A:TRACKS` / `A:PLAYLISTS` / `FV:2` / `Q:`/ `R:0/0` / `R:0/1` / `S:` / `SQ:`) with optionally `:search+query` behind it.
         /// </summary>
         public string ObjectID { get; set; }
 
@@ -192,7 +192,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
         public int StartingIndex { get; set; }
 
         /// <summary>
-        /// Paging, number of items, maximum is 1,000. This parameter does NOT restrict the number of items being searched (filter) but only the number being returned. 
+        /// Paging, number of items, maximum is 1,000. This parameter does NOT restrict the number of items being searched (filter) but only the number being returned. Using 0 is equivalent to 1,000
         /// </summary>
         public int RequestedCount { get; set; }
 
@@ -355,6 +355,9 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "RefreshShareIndex")]
     public class RefreshShareIndexRequest : BaseRequest
     {
+        /// <summary>
+        /// `WMP`, `ITUNES` or `NONE`
+        /// </summary>
         public string AlbumArtistDisplayOption { get; set; }
     }
 
