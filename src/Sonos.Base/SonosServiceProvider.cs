@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sonos.Base
 {
+    /// <summary>
+    /// SonosServiceProvider can help the library get the required services from dependency injection
+    /// </summary>
     public class SonosServiceProvider : ISonosServiceProvider
     {
         private readonly IHttpClientFactory? httpClientFactory;

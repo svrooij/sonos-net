@@ -6,10 +6,12 @@ using System.Xml.Serialization;
 
 namespace Sonos.Base.Events.Http.Parsing;
 
+/// <summary>
+/// AVTransportEventRoot
+/// </summary>
 [Serializable]
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-upnp-org:metadata-1-0/AVT/")]
 [XmlRoot("Event", Namespace = "urn:schemas-upnp-org:metadata-1-0/AVT/", IsNullable = false)]
-
 public partial class AVTransportEventRoot : IParsedEvent<Models.AVTransportEvent>
 {
     [XmlElement("InstanceID")]
@@ -20,6 +22,9 @@ public partial class AVTransportEventRoot : IParsedEvent<Models.AVTransportEvent
     public AVTransportEvent? GetEvent() => AVTransportEvent.FromDictionary(Instance?.GetEventProperties());
 }
 
+/// <summary>
+/// AVTransportEventInstance
+/// </summary>
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-upnp-org:metadata-1-0/AVT/")]
 
 public partial class AVTransportEventInstance
