@@ -1,6 +1,5 @@
 ﻿using Sonos.Base.Music.Models;
 using Sonos.Base.Music.Soap;
-using Sonos.Base.Smapi;
 
 namespace Sonos.Base.Music
 {
@@ -8,12 +7,10 @@ namespace Sonos.Base.Music
     {
         private readonly HttpClient httpClient;
         private readonly MusicClientOptions options;
-        private readonly ISonosSoap smapiClient;
 
-        public MusicClient(MusicClientOptions options, HttpClient httpClient = null)
+        public MusicClient(MusicClientOptions options, HttpClient? httpClient = null)
         {
             this.options = options;
-            smapiClient = new SonosSoapClient(SonosSoapClient.EndpointConfiguration.BasicHttpsBinding_ISonosSoap, options.BaseUri);
             this.httpClient = httpClient ?? new HttpClient();
         }
 
@@ -22,8 +19,42 @@ namespace Sonos.Base.Music
             {
                 throw new ArgumentNullException(nameof(options.HouseholdId));
             }
-            return ExecuteRequest<Models.GetAppLinkRequest, Models.GetAppLinkResponse, Models.GetAppLinkResult>("getAppLink", new GetAppLinkRequest {  HouseholdId = options.HouseholdId }, true, cancellationToken);
+            return GetAppLinkAsync(new Models.GetAppLinkRequest { HouseholdId = options.HouseholdId }, cancellationToken);
         }
+
+        public Task<Models.GetAppLinkResult?> GetAppLinkAsync(Models.GetAppLinkRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetAppLinkRequest, Models.GetAppLinkResponse, Models.GetAppLinkResult>("getAppLink", request, true, cancellationToken);
+
+        public async Task<bool> FinishLoginAsync(string linkCode, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(options.HouseholdId))
+            {
+                throw new ArgumentNullException(nameof(MusicClientOptions.HouseholdId));
+            }
+            if (string.IsNullOrEmpty(options.DeviceId))
+            {
+                throw new ArgumentNullException(nameof(MusicClientOptions.DeviceId));
+            }
+            if(string.IsNullOrEmpty(linkCode))
+            {
+                throw new ArgumentNullException(nameof(linkCode));
+            }
+            if(options.CredentialStore == null)
+            {
+                throw new ArgumentNullException(nameof(MusicClientOptions.CredentialStore));
+            }
+
+            var result = await GetDeviceAuthTokenAsync(new GetDeviceAuthTokenRequest { HouseholdId = options.HouseholdId, LinkCode = linkCode, LinkDeviceId = options.DeviceId }, cancellationToken);
+
+            if (string.IsNullOrEmpty(result?.Key) || string.IsNullOrEmpty(result?.AuthenticationToken))
+            {
+                throw new Exception("Error logging in");
+            }
+
+            return await options.CredentialStore.SaveAccount(options.ServiceId, result.Key, result.AuthenticationToken, cancellationToken);
+        }
+
+        public Task<Models.GetDeviceAuthTokenResult?> GetDeviceAuthTokenAsync(Models.GetDeviceAuthTokenRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetDeviceAuthTokenRequest, Models.GetDeviceAuthTokenResponse, Models.GetDeviceAuthTokenResult>("getDeviceAuthToken", request, true, cancellationToken);
+
         public Task<Models.GetMetadataResult?> GetMetadataAsync(Models.GetMetadataRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetMetadataRequest, Models.GetMetadataResponse, Models.GetMetadataResult>("getMetadata", request, false, cancellationToken);
 
         private async Task<TResponse?> ExecuteRequest<TBody, TSoap, TResponse>(string action, TBody body, bool skipKeyAndToken, CancellationToken cancellationToken) where TBody : Models.MusicClientBaseRequest where TSoap : class, ISmapiResponse<TResponse>
@@ -51,7 +82,7 @@ namespace Sonos.Base.Music
         {
             var context = new SoapHeaderContext() { TimeZone = options.TimeZone };
 
-            if (options.AuthenticationType == AuthenticationType.Anonymous || skipKeyAndToken)
+            if (options.AuthenticationType == AuthenticationType.Anonymous)
             {
                 return new SoapHeader
                 {
@@ -62,18 +93,18 @@ namespace Sonos.Base.Music
 
             if (options.AuthenticationType == AuthenticationType.AppLink || options.AuthenticationType == AuthenticationType.DeviceLink)
             {
-                if (options.CredentialStore == null)
+                if (options.CredentialStore == null && !skipKeyAndToken)
                 {
                     throw new ArgumentNullException(nameof(options.CredentialStore), "CredentialStore is needed for these music services!");
                 }
-                var account = await options.CredentialStore.GetAccountAsync(options.ServiceId, cancellationToken);
+                var account = skipKeyAndToken == false ? null: await options.CredentialStore.GetAccountAsync(options.ServiceId, cancellationToken);
                 return new SoapHeader
                 {
                     Context = context,
                     Credentials = new SoapHeaderCredentials
                     {
                         DeviceId = options.DeviceId,
-                        LoginToken = new SoapHeaderToken(account?.Token ?? string.Empty, account?.Key ?? string.Empty, options.HouseholdId?? string.Empty)
+                        LoginToken = new SoapHeaderToken(account?.Token ?? string.Empty, account?.Key ?? string.Empty, options.HouseholdId ?? string.Empty)
                     }
                 };
             }

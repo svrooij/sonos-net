@@ -27,8 +27,6 @@ namespace Sonos.Base.Music.Models
     {
         [XmlElement("getAppLinkResult")]
         public GetAppLinkResult Result { get; set; }
-
-        //public GetMetadataResult GetResult() => Result;
     }
 
     /// <remarks/>

@@ -121,5 +121,16 @@ namespace Sonos.Base.Tests.Music
 </s:Envelope>";
 
         internal const string getMetadataResponseBody = @"<getMetadataResult> <index>0</index> <count>7</count> <total>7</total> <mediaCollection> <id>featured:c100003799</id> <title>TuneIn Recommends</title> <itemType>container</itemType> <authRequired>false</authRequired> <canPlay>false</canPlay> <canEnumerate>true</canEnumerate> <canCache>true</canCache> <homogeneous>false</homogeneous> <canAddToFavorite>false</canAddToFavorite> <canScroll>false</canScroll> <albumArtURI>http://cdn-albums.tunein.com/sonos/channel_legacy.png</albumArtURI> <releaseDate>0001-01-01T00:00:00</releaseDate> </mediaCollection> <mediaCollection> <id>y1</id> <title>Music</title> <itemType>container</itemType> <authRequired>false</authRequired> <canPlay>false</canPlay> <canEnumerate>true</canEnumerate> <canCache>true</canCache> <homogeneous>false</homogeneous> <canAddToFavorite>false</canAddToFavorite><canScroll>false</canScroll><albumArtURI>http://cdn-albums.tunein.com/sonos/music_legacy.png</albumArtURI><releaseDate>0001-01-01T00:00:00</releaseDate></mediaCollection></getMetadataResult>";
+
+        internal const string getDeviceAuthTokenResponse = @"
+            <getDeviceAuthTokenResult>
+                <authToken>dfadfagsfdgsfgsgfsgfsgfsgfghdsgfjhgdfjfgtsfgdxsfghewagsdrte</authToken>
+                <privateKey>sdfggfhdgjhdghsdfgsfg/dfafgasfg/fashgrfsh/fshfgshgh</privateKey>
+                <userInfo>
+                    <userIdHashCode>somehash</userIdHashCode>
+                    <accountTier>paidPremium</accountTier>
+                    <nickname>yeah_right</nickname>
+                </userInfo>
+            </getDeviceAuthTokenResult>";
     }
 }

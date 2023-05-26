@@ -18,12 +18,14 @@ namespace Sonos.Base.Tests.Music
         private readonly IConfiguration _configuration;
         private readonly MusicClient _musicClient;
 
-        string key = Guid.NewGuid().ToString();
-        string token = Guid.NewGuid().ToString();
+        string key;
+        string token;
 
         public SpotifyMusicClientTests(IConfiguration configuration)
         {
             _configuration = configuration;
+            key = _configuration.GetValue<string?>("SONOS:SPOTIFYKEY") ?? Guid.NewGuid().ToString();
+            token = _configuration.GetValue<string?>("SONOS:SPOTIFYTOKEN") ?? Guid.NewGuid().ToString();
             _musicClient = new MusicClient(MusicClientHelpers.CreateOptions(
                 baseUri: "https://spotify-v5.ws.sonos.com/smapi",
                 serviceId: 9,
@@ -43,6 +45,14 @@ namespace Sonos.Base.Tests.Music
             Assert.NotNull(result.AuthorizeAccount.AppUrlStringId);
             Assert.NotNull(result.AuthorizeAccount.DeviceLink);
             Assert.StartsWith("https://", result.AuthorizeAccount.DeviceLink.RegistrationUrl);
+        }
+
+        [Fact]
+        public async Task MusicClient_LoadsDeviceAuthCode()
+        {
+            var linkCode = "2IQJVQ";
+            var result = await _musicClient.GetDeviceAuthTokenAsync(linkCode);
+            Assert.NotNull(result);
         }
 
 

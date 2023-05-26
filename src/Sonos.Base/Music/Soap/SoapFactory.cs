@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Runtime;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Sonos.Base.Music.Soap
@@ -96,6 +97,20 @@ namespace Sonos.Base.Music.Soap
                 throw new FormatException("Response does not contain expected result");
             }
             return result.Body.Message;
+        }
+
+        internal static SoapEnvelopeWithHeader<SoapHeader,TOut> ParseRequestXml<TOut>(string action, string xml) where TOut : class
+        {
+            var overrides = GenerateOverrides<EnvelopeBody<TOut>>($"{action}");
+            
+            var serializer = new XmlSerializer(typeof(SoapEnvelopeWithHeader<SoapHeader, TOut>), overrides);
+            using var textReader = new StringReader(xml);
+            var result = (SoapEnvelopeWithHeader<SoapHeader, TOut>?)serializer.Deserialize(textReader);
+            if (result is null)
+            {
+                throw new FormatException("Response does not contain expected result");
+            }
+            return result;
         }
 
         internal static TOut ParseXml<TOut>(string action, Stream stream) where TOut : class

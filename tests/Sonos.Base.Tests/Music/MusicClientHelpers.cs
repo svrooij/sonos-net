@@ -1,6 +1,9 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 using Moq.Protected;
 using Sonos.Base.Music;
+using Sonos.Base.Music.Soap;
 using System;
 using System.Net.Http;
 using System.Threading;
@@ -25,6 +28,23 @@ namespace Sonos.Base.Tests.Music
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",
                     ItExpr.Is<HttpRequestMessage>(m => m.VerifyMusicServiceRequest(baseUrl, action, requestBody, timezone, deviceId, authenticationType, key, token, householdId)),
+                    ItExpr.IsAny<CancellationToken>()
+                ).ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    Content = new StringContent(response)
+                });
+
+            return mock;
+        }
+
+        internal static Mock<HttpClientHandler> MockMusicServiceRequest<TRequest>(this Mock<HttpClientHandler> mock, string action, TRequest? requestBody = default, string responseBody = "", string baseUrl = TestHelpers.defaultUri, string timezone = "+01:00", string deviceId = "", AuthenticationType authenticationType = AuthenticationType.Anonymous, string? key = null, string? token = null, string? householdId = null) where TRequest : class
+        {
+            string response = string.Format(MusicResponseFormat, action, responseBody);
+            mock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(m => m.VerifyMusicServiceRequest<TRequest>(baseUrl, action, requestBody, deviceId, authenticationType, key, token, householdId)),
                     ItExpr.IsAny<CancellationToken>()
                 ).ReturnsAsync(new HttpResponseMessage
                 {
@@ -71,6 +91,33 @@ namespace Sonos.Base.Tests.Music
                 (requestBody == null || bodyChecked);
         }
 
+        internal static bool VerifyMusicServiceRequest<TRequest>(this HttpRequestMessage message, string baseUrl, string action, TRequest? requestBody, string deviceId, AuthenticationType authenticationType, string? key, string? token, string? householdId) where TRequest : class
+        {
+            // TODO: Verify body in tests
+            bool bodyChecked = false;
+            if (requestBody != null)
+            {
+                var streamContent = message.Content as StreamContent;
+
+                if (streamContent != null)
+                {
+                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult();
+                    var envelop = SoapFactory.ParseRequestXml<TRequest>(action, content);
+
+                    Assert.Equivalent(requestBody, envelop.Body.Message);
+                    if (AuthenticationType.AppLink == authenticationType || AuthenticationType.DeviceLink == authenticationType)
+                    {
+                        Assert.NotNull(envelop.Header.Credentials?.LoginToken);
+                    }
+                    bodyChecked = true;
+                }
+            }
+            return
+                message.RequestUri == new Uri(baseUrl) &&
+                message.Headers.ContainsHeaderWithValue(MusicActionHeader, $"http://www.sonos.com/Services/1.1#{action}") &&
+                (requestBody == null || bodyChecked);
+        }
+
         internal static MusicClientOptions CreateOptions(string baseUri = TestHelpers.defaultUri, int serviceId = 1, AuthenticationType authenticationType = AuthenticationType.Anonymous, string? deviceId = null, string timezone = "+01:00", string? householdId = null, string? key = null, string? token = null)
         {
             IMusicClientCredentialStore? credentialStore = null;
@@ -88,11 +135,14 @@ namespace Sonos.Base.Tests.Music
                 {
                     throw new ArgumentNullException(nameof(token));
                 }
-                var mockedCredentials = new Mock<IMusicClientCredentialStore>();
-                mockedCredentials
-                    .Setup(x => x.GetAccountAsync(It.Is<int>((x) => x==1), It.IsAny<CancellationToken>()))
-                    .Returns(Task.FromResult(new MusicClientAccount(key, token)));
-                credentialStore = mockedCredentials.Object;
+
+                credentialStore = new MemoryMusicServiceAccountStore();
+                credentialStore.SaveAccount(serviceId, key, token);
+                //var mockedCredentials = new Mock<IMusicClientCredentialStore>();
+                //mockedCredentials
+                //    .Setup(x => x.GetAccountAsync(It.Is<int>((x) => x==1), It.IsAny<CancellationToken>()))
+                //    .Returns(Task.FromResult<MusicClientAccount?>(new MusicClientAccount(key, token)));
+                //credentialStore = mockedCredentials.Object;
             }
 
             return new MusicClientOptions { BaseUri = baseUri, ServiceId = serviceId, AuthenticationType = authenticationType, CredentialStore = credentialStore, DeviceId = deviceId, HouseholdId = householdId, TimeZone = timezone };
