@@ -25,6 +25,9 @@ public partial class SonosDevice
 {
     private AlarmClockService? _alarmclock;
 
+    /// <summary>
+    /// Auto initialized AlarmClock Service for this device
+    /// </summary>
     public AlarmClockService AlarmClockService
     {
         get
@@ -38,6 +41,9 @@ public partial class SonosDevice
     }
     private AudioInService? _audioin;
 
+    /// <summary>
+    /// Auto initialized AudioIn Service for this device
+    /// </summary>
     public AudioInService AudioInService
     {
         get
@@ -51,6 +57,9 @@ public partial class SonosDevice
     }
     private AVTransportService? _avtransport;
 
+    /// <summary>
+    /// Auto initialized AVTransport Service for this device
+    /// </summary>
     public AVTransportService AVTransportService
     {
         get
@@ -64,6 +73,9 @@ public partial class SonosDevice
     }
     private ConnectionManagerService? _connectionmanager;
 
+    /// <summary>
+    /// Auto initialized ConnectionManager Service for this device
+    /// </summary>
     public ConnectionManagerService ConnectionManagerService
     {
         get
@@ -77,6 +89,9 @@ public partial class SonosDevice
     }
     private ContentDirectoryService? _contentdirectory;
 
+    /// <summary>
+    /// Auto initialized ContentDirectory Service for this device
+    /// </summary>
     public ContentDirectoryService ContentDirectoryService
     {
         get
@@ -90,6 +105,9 @@ public partial class SonosDevice
     }
     private DevicePropertiesService? _deviceproperties;
 
+    /// <summary>
+    /// Auto initialized DeviceProperties Service for this device
+    /// </summary>
     public DevicePropertiesService DevicePropertiesService
     {
         get
@@ -103,6 +121,9 @@ public partial class SonosDevice
     }
     private GroupManagementService? _groupmanagement;
 
+    /// <summary>
+    /// Auto initialized GroupManagement Service for this device
+    /// </summary>
     public GroupManagementService GroupManagementService
     {
         get
@@ -116,6 +137,9 @@ public partial class SonosDevice
     }
     private GroupRenderingControlService? _grouprenderingcontrol;
 
+    /// <summary>
+    /// Auto initialized GroupRenderingControl Service for this device
+    /// </summary>
     public GroupRenderingControlService GroupRenderingControlService
     {
         get
@@ -129,6 +153,9 @@ public partial class SonosDevice
     }
     private HTControlService? _htcontrol;
 
+    /// <summary>
+    /// Auto initialized HTControl Service for this device
+    /// </summary>
     public HTControlService HTControlService
     {
         get
@@ -142,6 +169,9 @@ public partial class SonosDevice
     }
     private MusicServicesService? _musicservices;
 
+    /// <summary>
+    /// Auto initialized MusicServices Service for this device
+    /// </summary>
     public MusicServicesService MusicServicesService
     {
         get
@@ -155,6 +185,9 @@ public partial class SonosDevice
     }
     private QPlayService? _qplay;
 
+    /// <summary>
+    /// Auto initialized QPlay Service for this device
+    /// </summary>
     public QPlayService QPlayService
     {
         get
@@ -168,6 +201,9 @@ public partial class SonosDevice
     }
     private QueueService? _queue;
 
+    /// <summary>
+    /// Auto initialized Queue Service for this device
+    /// </summary>
     public QueueService QueueService
     {
         get
@@ -181,6 +217,9 @@ public partial class SonosDevice
     }
     private RenderingControlService? _renderingcontrol;
 
+    /// <summary>
+    /// Auto initialized RenderingControl Service for this device
+    /// </summary>
     public RenderingControlService RenderingControlService
     {
         get
@@ -194,6 +233,9 @@ public partial class SonosDevice
     }
     private SystemPropertiesService? _systemproperties;
 
+    /// <summary>
+    /// Auto initialized SystemProperties Service for this device
+    /// </summary>
     public SystemPropertiesService SystemPropertiesService
     {
         get
@@ -207,6 +249,9 @@ public partial class SonosDevice
     }
     private VirtualLineInService? _virtuallinein;
 
+    /// <summary>
+    /// Auto initialized VirtualLineIn Service for this device
+    /// </summary>
     public VirtualLineInService VirtualLineInService
     {
         get
@@ -220,6 +265,9 @@ public partial class SonosDevice
     }
     private ZoneGroupTopologyService? _zonegrouptopology;
 
+    /// <summary>
+    /// Auto initialized ZoneGroupTopology Service for this device
+    /// </summary>
     public ZoneGroupTopologyService ZoneGroupTopologyService
     {
         get

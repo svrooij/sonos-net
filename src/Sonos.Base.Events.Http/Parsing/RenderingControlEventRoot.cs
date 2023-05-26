@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Sonos.Base.Events.Http.Parsing;
 
+/// <summary>
+/// RenderingControlEventRoot
+/// </summary>
 [Serializable]
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-upnp-org:metadata-1-0/RCS/")]
 [XmlRoot("Event", Namespace = "urn:schemas-upnp-org:metadata-1-0/RCS/", IsNullable = false)]
@@ -18,6 +21,9 @@ public partial class RenderingControlEventRoot : IParsedEvent<Models.RenderingCo
     public RenderingControlEvent? GetEvent() => RenderingControlEvent.FromDictionary(Instance?.GetEventProperties());
 }
 
+/// <summary>
+/// RenderingControlEventInstance
+/// </summary>
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-upnp-org:metadata-1-0/RCS/")]
 
 public partial class RenderingControlEventInstance

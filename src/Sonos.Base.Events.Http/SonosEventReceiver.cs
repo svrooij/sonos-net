@@ -12,23 +12,41 @@ using System.Collections.Concurrent;
 using System.Xml.Serialization;
 
 namespace Sonos.Base.Events.Http;
-
+/// <summary>
+/// SonosEventReceiver is an Http based sonos event receiver, which implements a receiver that can subscribe to Sonos UPNP events
+/// </summary>
+/// <remarks>Add as IHostedService to your project.</remarks>
 public partial class SonosEventReceiver : IHostedService, ISonosEventBus
 {
     private readonly HttpClient httpClient;
-    private readonly ILogger logger;
+    private readonly ILogger<SonosEventReceiver> logger;
     private readonly SonosEventReceiverOptions options;
     private readonly ConcurrentBag<SonosEventSubscription> subscriptions = new ConcurrentBag<SonosEventSubscription>();
     private WebApplication WebApplication;
 
-    public SonosEventReceiver(HttpClient httpClient, ILogger<SonosEventReceiver>? logger = null, IOptions<SonosEventReceiverOptions>? settings = null)
+    /// <summary>
+    /// SonosEventReceiver constructor
+    /// </summary>
+    /// <param name="httpClient">Configure your http client</param>
+    /// <param name="logger">Log events from the actual receiver</param>
+    /// <param name="loggerProvider">Pass through the main logger provider to the child web host for events</param>
+    /// <param name="settings">SonosEventReceiverOptions settings</param>
+    /// <remarks>Probably called from dependency injection</remarks>
+    public SonosEventReceiver(HttpClient? httpClient = null, ILogger<SonosEventReceiver>? logger = null, ILoggerProvider? loggerProvider = null, IOptions<SonosEventReceiverOptions>? settings = null)
     {
-        this.logger = logger ?? (ILogger)NullLogger.Instance;
-        this.httpClient = httpClient;
+        this.logger = logger ?? NullLogger<SonosEventReceiver>.Instance;
+        this.httpClient = httpClient ?? new HttpClient();
         options = settings?.Value ?? new SonosEventReceiverOptions();
-        WebApplication = CreateWebApplication(options.Port);
+        WebApplication = CreateWebApplication(options.Port, loggerProvider);
     }
 
+    /// <summary>
+    /// Renew a subscription to a sonos service
+    /// </summary>
+    /// <param name="uuid">UUID of the player</param>
+    /// <param name="service">Sonos Service that wants the events</param>
+    /// <param name="cancellationToken">CancellationToken to cancel the renew subscription request</param>
+    /// <returns>true when the subscription was renewed successfully</returns>
     public async Task<bool> RenewSubscription(string uuid, SonosService service, CancellationToken cancellationToken = default)
     {
         var subscription = GetSubscription(uuid, service);
@@ -49,27 +67,38 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         return response.IsSuccessStatusCode;
     }
 
-    public Task RunAsync(CancellationToken cancellationToken)
-    {
-        return WebApplication.RunAsync(token: cancellationToken);
-    }
-
-    public void RunBlocked()
-    {
-        WebApplication.Run();
-    }
-
+    /// <summary>
+    /// IHostedService Implementation to start the child web application
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        LogStartAsyncCalled();
         return WebApplication.StartAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// IHostedService implementation to stop the child web application
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+        LogStopAsyncCalled();
         await UnsubscribeAll(cancellationToken);
         await WebApplication.StopAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// Subscribe for events from this Sonos service
+    /// </summary>
+    /// <param name="uuid">UUID of the player</param>
+    /// <param name="service">Sonos Service that wants the events</param>
+    /// <param name="eventEndpoint">Endpoint of the events</param>
+    /// <param name="callback">Action that is called when a new event is parsed</param>
+    /// <param name="cancellationToken">CancellationToken to cancel the create subscription request</param>
+    /// <returns>true when the subscription was made successfully</returns>
     public async Task<bool> Subscribe(string uuid, SonosService service, Uri eventEndpoint, Action<IServiceEvent> callback, CancellationToken cancellationToken = default)
     {
         int timeoutInSeconds = 1800;
@@ -104,6 +133,13 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         return true;
     }
 
+    /// <summary>
+    /// Cancel an existing subscription, so the events will stop
+    /// </summary>
+    /// <param name="uuid">UUID of the player</param>
+    /// <param name="service">Sonos Service you subscribed to</param>
+    /// <param name="cancellationToken">CancellationToken to cancel the cancel subscription request</param>
+    /// <returns>true when the unsubscription request was successfull</returns>
     public async Task<bool> Unsubscribe(string uuid, SonosService service, CancellationToken cancellationToken = default)
     {
         LogUnsubscribeStart(uuid, service);
@@ -119,6 +155,11 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         return result;
     }
 
+    /// <summary>
+    /// Cancel all existing subscriptions, so the events will stop
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken to cancel the cancel subscription request</param>
+    /// <returns>true when then ubsubscription request was successfull</returns>
     public async Task<bool> UnsubscribeAll(CancellationToken cancellationToken = default)
     {
         LogUnsubscribeAllStart();
@@ -148,7 +189,7 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         var data = (IParsedEvent<TEvent>?)serializer.Deserialize(eventReader);
 
         TEvent? actualEvent = data?.GetEvent();
-        logger?.LogDebug("{service} event received {@event}", service, actualEvent);
+        logger.LogDebug("{service} event received {@event}", service, actualEvent);
         EmitParsedEvent(uuid, service, actualEvent);
     }
 
@@ -278,7 +319,7 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         throw new NotImplementedException();
     }
 
-    private WebApplication CreateWebApplication(int port)
+    private WebApplication CreateWebApplication(int port, ILoggerProvider? loggerProvider = null)
     {
         //var builder = WebApplication.CreateBuilder(new WebApplicationOptions {
         //    Args = new[]
@@ -287,6 +328,13 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
         //    }
         //});
         var builder = WebApplication.CreateBuilder();
+
+        builder.Logging.ClearProviders();
+        if (loggerProvider != null)
+        {
+            builder.Logging.AddProvider(loggerProvider);
+        }
+            
 
         //builder.Logging.AddJsonConsole();
         //builder.Logging.AddConsole();
@@ -309,6 +357,12 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
     }
 
     private SonosEventSubscription? GetSubscription(string uuid, SonosService service) => subscriptions.FirstOrDefault(s => s.Uuid == uuid && s.Service == service);
+
+    [LoggerMessage(EventId = 21, Level = LogLevel.Information, Message = "StartAsync Called")]
+    private partial void LogStartAsyncCalled();
+
+    [LoggerMessage(EventId = 22, Level = LogLevel.Information, Message = "StopAsync Called")]
+    private partial void LogStopAsyncCalled();
 
     [LoggerMessage(EventId = 201, Level = LogLevel.Debug, Message = "Empty event received {Uuid}/{Service}")]
     private partial void LogEventEmpty(string uuid, SonosService service);

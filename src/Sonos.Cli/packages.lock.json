@@ -324,7 +324,7 @@
       "sonos.base.events.http": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.Extensions.Hosting.Abstractions": "[6.0.0, )",
+          "Microsoft.Extensions.Hosting.Abstractions": "[7.0.0, )",
           "Sonos.Base": "[1.0.0, )"
         }
       }
