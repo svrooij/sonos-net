@@ -22,7 +22,7 @@ public partial class MusicServicesService
 {
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     [System.Xml.Serialization.XmlRoot("Services", Namespace = "", IsNullable = false)]
@@ -62,7 +62,7 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class MusicService
@@ -226,18 +226,18 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePolicy
     {
-        private string authField;
+        private Music.AuthenticationType authField;
 
         private ushort pollIntervalField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public string Auth
+        public Music.AuthenticationType Auth
         {
             get
             {
@@ -265,7 +265,7 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentation
@@ -302,7 +302,7 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationStrings
@@ -341,7 +341,7 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationPresentationMap
@@ -380,7 +380,7 @@ public partial class MusicServicesService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServiceManifest

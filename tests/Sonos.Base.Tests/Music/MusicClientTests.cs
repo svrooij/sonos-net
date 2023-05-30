@@ -52,7 +52,7 @@ namespace Sonos.Base.Tests.Music
 
 
             var mockedHandler = new Mock<HttpClientHandler>();
-            mockedHandler.MockMusicServiceRequest("getMetadata", $"<u:id>{id}</u:id><u:index>0</u:index><u:count>100</u:count>", responseBody: MusicClientConstants.getMetadataResponseBody, deviceId: deviceId, authenticationType: authenticationType, key: key, token: token, householdId: householdId);
+            mockedHandler.MockMusicServiceRequest<GetMetadataRequest>("getMetadata", new GetMetadataRequest { Id = id }, responseBody: MusicClientConstants.getMetadataResponseBody, deviceId: deviceId, authenticationType: authenticationType, key: key, token: token, householdId: householdId);
 
             var musicClient = new MusicClient(MusicClientHelpers.CreateOptions(deviceId: deviceId, authenticationType: authenticationType, token: token, key: key, householdId: householdId), new HttpClient(mockedHandler.Object));
             var result = await musicClient.GetMetadataAsync(new GetMetadataRequest { Id = id });
@@ -79,8 +79,38 @@ namespace Sonos.Base.Tests.Music
             mockedHandler.MockMusicServiceRequest<GetDeviceAuthTokenRequest>("getDeviceAuthToken", requestBody: new GetDeviceAuthTokenRequest { HouseholdId = householdId, LinkCode = linkCode, LinkDeviceId = deviceId }, responseBody: MusicClientConstants.getDeviceAuthTokenResponse, authenticationType: AuthenticationType.AppLink, deviceId: deviceId, key: key, token: token, householdId: householdId); 
 
             var musicClient = new MusicClient(MusicClientHelpers.CreateOptions(deviceId: deviceId, authenticationType: AuthenticationType.AppLink, token: token, key: key, householdId: householdId), new HttpClient(mockedHandler.Object));
-            var result = await musicClient.GetDeviceAuthTokenAsync(linkCode);
+            var result = await musicClient.GetDeviceAuthTokenAsync(new GetDeviceAuthTokenRequest { HouseholdId = householdId, LinkCode = linkCode, LinkDeviceId = deviceId });
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task GetMetadata_PicksUpTokenFromSoapFault()
+        {
+            var metadataId = "root";
+            var deviceId = Guid.NewGuid().ToString();
+            var householdId = Guid.NewGuid().ToString();
+            var key = Guid.NewGuid().ToString();
+            var token = Guid.NewGuid().ToString() ;
+
+            var newKey = Guid.NewGuid().ToString();
+            var newToken = Guid.NewGuid().ToString();
+
+            var mockedHandler = new Mock<HttpClientHandler>();
+            mockedHandler.MockMusicServiceRequest<GetMetadataRequest>("getMetadata", requestBody: new GetMetadataRequest { Id = metadataId }, responseBody: MusicClientConstants.RefreshTokenError(newKey, newToken), authenticationType: AuthenticationType.AppLink, deviceId: deviceId, key: key, token: token, householdId: householdId, httpStatusCode: System.Net.HttpStatusCode.Unauthorized, packResponse: false);
+
+            var musicClient = new MusicClient(MusicClientHelpers.CreateOptions(deviceId: deviceId, authenticationType: AuthenticationType.AppLink, token: token, key: key, householdId: householdId), new HttpClient(mockedHandler.Object));
+            var result = await musicClient.GetMetadataAsync(new GetMetadataRequest { Id = metadataId });
+
+
+        }
+
+        [Fact]
+        public void SoapFactory_ParsesFault()
+        {
+            var result = SoapFactory.ParseException(MusicClientConstants.FullRefreshMessage);
+            Assert.NotNull(result?.Code);
+            Assert.NotNull(result?.Message);
+            Assert.NotNull(result?.Details?.NewToken);
         }
     }
 }

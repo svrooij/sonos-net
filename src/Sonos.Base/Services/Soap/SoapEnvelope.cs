@@ -18,7 +18,7 @@
 
 namespace Sonos.Base.Soap;
 
-[System.Serializable()]
+[Serializable()]
 [System.ComponentModel.DesignerCategory("code")]
 [System.Xml.Serialization.XmlRoot("Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", IsNullable = false)]
 public class Envelope<TBody>
@@ -38,7 +38,7 @@ public class Envelope<TBody>
     public string EncodingStyle { get; set; } = "http://schemas.xmlsoap.org/soap/encoding/";
 }
 
-[System.Serializable()]
+[Serializable()]
 [System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
 public class EnvelopeBody<TBody>
 {

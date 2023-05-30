@@ -46,7 +46,7 @@ internal static class SoapFactory
 
     internal static string GenerateXml<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
-        var envelope = new Soap.Envelope<TPayload>(payload);
+        var envelope = new Envelope<TPayload>(payload);
         var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
         var ns = SoapNamespaces();
 
@@ -59,7 +59,7 @@ internal static class SoapFactory
     internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
         var stream = new MemoryStream();
-        var envelope = new Soap.Envelope<TPayload>(payload);
+        var envelope = new Envelope<TPayload>(payload);
         var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
         var ns = SoapNamespaces();
 

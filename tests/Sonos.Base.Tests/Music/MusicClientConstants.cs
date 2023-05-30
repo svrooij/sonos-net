@@ -132,5 +132,52 @@ namespace Sonos.Base.Tests.Music
                     <nickname>yeah_right</nickname>
                 </userInfo>
             </getDeviceAuthTokenResult>";
+
+        internal static string RefreshTokenError(string newKey, string newToken)
+        {
+            return string.Format(@"<?xml version=""1.0"" encoding=""UTF-8""?>
+<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"">
+    <soapenv:Header />
+    <soapenv:Body>
+        <soapenv:Fault xmlns=""SOAP-ENV"">
+            <faultcode xmlns="""">:Client.TokenRefreshRequired</faultcode>
+            <faultstring xmlns="""" xml:lang=""en"">tokenRefreshRequired</faultstring>
+            <detail xmlns="""">
+                <refreshAuthTokenResult xmlns:ns2=""http://www.sonos.com/Services/1.1"">
+                    <ns2:authToken>{0}</ns2:authToken>
+                    <ns2:privateKey>{1}</ns2:privateKey>
+                    <ns2:userInfo>
+                        <ns2:userIdHashCode>somehash</ns2:userIdHashCode>
+                        <ns2:accountTier>paidPremium</ns2:accountTier>
+                        <ns2:nickname>yeah_right</ns2:nickname>
+                    </ns2:userInfo>
+                </refreshAuthTokenResult>
+            </detail>
+        </soapenv:Fault>
+    </soapenv:Body>
+</soapenv:Envelope>", newToken, newKey);
+        }
+
+        internal static string FullRefreshMessage = @"<?xml version=""1.0"" encoding=""UTF-8""?>
+<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"">
+    <soapenv:Header />
+    <soapenv:Body>
+        <soapenv:Fault xmlns=""SOAP-ENV"">
+            <faultcode xmlns="""">:Client.TokenRefreshRequired</faultcode>
+            <faultstring xmlns="""" xml:lang=""en"">tokenRefreshRequired</faultstring>
+            <detail xmlns="""">
+                <refreshAuthTokenResult xmlns:ns2=""http://www.sonos.com/Services/1.1"">
+                    <ns2:authToken>asgfgsfgsfgs</ns2:authToken>
+                    <ns2:privateKey>sfghsdhdghjsgfd</ns2:privateKey>
+                    <ns2:userInfo>
+                        <ns2:userIdHashCode>rfgdshgfsxfg</ns2:userIdHashCode>
+                        <ns2:accountTier>paidPremium</ns2:accountTier>
+                        <ns2:nickname>dafdagfdshgdfg</ns2:nickname>
+                    </ns2:userInfo>
+                </refreshAuthTokenResult>
+            </detail>
+        </soapenv:Fault>
+    </soapenv:Body>
+</soapenv:Envelope>";
     }
 }

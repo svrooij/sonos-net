@@ -5,6 +5,7 @@ using Moq.Protected;
 using Sonos.Base.Music;
 using Sonos.Base.Music.Soap;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,9 +39,9 @@ namespace Sonos.Base.Tests.Music
             return mock;
         }
 
-        internal static Mock<HttpClientHandler> MockMusicServiceRequest<TRequest>(this Mock<HttpClientHandler> mock, string action, TRequest? requestBody = default, string responseBody = "", string baseUrl = TestHelpers.defaultUri, string timezone = "+01:00", string deviceId = "", AuthenticationType authenticationType = AuthenticationType.Anonymous, string? key = null, string? token = null, string? householdId = null) where TRequest : class
+        internal static Mock<HttpClientHandler> MockMusicServiceRequest<TRequest>(this Mock<HttpClientHandler> mock, string action, TRequest? requestBody = default, string responseBody = "", string baseUrl = TestHelpers.defaultUri, string timezone = "+01:00", string deviceId = "", AuthenticationType authenticationType = AuthenticationType.Anonymous, string? key = null, string? token = null, string? householdId = null, HttpStatusCode httpStatusCode = HttpStatusCode.OK, bool packResponse = true) where TRequest : class
         {
-            string response = string.Format(MusicResponseFormat, action, responseBody);
+            string response =  packResponse ? string.Format(MusicResponseFormat, action, responseBody) : responseBody;
             mock
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",
@@ -48,7 +49,7 @@ namespace Sonos.Base.Tests.Music
                     ItExpr.IsAny<CancellationToken>()
                 ).ReturnsAsync(new HttpResponseMessage
                 {
-                    StatusCode = System.Net.HttpStatusCode.OK,
+                    StatusCode = httpStatusCode,
                     Content = new StringContent(response)
                 });
 
@@ -137,7 +138,7 @@ namespace Sonos.Base.Tests.Music
                 }
 
                 credentialStore = new MemoryMusicServiceAccountStore();
-                credentialStore.SaveAccount(serviceId, key, token);
+                credentialStore.SaveAccountAsync(serviceId, key, token);
                 //var mockedCredentials = new Mock<IMusicClientCredentialStore>();
                 //mockedCredentials
                 //    .Setup(x => x.GetAccountAsync(It.Is<int>((x) => x==1), It.IsAny<CancellationToken>()))

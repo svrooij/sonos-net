@@ -33,7 +33,7 @@ namespace Sonos.Base.Music.Models
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     [XmlRoot(Namespace = "http://www.sonos.com/Services/1.1", IsNullable = false)]

@@ -22,7 +22,7 @@ public partial class AlarmClockService
 {
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     [System.Xml.Serialization.XmlRoot("Alarms", Namespace = "", IsNullable = false)]
@@ -46,16 +46,16 @@ public partial class AlarmClockService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class Alarm
     {
         private int idField;
 
-        private System.DateTime startTimeField;
+        private DateTime startTimeField;
 
-        private System.DateTime durationField;
+        private DateTime durationField;
 
         private string recurrenceField;
 
@@ -89,7 +89,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute(DataType = "time")]
-        public System.DateTime StartTime
+        public DateTime StartTime
         {
             get
             {
@@ -103,7 +103,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute(DataType = "time")]
-        public System.DateTime Duration
+        public DateTime Duration
         {
             get
             {

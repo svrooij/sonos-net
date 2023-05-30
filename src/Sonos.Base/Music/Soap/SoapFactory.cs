@@ -99,6 +99,24 @@ namespace Sonos.Base.Music.Soap
             return result.Body.Message;
         }
 
+        internal static SoapFault? ParseException(string xml)
+        {
+            var serializer = new XmlSerializer(typeof(EnvelopeWithFault));
+            serializer.UnknownElement += Serializer_UnknownElement;
+            using var textReader = new StringReader(xml);
+            var result = (EnvelopeWithFault?)serializer.Deserialize(textReader);
+            if (result is null)
+            {
+                throw new FormatException("Response does not contain expected result");
+            }
+            return result.Body.Fault;
+        }
+
+        private static void Serializer_UnknownElement(object? sender, XmlElementEventArgs e)
+        {
+            
+        }
+
         internal static SoapEnvelopeWithHeader<SoapHeader,TOut> ParseRequestXml<TOut>(string action, string xml) where TOut : class
         {
             var overrides = GenerateOverrides<EnvelopeBody<TOut>>($"{action}");

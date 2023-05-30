@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
 using Sonos.Base.Internal;
 using System.Threading.Tasks;
+using Sonos.Base.Music;
 
 public partial class SonosDevice : IDisposable, IAsyncDisposable
 {
@@ -79,6 +80,36 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         }
         await SonosWebSocket.QueueNoticiationAsync(Uuid, notificationOptions.SoundUri.ToString(), notificationOptions.Volume, cancellationToken);
         return true;
+    }
+
+    public IMusicClientCredentialStore GetKvCredentialStore()
+    {
+        var logger = ServiceOptions.ServiceProvider.CreateLogger<KvMusicServiceAccountStore>();
+        return new KvMusicServiceAccountStore(SystemPropertiesService, logger);
+    }
+
+    public async Task<MusicClient> GetMusicClientAsync(int serviceId, string timeZone = "+02:00", HttpClient? httpClient = null, CancellationToken cancellationToken = default)
+    {
+        var musicServices = await MusicServicesService.ListAvailableServices(cancellationToken);
+        var service = musicServices.MusicServices.SingleOrDefault(m => m.Id == serviceId);
+        if (service == null)
+        {
+            throw new ArgumentOutOfRangeException(nameof(serviceId), "Music services with this ID not found");
+        }
+
+        var deviceId = await SystemPropertiesService.GetString("R_TrialZPSerial", cancellationToken);
+        var householdId = (await DevicePropertiesService.GetHouseholdID(cancellationToken)).CurrentHouseholdID;
+
+        return new MusicClient(new MusicClientOptions
+        {
+            AuthenticationType = service.Policy.Auth,
+            BaseUri = service.SecureUri,
+            ServiceId = serviceId,
+            TimeZone = timeZone,
+            DeviceId = deviceId,
+            HouseholdId = householdId,
+            CredentialStore = GetKvCredentialStore(),
+        }, httpClient ?? ServiceOptions.ServiceProvider.GetHttpClientFactory()?.CreateClient(nameof(MusicClient)) ?? new HttpClient());
     }
 
     #region Shortcuts

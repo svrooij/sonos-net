@@ -1,4 +1,6 @@
-﻿using Sonos.Base.Music.Models;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Sonos.Base.Music.Models;
 using Sonos.Base.Music.Soap;
 
 namespace Sonos.Base.Music
@@ -6,23 +8,29 @@ namespace Sonos.Base.Music
     public class MusicClient
     {
         private readonly HttpClient httpClient;
+        private readonly ILogger<MusicClient> logger;
         private readonly MusicClientOptions options;
+        private const string TokenRefreshRequiredCode = ":Client.TokenRefreshRequired";
 
-        public MusicClient(MusicClientOptions options, HttpClient? httpClient = null)
+        public MusicClient(MusicClientOptions options, HttpClient? httpClient = null, ILogger<MusicClient>? logger = null)
         {
             this.options = options;
             this.httpClient = httpClient ?? new HttpClient();
+            this.logger = logger ?? NullLogger<MusicClient>.Instance;
         }
 
-        public Task<Models.GetAppLinkResult?> GetAppLinkAsync(CancellationToken cancellationToken = default) {
+        public AuthenticationType AuthenticationType => options.AuthenticationType;
+
+        public Task<GetAppLinkResult?> GetAppLinkAsync(CancellationToken cancellationToken = default)
+        {
             if (string.IsNullOrWhiteSpace(options.HouseholdId))
             {
                 throw new ArgumentNullException(nameof(options.HouseholdId));
             }
-            return GetAppLinkAsync(new Models.GetAppLinkRequest { HouseholdId = options.HouseholdId }, cancellationToken);
+            return GetAppLinkAsync(new GetAppLinkRequest { HouseholdId = options.HouseholdId }, cancellationToken);
         }
 
-        public Task<Models.GetAppLinkResult?> GetAppLinkAsync(Models.GetAppLinkRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetAppLinkRequest, Models.GetAppLinkResponse, Models.GetAppLinkResult>("getAppLink", request, true, cancellationToken);
+        public Task<GetAppLinkResult?> GetAppLinkAsync(GetAppLinkRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAppLinkRequest, GetAppLinkResponse, GetAppLinkResult>("getAppLink", request, true, cancellationToken);
 
         public async Task<bool> FinishLoginAsync(string linkCode, CancellationToken cancellationToken = default)
         {
@@ -34,30 +42,33 @@ namespace Sonos.Base.Music
             {
                 throw new ArgumentNullException(nameof(MusicClientOptions.DeviceId));
             }
-            if(string.IsNullOrEmpty(linkCode))
+            if (string.IsNullOrEmpty(linkCode))
             {
                 throw new ArgumentNullException(nameof(linkCode));
             }
-            if(options.CredentialStore == null)
+            if (options.CredentialStore == null)
             {
                 throw new ArgumentNullException(nameof(MusicClientOptions.CredentialStore));
             }
 
-            var result = await GetDeviceAuthTokenAsync(new GetDeviceAuthTokenRequest { HouseholdId = options.HouseholdId, LinkCode = linkCode, LinkDeviceId = options.DeviceId }, cancellationToken);
-
-            if (string.IsNullOrEmpty(result?.Key) || string.IsNullOrEmpty(result?.AuthenticationToken))
+            try
             {
-                throw new Exception("Error logging in");
+                var result = await GetDeviceAuthTokenAsync(new GetDeviceAuthTokenRequest { HouseholdId = options.HouseholdId, LinkCode = linkCode, LinkDeviceId = options.DeviceId }, cancellationToken);
+                return await options.CredentialStore.SaveAccountAsync(options.ServiceId, result.Key, result.AuthenticationToken, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Error logging in");
             }
 
-            return await options.CredentialStore.SaveAccount(options.ServiceId, result.Key, result.AuthenticationToken, cancellationToken);
+            return false;
         }
 
-        public Task<Models.GetDeviceAuthTokenResult?> GetDeviceAuthTokenAsync(Models.GetDeviceAuthTokenRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetDeviceAuthTokenRequest, Models.GetDeviceAuthTokenResponse, Models.GetDeviceAuthTokenResult>("getDeviceAuthToken", request, true, cancellationToken);
+        public Task<GetDeviceAuthTokenResult?> GetDeviceAuthTokenAsync(GetDeviceAuthTokenRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetDeviceAuthTokenRequest, GetDeviceAuthTokenResponse, GetDeviceAuthTokenResult>("getDeviceAuthToken", request, true, cancellationToken);
 
-        public Task<Models.GetMetadataResult?> GetMetadataAsync(Models.GetMetadataRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<Models.GetMetadataRequest, Models.GetMetadataResponse, Models.GetMetadataResult>("getMetadata", request, false, cancellationToken);
+        public Task<GetMetadataResult?> GetMetadataAsync(GetMetadataRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetMetadataRequest, GetMetadataResponse, GetMetadataResult>("getMetadata", request, false, cancellationToken);
 
-        private async Task<TResponse?> ExecuteRequest<TBody, TSoap, TResponse>(string action, TBody body, bool skipKeyAndToken, CancellationToken cancellationToken) where TBody : Models.MusicClientBaseRequest where TSoap : class, ISmapiResponse<TResponse>
+        private async Task<TResponse?> ExecuteRequest<TBody, TSoap, TResponse>(string action, TBody body, bool skipKeyAndToken, CancellationToken cancellationToken, bool isRetry = false) where TBody : MusicClientBaseRequest where TSoap : class, ISmapiResponse<TResponse>
         {
             var header = await GetSoapHeader(cancellationToken, skipKeyAndToken);
             var request = SoapFactory.CreateRequest(new Uri(options.BaseUri), header, body, action);
@@ -67,7 +78,24 @@ namespace Sonos.Base.Music
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Something");
+                try
+                {
+                    var fault = SoapFactory.ParseException(xml);
+                    if (fault == null)
+                    {
+                        return default;
+                    }
+                    if (options.CredentialStore != null && !isRetry && fault.Details?.NewToken != null)
+                    {
+                        await options.CredentialStore.SaveAccountAsync(options.ServiceId, fault.Details.NewToken.PrivateKey, fault.Details.NewToken.AuthToken, cancellationToken);
+                        return await ExecuteRequest<TBody, TSoap, TResponse>(action, body, skipKeyAndToken, cancellationToken, true);
+                    }
+                    throw new Exception(fault.Message?.Value ?? $"Sonos error {fault.Code}");
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
 
             var parsedObject = SoapFactory.ParseXml<TSoap>(action, xml);
@@ -93,11 +121,11 @@ namespace Sonos.Base.Music
 
             if (options.AuthenticationType == AuthenticationType.AppLink || options.AuthenticationType == AuthenticationType.DeviceLink)
             {
-                if (options.CredentialStore == null && !skipKeyAndToken)
+                if (options.CredentialStore == null)
                 {
-                    throw new ArgumentNullException(nameof(options.CredentialStore), "CredentialStore is needed for these music services!");
+                    throw new ArgumentNullException(nameof(options.CredentialStore), "CredentialStore is needed for this music service!");
                 }
-                var account = skipKeyAndToken == false ? null: await options.CredentialStore.GetAccountAsync(options.ServiceId, cancellationToken);
+                var account = skipKeyAndToken == false ? await options.CredentialStore.GetAccountAsync(options.ServiceId, cancellationToken) : null;
                 return new SoapHeader
                 {
                     Context = context,

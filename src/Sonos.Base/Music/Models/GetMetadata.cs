@@ -22,7 +22,7 @@ namespace Sonos.Base.Music.Models
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     [XmlRoot(Namespace = "http://www.sonos.com/Services/1.1", IsNullable = false)]
@@ -35,9 +35,9 @@ namespace Sonos.Base.Music.Models
     }
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     public partial class GetMetadataResult
     {
         [XmlElement("index")]
@@ -114,7 +114,7 @@ namespace Sonos.Base.Music.Models
         }
 
         [XmlElement("releaseDate")]
-        public System.DateTime ReleaseDate
+        public DateTime ReleaseDate
         {
             get; set;
         }

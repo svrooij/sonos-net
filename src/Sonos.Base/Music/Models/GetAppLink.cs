@@ -19,7 +19,7 @@ namespace Sonos.Base.Music.Models
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     [XmlRoot(Namespace = "http://www.sonos.com/Services/1.1", IsNullable = false)]
@@ -30,9 +30,9 @@ namespace Sonos.Base.Music.Models
     }
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     public partial class GetAppLinkResult
     {
         [XmlElement("authorizeAccount")]
@@ -42,18 +42,18 @@ namespace Sonos.Base.Music.Models
         public GetAppLinkAccount CreateAccount { get; set; }
     }
 
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     public partial class GetAppLinkAccount
     {
         [XmlElement("appUrlStringId")]
         public string AppUrlStringId { get; set; }
     }
 
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.sonos.com/Services/1.1")]
     public partial class GetAppLinkAuthorizeAccount : GetAppLinkAccount
     {
         [XmlElement("deviceLink")]
