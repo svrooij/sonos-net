@@ -34,11 +34,11 @@ namespace Sonos.Base.Music
 
         public async Task<bool> FinishLoginAsync(string linkCode, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(options.HouseholdId))
+            if (options.HouseholdId is null || string.IsNullOrEmpty(options.HouseholdId))
             {
                 throw new ArgumentNullException(nameof(MusicClientOptions.HouseholdId));
             }
-            if (string.IsNullOrEmpty(options.DeviceId))
+            if (options.DeviceId is null || string.IsNullOrEmpty(options.DeviceId))
             {
                 throw new ArgumentNullException(nameof(MusicClientOptions.DeviceId));
             }
@@ -46,7 +46,7 @@ namespace Sonos.Base.Music
             {
                 throw new ArgumentNullException(nameof(linkCode));
             }
-            if (options.CredentialStore == null)
+            if (options.CredentialStore is null)
             {
                 throw new ArgumentNullException(nameof(MusicClientOptions.CredentialStore));
             }
@@ -54,6 +54,10 @@ namespace Sonos.Base.Music
             try
             {
                 var result = await GetDeviceAuthTokenAsync(new GetDeviceAuthTokenRequest { HouseholdId = options.HouseholdId, LinkCode = linkCode, LinkDeviceId = options.DeviceId }, cancellationToken);
+                if (result is null)
+                {
+                    return false;
+                }
                 return await options.CredentialStore.SaveAccountAsync(options.ServiceId, result.Key, result.AuthenticationToken, cancellationToken);
             }
             catch (Exception ex)
@@ -94,6 +98,7 @@ namespace Sonos.Base.Music
                 }
                 catch (Exception ex)
                 {
+                    logger.LogWarning(ex, "Error executing request to {action}", action);
                     throw;
                 }
             }

@@ -17,10 +17,10 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;CS8618;CS1591</NoWarn>
+    <NoWarn>1701;1702;CS8618;CS1591;CS1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;CS8618;CS1591;CS1573</NoWarn>
+    <NoWarn>1701;1702;CS8618;CS1591;CS1573;CS1998;CS0162</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\README.md" />
@@ -41,11 +41,5 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
 	<PackageReference Include="System.Text.Json" Version="7.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
   </ItemGroup>
 </Project>

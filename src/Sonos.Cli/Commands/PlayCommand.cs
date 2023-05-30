@@ -79,7 +79,7 @@ public class PlayCommand
 
         //await sonos.QueueService.RemoveAllTracks(new Base.Services.QueueService.RemoveAllTracksRequest { QueueID = 0, UpdateID = 0 }, token);
         await sonos.AVTransportService.RemoveAllTracksFromQueue(token);
-        await sonos.AVTransportService.AddURIToQueuePlaylist(options.ServiceId, options.Input, cancellationToken: token);
+        await sonos.AVTransportService.AddURIToQueuePlaylist(options.ServiceId, options.Input ?? "", cancellationToken: token);
 
         await Task.Delay(200, token);
         await sonos.AVTransportService.Play(token);

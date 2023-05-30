@@ -16,6 +16,7 @@ namespace Sonos.Base.Services
         /// <returns></returns>
         public Task<AddURIToQueueResponse> AddURIToQueuePlaylist(int musicServiceId, string itemId, int flags = 8300, int sn = 2, string didlDescription = DidlDesc.SpotifyEurope, CancellationToken cancellationToken = default)
         {
+            if (itemId == null) throw new ArgumentNullException(nameof(itemId));
             return AddURIToQueue(new AddURIToQueueRequest
             {
                 EnqueuedURI = $"x-rincon-cpcontainer:1006206c{itemId.Replace(":", "%3a")}?sid={musicServiceId}&flags={flags}&sn={sn}",

@@ -46,35 +46,6 @@ public class MusicCommand
         return command;
     }
 
-    private static async Task Run(MusicCommandOptions options, IHost host, InvocationContext ctx)
-    {
-        //var logger = host.Services.GetRequiredService<ILogger<InfoCommand>>();
-        //logger.LogDebug("Execute info command {host} {info}", options.Host, options.Action);
-        //var sonos = host.CreateSonosDeviceWithOptions(options);
-        //var token = ctx.GetCancellationToken();
-        //switch (options.Info)
-        //{
-        //    case SonosInfo.Position:
-        //        CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo(token));
-        //        break;
-
-        //    case SonosInfo.Transport:
-        //        CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfo(token));
-        //        break;
-        //    //case SonosInfo.Volume:
-        //    //CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume());
-        //    //break;
-        //    case SonosInfo.Media:
-        //        CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo(token));
-        //        break;
-        //    case SonosInfo.MusicClient:
-        //        var serial = await sonos.SystemPropertiesService.GetString("R_TrialZPSerial", token);
-        //        var householdId = (await sonos.DevicePropertiesService.GetHouseholdID(token)).CurrentHouseholdID;
-        //        CommandHelpers.WriteJson(new { serial, householdId });
-        //        break;
-        //}
-    }
-
     private static async Task RunList(MusicCommandOptions options, IHost host, InvocationContext ctx)
     {
         var logger = host.Services.GetRequiredService<ILogger<MusicCommand>>();
