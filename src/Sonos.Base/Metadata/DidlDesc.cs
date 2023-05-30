@@ -5,7 +5,12 @@ namespace Sonos.Base.Metadata;
 [XmlType(AnonymousType = true, Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/")]
 public class DidlDesc
 {
-    public DidlDesc() { }
+    public const string Default = "RINCON_AssociatedZPUDN";
+    public const string SpotifyEurope = "SA_RINCON2311_X_#Svc2311-0-Token";
+
+    public DidlDesc()
+    { }
+
     public DidlDesc(string value)
     {
         Value = value;
@@ -15,5 +20,5 @@ public class DidlDesc
     public string Id { get; set; } = "cdudn";
 
     [XmlText]
-    public string Value { get; set; } = "RINCON_AssociatedZPUDN";
+    public string Value { get; set; } = Default;
 }

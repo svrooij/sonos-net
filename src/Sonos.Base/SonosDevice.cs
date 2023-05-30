@@ -62,7 +62,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         if (!Uuid.StartsWith("RINCON"))
         {
             var attributes = await DevicePropertiesService.GetZoneInfo();
-            Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}0{this.ServiceOptions.DeviceUri.Port}";
+            Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}01400";
         }
     }
 
@@ -123,6 +123,27 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     public Task<bool> Previous(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Previous(cancellationToken);
 
     public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
+
+    public async Task<bool> SwitchToLineIn(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        await AVTransportService.SetAVTransportURI($"x-rincon-stream:{Uuid}", null, cancellationToken);
+        return await AVTransportService.Play(cancellationToken);
+    }
+
+    public async Task<bool> SwitchToQueue(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        return await AVTransportService.SetAVTransportURI($"x-rincon-queue:{Uuid}#0", null, cancellationToken);
+        
+    }
+
+    public async Task<bool> SwitchToTv(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        await AVTransportService.SetAVTransportURI($"x-sonos-htastream:{Uuid}:spdif", null, cancellationToken);
+        return await AVTransportService.Play(cancellationToken);
+    }
 
     #endregion Shortcuts
 

@@ -46,6 +46,7 @@ public class Program
                 AlarmsCommand.GetCommand(),
                 EventsCommand.GetCommand(),
                 MusicCommand.GetCommand(),
+                PlayCommand.GetCommand(),
             };
         //root.Handler = CommandHandler.Create<IHost>(Run);
         return new CommandLineBuilder(root);

@@ -400,7 +400,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate EnqueuedURIsMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIsMetaDataObject
+        public Metadata.Didl? EnqueuedURIsMetaDataObject
         {
             set
             {
@@ -415,7 +415,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate ContainerMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ContainerMetaDataObject
+        public Metadata.Didl? ContainerMetaDataObject
         {
             set
             {
@@ -425,7 +425,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
 
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool EnqueueAsNext { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'EnqueueAsNext'</remarks>
+        [System.Xml.Serialization.XmlElement("EnqueueAsNext")]
+        public int _EnqueueAsNext { get { return EnqueueAsNext ? 1 : 0; } set { EnqueueAsNext = value == 1; } }
     }
 
     [System.Serializable()]
@@ -462,7 +467,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate EnqueuedURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIMetaDataObject
+        public Metadata.Didl? EnqueuedURIMetaDataObject
         {
             set
             {
@@ -475,7 +480,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// </summary>
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool EnqueueAsNext { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'EnqueueAsNext'</remarks>
+        [System.Xml.Serialization.XmlElement("EnqueueAsNext")]
+        public int _EnqueueAsNext { get { return EnqueueAsNext ? 1 : 0; } set { EnqueueAsNext = value == 1; } }
     }
 
     [System.Serializable()]
@@ -513,7 +523,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate EnqueuedURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIMetaDataObject
+        public Metadata.Didl? EnqueuedURIMetaDataObject
         {
             set
             {
@@ -596,7 +606,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate CurrentURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl CurrentURIMetaDataObject
+        public Metadata.Didl? CurrentURIMetaDataObject
         {
             set
             {
@@ -638,7 +648,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate CurrentURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl CurrentURIMetaDataObject
+        public Metadata.Didl? CurrentURIMetaDataObject
         {
             set
             {
@@ -658,7 +668,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
 
         public string CurrentSourceState { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool ResumePlayback { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'ResumePlayback'</remarks>
+        [System.Xml.Serialization.XmlElement("ResumePlayback")]
+        public int _ResumePlayback { get { return ResumePlayback ? 1 : 0; } set { ResumePlayback = value == 1; } }
     }
 
     [System.Serializable()]
@@ -730,7 +745,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate EnqueuedURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIMetaDataObject
+        public Metadata.Didl? EnqueuedURIMetaDataObject
         {
             set
             {
@@ -774,7 +789,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Should former coordinator rejoin the group?
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public bool RejoinGroup { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'RejoinGroup'</remarks>
+        [System.Xml.Serialization.XmlElement("RejoinGroup")]
+        public int _RejoinGroup { get { return RejoinGroup ? 1 : 0; } set { RejoinGroup = value == 1; } }
     }
 
     [System.Serializable()]
@@ -1258,7 +1278,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate ProgramMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ProgramMetaDataObject
+        public Metadata.Didl? ProgramMetaDataObject
         {
             set
             {
@@ -1270,7 +1290,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
 
         public int Volume { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeLinkedZones { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeLinkedZones'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeLinkedZones")]
+        public int _IncludeLinkedZones { get { return IncludeLinkedZones ? 1 : 0; } set { IncludeLinkedZones = value == 1; } }
     }
 
     [System.Serializable()]
@@ -1346,7 +1371,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate CurrentURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl CurrentURIMetaDataObject
+        public Metadata.Didl? CurrentURIMetaDataObject
         {
             set
             {
@@ -1365,7 +1390,12 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// </summary>
         public int InstanceID { get; set; } = 0;
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool CrossfadeMode { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'CrossfadeMode'</remarks>
+        [System.Xml.Serialization.XmlElement("CrossfadeMode")]
+        public int _CrossfadeMode { get { return CrossfadeMode ? 1 : 0; } set { CrossfadeMode = value == 1; } }
     }
 
     [System.Serializable()]
@@ -1385,7 +1415,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate NextURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl NextURIMetaDataObject
+        public Metadata.Didl? NextURIMetaDataObject
         {
             set
             {
@@ -1443,7 +1473,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Generate ProgramMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ProgramMetaDataObject
+        public Metadata.Didl? ProgramMetaDataObject
         {
             set
             {
@@ -1453,9 +1483,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
 
         public int Volume { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeLinkedZones { get; set; }
 
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeLinkedZones'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeLinkedZones")]
+        public int _IncludeLinkedZones { get { return IncludeLinkedZones ? 1 : 0; } set { IncludeLinkedZones = value == 1; } }
+
+        [System.Xml.Serialization.XmlIgnore]
         public bool ResetVolumeAfter { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'ResetVolumeAfter'</remarks>
+        [System.Xml.Serialization.XmlElement("ResetVolumeAfter")]
+        public int _ResetVolumeAfter { get { return ResetVolumeAfter ? 1 : 0; } set { ResetVolumeAfter = value == 1; } }
     }
 
     [System.Serializable()]

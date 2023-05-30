@@ -31,12 +31,21 @@ internal static class SoapFactory
             throw new ArgumentException("Could not determine action");
         }
 
+#if !DEBUG
         var xml = GenerateXmlStream(attr.ServiceName, attr.Action ?? action, payload);
         var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
         {
-            // Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
             Content = new StreamContent(xml)
         };
+#else
+
+        var xml = GenerateXml(attr.ServiceName, attr.Action ?? action, payload);
+        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
+        {
+            Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
+        };
+#endif
+
         // Sonos doesn't like content-type 'text/xml; charset=utf-8'
         request.Content.Headers.Remove("content-type");
         request.Content.Headers.TryAddWithoutValidation("Content-Type", "text/xml; charset=\"utf-8\"");
@@ -69,7 +78,7 @@ internal static class SoapFactory
             Indent = false,
             NewLineHandling = NewLineHandling.None,
         });
-        
+
         serializer.Serialize(xmlWriter, envelope, ns);
         stream.Seek(0, SeekOrigin.Begin);
         return stream;
@@ -130,7 +139,6 @@ internal static class SoapFactory
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
-
         var result = (Envelope<TOut>?)serializer.Deserialize(stream);
         if (result is null)
         {

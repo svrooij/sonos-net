@@ -487,7 +487,12 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     {
         public string ChannelMapSet { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool KeepGrouped { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'KeepGrouped'</remarks>
+        [System.Xml.Serialization.XmlElement("KeepGrouped")]
+        public int _KeepGrouped { get { return KeepGrouped ? 1 : 0; } set { KeepGrouped = value == 1; } }
     }
 
     [System.Serializable()]
@@ -510,7 +515,12 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
 
         public int DurationMilliseconds { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool ChirpIfPlayingSwappableAudio { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'ChirpIfPlayingSwappableAudio'</remarks>
+        [System.Xml.Serialization.XmlElement("ChirpIfPlayingSwappableAudio")]
+        public int _ChirpIfPlayingSwappableAudio { get { return ChirpIfPlayingSwappableAudio ? 1 : 0; } set { ChirpIfPlayingSwappableAudio = value == 1; } }
     }
 
     [System.Serializable()]
@@ -545,7 +555,12 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     [SonosServiceRequest("/DeviceProperties/Control", "DeviceProperties", "SetAutoplayLinkedZones")]
     public class SetAutoplayLinkedZonesRequest : BaseRequest
     {
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeLinkedZones { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeLinkedZones'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeLinkedZones")]
+        public int _IncludeLinkedZones { get { return IncludeLinkedZones ? 1 : 0; } set { IncludeLinkedZones = value == 1; } }
 
         public string Source { get; set; }
     }
@@ -591,7 +606,12 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     [SonosServiceRequest("/DeviceProperties/Control", "DeviceProperties", "SetUseAutoplayVolume")]
     public class SetUseAutoplayVolumeRequest : BaseRequest
     {
+        [System.Xml.Serialization.XmlIgnore]
         public bool UseVolume { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'UseVolume'</remarks>
+        [System.Xml.Serialization.XmlElement("UseVolume")]
+        public int _UseVolume { get { return UseVolume ? 1 : 0; } set { UseVolume = value == 1; } }
 
         public string Source { get; set; }
     }

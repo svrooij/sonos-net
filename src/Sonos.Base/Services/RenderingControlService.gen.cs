@@ -537,7 +537,12 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
 
         public int DesiredVolume { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool ResetVolumeAfter { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'ResetVolumeAfter'</remarks>
+        [System.Xml.Serialization.XmlElement("ResetVolumeAfter")]
+        public int _ResetVolumeAfter { get { return ResetVolumeAfter ? 1 : 0; } set { ResetVolumeAfter = value == 1; } }
 
         public string ProgramURI { get; set; }
     }
@@ -666,7 +671,12 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
 
         public string Channel { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool DesiredLoudness { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'DesiredLoudness'</remarks>
+        [System.Xml.Serialization.XmlElement("DesiredLoudness")]
+        public int _DesiredLoudness { get { return DesiredLoudness ? 1 : 0; } set { DesiredLoudness = value == 1; } }
     }
 
     [System.Serializable()]
@@ -681,7 +691,12 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
 
         public string Channel { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool DesiredMute { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'DesiredMute'</remarks>
+        [System.Xml.Serialization.XmlElement("DesiredMute")]
+        public int _DesiredMute { get { return DesiredMute ? 1 : 0; } set { DesiredMute = value == 1; } }
     }
 
     [System.Serializable()]
@@ -694,7 +709,12 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// </summary>
         public int InstanceID { get; set; } = 0;
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool DesiredFixed { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'DesiredFixed'</remarks>
+        [System.Xml.Serialization.XmlElement("DesiredFixed")]
+        public int _DesiredFixed { get { return DesiredFixed ? 1 : 0; } set { DesiredFixed = value == 1; } }
     }
 
     [System.Serializable()]
@@ -730,7 +750,12 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// </summary>
         public int InstanceID { get; set; } = 0;
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool RoomCalibrationEnabled { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'RoomCalibrationEnabled'</remarks>
+        [System.Xml.Serialization.XmlElement("RoomCalibrationEnabled")]
+        public int _RoomCalibrationEnabled { get { return RoomCalibrationEnabled ? 1 : 0; } set { RoomCalibrationEnabled = value == 1; } }
     }
 
     [System.Serializable()]

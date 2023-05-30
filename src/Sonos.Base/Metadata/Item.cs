@@ -47,4 +47,6 @@ public class Item
 
     [XmlElement("desc", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/", Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
     public DidlDesc? Desc { get; set; }
+
+    public bool ShouldSerializeRestricted() => Restricted == true;
 }

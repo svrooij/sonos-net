@@ -374,7 +374,12 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory", "SetBrowseable")]
     public class SetBrowseableRequest : BaseRequest
     {
+        [System.Xml.Serialization.XmlIgnore]
         public bool Browseable { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'Browseable'</remarks>
+        [System.Xml.Serialization.XmlElement("Browseable")]
+        public int _Browseable { get { return Browseable ? 1 : 0; } set { Browseable = value == 1; } }
     }
 
     [System.Serializable()]
