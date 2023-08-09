@@ -1,10 +1,12 @@
-name: Building library
+name: 🛠️ Building library
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
       - develop
+      - feature/*
   pull_request:
     branches:
       - main
@@ -13,84 +15,107 @@ on:
 
 jobs:
   build:
-    name: Build and test
+    name: 🛠️ Build and test
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
     #     dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
 
     steps:
-      - uses: actions/checkout@v3
-      # - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      - name: Setup .NET Core SDK
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v3
+
+      - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.x
-      - uses: actions/cache@v3
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🦸‍♂️ Restore steriods
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           # Look to see if there is a cache hit for the corresponding requirements file
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
-      - name: Install dependencies
+
+      - name: 🎒 Load packages
         run: dotnet restore
-      - name: Build
+    
+      - name: 🛠️ Build code
         run: dotnet build --configuration Release --no-restore
-      - name: Test
-        run: dotnet test --configuration Release --no-restore --collect:"XPlat Code Coverage" --no-build --verbosity minimal --logger trx
-      - name: Test Report
-        uses: dorny/test-reporter@v1.6.0
-        if: success() || failure()            # run this step even if previous step failed
-        with:
-          name: Test results           # Name of the check run which will be created
-          path: tests/**/TestResults/*.trx    # Path to test results
-          reporter: dotnet-trx                # Format of test results
-          list-tests: failed                  # Only list failed tests vs all tests
+
+      - name: 🫣 Testing code
+        run: |
+          echo "## ❔ Test results" >> $GITHUB_STEP_SUMMARY
+          dotnet test --configuration Release -v minimal --no-build --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Tests -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --configuration Release -v minimal --no-build --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Events.Http.Tests -- RunConfiguration.CollectSourceInformation=true
+  
+      - name: 📝 Code Coverage report
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.23
+          reportgenerator -reports:${{github.workspace}}/coverage.cobertura.xml -targetdir:${{github.workspace}}/report -reporttypes:MarkdownSummaryGithub "-filefilters:-*.g.cs;-*.gen.cs" -verbosity:Warning
+          sed -i 's/# Summary/## 📝 Code Coverage/g' ${{github.workspace}}/report/SummaryGithub.md
+          sed -i 's/## Coverage/### Code Coverage details/g' ${{github.workspace}}/report/SummaryGithub.md
+          cat ${{github.workspace}}/report/*.md >> $GITHUB_STEP_SUMMARY
 
   publish:
-    name: Publish nuget library
+    name: 📦 Publish nuget library
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && github.event_name == 'push'
     needs: [build]
     steps:
-      - uses: actions/checkout@v3
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup .NET Core SDK
+      - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.x
-      - uses: actions/cache@v3
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🦸‍♂️ Restore steriods
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           # Look to see if there is a cache hit for the corresponding requirements file
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
-      - name: Install GitVersion
+
+      - name: 🛠️ Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
         with:
           versionSpec: '5.x'
-      - name: Determine Version
+
+      - name: 🕵️ Determine Version
         uses: gittools/actions/gitversion/execute@v0.9.15
         with:
           useConfigFile: true
           additionalArguments: /updateprojectfiles
-      - name: Install dependencies
+
+      - name: 🎒 Load packages
         run: dotnet restore
-      - name: Build
+
+      - name: 🛠️ Build code
         run: dotnet build --configuration Release --no-restore
-      - name: Pack Sonos.Base
+
+      - name: 📦 Pack Sonos.Base
         run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base/Sonos.Base.csproj
-      - name: Publish Sonos.Base to nuget.org
+      - name: ✈️ Publish Sonos.Base to nuget.org
         run: dotnet nuget push ./src/Sonos.Base/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
-      - name: Pack Sonos.Base.Events.Http
+      - name: 📦 Pack Sonos.Base.Events.Http
         run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
-      - name: Publish Sonos.Base.Events.Http to nuget.org
+      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
         run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}

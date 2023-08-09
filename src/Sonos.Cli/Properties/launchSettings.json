@@ -2,12 +2,12 @@
   "profiles": {
     "Sonos.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "192.168.200.61 events AVTransport",
+      "commandLineArgs": "192.168.200.61 play playlist 9 spotify:playlist:4P76Xyz8Oh4i6AVInqsikt",
       "hotReloadEnabled": false,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development",
         "SONOSEVENTS__HOST": "192.168.200.127"
-          
+
       }
     }
   }
