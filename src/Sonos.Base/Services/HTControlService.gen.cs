@@ -38,63 +38,63 @@ public partial class HTControlService : SonosBaseService<HTControlService.IHTCon
     /// <summary>
     /// CommitLearnedIRCodes
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CommitLearnedIRCodesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> CommitLearnedIRCodesAsync(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "CommitLearnedIRCodes");
 
     /// <summary>
     /// GetIRRepeaterState
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetIRRepeaterStateResponse</returns>
-    public Task<GetIRRepeaterStateResponse> GetIRRepeaterState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetIRRepeaterStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetIRRepeaterStateResponse> GetIRRepeaterStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetIRRepeaterStateResponse>(new BaseRequest(), cancellationToken, "GetIRRepeaterState");
 
     /// <summary>
     /// GetLEDFeedbackState
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetLEDFeedbackStateResponse</returns>
-    public Task<GetLEDFeedbackStateResponse> GetLEDFeedbackState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLEDFeedbackStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetLEDFeedbackStateResponse> GetLEDFeedbackStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetLEDFeedbackStateResponse>(new BaseRequest(), cancellationToken, "GetLEDFeedbackState");
 
     /// <summary>
     /// IdentifyIRRemote
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="IdentifyIRRemoteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> IdentifyIRRemoteAsync(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "IdentifyIRRemote");
 
     /// <summary>
     /// IsRemoteConfigured
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>IsRemoteConfiguredResponse</returns>
-    public Task<IsRemoteConfiguredResponse> IsRemoteConfigured(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, IsRemoteConfiguredResponse>(new BaseRequest(), cancellationToken);
+    public Task<IsRemoteConfiguredResponse> IsRemoteConfiguredAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, IsRemoteConfiguredResponse>(new BaseRequest(), cancellationToken, "IsRemoteConfigured");
 
     /// <summary>
     /// LearnIRCode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="LearnIRCodeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> LearnIRCodeAsync(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "LearnIRCode");
 
     /// <summary>
     /// SetIRRepeaterState
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetIRRepeaterStateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetIRRepeaterStateAsync(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetIRRepeaterState");
 
     /// <summary>
     /// SetLEDFeedbackState
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetLEDFeedbackStateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetLEDFeedbackStateAsync(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetLEDFeedbackState");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/HTControl/Control", "HTControl")]
@@ -184,4 +184,81 @@ public partial class HTControlService : SonosBaseService<HTControlService.IHTCon
 
         public bool? TOSLinkConnected { get; }
     }
+
+    /// <summary>
+    /// CommitLearnedIRCodes
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use CommitLearnedIRCodesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> CommitLearnedIRCodes(CommitLearnedIRCodesRequest request, CancellationToken cancellationToken = default) => CommitLearnedIRCodesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetIRRepeaterState
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetIRRepeaterStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetIRRepeaterStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetIRRepeaterStateResponse> GetIRRepeaterState(CancellationToken cancellationToken = default) => GetIRRepeaterStateAsync(cancellationToken);
+
+    /// <summary>
+    /// GetLEDFeedbackState
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetLEDFeedbackStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetLEDFeedbackStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetLEDFeedbackStateResponse> GetLEDFeedbackState(CancellationToken cancellationToken = default) => GetLEDFeedbackStateAsync(cancellationToken);
+
+    /// <summary>
+    /// IdentifyIRRemote
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use IdentifyIRRemoteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> IdentifyIRRemote(IdentifyIRRemoteRequest request, CancellationToken cancellationToken = default) => IdentifyIRRemoteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// IsRemoteConfigured
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>IsRemoteConfiguredResponse</returns>
+    [Obsolete("This method is obsolete. Use IsRemoteConfiguredAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<IsRemoteConfiguredResponse> IsRemoteConfigured(CancellationToken cancellationToken = default) => IsRemoteConfiguredAsync(cancellationToken);
+
+    /// <summary>
+    /// LearnIRCode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use LearnIRCodeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> LearnIRCode(LearnIRCodeRequest request, CancellationToken cancellationToken = default) => LearnIRCodeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetIRRepeaterState
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetIRRepeaterStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetIRRepeaterState(SetIRRepeaterStateRequest request, CancellationToken cancellationToken = default) => SetIRRepeaterStateAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetLEDFeedbackState
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetLEDFeedbackStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetLEDFeedbackState(SetLEDFeedbackStateRequest request, CancellationToken cancellationToken = default) => SetLEDFeedbackStateAsync(request, cancellationToken);
 }

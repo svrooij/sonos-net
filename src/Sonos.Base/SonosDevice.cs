@@ -55,24 +55,24 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     }
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
-
-    public async Task LoadUuid(CancellationToken cancellationToken = default)
+    
+    public async Task LoadUuidAsync(CancellationToken cancellationToken = default)
     {
         if (!Uuid.StartsWith("RINCON"))
         {
-            var attributes = await DevicePropertiesService.GetZoneInfo();
+            var attributes = await DevicePropertiesService.GetZoneInfoAsync(cancellationToken);
             Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}0{this.ServiceOptions.DeviceUri.Port}";
         }
     }
 
-    public async Task<bool> QueueNotification(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
+    public async Task<bool> QueueNotificationAsync(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
     {
         //TODO Check if speaker is playing else skip
         if (notificationOptions.Volume < 1 || notificationOptions.Volume > 100)
         {
             throw new ArgumentOutOfRangeException(nameof(NotificationOptions.Volume), "Volume must be between 1 and 100");
         }
-        await LoadUuid(cancellationToken);
+        await LoadUuidAsync(cancellationToken);
         if (SonosWebSocket is null)
         {
             SonosWebSocket = new SonosWebSocket(ServiceOptions);
@@ -83,15 +83,15 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     #region Shortcuts
 
-    public Task<bool> Next(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Next(cancellationToken);
+    public Task<bool> NextAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.NextAsync(cancellationToken);
 
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Pause(cancellationToken);
+    public Task<bool> PauseAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PauseAsync(cancellationToken);
 
-    public Task<bool> Play(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Play(cancellationToken);
+    public Task<bool> PlayAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PlayAsync(cancellationToken);
 
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Previous(cancellationToken);
+    public Task<bool> PreviousAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PreviousAsync(cancellationToken);
 
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
+    public Task<bool> StopAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.StopAsync(cancellationToken);
 
     #endregion Shortcuts
 

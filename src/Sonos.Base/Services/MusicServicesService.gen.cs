@@ -38,25 +38,25 @@ public partial class MusicServicesService : SonosBaseService<MusicServicesServic
     /// <summary>
     /// GetSessionId
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetSessionIdRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetSessionIdResponse</returns>
-    public Task<GetSessionIdResponse> GetSessionId(GetSessionIdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetSessionIdRequest, GetSessionIdResponse>(request, cancellationToken);
+    public Task<GetSessionIdResponse> GetSessionIdAsync(GetSessionIdRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetSessionIdRequest, GetSessionIdResponse>(request, cancellationToken, "GetSessionId");
 
     /// <summary>
     /// Load music service list as xml
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Some libraries also support ListAndParseAvailableServices</remarks>
     /// <returns>ListAvailableServicesResponse</returns>
-    public Task<ListAvailableServicesResponse> ListAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, ListAvailableServicesResponse>(new BaseRequest(), cancellationToken);
+    public Task<ListAvailableServicesResponse> ListAvailableServicesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, ListAvailableServicesResponse>(new BaseRequest(), cancellationToken, "ListAvailableServices");
 
     /// <summary>
     /// UpdateAvailableServices
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
+    public Task<bool> UpdateAvailableServicesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BaseRequest(), cancellationToken, "UpdateAvailableServices");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MusicServices/Control", "MusicServices")]
@@ -112,4 +112,33 @@ public partial class MusicServicesService : SonosBaseService<MusicServicesServic
 
         public string? Username { get; }
     }
+
+    /// <summary>
+    /// GetSessionId
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetSessionIdResponse</returns>
+    [Obsolete("This method is obsolete. Use GetSessionIdAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetSessionIdResponse> GetSessionId(GetSessionIdRequest request, CancellationToken cancellationToken = default) => GetSessionIdAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Load music service list as xml
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Some libraries also support ListAndParseAvailableServices</remarks>
+    /// <returns>ListAvailableServicesResponse</returns>
+    [Obsolete("This method is obsolete. Use ListAvailableServicesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ListAvailableServicesResponse> ListAvailableServices(CancellationToken cancellationToken = default) => ListAvailableServicesAsync(cancellationToken);
+
+    /// <summary>
+    /// UpdateAvailableServices
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use UpdateAvailableServicesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> UpdateAvailableServices(CancellationToken cancellationToken = default) => UpdateAvailableServicesAsync(cancellationToken);
 }

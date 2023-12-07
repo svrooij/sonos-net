@@ -22,7 +22,7 @@ namespace Sonos.Cli.Commands
             var logger = host.Services.GetRequiredService<ILogger<AlarmsCommand>>();
             logger.LogDebug("Execute alarms command {host}", options.Host);
             var sonos = host.CreateSonosDeviceWithOptions(options);
-            var response = await sonos.AlarmClockService.ListAlarms();
+            var response = await sonos.AlarmClockService.ListAlarmsAsync();
             CommandHelpers.WriteJson(response.Alarms);
         }
     }

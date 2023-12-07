@@ -41,9 +41,9 @@ public partial class AlarmClockService
         }
     }
 
-    public async Task<bool> PatchAlarm(PatchAlarmRequest request, CancellationToken cancellationToken = default)
+    public async Task<bool> PatchAlarmAsync(PatchAlarmRequest request, CancellationToken cancellationToken = default)
     {
-        var alarm = (await this.ListAlarms(cancellationToken)).Alarms?.FirstOrDefault(a => a.ID == request.ID);
+        var alarm = (await this.ListAlarmsAsync(cancellationToken)).Alarms?.FirstOrDefault(a => a.ID == request.ID);
         if (alarm is null)
         {
             throw new SonosException("Alarm not found");
@@ -64,7 +64,7 @@ public partial class AlarmClockService
             IncludeLinkedZones = request.IncludeLinkedZones ?? alarm.IncludeLinkedZones == 1
         };
 
-        return await this.UpdateAlarm(updateRequest, cancellationToken);
+        return await this.UpdateAlarmAsync(updateRequest, cancellationToken);
 
     }
 

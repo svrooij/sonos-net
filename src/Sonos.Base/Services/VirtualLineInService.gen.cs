@@ -38,62 +38,62 @@ public partial class VirtualLineInService : SonosBaseService<VirtualLineInServic
     /// <summary>
     /// Next
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest(new NextRequest(), cancellationToken);
+    public Task<bool> NextAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new NextRequest(), cancellationToken, "Next");
 
     /// <summary>
     /// Pause
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest(new PauseRequest(), cancellationToken);
+    public Task<bool> PauseAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new PauseRequest(), cancellationToken, "Pause");
 
     /// <summary>
     /// Play
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="PlayRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> PlayAsync(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "Play");
 
     /// <summary>
     /// Previous
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest(new PreviousRequest(), cancellationToken);
+    public Task<bool> PreviousAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new PreviousRequest(), cancellationToken, "Previous");
 
     /// <summary>
     /// SetVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetVolumeAsync(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetVolume");
 
     /// <summary>
     /// StartTransmission
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="StartTransmissionRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>StartTransmissionResponse</returns>
-    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionRequest, StartTransmissionResponse>(request, cancellationToken);
+    public Task<StartTransmissionResponse> StartTransmissionAsync(StartTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<StartTransmissionRequest, StartTransmissionResponse>(request, cancellationToken, "StartTransmission");
 
     /// <summary>
     /// Stop
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest(new StopRequest(), cancellationToken);
+    public Task<bool> StopAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new StopRequest(), cancellationToken, "Stop");
 
     /// <summary>
     /// StopTransmission
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="StopTransmissionRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> StopTransmissionAsync(StopTransmissionRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "StopTransmission");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/VirtualLineIn/Control", "VirtualLineIn")]
@@ -214,4 +214,80 @@ public partial class VirtualLineInService : SonosBaseService<VirtualLineInServic
 
         public string? LastChange { get; }
     }
+
+    /// <summary>
+    /// Next
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use NextAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Next(CancellationToken cancellationToken = default) => NextAsync(cancellationToken);
+
+    /// <summary>
+    /// Pause
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PauseAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => PauseAsync(cancellationToken);
+
+    /// <summary>
+    /// Play
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PlayAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => PlayAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Previous
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PreviousAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => PreviousAsync(cancellationToken);
+
+    /// <summary>
+    /// SetVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => SetVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// StartTransmission
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>StartTransmissionResponse</returns>
+    [Obsolete("This method is obsolete. Use StartTransmissionAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<StartTransmissionResponse> StartTransmission(StartTransmissionRequest request, CancellationToken cancellationToken = default) => StartTransmissionAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Stop
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use StopAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => StopAsync(cancellationToken);
+
+    /// <summary>
+    /// StopTransmission
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use StopTransmissionAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> StopTransmission(StopTransmissionRequest request, CancellationToken cancellationToken = default) => StopTransmissionAsync(request, cancellationToken);
 }

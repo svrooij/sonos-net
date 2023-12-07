@@ -43,15 +43,15 @@ public partial class {{serviceName}} : SonosBaseService
     /// <summary>
     /// {{#if description}}{{{description}}}{{else}}{{name}}{{/if}}
     /// </summary>{{#if inputs}}{{#unless (sonos_if_only_instance_id inputs 'true')}}
-    /// <param name="request">Body payload</param>{{/unless}}{{/if}}
-    /// <param name="cancellationToken">CancellationToken</param>{{#if remarks}}
+    /// <param name="request"><see cref="{{name}}Request"/> payload</param>{{/unless}}{{/if}}
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>{{#if remarks}}
     /// <remarks>{{{remarks}}}</remarks>{{/if}}
     /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>
-    public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
+    public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}Async({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
 {{~#if outputs}}
- {{#if inputs}}ExecuteRequest<{{name}}Request, {{name}}Response>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest<BaseRequest, {{name}}Response>(new BaseRequest(), cancellationToken);{{/if}}
+ {{#if inputs}}ExecuteRequestAsync<{{name}}Request, {{name}}Response>({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken, "{{name}}");{{else}}ExecuteRequestAsync<BaseRequest, {{name}}Response>(new BaseRequest(), cancellationToken, "{{name}}");{{/if}}
 {{else}}
- {{#if inputs}}ExecuteRequest({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken);{{else}}ExecuteRequest(new BaseRequest(), cancellationToken);{{/if}}
+ {{#if inputs}}ExecuteRequestAsync({{#if (sonos_if_only_instance_id inputs 'true')}}new {{name}}Request(){{else}}request{{/if}}, cancellationToken, "{{name}}");{{else}}ExecuteRequestAsync(new BaseRequest(), cancellationToken, "{{name}}");{{/if}}
 {{/if}}
     {{/each}}
 
@@ -163,4 +163,22 @@ public partial class {{serviceName}} : SonosBaseService
     {{/each}}
     }
     {{/if}}
+    {{#each actions}}
+
+    /// <summary>
+    /// {{#if description}}{{{description}}}{{else}}{{name}}{{/if}}
+    /// </summary>{{#if inputs}}{{#unless (sonos_if_only_instance_id inputs 'true')}}
+    /// <param name="request">Body payload</param>{{/unless}}{{/if}}
+    /// <param name="cancellationToken">CancellationToken</param>{{#if remarks}}
+    /// <remarks>{{{remarks}}}</remarks>{{/if}}
+    /// <returns>{{#if outputs}}{{name}}Response{{else}}Success boolean{{/if}}</returns>
+    [Obsolete("This method is obsolete. Use {{name}}Async instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<{{#if outputs}}{{name}}Response{{else}}bool{{/if}}> {{name}}({{#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}{{name}}Request request, {{/if}}{{/if}}CancellationToken cancellationToken = default) =>
+{{~#if outputs}}
+ {{#if inputs}}{{name}}Async({{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}request, {{/if}}cancellationToken);{{else}}{{name}}Async(cancellationToken);{{/if}}
+{{else}}
+ {{#if inputs}}{{name}}Async({{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}request, {{/if}}cancellationToken);{{else}}{{name}}Async(cancellationToken);{{/if}}
+{{/if}}
+    {{/each}}
 }

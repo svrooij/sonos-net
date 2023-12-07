@@ -24,7 +24,7 @@ namespace Sonos.Cli.Commands
             var logger = host.Services.GetRequiredService<ILogger<ZonesCommand>>();
             logger.LogDebug("Execute List Zones {host}", options.Host);
             var sonos = host.CreateSonosDeviceWithOptions(options);
-            CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupState())?.ParsedState?.ZoneGroups);
+            CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupStateAsync())?.ParsedState?.ZoneGroups);
         }
     }
 }

@@ -35,14 +35,17 @@ namespace Sonos.Base
             this.provider = provider;
             this.logger = logger ?? provider.CreateLogger<SonosManager>();
         }
-
-        public async Task InitializeFromDevice(Uri deviceUri, CancellationToken cancellationToken = default)
+        
+        [Obsolete("This method is obsolete. Use InitializeFromDeviceAsync instead.")]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public Task InitializeFromDevice(Uri deviceUri, CancellationToken cancellationToken = default) => InitializeFromDeviceAsync(deviceUri, cancellationToken);
+        public async Task InitializeFromDeviceAsync(Uri deviceUri, CancellationToken cancellationToken = default)
         {
             logger?.LogDebug("Initialize manager from device {deviceUri}", deviceUri);
             if (zoneGroupTopologyService == null)
             {
                 zoneGroupTopologyService = new ZoneGroupTopologyService(new SonosServiceOptions(deviceUri, provider));
-                var zoneState = await zoneGroupTopologyService.GetZoneGroupState(cancellationToken);
+                var zoneState = await zoneGroupTopologyService.GetZoneGroupStateAsync(cancellationToken);
 
                 if (zoneState is null || zoneState.ParsedState is null)
                 {
