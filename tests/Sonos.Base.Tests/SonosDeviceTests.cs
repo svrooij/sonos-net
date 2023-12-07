@@ -80,5 +80,20 @@ namespace Sonos.Base.Tests
             var result = await sonos.StopAsync();
             Assert.True(result);
         }
+
+
+        [Theory]
+        [InlineData(FakeData.S1DeviceDescription, "192.168.x.x - Sonos Play:5")]
+        [InlineData(FakeData.S2DeviceDescription, "192.168.1.10 - Sonos One")]
+
+        public async Task GetDeviceDescriptionAsync_ParsesDeviceDescription(string xml, string name)
+        {
+            var mockedHelper = new Mock<HttpClientHandler>();
+            mockedHelper.MockDeviceDescription(deviceDescription: xml);
+            var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHelper.Object)));
+            var description = await sonos.GetDeviceDescriptionAsync();
+            Assert.NotNull(description);
+            Assert.Equal(name, description.device.friendlyName);
+        }
     }
 }
