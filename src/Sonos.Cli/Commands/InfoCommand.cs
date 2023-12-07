@@ -12,9 +12,9 @@ public class InfoCommand
     {
         Position = 1,
         Transport = 2,
-
         //Volume = 3,
         Media = 4,
+        DeviceDescription = 5,
     }
 
     public static Command GetCommand()
@@ -35,17 +35,20 @@ public class InfoCommand
         switch (options.Info)
         {
             case SonosInfo.Position:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfoAsync());
                 break;
 
             case SonosInfo.Transport:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfoAsync());
                 break;
             //case SonosInfo.Volume:
-            //CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume());
+            //CommandHelpers.WriteJson(await sonos.RenderingControlService.Async());
             //break;
             case SonosInfo.Media:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfoAsync());
+                break;
+            case SonosInfo.DeviceDescription:
+                CommandHelpers.WriteJson(await sonos.GetDeviceDescriptionAsync());
                 break;
         }
     }

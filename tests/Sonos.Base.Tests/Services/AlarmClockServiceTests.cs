@@ -81,7 +81,7 @@ public class AlarmClockServiceTests
         var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
 
 
-        var alarmsResponse = await sonos.AlarmClockService.ListAlarms();
+        var alarmsResponse = await sonos.AlarmClockService.ListAlarmsAsync();
         Assert.NotNull(alarmsResponse?.Alarms);
         var firstAlarm = alarmsResponse?.Alarms[0];
         Assert.NotNull(firstAlarm);

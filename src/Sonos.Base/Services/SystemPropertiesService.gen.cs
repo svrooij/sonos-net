@@ -38,138 +38,138 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
     /// <summary>
     /// AddAccountX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddAccountXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddAccountXResponse</returns>
-    public Task<AddAccountXResponse> AddAccountX(AddAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddAccountXRequest, AddAccountXResponse>(request, cancellationToken);
+    public Task<AddAccountXResponse> AddAccountXAsync(AddAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddAccountXRequest, AddAccountXResponse>(request, cancellationToken, "AddAccountX");
 
     /// <summary>
     /// AddOAuthAccountX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddOAuthAccountXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddOAuthAccountXResponse</returns>
-    public Task<AddOAuthAccountXResponse> AddOAuthAccountX(AddOAuthAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddOAuthAccountXRequest, AddOAuthAccountXResponse>(request, cancellationToken);
+    public Task<AddOAuthAccountXResponse> AddOAuthAccountXAsync(AddOAuthAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddOAuthAccountXRequest, AddOAuthAccountXResponse>(request, cancellationToken, "AddOAuthAccountX");
 
     /// <summary>
     /// DoPostUpdateTasks
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
+    public Task<bool> DoPostUpdateTasksAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BaseRequest(), cancellationToken, "DoPostUpdateTasks");
 
     /// <summary>
     /// EditAccountMd
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="EditAccountMdRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> EditAccountMdAsync(EditAccountMdRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "EditAccountMd");
 
     /// <summary>
     /// EditAccountPasswordX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="EditAccountPasswordXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> EditAccountPasswordXAsync(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "EditAccountPasswordX");
 
     /// <summary>
     /// EnableRDM
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="EnableRDMRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> EnableRDMAsync(EnableRDMRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "EnableRDM");
 
     /// <summary>
     /// GetRDM
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetRDMResponse</returns>
-    public Task<GetRDMResponse> GetRDM(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetRDMResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetRDMResponse> GetRDMAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetRDMResponse>(new BaseRequest(), cancellationToken, "GetRDM");
 
     /// <summary>
     /// Get a saved string.
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetStringRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Strings are saved in the system with SetString, every speaker should return the same data. Will error when not existing</remarks>
     /// <returns>GetStringResponse</returns>
-    public Task<GetStringResponse> GetString(GetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetStringRequest, GetStringResponse>(request, cancellationToken);
+    public Task<GetStringResponse> GetStringAsync(GetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetStringRequest, GetStringResponse>(request, cancellationToken, "GetString");
 
     /// <summary>
     /// GetWebCode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetWebCodeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetWebCodeResponse</returns>
-    public Task<GetWebCodeResponse> GetWebCode(GetWebCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetWebCodeRequest, GetWebCodeResponse>(request, cancellationToken);
+    public Task<GetWebCodeResponse> GetWebCodeAsync(GetWebCodeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetWebCodeRequest, GetWebCodeResponse>(request, cancellationToken, "GetWebCode");
 
     /// <summary>
     /// ProvisionCredentialedTrialAccountX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ProvisionCredentialedTrialAccountXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ProvisionCredentialedTrialAccountXResponse</returns>
-    public Task<ProvisionCredentialedTrialAccountXResponse> ProvisionCredentialedTrialAccountX(ProvisionCredentialedTrialAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ProvisionCredentialedTrialAccountXRequest, ProvisionCredentialedTrialAccountXResponse>(request, cancellationToken);
+    public Task<ProvisionCredentialedTrialAccountXResponse> ProvisionCredentialedTrialAccountXAsync(ProvisionCredentialedTrialAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<ProvisionCredentialedTrialAccountXRequest, ProvisionCredentialedTrialAccountXResponse>(request, cancellationToken, "ProvisionCredentialedTrialAccountX");
 
     /// <summary>
     /// RefreshAccountCredentialsX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RefreshAccountCredentialsXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RefreshAccountCredentialsXAsync(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RefreshAccountCredentialsX");
 
     /// <summary>
     /// Remove a saved string
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not sure what happens if you call this with a VariableName that doesn't exists.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveAsync(RemoveRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "Remove");
 
     /// <summary>
     /// RemoveAccount
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveAccountRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveAccountAsync(RemoveAccountRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RemoveAccount");
 
     /// <summary>
     /// ReplaceAccountX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReplaceAccountXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ReplaceAccountXResponse</returns>
-    public Task<ReplaceAccountXResponse> ReplaceAccountX(ReplaceAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReplaceAccountXRequest, ReplaceAccountXResponse>(request, cancellationToken);
+    public Task<ReplaceAccountXResponse> ReplaceAccountXAsync(ReplaceAccountXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<ReplaceAccountXRequest, ReplaceAccountXResponse>(request, cancellationToken, "ReplaceAccountX");
 
     /// <summary>
     /// ResetThirdPartyCredentials
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
+    public Task<bool> ResetThirdPartyCredentialsAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BaseRequest(), cancellationToken, "ResetThirdPartyCredentials");
 
     /// <summary>
     /// SetAccountNicknameX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAccountNicknameXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAccountNicknameXAsync(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAccountNicknameX");
 
     /// <summary>
     /// Save a string in the system
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetStringRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Strings are saved in the system, retrieve values with GetString.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetStringAsync(SetStringRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetString");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/SystemProperties/Control", "SystemProperties")]
@@ -430,4 +430,174 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
 
         public int? VoiceUpdateID { get; }
     }
+
+    /// <summary>
+    /// AddAccountX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddAccountXResponse</returns>
+    [Obsolete("This method is obsolete. Use AddAccountXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddAccountXResponse> AddAccountX(AddAccountXRequest request, CancellationToken cancellationToken = default) => AddAccountXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// AddOAuthAccountX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddOAuthAccountXResponse</returns>
+    [Obsolete("This method is obsolete. Use AddOAuthAccountXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddOAuthAccountXResponse> AddOAuthAccountX(AddOAuthAccountXRequest request, CancellationToken cancellationToken = default) => AddOAuthAccountXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// DoPostUpdateTasks
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use DoPostUpdateTasksAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> DoPostUpdateTasks(CancellationToken cancellationToken = default) => DoPostUpdateTasksAsync(cancellationToken);
+
+    /// <summary>
+    /// EditAccountMd
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use EditAccountMdAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> EditAccountMd(EditAccountMdRequest request, CancellationToken cancellationToken = default) => EditAccountMdAsync(request, cancellationToken);
+
+    /// <summary>
+    /// EditAccountPasswordX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use EditAccountPasswordXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> EditAccountPasswordX(EditAccountPasswordXRequest request, CancellationToken cancellationToken = default) => EditAccountPasswordXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// EnableRDM
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use EnableRDMAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> EnableRDM(EnableRDMRequest request, CancellationToken cancellationToken = default) => EnableRDMAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetRDM
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetRDMResponse</returns>
+    [Obsolete("This method is obsolete. Use GetRDMAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetRDMResponse> GetRDM(CancellationToken cancellationToken = default) => GetRDMAsync(cancellationToken);
+
+    /// <summary>
+    /// Get a saved string.
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Strings are saved in the system with SetString, every speaker should return the same data. Will error when not existing</remarks>
+    /// <returns>GetStringResponse</returns>
+    [Obsolete("This method is obsolete. Use GetStringAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetStringResponse> GetString(GetStringRequest request, CancellationToken cancellationToken = default) => GetStringAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetWebCode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetWebCodeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetWebCodeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetWebCodeResponse> GetWebCode(GetWebCodeRequest request, CancellationToken cancellationToken = default) => GetWebCodeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ProvisionCredentialedTrialAccountX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ProvisionCredentialedTrialAccountXResponse</returns>
+    [Obsolete("This method is obsolete. Use ProvisionCredentialedTrialAccountXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ProvisionCredentialedTrialAccountXResponse> ProvisionCredentialedTrialAccountX(ProvisionCredentialedTrialAccountXRequest request, CancellationToken cancellationToken = default) => ProvisionCredentialedTrialAccountXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RefreshAccountCredentialsX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RefreshAccountCredentialsXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RefreshAccountCredentialsX(RefreshAccountCredentialsXRequest request, CancellationToken cancellationToken = default) => RefreshAccountCredentialsXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Remove a saved string
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not sure what happens if you call this with a VariableName that doesn't exists.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Remove(RemoveRequest request, CancellationToken cancellationToken = default) => RemoveAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RemoveAccount
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveAccountAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveAccount(RemoveAccountRequest request, CancellationToken cancellationToken = default) => RemoveAccountAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReplaceAccountX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ReplaceAccountXResponse</returns>
+    [Obsolete("This method is obsolete. Use ReplaceAccountXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ReplaceAccountXResponse> ReplaceAccountX(ReplaceAccountXRequest request, CancellationToken cancellationToken = default) => ReplaceAccountXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ResetThirdPartyCredentials
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ResetThirdPartyCredentialsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ResetThirdPartyCredentials(CancellationToken cancellationToken = default) => ResetThirdPartyCredentialsAsync(cancellationToken);
+
+    /// <summary>
+    /// SetAccountNicknameX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAccountNicknameXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAccountNicknameX(SetAccountNicknameXRequest request, CancellationToken cancellationToken = default) => SetAccountNicknameXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Save a string in the system
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Strings are saved in the system, retrieve values with GetString.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetStringAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetString(SetStringRequest request, CancellationToken cancellationToken = default) => SetStringAsync(request, cancellationToken);
 }

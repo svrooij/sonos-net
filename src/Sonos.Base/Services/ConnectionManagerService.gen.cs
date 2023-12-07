@@ -38,24 +38,24 @@ public partial class ConnectionManagerService : SonosBaseService<ConnectionManag
     /// <summary>
     /// GetCurrentConnectionIDs
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetCurrentConnectionIDsResponse</returns>
-    public Task<GetCurrentConnectionIDsResponse> GetCurrentConnectionIDs(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetCurrentConnectionIDsResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetCurrentConnectionIDsResponse> GetCurrentConnectionIDsAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetCurrentConnectionIDsResponse>(new BaseRequest(), cancellationToken, "GetCurrentConnectionIDs");
 
     /// <summary>
     /// GetCurrentConnectionInfo
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetCurrentConnectionInfoRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetCurrentConnectionInfoResponse</returns>
-    public Task<GetCurrentConnectionInfoResponse> GetCurrentConnectionInfo(GetCurrentConnectionInfoRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetCurrentConnectionInfoRequest, GetCurrentConnectionInfoResponse>(request, cancellationToken);
+    public Task<GetCurrentConnectionInfoResponse> GetCurrentConnectionInfoAsync(GetCurrentConnectionInfoRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetCurrentConnectionInfoRequest, GetCurrentConnectionInfoResponse>(request, cancellationToken, "GetCurrentConnectionInfo");
 
     /// <summary>
     /// GetProtocolInfo
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetProtocolInfoResponse</returns>
-    public Task<GetProtocolInfoResponse> GetProtocolInfo(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetProtocolInfoResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetProtocolInfoResponse> GetProtocolInfoAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetProtocolInfoResponse>(new BaseRequest(), cancellationToken, "GetProtocolInfo");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/ConnectionManager/Control", "ConnectionManager")]
@@ -130,4 +130,32 @@ public partial class ConnectionManagerService : SonosBaseService<ConnectionManag
 
         public string? SourceProtocolInfo { get; }
     }
+
+    /// <summary>
+    /// GetCurrentConnectionIDs
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetCurrentConnectionIDsResponse</returns>
+    [Obsolete("This method is obsolete. Use GetCurrentConnectionIDsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetCurrentConnectionIDsResponse> GetCurrentConnectionIDs(CancellationToken cancellationToken = default) => GetCurrentConnectionIDsAsync(cancellationToken);
+
+    /// <summary>
+    /// GetCurrentConnectionInfo
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetCurrentConnectionInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetCurrentConnectionInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetCurrentConnectionInfoResponse> GetCurrentConnectionInfo(GetCurrentConnectionInfoRequest request, CancellationToken cancellationToken = default) => GetCurrentConnectionInfoAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetProtocolInfo
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetProtocolInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetProtocolInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetProtocolInfoResponse> GetProtocolInfo(CancellationToken cancellationToken = default) => GetProtocolInfoAsync(cancellationToken);
 }

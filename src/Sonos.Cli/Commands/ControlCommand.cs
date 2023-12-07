@@ -36,23 +36,23 @@ public class ControlCommand
         switch (options.Action)
         {
             case ControlAction.Stop:
-                await sonos.Stop();
+                await sonos.StopAsync();
                 break;
 
             case ControlAction.Play:
-                await sonos.Play();
+                await sonos.PlayAsync();
                 break;
 
             case ControlAction.Pause:
-                await sonos.Pause();
+                await sonos.PauseAsync();
                 break;
 
             case ControlAction.Next:
-                await sonos.Next();
+                await sonos.NextAsync();
                 break;
 
             case ControlAction.Previous:
-                await sonos.Previous();
+                await sonos.PreviousAsync();
                 break;
         }
     }

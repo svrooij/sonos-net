@@ -38,223 +38,223 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
     /// <summary>
     /// AddBondedZones
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddBondedZonesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> AddBondedZones(AddBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> AddBondedZonesAsync(AddBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "AddBondedZones");
 
     /// <summary>
     /// Adds satellites and/or a sub woofer to a (main) player. The satellites become hidden. The main player RINCON_* is mandatory. RR: right - rear, LF: left - front, SW: subwoofer
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddHTSatelliteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not all speakers support satellites or sub woofer. Satellites should be of same type (e.g. Play:1)</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> AddHTSatellite(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> AddHTSatelliteAsync(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "AddHTSatellite");
 
     /// <summary>
     /// Create a stereo pair (left, right speakers), right one becomes hidden
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CreateStereoPairRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> CreateStereoPair(CreateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> CreateStereoPairAsync(CreateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "CreateStereoPair");
 
     /// <summary>
     /// EnterConfigMode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="EnterConfigModeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>EnterConfigModeResponse</returns>
-    public Task<EnterConfigModeResponse> EnterConfigMode(EnterConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<EnterConfigModeRequest, EnterConfigModeResponse>(request, cancellationToken);
+    public Task<EnterConfigModeResponse> EnterConfigModeAsync(EnterConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<EnterConfigModeRequest, EnterConfigModeResponse>(request, cancellationToken, "EnterConfigMode");
 
     /// <summary>
     /// ExitConfigMode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ExitConfigModeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ExitConfigMode(ExitConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ExitConfigModeAsync(ExitConfigModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ExitConfigMode");
 
     /// <summary>
     /// GetAutoplayLinkedZones
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetAutoplayLinkedZonesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAutoplayLinkedZonesResponse</returns>
-    public Task<GetAutoplayLinkedZonesResponse> GetAutoplayLinkedZones(GetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayLinkedZonesRequest, GetAutoplayLinkedZonesResponse>(request, cancellationToken);
+    public Task<GetAutoplayLinkedZonesResponse> GetAutoplayLinkedZonesAsync(GetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetAutoplayLinkedZonesRequest, GetAutoplayLinkedZonesResponse>(request, cancellationToken, "GetAutoplayLinkedZones");
 
     /// <summary>
     /// GetAutoplayRoomUUID
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetAutoplayRoomUUIDRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAutoplayRoomUUIDResponse</returns>
-    public Task<GetAutoplayRoomUUIDResponse> GetAutoplayRoomUUID(GetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayRoomUUIDRequest, GetAutoplayRoomUUIDResponse>(request, cancellationToken);
+    public Task<GetAutoplayRoomUUIDResponse> GetAutoplayRoomUUIDAsync(GetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetAutoplayRoomUUIDRequest, GetAutoplayRoomUUIDResponse>(request, cancellationToken, "GetAutoplayRoomUUID");
 
     /// <summary>
     /// GetAutoplayVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetAutoplayVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAutoplayVolumeResponse</returns>
-    public Task<GetAutoplayVolumeResponse> GetAutoplayVolume(GetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAutoplayVolumeRequest, GetAutoplayVolumeResponse>(request, cancellationToken);
+    public Task<GetAutoplayVolumeResponse> GetAutoplayVolumeAsync(GetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetAutoplayVolumeRequest, GetAutoplayVolumeResponse>(request, cancellationToken, "GetAutoplayVolume");
 
     /// <summary>
     /// Get the current button lock state
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetButtonLockStateResponse</returns>
-    public Task<GetButtonLockStateResponse> GetButtonLockState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetButtonLockStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetButtonLockStateResponse> GetButtonLockStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetButtonLockStateResponse>(new BaseRequest(), cancellationToken, "GetButtonLockState");
 
     /// <summary>
     /// GetButtonState
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetButtonStateResponse</returns>
-    public Task<GetButtonStateResponse> GetButtonState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetButtonStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetButtonStateResponse> GetButtonStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetButtonStateResponse>(new BaseRequest(), cancellationToken, "GetButtonState");
 
     /// <summary>
     /// GetHouseholdID
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetHouseholdIDResponse</returns>
-    public Task<GetHouseholdIDResponse> GetHouseholdID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetHouseholdIDResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetHouseholdIDResponse> GetHouseholdIDAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetHouseholdIDResponse>(new BaseRequest(), cancellationToken, "GetHouseholdID");
 
     /// <summary>
     /// GetHTForwardState
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetHTForwardStateResponse</returns>
-    public Task<GetHTForwardStateResponse> GetHTForwardState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetHTForwardStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetHTForwardStateResponse> GetHTForwardStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetHTForwardStateResponse>(new BaseRequest(), cancellationToken, "GetHTForwardState");
 
     /// <summary>
     /// Get the current LED state
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetLEDStateResponse</returns>
-    public Task<GetLEDStateResponse> GetLEDState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLEDStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetLEDStateResponse> GetLEDStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetLEDStateResponse>(new BaseRequest(), cancellationToken, "GetLEDState");
 
     /// <summary>
     /// GetUseAutoplayVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetUseAutoplayVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetUseAutoplayVolumeResponse</returns>
-    public Task<GetUseAutoplayVolumeResponse> GetUseAutoplayVolume(GetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetUseAutoplayVolumeRequest, GetUseAutoplayVolumeResponse>(request, cancellationToken);
+    public Task<GetUseAutoplayVolumeResponse> GetUseAutoplayVolumeAsync(GetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetUseAutoplayVolumeRequest, GetUseAutoplayVolumeResponse>(request, cancellationToken, "GetUseAutoplayVolume");
 
     /// <summary>
     /// GetZoneAttributes
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetZoneAttributesResponse</returns>
-    public Task<GetZoneAttributesResponse> GetZoneAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneAttributesResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetZoneAttributesResponse> GetZoneAttributesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetZoneAttributesResponse>(new BaseRequest(), cancellationToken, "GetZoneAttributes");
 
     /// <summary>
     /// Get information about this specific speaker
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetZoneInfoResponse</returns>
-    public Task<GetZoneInfoResponse> GetZoneInfo(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneInfoResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetZoneInfoResponse> GetZoneInfoAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetZoneInfoResponse>(new BaseRequest(), cancellationToken, "GetZoneInfo");
 
     /// <summary>
     /// RemoveBondedZones
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveBondedZonesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveBondedZones(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveBondedZonesAsync(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RemoveBondedZones");
 
     /// <summary>
     /// Removes a satellite or a sub woofer from (main) player. The satellite becomes visible.
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveHTSatelliteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not all speakers support satellites or sub woofer. Multiples RINCON_* are not allowed.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveHTSatellite(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveHTSatelliteAsync(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RemoveHTSatellite");
 
     /// <summary>
     /// RoomDetectionStartChirping
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RoomDetectionStartChirpingRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>RoomDetectionStartChirpingResponse</returns>
-    public Task<RoomDetectionStartChirpingResponse> RoomDetectionStartChirping(RoomDetectionStartChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RoomDetectionStartChirpingRequest, RoomDetectionStartChirpingResponse>(request, cancellationToken);
+    public Task<RoomDetectionStartChirpingResponse> RoomDetectionStartChirpingAsync(RoomDetectionStartChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<RoomDetectionStartChirpingRequest, RoomDetectionStartChirpingResponse>(request, cancellationToken, "RoomDetectionStartChirping");
 
     /// <summary>
     /// RoomDetectionStopChirping
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RoomDetectionStopChirpingRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RoomDetectionStopChirping(RoomDetectionStopChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RoomDetectionStopChirpingAsync(RoomDetectionStopChirpingRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RoomDetectionStopChirping");
 
     /// <summary>
     /// Separate a stereo pair
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SeparateStereoPairRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not all speakers support StereoPairs</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SeparateStereoPair(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SeparateStereoPairAsync(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SeparateStereoPair");
 
     /// <summary>
     /// SetAutoplayLinkedZones
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAutoplayLinkedZonesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayLinkedZones(SetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAutoplayLinkedZonesAsync(SetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAutoplayLinkedZones");
 
     /// <summary>
     /// SetAutoplayRoomUUID
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAutoplayRoomUUIDRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayRoomUUID(SetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAutoplayRoomUUIDAsync(SetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAutoplayRoomUUID");
 
     /// <summary>
     /// SetAutoplayVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAutoplayVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAutoplayVolume(SetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAutoplayVolumeAsync(SetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAutoplayVolume");
 
     /// <summary>
     /// Set the button lock state
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetButtonLockStateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetButtonLockState(SetButtonLockStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetButtonLockStateAsync(SetButtonLockStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetButtonLockState");
 
     /// <summary>
     /// Set the LED state
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetLEDStateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLEDState(SetLEDStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetLEDStateAsync(SetLEDStateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetLEDState");
 
     /// <summary>
     /// SetUseAutoplayVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetUseAutoplayVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetUseAutoplayVolume(SetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetUseAutoplayVolumeAsync(SetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetUseAutoplayVolume");
 
     /// <summary>
     /// SetZoneAttributes
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetZoneAttributesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetZoneAttributes(SetZoneAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetZoneAttributesAsync(SetZoneAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetZoneAttributes");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/DeviceProperties/Control", "DeviceProperties")]
@@ -723,4 +723,281 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
 
         public string? ZoneName { get; }
     }
+
+    /// <summary>
+    /// AddBondedZones
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use AddBondedZonesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> AddBondedZones(AddBondedZonesRequest request, CancellationToken cancellationToken = default) => AddBondedZonesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Adds satellites and/or a sub woofer to a (main) player. The satellites become hidden. The main player RINCON_* is mandatory. RR: right - rear, LF: left - front, SW: subwoofer
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support satellites or sub woofer. Satellites should be of same type (e.g. Play:1)</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use AddHTSatelliteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> AddHTSatellite(AddHTSatelliteRequest request, CancellationToken cancellationToken = default) => AddHTSatelliteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Create a stereo pair (left, right speakers), right one becomes hidden
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support StereoPairs</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use CreateStereoPairAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> CreateStereoPair(CreateStereoPairRequest request, CancellationToken cancellationToken = default) => CreateStereoPairAsync(request, cancellationToken);
+
+    /// <summary>
+    /// EnterConfigMode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>EnterConfigModeResponse</returns>
+    [Obsolete("This method is obsolete. Use EnterConfigModeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<EnterConfigModeResponse> EnterConfigMode(EnterConfigModeRequest request, CancellationToken cancellationToken = default) => EnterConfigModeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ExitConfigMode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ExitConfigModeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ExitConfigMode(ExitConfigModeRequest request, CancellationToken cancellationToken = default) => ExitConfigModeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetAutoplayLinkedZones
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAutoplayLinkedZonesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAutoplayLinkedZonesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAutoplayLinkedZonesResponse> GetAutoplayLinkedZones(GetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => GetAutoplayLinkedZonesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetAutoplayRoomUUID
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAutoplayRoomUUIDResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAutoplayRoomUUIDAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAutoplayRoomUUIDResponse> GetAutoplayRoomUUID(GetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => GetAutoplayRoomUUIDAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetAutoplayVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAutoplayVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAutoplayVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAutoplayVolumeResponse> GetAutoplayVolume(GetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => GetAutoplayVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Get the current button lock state
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetButtonLockStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetButtonLockStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetButtonLockStateResponse> GetButtonLockState(CancellationToken cancellationToken = default) => GetButtonLockStateAsync(cancellationToken);
+
+    /// <summary>
+    /// GetButtonState
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetButtonStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetButtonStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetButtonStateResponse> GetButtonState(CancellationToken cancellationToken = default) => GetButtonStateAsync(cancellationToken);
+
+    /// <summary>
+    /// GetHouseholdID
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetHouseholdIDResponse</returns>
+    [Obsolete("This method is obsolete. Use GetHouseholdIDAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetHouseholdIDResponse> GetHouseholdID(CancellationToken cancellationToken = default) => GetHouseholdIDAsync(cancellationToken);
+
+    /// <summary>
+    /// GetHTForwardState
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetHTForwardStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetHTForwardStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetHTForwardStateResponse> GetHTForwardState(CancellationToken cancellationToken = default) => GetHTForwardStateAsync(cancellationToken);
+
+    /// <summary>
+    /// Get the current LED state
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetLEDStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetLEDStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetLEDStateResponse> GetLEDState(CancellationToken cancellationToken = default) => GetLEDStateAsync(cancellationToken);
+
+    /// <summary>
+    /// GetUseAutoplayVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetUseAutoplayVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetUseAutoplayVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetUseAutoplayVolumeResponse> GetUseAutoplayVolume(GetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => GetUseAutoplayVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetZoneAttributes
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetZoneAttributesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetZoneAttributesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetZoneAttributesResponse> GetZoneAttributes(CancellationToken cancellationToken = default) => GetZoneAttributesAsync(cancellationToken);
+
+    /// <summary>
+    /// Get information about this specific speaker
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetZoneInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetZoneInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetZoneInfoResponse> GetZoneInfo(CancellationToken cancellationToken = default) => GetZoneInfoAsync(cancellationToken);
+
+    /// <summary>
+    /// RemoveBondedZones
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveBondedZonesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveBondedZones(RemoveBondedZonesRequest request, CancellationToken cancellationToken = default) => RemoveBondedZonesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Removes a satellite or a sub woofer from (main) player. The satellite becomes visible.
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support satellites or sub woofer. Multiples RINCON_* are not allowed.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveHTSatelliteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveHTSatellite(RemoveHTSatelliteRequest request, CancellationToken cancellationToken = default) => RemoveHTSatelliteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RoomDetectionStartChirping
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>RoomDetectionStartChirpingResponse</returns>
+    [Obsolete("This method is obsolete. Use RoomDetectionStartChirpingAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<RoomDetectionStartChirpingResponse> RoomDetectionStartChirping(RoomDetectionStartChirpingRequest request, CancellationToken cancellationToken = default) => RoomDetectionStartChirpingAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RoomDetectionStopChirping
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RoomDetectionStopChirpingAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RoomDetectionStopChirping(RoomDetectionStopChirpingRequest request, CancellationToken cancellationToken = default) => RoomDetectionStopChirpingAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Separate a stereo pair
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all speakers support StereoPairs</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SeparateStereoPairAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SeparateStereoPair(SeparateStereoPairRequest request, CancellationToken cancellationToken = default) => SeparateStereoPairAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetAutoplayLinkedZones
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAutoplayLinkedZonesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAutoplayLinkedZones(SetAutoplayLinkedZonesRequest request, CancellationToken cancellationToken = default) => SetAutoplayLinkedZonesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetAutoplayRoomUUID
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAutoplayRoomUUIDAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAutoplayRoomUUID(SetAutoplayRoomUUIDRequest request, CancellationToken cancellationToken = default) => SetAutoplayRoomUUIDAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetAutoplayVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAutoplayVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAutoplayVolume(SetAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => SetAutoplayVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set the button lock state
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetButtonLockStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetButtonLockState(SetButtonLockStateRequest request, CancellationToken cancellationToken = default) => SetButtonLockStateAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set the LED state
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetLEDStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetLEDState(SetLEDStateRequest request, CancellationToken cancellationToken = default) => SetLEDStateAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetUseAutoplayVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetUseAutoplayVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetUseAutoplayVolume(SetUseAutoplayVolumeRequest request, CancellationToken cancellationToken = default) => SetUseAutoplayVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetZoneAttributes
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetZoneAttributesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetZoneAttributes(SetZoneAttributesRequest request, CancellationToken cancellationToken = default) => SetZoneAttributesAsync(request, cancellationToken);
 }

@@ -19,6 +19,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Moq.Protected;
+using Sonos.Base.Tests;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -33,6 +34,22 @@ namespace Sonos.Base
         private const string defaultUri = "http://localhost/";
         private const string SoapActionHeader = "soapaction";
         private const string SoapResponseFormat = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:{1}Response xmlns:u=""urn:schemas-upnp-org:service:{0}:1"">{2}</u:{1}Response></s:Body></s:Envelope>";
+
+        public static Mock<HttpClientHandler> MockDeviceDescription(this Mock<HttpClientHandler> mock, string deviceDescription, string baseUrl = defaultUri)
+        {
+            mock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync",
+                    ItExpr.Is<HttpRequestMessage>(m => m.RequestUri == new Uri(new Uri(baseUrl), "/xml/device_description.xml")),
+                    ItExpr.IsAny<CancellationToken>()
+                ).ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    Content = new StringContent(deviceDescription)
+                });
+
+            return mock;
+        }
 
         /// <summary>
         /// Mock a specific request to sonos speakers.

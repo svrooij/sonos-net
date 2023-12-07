@@ -38,56 +38,56 @@ public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEv
     /// <summary>
     /// GetAudioInputAttributes
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAudioInputAttributesResponse</returns>
-    public Task<GetAudioInputAttributesResponse> GetAudioInputAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetAudioInputAttributesResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetAudioInputAttributesResponse> GetAudioInputAttributesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetAudioInputAttributesResponse>(new BaseRequest(), cancellationToken, "GetAudioInputAttributes");
 
     /// <summary>
     /// GetLineInLevel
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetLineInLevelResponse</returns>
-    public Task<GetLineInLevelResponse> GetLineInLevel(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLineInLevelResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetLineInLevelResponse> GetLineInLevelAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetLineInLevelResponse>(new BaseRequest(), cancellationToken, "GetLineInLevel");
 
     /// <summary>
     /// SelectAudio
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SelectAudioRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SelectAudioAsync(SelectAudioRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SelectAudio");
 
     /// <summary>
     /// SetAudioInputAttributes
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAudioInputAttributesRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAudioInputAttributesAsync(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAudioInputAttributes");
 
     /// <summary>
     /// SetLineInLevel
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetLineInLevelRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetLineInLevelAsync(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetLineInLevel");
 
     /// <summary>
     /// StartTransmissionToGroup
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="StartTransmissionToGroupRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>StartTransmissionToGroupResponse</returns>
-    public Task<StartTransmissionToGroupResponse> StartTransmissionToGroup(StartTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<StartTransmissionToGroupRequest, StartTransmissionToGroupResponse>(request, cancellationToken);
+    public Task<StartTransmissionToGroupResponse> StartTransmissionToGroupAsync(StartTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<StartTransmissionToGroupRequest, StartTransmissionToGroupResponse>(request, cancellationToken, "StartTransmissionToGroup");
 
     /// <summary>
     /// StopTransmissionToGroup
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="StopTransmissionToGroupRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> StopTransmissionToGroupAsync(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "StopTransmissionToGroup");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/AudioIn/Control", "AudioIn")]
@@ -189,4 +189,72 @@ public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEv
 
         public int? RightLineInLevel { get; }
     }
+
+    /// <summary>
+    /// GetAudioInputAttributes
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAudioInputAttributesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAudioInputAttributesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAudioInputAttributesResponse> GetAudioInputAttributes(CancellationToken cancellationToken = default) => GetAudioInputAttributesAsync(cancellationToken);
+
+    /// <summary>
+    /// GetLineInLevel
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetLineInLevelResponse</returns>
+    [Obsolete("This method is obsolete. Use GetLineInLevelAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetLineInLevelResponse> GetLineInLevel(CancellationToken cancellationToken = default) => GetLineInLevelAsync(cancellationToken);
+
+    /// <summary>
+    /// SelectAudio
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SelectAudioAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SelectAudio(SelectAudioRequest request, CancellationToken cancellationToken = default) => SelectAudioAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetAudioInputAttributes
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAudioInputAttributesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAudioInputAttributes(SetAudioInputAttributesRequest request, CancellationToken cancellationToken = default) => SetAudioInputAttributesAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetLineInLevel
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetLineInLevelAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetLineInLevel(SetLineInLevelRequest request, CancellationToken cancellationToken = default) => SetLineInLevelAsync(request, cancellationToken);
+
+    /// <summary>
+    /// StartTransmissionToGroup
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>StartTransmissionToGroupResponse</returns>
+    [Obsolete("This method is obsolete. Use StartTransmissionToGroupAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<StartTransmissionToGroupResponse> StartTransmissionToGroup(StartTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => StartTransmissionToGroupAsync(request, cancellationToken);
+
+    /// <summary>
+    /// StopTransmissionToGroup
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use StopTransmissionToGroupAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> StopTransmissionToGroup(StopTransmissionToGroupRequest request, CancellationToken cancellationToken = default) => StopTransmissionToGroupAsync(request, cancellationToken);
 }

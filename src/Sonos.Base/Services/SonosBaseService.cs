@@ -49,33 +49,33 @@ public partial class SonosBaseService : IDisposable
         
     }
 
-    internal async Task<bool> ExecuteRequest<TPayload>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class
+    internal async Task<bool> ExecuteRequestAsync<TPayload>(TPayload payload, CancellationToken cancellationToken, string action) where TPayload : class
     {
-        LogExecuteRequestStarted(uuid, ServiceName, caller);
-        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
+        LogExecuteRequestStarted(uuid, ServiceName, action);
+        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, action);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
-            await HandleErrorResponse(response, cancellationToken, caller);
+            await HandleErrorResponseAsync(response, cancellationToken, action);
         }
         return true;
     }
 
-    internal async Task<TOut> ExecuteRequest<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, [CallerMemberName] string? caller = null) where TPayload : class where TOut : class
+    internal async Task<TOut> ExecuteRequestAsync<TPayload, TOut>(TPayload payload, CancellationToken cancellationToken, string action) where TPayload : class where TOut : class
     {
-        LogExecuteRequestStarted(uuid, ServiceName, caller);
-        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, caller);
+        LogExecuteRequestStarted(uuid, ServiceName, action);
+        var request = SoapFactory.CreateRequest(BaseUri, ControlPath, payload, action);
         var response = await httpClient.SendAsync(request, cancellationToken);
         if (!response.IsSuccessStatusCode)
         {
-            await HandleErrorResponse(response, cancellationToken, caller);
+            await HandleErrorResponseAsync(response, cancellationToken, action);
         }
-        return await ParseResponse<TOut>(response, cancellationToken, caller);
+        return await ParseResponseAsync<TOut>(response, cancellationToken, action);
     }
 
-    internal async Task HandleErrorResponse(HttpResponseMessage response, CancellationToken cancellationToken, string? caller = null)
+    internal async Task HandleErrorResponseAsync(HttpResponseMessage response, CancellationToken cancellationToken, string action)
     {
-        LogHandleErrorResponseStarted(this.uuid, ServiceName, caller);
+        LogHandleErrorResponseStarted(this.uuid, ServiceName, action);
 
         // TODO HandleErrorResponse needs implementation
         // var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -86,15 +86,15 @@ public partial class SonosBaseService : IDisposable
             var code = error.UpnpErrorCode;
             string? message = (code is not null && ServiceErrors.ContainsKey((int)code)) ? ServiceErrors[(int)code].Message : null;
             var ex = new SonosServiceException(error.FaultCode, error.FaultString, code, message);
-            LogHandleErrorResponse(ex, uuid, ServiceName, caller);
+            LogHandleErrorResponse(ex, uuid, ServiceName, action);
             throw ex;
         }
         throw new Exception();
     }
 
-    internal async Task<TOut> ParseResponse<TOut>(HttpResponseMessage response, CancellationToken cancellationToken, string? caller = null) where TOut : class
+    internal async Task<TOut> ParseResponseAsync<TOut>(HttpResponseMessage response, CancellationToken cancellationToken, string action) where TOut : class
     {
-        LogParseResponseStarted(uuid, ServiceName, caller);
+        LogParseResponseStarted(uuid, ServiceName, action);
         using var xml = await response.Content.ReadAsStreamAsync(cancellationToken);
         return SoapFactory.ParseXml<TOut>(ServiceName.ToString(), xml);
     }

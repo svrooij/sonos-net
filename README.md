@@ -26,8 +26,8 @@ Always wanted to control sonos speakers right from your dotnet application? I've
 Currently this library is not at version one, these are the planned features that need to be build before this can be called a version one.
 
 - [X] All sonos services generated from service discovery
-- [ ] Event subscriptions
-- [ ] Dynamic metadata generation based on [these docs](https://svrooij.io/sonos-api-docs/metadata.html)
+- [X] Event subscriptions
+- [X] Dynamic metadata generation based on [these docs](https://svrooij.io/sonos-api-docs/metadata.html)
 - [ ] SonosManager class that keeps track of speaker groups
 - [ ] Device discovery, though it hardly works
 

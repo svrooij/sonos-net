@@ -38,89 +38,89 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
     /// <summary>
     /// AddMultipleURIs
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddMultipleURIsRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddMultipleURIsResponse</returns>
-    public Task<AddMultipleURIsResponse> AddMultipleURIs(AddMultipleURIsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMultipleURIsRequest, AddMultipleURIsResponse>(request, cancellationToken);
+    public Task<AddMultipleURIsResponse> AddMultipleURIsAsync(AddMultipleURIsRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddMultipleURIsRequest, AddMultipleURIsResponse>(request, cancellationToken, "AddMultipleURIs");
 
     /// <summary>
     /// AddURI
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddURIRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddURIResponse</returns>
-    public Task<AddURIResponse> AddURI(AddURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIRequest, AddURIResponse>(request, cancellationToken);
+    public Task<AddURIResponse> AddURIAsync(AddURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddURIRequest, AddURIResponse>(request, cancellationToken, "AddURI");
 
     /// <summary>
     /// AttachQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AttachQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AttachQueueResponse</returns>
-    public Task<AttachQueueResponse> AttachQueue(AttachQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AttachQueueRequest, AttachQueueResponse>(request, cancellationToken);
+    public Task<AttachQueueResponse> AttachQueueAsync(AttachQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AttachQueueRequest, AttachQueueResponse>(request, cancellationToken, "AttachQueue");
 
     /// <summary>
     /// Backup
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Backup(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
+    public Task<bool> BackupAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BaseRequest(), cancellationToken, "Backup");
 
     /// <summary>
     /// Browse
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="BrowseRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>BrowseResponse</returns>
-    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BrowseRequest, BrowseResponse>(request, cancellationToken);
+    public Task<BrowseResponse> BrowseAsync(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<BrowseRequest, BrowseResponse>(request, cancellationToken, "Browse");
 
     /// <summary>
     /// CreateQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CreateQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>CreateQueueResponse</returns>
-    public Task<CreateQueueResponse> CreateQueue(CreateQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateQueueRequest, CreateQueueResponse>(request, cancellationToken);
+    public Task<CreateQueueResponse> CreateQueueAsync(CreateQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<CreateQueueRequest, CreateQueueResponse>(request, cancellationToken, "CreateQueue");
 
     /// <summary>
     /// RemoveAllTracks
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveAllTracksRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>RemoveAllTracksResponse</returns>
-    public Task<RemoveAllTracksResponse> RemoveAllTracks(RemoveAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveAllTracksRequest, RemoveAllTracksResponse>(request, cancellationToken);
+    public Task<RemoveAllTracksResponse> RemoveAllTracksAsync(RemoveAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<RemoveAllTracksRequest, RemoveAllTracksResponse>(request, cancellationToken, "RemoveAllTracks");
 
     /// <summary>
     /// RemoveTrackRange
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveTrackRangeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>RemoveTrackRangeResponse</returns>
-    public Task<RemoveTrackRangeResponse> RemoveTrackRange(RemoveTrackRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackRangeRequest, RemoveTrackRangeResponse>(request, cancellationToken);
+    public Task<RemoveTrackRangeResponse> RemoveTrackRangeAsync(RemoveTrackRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<RemoveTrackRangeRequest, RemoveTrackRangeResponse>(request, cancellationToken, "RemoveTrackRange");
 
     /// <summary>
     /// ReorderTracks
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReorderTracksRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ReorderTracksResponse</returns>
-    public Task<ReorderTracksResponse> ReorderTracks(ReorderTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksRequest, ReorderTracksResponse>(request, cancellationToken);
+    public Task<ReorderTracksResponse> ReorderTracksAsync(ReorderTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<ReorderTracksRequest, ReorderTracksResponse>(request, cancellationToken, "ReorderTracks");
 
     /// <summary>
     /// ReplaceAllTracks
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReplaceAllTracksRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ReplaceAllTracksResponse</returns>
-    public Task<ReplaceAllTracksResponse> ReplaceAllTracks(ReplaceAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReplaceAllTracksRequest, ReplaceAllTracksResponse>(request, cancellationToken);
+    public Task<ReplaceAllTracksResponse> ReplaceAllTracksAsync(ReplaceAllTracksRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<ReplaceAllTracksRequest, ReplaceAllTracksResponse>(request, cancellationToken, "ReplaceAllTracks");
 
     /// <summary>
     /// SaveAsSonosPlaylist
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SaveAsSonosPlaylistRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>SaveAsSonosPlaylistResponse</returns>
-    public Task<SaveAsSonosPlaylistResponse> SaveAsSonosPlaylist(SaveAsSonosPlaylistRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SaveAsSonosPlaylistRequest, SaveAsSonosPlaylistResponse>(request, cancellationToken);
+    public Task<SaveAsSonosPlaylistResponse> SaveAsSonosPlaylistAsync(SaveAsSonosPlaylistRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<SaveAsSonosPlaylistRequest, SaveAsSonosPlaylistResponse>(request, cancellationToken, "SaveAsSonosPlaylist");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/Queue/Control", "Queue")]
@@ -456,4 +456,113 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
 
         public int? UpdateID { get; }
     }
+
+    /// <summary>
+    /// AddMultipleURIs
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddMultipleURIsResponse</returns>
+    [Obsolete("This method is obsolete. Use AddMultipleURIsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddMultipleURIsResponse> AddMultipleURIs(AddMultipleURIsRequest request, CancellationToken cancellationToken = default) => AddMultipleURIsAsync(request, cancellationToken);
+
+    /// <summary>
+    /// AddURI
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddURIResponse</returns>
+    [Obsolete("This method is obsolete. Use AddURIAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddURIResponse> AddURI(AddURIRequest request, CancellationToken cancellationToken = default) => AddURIAsync(request, cancellationToken);
+
+    /// <summary>
+    /// AttachQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AttachQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use AttachQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AttachQueueResponse> AttachQueue(AttachQueueRequest request, CancellationToken cancellationToken = default) => AttachQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Backup
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use BackupAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Backup(CancellationToken cancellationToken = default) => BackupAsync(cancellationToken);
+
+    /// <summary>
+    /// Browse
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>BrowseResponse</returns>
+    [Obsolete("This method is obsolete. Use BrowseAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => BrowseAsync(request, cancellationToken);
+
+    /// <summary>
+    /// CreateQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>CreateQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use CreateQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<CreateQueueResponse> CreateQueue(CreateQueueRequest request, CancellationToken cancellationToken = default) => CreateQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RemoveAllTracks
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>RemoveAllTracksResponse</returns>
+    [Obsolete("This method is obsolete. Use RemoveAllTracksAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<RemoveAllTracksResponse> RemoveAllTracks(RemoveAllTracksRequest request, CancellationToken cancellationToken = default) => RemoveAllTracksAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RemoveTrackRange
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>RemoveTrackRangeResponse</returns>
+    [Obsolete("This method is obsolete. Use RemoveTrackRangeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<RemoveTrackRangeResponse> RemoveTrackRange(RemoveTrackRangeRequest request, CancellationToken cancellationToken = default) => RemoveTrackRangeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReorderTracks
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ReorderTracksResponse</returns>
+    [Obsolete("This method is obsolete. Use ReorderTracksAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ReorderTracksResponse> ReorderTracks(ReorderTracksRequest request, CancellationToken cancellationToken = default) => ReorderTracksAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReplaceAllTracks
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ReplaceAllTracksResponse</returns>
+    [Obsolete("This method is obsolete. Use ReplaceAllTracksAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ReplaceAllTracksResponse> ReplaceAllTracks(ReplaceAllTracksRequest request, CancellationToken cancellationToken = default) => ReplaceAllTracksAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SaveAsSonosPlaylist
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>SaveAsSonosPlaylistResponse</returns>
+    [Obsolete("This method is obsolete. Use SaveAsSonosPlaylistAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<SaveAsSonosPlaylistResponse> SaveAsSonosPlaylist(SaveAsSonosPlaylistRequest request, CancellationToken cancellationToken = default) => SaveAsSonosPlaylistAsync(request, cancellationToken);
 }

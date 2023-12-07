@@ -26,12 +26,12 @@ public class VolumeCommand
         var sonos = host.CreateSonosDeviceWithOptions(options);
         if (options.NewVolume.HasValue)
         {
-            await sonos.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = options.Channel, DesiredVolume = options.NewVolume.Value, InstanceID = 0 });
+            await sonos.RenderingControlService.SetVolumeAsync(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = options.Channel, DesiredVolume = options.NewVolume.Value, InstanceID = 0 });
             CommandHelpers.WriteJson(options.NewVolume.Value);
         }
         else
         {
-            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume(options.Channel));
+            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolumeAsync(options.Channel));
         }
     }
 
