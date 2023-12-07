@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
 using Sonos.Base.Internal;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 public partial class SonosDevice : IDisposable, IAsyncDisposable
 {
@@ -55,7 +56,31 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     }
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
+
+    /// <summary>
+    /// Gets the device properties service.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
+    /// <returns><see cref="Models.SonosDeviceDescription"/></returns>
+    /// <remarks>SonosDeviceDescription is generated with Paste XML as Classes</remarks>
+    public async Task<Models.SonosDeviceDescription> GetDeviceDescriptionAsync(CancellationToken cancellationToken = default)
+    {
+        var uri = new Uri(ServiceOptions.DeviceUri, "/xml/device_description.xml");
+        var response = await ServiceOptions.ServiceProvider.GetHttpClient().GetAsync(uri, cancellationToken);
+        response.EnsureSuccessStatusCode();
+
+        var serializer = new XmlSerializer(typeof(Models.SonosDeviceDescription));
+        using (var reader = new StreamReader(await response.Content.ReadAsStreamAsync(cancellationToken)))
+        {
+            var deviceDescription = (Models.SonosDeviceDescription)serializer.Deserialize(reader)!;
+            return deviceDescription;
+        }
+    }
     
+    /// <summary>
+    /// Loads the uuid from the device if it is not set.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public async Task LoadUuidAsync(CancellationToken cancellationToken = default)
     {
         if (!Uuid.StartsWith("RINCON"))
@@ -65,6 +90,14 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         }
     }
 
+    /// <summary>
+    /// Send a notification to the speaker.
+    /// </summary>
+    /// <param name="notificationOptions"><see cref="NotificationOptions"/></param>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException">Throws when volume is not between 1 and 100</exception>
+    /// <remarks>This method is using the native Sonos notification system, which is only available on S2 devices.</remarks>
     public async Task<bool> QueueNotificationAsync(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
     {
         //TODO Check if speaker is playing else skip
@@ -83,14 +116,34 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     #region Shortcuts
 
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.NextAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> NextAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.NextAsync(cancellationToken);
 
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PauseAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> PauseAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PauseAsync(cancellationToken);
 
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PlayAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> PlayAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PlayAsync(cancellationToken);
 
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PreviousAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> PreviousAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PreviousAsync(cancellationToken);
 
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.StopAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> StopAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.StopAsync(cancellationToken);
 
     #endregion Shortcuts

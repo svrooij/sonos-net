@@ -12,9 +12,9 @@ public class InfoCommand
     {
         Position = 1,
         Transport = 2,
-
         //Volume = 3,
         Media = 4,
+        DeviceDescription = 5,
     }
 
     public static Command GetCommand()
@@ -46,6 +46,9 @@ public class InfoCommand
             //break;
             case SonosInfo.Media:
                 CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfoAsync());
+                break;
+            case SonosInfo.DeviceDescription:
+                CommandHelpers.WriteJson(await sonos.GetDeviceDescriptionAsync());
                 break;
         }
     }
