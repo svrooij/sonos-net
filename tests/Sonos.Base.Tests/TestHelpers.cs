@@ -88,12 +88,12 @@ namespace Sonos.Base
             bool bodyChecked = false;
             if (requestBody != null)
             {
-                var streamContent = message.Content as StreamContent;
+                var streamContent = message.Content as StringContent;
                 
                 if (streamContent != null)
                 {
-                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult();
-                    var expectedContent = string.Format(SoapRequestFormat, service, action, requestBody);
+                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult().RemoveXmlIndentation() ;
+                    var expectedContent = string.Format(SoapRequestFormat, service, action, requestBody).RemoveXmlIndentation();
 #if DEBUG
                     Assert.Equal(expectedContent, content);
 #endif
@@ -188,6 +188,11 @@ namespace Sonos.Base
             mockHttpClientFactory.Setup(c => c.CreateClient(It.IsAny<string>())).Returns(client);
             services.AddTransient<IHttpClientFactory>(_ => mockHttpClientFactory.Object);
             return services;
+        }
+
+        internal static string RemoveXmlIndentation(this string xml)
+        {
+            return string.Concat(xml.Split("\r\n").Select(l => l.Trim()));
         }
 
     }
