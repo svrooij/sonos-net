@@ -19,37 +19,37 @@
 
         public const string EQTypeSurroundMode = "SurroundMode";
 
-        public async Task<bool> GetEQBool(string eqType, CancellationToken cancellationToken = default)
+        public async Task<bool> GetEQBoolAsync(string eqType, CancellationToken cancellationToken = default)
         {
-            var eqResponse = await GetEQInt(eqType, cancellationToken);
+            var eqResponse = await GetEQIntAsync(eqType, cancellationToken);
             return eqResponse == 1;
         }
 
-        public Task<bool> GetEQDialogLevel(CancellationToken cancellationToken = default) => GetEQBool(EQTypeDialogLevel, cancellationToken);
+        public Task<bool> GetEQDialogLevelAsync(CancellationToken cancellationToken = default) => GetEQBoolAsync(EQTypeDialogLevel, cancellationToken);
 
-        public Task<int> GetEQHeightChannelLevel(CancellationToken cancellationToken = default) => GetEQInt(EQTypeHeightChannelLevel, cancellationToken);
+        public Task<int> GetEQHeightChannelLevelAsync(CancellationToken cancellationToken = default) => GetEQIntAsync(EQTypeHeightChannelLevel, cancellationToken);
 
-        public async Task<int> GetEQInt(string eqType, CancellationToken cancellationToken = default)
+        public async Task<int> GetEQIntAsync(string eqType, CancellationToken cancellationToken = default)
         {
-            var eqResponse = await GetEQ(new GetEQRequest { EQType = eqType, InstanceID = 0 }, cancellationToken);
+            var eqResponse = await GetEQAsync(new GetEQRequest { EQType = eqType, InstanceID = 0 }, cancellationToken);
             return eqResponse.CurrentValue;
         }
 
-        public Task<int> GetEQMusicSurroundLevel(CancellationToken cancellationToken = default) => GetEQInt(EQTypeMusicSurroundLevel, cancellationToken);
+        public Task<int> GetEQMusicSurroundLevelAsync(CancellationToken cancellationToken = default) => GetEQIntAsync(EQTypeMusicSurroundLevel, cancellationToken);
 
-        public Task<bool> GetEQNightMode(CancellationToken cancellationToken = default) => GetEQBool(EQTypeNightMode, cancellationToken);
+        public Task<bool> GetEQNightModeAsync(CancellationToken cancellationToken = default) => GetEQBoolAsync(EQTypeNightMode, cancellationToken);
 
-        public Task<int> GetEQSubGain(CancellationToken cancellationToken = default) => GetEQInt(EQTypeSubGain, cancellationToken);
+        public Task<int> GetEQSubGainAsync(CancellationToken cancellationToken = default) => GetEQIntAsync(EQTypeSubGain, cancellationToken);
 
-        public Task<bool> GetEQSurroundEnabled(CancellationToken cancellationToken = default) => GetEQBool(EQTypeSurroundEnable, cancellationToken);
+        public Task<bool> GetEQSurroundEnabledAsync(CancellationToken cancellationToken = default) => GetEQBoolAsync(EQTypeSurroundEnable, cancellationToken);
 
-        public Task<int> GetEQSurroundLevel(CancellationToken cancellationToken = default) => GetEQInt(EQTypeSurroundLevel, cancellationToken);
+        public Task<int> GetEQSurroundLevelAsync(CancellationToken cancellationToken = default) => GetEQIntAsync(EQTypeSurroundLevel, cancellationToken);
 
-        public Task<bool> GetEQSurroundMode(CancellationToken cancellationToken = default) => GetEQBool(EQTypeSurroundMode, cancellationToken);
+        public Task<bool> GetEQSurroundModeAsync(CancellationToken cancellationToken = default) => GetEQBoolAsync(EQTypeSurroundMode, cancellationToken);
 
-        public async Task<int> GetVolume(string channel = ChannelMaster, CancellationToken cancellationToken = default)
+        public async Task<int> GetVolumeAsync(string channel = ChannelMaster, CancellationToken cancellationToken = default)
         {
-            var resp = await GetVolume(new GetVolumeRequest { InstanceID = 0, Channel = channel }, cancellationToken);
+            var resp = await GetVolumeAsync(new GetVolumeRequest { InstanceID = 0, Channel = channel }, cancellationToken);
             return resp.CurrentVolume;
         }
     }

@@ -35,7 +35,7 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest("ZoneGroupTopology", nameof(Services.ZoneGroupTopologyService.GetZoneGroupState), responseBody: ZoneTopologyResponse);
 
             var sonosManager = new SonosManager(new StaticSonosServiceProvider(mockedHandler.Object));
-            await sonosManager.InitializeFromDevice(TestHelpers.DefaultUri);
+            await sonosManager.InitializeFromDeviceAsync(TestHelpers.DefaultUri);
 
             var groups = sonosManager.GetGroups();
 

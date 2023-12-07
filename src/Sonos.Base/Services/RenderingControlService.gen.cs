@@ -38,221 +38,221 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
     /// <summary>
     /// Get bass level between -10 and 10
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetBassResponse</returns>
-    public Task<GetBassResponse> GetBass(CancellationToken cancellationToken = default) => ExecuteRequest<GetBassRequest, GetBassResponse>(new GetBassRequest(), cancellationToken);
+    public Task<GetBassResponse> GetBassAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetBassRequest, GetBassResponse>(new GetBassRequest(), cancellationToken, "GetBass");
 
     /// <summary>
     /// Get equalizer value
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetEQRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not all EQ types are available on every speaker</remarks>
     /// <returns>GetEQResponse</returns>
-    public Task<GetEQResponse> GetEQ(GetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetEQRequest, GetEQResponse>(request, cancellationToken);
+    public Task<GetEQResponse> GetEQAsync(GetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetEQRequest, GetEQResponse>(request, cancellationToken, "GetEQ");
 
     /// <summary>
     /// GetHeadphoneConnected
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetHeadphoneConnectedResponse</returns>
-    public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnected(CancellationToken cancellationToken = default) => ExecuteRequest<GetHeadphoneConnectedRequest, GetHeadphoneConnectedResponse>(new GetHeadphoneConnectedRequest(), cancellationToken);
+    public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnectedAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetHeadphoneConnectedRequest, GetHeadphoneConnectedResponse>(new GetHeadphoneConnectedRequest(), cancellationToken, "GetHeadphoneConnected");
 
     /// <summary>
     /// Whether or not Loudness is on
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetLoudnessRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetLoudnessResponse</returns>
-    public Task<GetLoudnessResponse> GetLoudness(GetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetLoudnessRequest, GetLoudnessResponse>(request, cancellationToken);
+    public Task<GetLoudnessResponse> GetLoudnessAsync(GetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetLoudnessRequest, GetLoudnessResponse>(request, cancellationToken, "GetLoudness");
 
     /// <summary>
     /// GetMute
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetMuteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetMuteResponse</returns>
-    public Task<GetMuteResponse> GetMute(GetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetMuteRequest, GetMuteResponse>(request, cancellationToken);
+    public Task<GetMuteResponse> GetMuteAsync(GetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetMuteRequest, GetMuteResponse>(request, cancellationToken, "GetMute");
 
     /// <summary>
     /// GetOutputFixed
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetOutputFixedResponse</returns>
-    public Task<GetOutputFixedResponse> GetOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetOutputFixedRequest, GetOutputFixedResponse>(new GetOutputFixedRequest(), cancellationToken);
+    public Task<GetOutputFixedResponse> GetOutputFixedAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetOutputFixedRequest, GetOutputFixedResponse>(new GetOutputFixedRequest(), cancellationToken, "GetOutputFixed");
 
     /// <summary>
     /// GetRoomCalibrationStatus
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetRoomCalibrationStatusResponse</returns>
-    public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatus(CancellationToken cancellationToken = default) => ExecuteRequest<GetRoomCalibrationStatusRequest, GetRoomCalibrationStatusResponse>(new GetRoomCalibrationStatusRequest(), cancellationToken);
+    public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatusAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetRoomCalibrationStatusRequest, GetRoomCalibrationStatusResponse>(new GetRoomCalibrationStatusRequest(), cancellationToken, "GetRoomCalibrationStatus");
 
     /// <summary>
     /// GetSupportsOutputFixed
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetSupportsOutputFixedResponse</returns>
-    public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixed(CancellationToken cancellationToken = default) => ExecuteRequest<GetSupportsOutputFixedRequest, GetSupportsOutputFixedResponse>(new GetSupportsOutputFixedRequest(), cancellationToken);
+    public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixedAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetSupportsOutputFixedRequest, GetSupportsOutputFixedResponse>(new GetSupportsOutputFixedRequest(), cancellationToken, "GetSupportsOutputFixed");
 
     /// <summary>
     /// Get treble
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTrebleResponse</returns>
-    public Task<GetTrebleResponse> GetTreble(CancellationToken cancellationToken = default) => ExecuteRequest<GetTrebleRequest, GetTrebleResponse>(new GetTrebleRequest(), cancellationToken);
+    public Task<GetTrebleResponse> GetTrebleAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetTrebleRequest, GetTrebleResponse>(new GetTrebleRequest(), cancellationToken, "GetTreble");
 
     /// <summary>
     /// Get volume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetVolumeResponse</returns>
-    public Task<GetVolumeResponse> GetVolume(GetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeRequest, GetVolumeResponse>(request, cancellationToken);
+    public Task<GetVolumeResponse> GetVolumeAsync(GetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetVolumeRequest, GetVolumeResponse>(request, cancellationToken, "GetVolume");
 
     /// <summary>
     /// GetVolumeDB
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetVolumeDBRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetVolumeDBResponse</returns>
-    public Task<GetVolumeDBResponse> GetVolumeDB(GetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRequest, GetVolumeDBResponse>(request, cancellationToken);
+    public Task<GetVolumeDBResponse> GetVolumeDBAsync(GetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetVolumeDBRequest, GetVolumeDBResponse>(request, cancellationToken, "GetVolumeDB");
 
     /// <summary>
     /// GetVolumeDBRange
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetVolumeDBRangeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetVolumeDBRangeResponse</returns>
-    public Task<GetVolumeDBRangeResponse> GetVolumeDBRange(GetVolumeDBRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetVolumeDBRangeRequest, GetVolumeDBRangeResponse>(request, cancellationToken);
+    public Task<GetVolumeDBRangeResponse> GetVolumeDBRangeAsync(GetVolumeDBRangeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetVolumeDBRangeRequest, GetVolumeDBRangeResponse>(request, cancellationToken, "GetVolumeDBRange");
 
     /// <summary>
     /// RampToVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RampToVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>RampToVolumeResponse</returns>
-    public Task<RampToVolumeResponse> RampToVolume(RampToVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RampToVolumeRequest, RampToVolumeResponse>(request, cancellationToken);
+    public Task<RampToVolumeResponse> RampToVolumeAsync(RampToVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<RampToVolumeRequest, RampToVolumeResponse>(request, cancellationToken, "RampToVolume");
 
     /// <summary>
     /// ResetBasicEQ
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ResetBasicEQResponse</returns>
-    public Task<ResetBasicEQResponse> ResetBasicEQ(CancellationToken cancellationToken = default) => ExecuteRequest<ResetBasicEQRequest, ResetBasicEQResponse>(new ResetBasicEQRequest(), cancellationToken);
+    public Task<ResetBasicEQResponse> ResetBasicEQAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<ResetBasicEQRequest, ResetBasicEQResponse>(new ResetBasicEQRequest(), cancellationToken, "ResetBasicEQ");
 
     /// <summary>
     /// ResetExtEQ
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ResetExtEQRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ResetExtEQAsync(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ResetExtEQ");
 
     /// <summary>
     /// RestoreVolumePriorToRamp
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RestoreVolumePriorToRampRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RestoreVolumePriorToRampAsync(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RestoreVolumePriorToRamp");
 
     /// <summary>
     /// Set bass level, between -10 and 10
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetBassRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetBassAsync(SetBassRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetBass");
 
     /// <summary>
     /// SetChannelMap
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetChannelMapRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetChannelMapAsync(SetChannelMapRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetChannelMap");
 
     /// <summary>
     /// Set equalizer value for different types
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetEQRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Not supported by all speakers, TV related</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetEQAsync(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetEQ");
 
     /// <summary>
     /// Set loudness on / off
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetLoudnessRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetLoudnessAsync(SetLoudnessRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetLoudness");
 
     /// <summary>
     /// SetMute
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetMuteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetMuteAsync(SetMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetMute");
 
     /// <summary>
     /// SetOutputFixed
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetOutputFixedRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetOutputFixedAsync(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetOutputFixed");
 
     /// <summary>
     /// SetRelativeVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetRelativeVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>SetRelativeVolumeResponse</returns>
-    public Task<SetRelativeVolumeResponse> SetRelativeVolume(SetRelativeVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRelativeVolumeRequest, SetRelativeVolumeResponse>(request, cancellationToken);
+    public Task<SetRelativeVolumeResponse> SetRelativeVolumeAsync(SetRelativeVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<SetRelativeVolumeRequest, SetRelativeVolumeResponse>(request, cancellationToken, "SetRelativeVolume");
 
     /// <summary>
     /// SetRoomCalibrationStatus
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetRoomCalibrationStatusRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetRoomCalibrationStatusAsync(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetRoomCalibrationStatus");
 
     /// <summary>
     /// SetRoomCalibrationX
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetRoomCalibrationXRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetRoomCalibrationXAsync(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetRoomCalibrationX");
 
     /// <summary>
     /// Set treble level
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetTrebleRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetTrebleAsync(SetTrebleRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetTreble");
 
     /// <summary>
     /// SetVolume
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetVolumeAsync(SetVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetVolume");
 
     /// <summary>
     /// SetVolumeDB
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetVolumeDBRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetVolumeDBAsync(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetVolumeDB");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/RenderingControl/Control", "RenderingControl")]
@@ -890,4 +890,279 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
 
         public int? VolumeDB { get; }
     }
+
+    /// <summary>
+    /// Get bass level between -10 and 10
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetBassResponse</returns>
+    [Obsolete("This method is obsolete. Use GetBassAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetBassResponse> GetBass(CancellationToken cancellationToken = default) => GetBassAsync(cancellationToken);
+
+    /// <summary>
+    /// Get equalizer value
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not all EQ types are available on every speaker</remarks>
+    /// <returns>GetEQResponse</returns>
+    [Obsolete("This method is obsolete. Use GetEQAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetEQResponse> GetEQ(GetEQRequest request, CancellationToken cancellationToken = default) => GetEQAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetHeadphoneConnected
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetHeadphoneConnectedResponse</returns>
+    [Obsolete("This method is obsolete. Use GetHeadphoneConnectedAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetHeadphoneConnectedResponse> GetHeadphoneConnected(CancellationToken cancellationToken = default) => GetHeadphoneConnectedAsync(cancellationToken);
+
+    /// <summary>
+    /// Whether or not Loudness is on
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetLoudnessResponse</returns>
+    [Obsolete("This method is obsolete. Use GetLoudnessAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetLoudnessResponse> GetLoudness(GetLoudnessRequest request, CancellationToken cancellationToken = default) => GetLoudnessAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetMute
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetMuteResponse</returns>
+    [Obsolete("This method is obsolete. Use GetMuteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetMuteResponse> GetMute(GetMuteRequest request, CancellationToken cancellationToken = default) => GetMuteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetOutputFixed
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetOutputFixedResponse</returns>
+    [Obsolete("This method is obsolete. Use GetOutputFixedAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetOutputFixedResponse> GetOutputFixed(CancellationToken cancellationToken = default) => GetOutputFixedAsync(cancellationToken);
+
+    /// <summary>
+    /// GetRoomCalibrationStatus
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetRoomCalibrationStatusResponse</returns>
+    [Obsolete("This method is obsolete. Use GetRoomCalibrationStatusAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetRoomCalibrationStatusResponse> GetRoomCalibrationStatus(CancellationToken cancellationToken = default) => GetRoomCalibrationStatusAsync(cancellationToken);
+
+    /// <summary>
+    /// GetSupportsOutputFixed
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetSupportsOutputFixedResponse</returns>
+    [Obsolete("This method is obsolete. Use GetSupportsOutputFixedAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetSupportsOutputFixedResponse> GetSupportsOutputFixed(CancellationToken cancellationToken = default) => GetSupportsOutputFixedAsync(cancellationToken);
+
+    /// <summary>
+    /// Get treble
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTrebleResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTrebleAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTrebleResponse> GetTreble(CancellationToken cancellationToken = default) => GetTrebleAsync(cancellationToken);
+
+    /// <summary>
+    /// Get volume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetVolumeResponse> GetVolume(GetVolumeRequest request, CancellationToken cancellationToken = default) => GetVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetVolumeDB
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetVolumeDBResponse</returns>
+    [Obsolete("This method is obsolete. Use GetVolumeDBAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetVolumeDBResponse> GetVolumeDB(GetVolumeDBRequest request, CancellationToken cancellationToken = default) => GetVolumeDBAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetVolumeDBRange
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetVolumeDBRangeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetVolumeDBRangeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetVolumeDBRangeResponse> GetVolumeDBRange(GetVolumeDBRangeRequest request, CancellationToken cancellationToken = default) => GetVolumeDBRangeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RampToVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>RampToVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use RampToVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<RampToVolumeResponse> RampToVolume(RampToVolumeRequest request, CancellationToken cancellationToken = default) => RampToVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ResetBasicEQ
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ResetBasicEQResponse</returns>
+    [Obsolete("This method is obsolete. Use ResetBasicEQAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ResetBasicEQResponse> ResetBasicEQ(CancellationToken cancellationToken = default) => ResetBasicEQAsync(cancellationToken);
+
+    /// <summary>
+    /// ResetExtEQ
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ResetExtEQAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ResetExtEQ(ResetExtEQRequest request, CancellationToken cancellationToken = default) => ResetExtEQAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RestoreVolumePriorToRamp
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RestoreVolumePriorToRampAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RestoreVolumePriorToRamp(RestoreVolumePriorToRampRequest request, CancellationToken cancellationToken = default) => RestoreVolumePriorToRampAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set bass level, between -10 and 10
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetBassAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetBass(SetBassRequest request, CancellationToken cancellationToken = default) => SetBassAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetChannelMap
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetChannelMapAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetChannelMap(SetChannelMapRequest request, CancellationToken cancellationToken = default) => SetChannelMapAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set equalizer value for different types
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Not supported by all speakers, TV related</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetEQAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => SetEQAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set loudness on / off
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetLoudnessAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetLoudness(SetLoudnessRequest request, CancellationToken cancellationToken = default) => SetLoudnessAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetMute
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetMuteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetMute(SetMuteRequest request, CancellationToken cancellationToken = default) => SetMuteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetOutputFixed
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetOutputFixedAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetOutputFixed(SetOutputFixedRequest request, CancellationToken cancellationToken = default) => SetOutputFixedAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetRelativeVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>SetRelativeVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use SetRelativeVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<SetRelativeVolumeResponse> SetRelativeVolume(SetRelativeVolumeRequest request, CancellationToken cancellationToken = default) => SetRelativeVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetRoomCalibrationStatus
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetRoomCalibrationStatusAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetRoomCalibrationStatus(SetRoomCalibrationStatusRequest request, CancellationToken cancellationToken = default) => SetRoomCalibrationStatusAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetRoomCalibrationX
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetRoomCalibrationXAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetRoomCalibrationX(SetRoomCalibrationXRequest request, CancellationToken cancellationToken = default) => SetRoomCalibrationXAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set treble level
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetTrebleAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetTreble(SetTrebleRequest request, CancellationToken cancellationToken = default) => SetTrebleAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetVolume
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetVolume(SetVolumeRequest request, CancellationToken cancellationToken = default) => SetVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetVolumeDB
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetVolumeDBAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetVolumeDB(SetVolumeDBRequest request, CancellationToken cancellationToken = default) => SetVolumeDBAsync(request, cancellationToken);
 }

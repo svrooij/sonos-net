@@ -38,124 +38,124 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
     /// <summary>
     /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the `TotalMatches` and - if necessary - do additional requests with higher `StartingIndex`. In case of duplicates only the first is returned! Example: albums with same title, even if artists are different
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="BrowseRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>(1) If the title contains an apostrophe the returned uri will contain a `&apos;`. (2) Some libraries support a BrowseAndParse, so you don't have to parse the xml.</remarks>
     /// <returns>BrowseResponse</returns>
-    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<BrowseRequest, BrowseResponse>(request, cancellationToken);
+    public Task<BrowseResponse> BrowseAsync(BrowseRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<BrowseRequest, BrowseResponse>(request, cancellationToken, "Browse");
 
     /// <summary>
     /// CreateObject
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CreateObjectRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>CreateObjectResponse</returns>
-    public Task<CreateObjectResponse> CreateObject(CreateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateObjectRequest, CreateObjectResponse>(request, cancellationToken);
+    public Task<CreateObjectResponse> CreateObjectAsync(CreateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<CreateObjectRequest, CreateObjectResponse>(request, cancellationToken, "CreateObject");
 
     /// <summary>
     /// DestroyObject
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="DestroyObjectRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> DestroyObjectAsync(DestroyObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "DestroyObject");
 
     /// <summary>
     /// FindPrefix
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="FindPrefixRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>FindPrefixResponse</returns>
-    public Task<FindPrefixResponse> FindPrefix(FindPrefixRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<FindPrefixRequest, FindPrefixResponse>(request, cancellationToken);
+    public Task<FindPrefixResponse> FindPrefixAsync(FindPrefixRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<FindPrefixRequest, FindPrefixResponse>(request, cancellationToken, "FindPrefix");
 
     /// <summary>
     /// Get the current album art display option such as `WMP`, `ITUNES` or `NONE`
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAlbumArtistDisplayOptionResponse</returns>
-    public Task<GetAlbumArtistDisplayOptionResponse> GetAlbumArtistDisplayOption(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetAlbumArtistDisplayOptionResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetAlbumArtistDisplayOptionResponse> GetAlbumArtistDisplayOptionAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetAlbumArtistDisplayOptionResponse>(new BaseRequest(), cancellationToken, "GetAlbumArtistDisplayOption");
 
     /// <summary>
     /// GetAllPrefixLocations
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetAllPrefixLocationsRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetAllPrefixLocationsResponse</returns>
-    public Task<GetAllPrefixLocationsResponse> GetAllPrefixLocations(GetAllPrefixLocationsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAllPrefixLocationsRequest, GetAllPrefixLocationsResponse>(request, cancellationToken);
+    public Task<GetAllPrefixLocationsResponse> GetAllPrefixLocationsAsync(GetAllPrefixLocationsRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetAllPrefixLocationsRequest, GetAllPrefixLocationsResponse>(request, cancellationToken, "GetAllPrefixLocations");
 
     /// <summary>
     /// GetBrowseable
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetBrowseableResponse</returns>
-    public Task<GetBrowseableResponse> GetBrowseable(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetBrowseableResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetBrowseableResponse> GetBrowseableAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetBrowseableResponse>(new BaseRequest(), cancellationToken, "GetBrowseable");
 
     /// <summary>
     /// GetLastIndexChange
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetLastIndexChangeResponse</returns>
-    public Task<GetLastIndexChangeResponse> GetLastIndexChange(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetLastIndexChangeResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetLastIndexChangeResponse> GetLastIndexChangeAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetLastIndexChangeResponse>(new BaseRequest(), cancellationToken, "GetLastIndexChange");
 
     /// <summary>
     /// GetSearchCapabilities
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetSearchCapabilitiesResponse</returns>
-    public Task<GetSearchCapabilitiesResponse> GetSearchCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSearchCapabilitiesResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetSearchCapabilitiesResponse> GetSearchCapabilitiesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetSearchCapabilitiesResponse>(new BaseRequest(), cancellationToken, "GetSearchCapabilities");
 
     /// <summary>
     /// GetShareIndexInProgress
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetShareIndexInProgressResponse</returns>
-    public Task<GetShareIndexInProgressResponse> GetShareIndexInProgress(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetShareIndexInProgressResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetShareIndexInProgressResponse> GetShareIndexInProgressAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetShareIndexInProgressResponse>(new BaseRequest(), cancellationToken, "GetShareIndexInProgress");
 
     /// <summary>
     /// GetSortCapabilities
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetSortCapabilitiesResponse</returns>
-    public Task<GetSortCapabilitiesResponse> GetSortCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSortCapabilitiesResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetSortCapabilitiesResponse> GetSortCapabilitiesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetSortCapabilitiesResponse>(new BaseRequest(), cancellationToken, "GetSortCapabilities");
 
     /// <summary>
     /// GetSystemUpdateID
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetSystemUpdateIDResponse</returns>
-    public Task<GetSystemUpdateIDResponse> GetSystemUpdateID(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetSystemUpdateIDResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetSystemUpdateIDResponse> GetSystemUpdateIDAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetSystemUpdateIDResponse>(new BaseRequest(), cancellationToken, "GetSystemUpdateID");
 
     /// <summary>
     /// Updates the music library (share) index
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RefreshShareIndexRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RefreshShareIndexAsync(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RefreshShareIndex");
 
     /// <summary>
     /// RequestResort
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RequestResortRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RequestResortAsync(RequestResortRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RequestResort");
 
     /// <summary>
     /// SetBrowseable
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetBrowseableRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetBrowseableAsync(SetBrowseableRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetBrowseable");
 
     /// <summary>
     /// UpdateObject
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="UpdateObjectRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> UpdateObjectAsync(UpdateObjectRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "UpdateObject");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaServer/ContentDirectory/Control", "ContentDirectory")]
@@ -453,4 +453,158 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
 
         public string? UserRadioUpdateID { get; }
     }
+
+    /// <summary>
+    /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the `TotalMatches` and - if necessary - do additional requests with higher `StartingIndex`. In case of duplicates only the first is returned! Example: albums with same title, even if artists are different
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>(1) If the title contains an apostrophe the returned uri will contain a `&apos;`. (2) Some libraries support a BrowseAndParse, so you don't have to parse the xml.</remarks>
+    /// <returns>BrowseResponse</returns>
+    [Obsolete("This method is obsolete. Use BrowseAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<BrowseResponse> Browse(BrowseRequest request, CancellationToken cancellationToken = default) => BrowseAsync(request, cancellationToken);
+
+    /// <summary>
+    /// CreateObject
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>CreateObjectResponse</returns>
+    [Obsolete("This method is obsolete. Use CreateObjectAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<CreateObjectResponse> CreateObject(CreateObjectRequest request, CancellationToken cancellationToken = default) => CreateObjectAsync(request, cancellationToken);
+
+    /// <summary>
+    /// DestroyObject
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use DestroyObjectAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> DestroyObject(DestroyObjectRequest request, CancellationToken cancellationToken = default) => DestroyObjectAsync(request, cancellationToken);
+
+    /// <summary>
+    /// FindPrefix
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>FindPrefixResponse</returns>
+    [Obsolete("This method is obsolete. Use FindPrefixAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<FindPrefixResponse> FindPrefix(FindPrefixRequest request, CancellationToken cancellationToken = default) => FindPrefixAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Get the current album art display option such as `WMP`, `ITUNES` or `NONE`
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAlbumArtistDisplayOptionResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAlbumArtistDisplayOptionAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAlbumArtistDisplayOptionResponse> GetAlbumArtistDisplayOption(CancellationToken cancellationToken = default) => GetAlbumArtistDisplayOptionAsync(cancellationToken);
+
+    /// <summary>
+    /// GetAllPrefixLocations
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetAllPrefixLocationsResponse</returns>
+    [Obsolete("This method is obsolete. Use GetAllPrefixLocationsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetAllPrefixLocationsResponse> GetAllPrefixLocations(GetAllPrefixLocationsRequest request, CancellationToken cancellationToken = default) => GetAllPrefixLocationsAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetBrowseable
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetBrowseableResponse</returns>
+    [Obsolete("This method is obsolete. Use GetBrowseableAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetBrowseableResponse> GetBrowseable(CancellationToken cancellationToken = default) => GetBrowseableAsync(cancellationToken);
+
+    /// <summary>
+    /// GetLastIndexChange
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetLastIndexChangeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetLastIndexChangeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetLastIndexChangeResponse> GetLastIndexChange(CancellationToken cancellationToken = default) => GetLastIndexChangeAsync(cancellationToken);
+
+    /// <summary>
+    /// GetSearchCapabilities
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetSearchCapabilitiesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetSearchCapabilitiesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetSearchCapabilitiesResponse> GetSearchCapabilities(CancellationToken cancellationToken = default) => GetSearchCapabilitiesAsync(cancellationToken);
+
+    /// <summary>
+    /// GetShareIndexInProgress
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetShareIndexInProgressResponse</returns>
+    [Obsolete("This method is obsolete. Use GetShareIndexInProgressAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetShareIndexInProgressResponse> GetShareIndexInProgress(CancellationToken cancellationToken = default) => GetShareIndexInProgressAsync(cancellationToken);
+
+    /// <summary>
+    /// GetSortCapabilities
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetSortCapabilitiesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetSortCapabilitiesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetSortCapabilitiesResponse> GetSortCapabilities(CancellationToken cancellationToken = default) => GetSortCapabilitiesAsync(cancellationToken);
+
+    /// <summary>
+    /// GetSystemUpdateID
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetSystemUpdateIDResponse</returns>
+    [Obsolete("This method is obsolete. Use GetSystemUpdateIDAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetSystemUpdateIDResponse> GetSystemUpdateID(CancellationToken cancellationToken = default) => GetSystemUpdateIDAsync(cancellationToken);
+
+    /// <summary>
+    /// Updates the music library (share) index
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RefreshShareIndexAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RefreshShareIndex(RefreshShareIndexRequest request, CancellationToken cancellationToken = default) => RefreshShareIndexAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RequestResort
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RequestResortAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RequestResort(RequestResortRequest request, CancellationToken cancellationToken = default) => RequestResortAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetBrowseable
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetBrowseableAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetBrowseable(SetBrowseableRequest request, CancellationToken cancellationToken = default) => SetBrowseableAsync(request, cancellationToken);
+
+    /// <summary>
+    /// UpdateObject
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use UpdateObjectAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> UpdateObject(UpdateObjectRequest request, CancellationToken cancellationToken = default) => UpdateObjectAsync(request, cancellationToken);
 }

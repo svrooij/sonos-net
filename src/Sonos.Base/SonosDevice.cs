@@ -23,6 +23,7 @@ using Sonos.Base.Services;
 using Sonos.Base.Internal;
 using System.Threading.Tasks;
 using Sonos.Base.Music;
+using System.Xml.Serialization;
 
 public partial class SonosDevice : IDisposable, IAsyncDisposable
 {
@@ -57,23 +58,55 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
 
-    public async Task LoadUuid(CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Gets the device properties service.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
+    /// <returns><see cref="Models.SonosDeviceDescription"/></returns>
+    /// <remarks>SonosDeviceDescription is generated with Paste XML as Classes</remarks>
+    public async Task<Models.SonosDeviceDescription> GetDeviceDescriptionAsync(CancellationToken cancellationToken = default)
+    {
+        var uri = new Uri(ServiceOptions.DeviceUri, "/xml/device_description.xml");
+        var response = await ServiceOptions.ServiceProvider.GetHttpClient().GetAsync(uri, cancellationToken);
+        response.EnsureSuccessStatusCode();
+
+        var serializer = new XmlSerializer(typeof(Models.SonosDeviceDescription));
+        using (var reader = new StreamReader(await response.Content.ReadAsStreamAsync(cancellationToken)))
+        {
+            var deviceDescription = (Models.SonosDeviceDescription)serializer.Deserialize(reader)!;
+            return deviceDescription;
+        }
+    }
+    
+    /// <summary>
+    /// Loads the uuid from the device if it is not set.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public async Task LoadUuidAsync(CancellationToken cancellationToken = default)
     {
         if (!Uuid.StartsWith("RINCON"))
         {
-            var attributes = await DevicePropertiesService.GetZoneInfo();
+            var attributes = await DevicePropertiesService.GetZoneInfoAsync(cancellationToken);
             Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}01400";
         }
     }
 
-    public async Task<bool> QueueNotification(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Send a notification to the speaker.
+    /// </summary>
+    /// <param name="notificationOptions"><see cref="NotificationOptions"/></param>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException">Throws when volume is not between 1 and 100</exception>
+    /// <remarks>This method is using the native Sonos notification system, which is only available on S2 devices.</remarks>
+    public async Task<bool> QueueNotificationAsync(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
     {
         //TODO Check if speaker is playing else skip
         if (notificationOptions.Volume < 1 || notificationOptions.Volume > 100)
         {
             throw new ArgumentOutOfRangeException(nameof(NotificationOptions.Volume), "Volume must be between 1 and 100");
         }
-        await LoadUuid(cancellationToken);
+        await LoadUuidAsync(cancellationToken);
         if (SonosWebSocket is null)
         {
             SonosWebSocket = new SonosWebSocket(ServiceOptions);
@@ -90,15 +123,15 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public async Task<MusicClient> GetMusicClientAsync(int serviceId, string timeZone = "+02:00", HttpClient? httpClient = null, CancellationToken cancellationToken = default)
     {
-        var musicServices = await MusicServicesService.ListAvailableServices(cancellationToken);
+        var musicServices = await MusicServicesService.ListAvailableServicesAsync(cancellationToken);
         var service = musicServices.MusicServices.SingleOrDefault(m => m.Id == serviceId);
         if (service == null)
         {
             throw new ArgumentOutOfRangeException(nameof(serviceId), "Music services with this ID not found");
         }
 
-        var deviceId = await SystemPropertiesService.GetString("R_TrialZPSerial", cancellationToken);
-        var householdId = (await DevicePropertiesService.GetHouseholdID(cancellationToken)).CurrentHouseholdID;
+        var deviceId = await SystemPropertiesService.GetStringAsync("R_TrialZPSerial", cancellationToken);
+        var householdId = (await DevicePropertiesService.GetHouseholdIDAsync(cancellationToken)).CurrentHouseholdID;
 
         return new MusicClient(new MusicClientOptions
         {
@@ -114,35 +147,55 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     #region Shortcuts
 
-    public Task<bool> Next(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Next(cancellationToken);
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.NextAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public Task<bool> NextAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.NextAsync(cancellationToken);
 
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Pause(cancellationToken);
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PauseAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public Task<bool> PauseAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PauseAsync(cancellationToken);
 
-    public Task<bool> Play(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Play(cancellationToken);
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PlayAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public Task<bool> PlayAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PlayAsync(cancellationToken);
 
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Previous(cancellationToken);
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.PreviousAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public Task<bool> PreviousAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.PreviousAsync(cancellationToken);
 
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
+    /// <summary>
+    /// Shortcut to <see cref="AVTransportService.StopAsync(CancellationToken)"/>, on the coordinator.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    public Task<bool> StopAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.StopAsync(cancellationToken);
 
     public async Task<bool> SwitchToLineIn(CancellationToken cancellationToken = default)
     {
-        await LoadUuid(cancellationToken);
-        await AVTransportService.SetAVTransportURI($"x-rincon-stream:{Uuid}", null, cancellationToken);
-        return await AVTransportService.Play(cancellationToken);
+        await LoadUuidAsync(cancellationToken);
+        await AVTransportService.SetAVTransportURIAsync($"x-rincon-stream:{Uuid}", null, cancellationToken);
+        return await AVTransportService.PlayAsync(cancellationToken);
     }
 
     public async Task<bool> SwitchToQueue(CancellationToken cancellationToken = default)
     {
-        await LoadUuid(cancellationToken);
-        return await AVTransportService.SetAVTransportURI($"x-rincon-queue:{Uuid}#0", null, cancellationToken);
+        await LoadUuidAsync(cancellationToken);
+        return await AVTransportService.SetAVTransportURIAsync($"x-rincon-queue:{Uuid}#0", null, cancellationToken);
         
     }
 
     public async Task<bool> SwitchToTv(CancellationToken cancellationToken = default)
     {
-        await LoadUuid(cancellationToken);
-        await AVTransportService.SetAVTransportURI($"x-sonos-htastream:{Uuid}:spdif", null, cancellationToken);
-        return await AVTransportService.Play(cancellationToken);
+        await LoadUuidAsync(cancellationToken);
+        await AVTransportService.SetAVTransportURIAsync($"x-sonos-htastream:{Uuid}:spdif", null, cancellationToken);
+        return await AVTransportService.PlayAsync(cancellationToken);
     }
 
     #endregion Shortcuts

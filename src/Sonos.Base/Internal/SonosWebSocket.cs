@@ -16,13 +16,14 @@ namespace Sonos.Base.Internal
         {
             this.webSocket = new ClientWebSocket();
             this.options = serviceOptions;
+
+            webSocket.Options.AddSubProtocol(SubProtocol);
+            webSocket.Options.SetRequestHeader("X-Sonos-Api-Key", ApiKey);
 #if NET6_0_OR_GREATER
             webSocket.Options.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 #else
             throw new NotImplementedException("Sonos has a Self-Signed certificate for the websocket, and RemoteCertificateValidationCallback is unavailable on your platform");
 #endif
-            webSocket.Options.AddSubProtocol(SubProtocol);
-            webSocket.Options.SetRequestHeader("X-Sonos-Api-Key", ApiKey);
         }
 
         internal Task ConnectAsync(CancellationToken cancellationToken)

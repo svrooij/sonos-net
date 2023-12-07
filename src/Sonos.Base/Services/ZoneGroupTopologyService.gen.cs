@@ -38,64 +38,64 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
     /// <summary>
     /// BeginSoftwareUpdate
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="BeginSoftwareUpdateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> BeginSoftwareUpdateAsync(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "BeginSoftwareUpdate");
 
     /// <summary>
     /// CheckForUpdate
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CheckForUpdateRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>CheckForUpdateResponse</returns>
-    public Task<CheckForUpdateResponse> CheckForUpdate(CheckForUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CheckForUpdateRequest, CheckForUpdateResponse>(request, cancellationToken);
+    public Task<CheckForUpdateResponse> CheckForUpdateAsync(CheckForUpdateRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<CheckForUpdateRequest, CheckForUpdateResponse>(request, cancellationToken, "CheckForUpdate");
 
     /// <summary>
     /// Get information about the current Zone
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetZoneGroupAttributesResponse</returns>
-    public Task<GetZoneGroupAttributesResponse> GetZoneGroupAttributes(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupAttributesResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetZoneGroupAttributesResponse> GetZoneGroupAttributesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetZoneGroupAttributesResponse>(new BaseRequest(), cancellationToken, "GetZoneGroupAttributes");
 
     /// <summary>
     /// Get all the Sonos groups, (as XML)
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Some libraries also support GetParsedZoneGroupState that parses the xml for you.</remarks>
     /// <returns>GetZoneGroupStateResponse</returns>
-    public Task<GetZoneGroupStateResponse> GetZoneGroupState(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetZoneGroupStateResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetZoneGroupStateResponse> GetZoneGroupStateAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetZoneGroupStateResponse>(new BaseRequest(), cancellationToken, "GetZoneGroupState");
 
     /// <summary>
     /// RegisterMobileDevice
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RegisterMobileDeviceRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RegisterMobileDeviceAsync(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RegisterMobileDevice");
 
     /// <summary>
     /// ReportAlarmStartedRunning
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ExecuteRequest(new BaseRequest(), cancellationToken);
+    public Task<bool> ReportAlarmStartedRunningAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BaseRequest(), cancellationToken, "ReportAlarmStartedRunning");
 
     /// <summary>
     /// ReportUnresponsiveDevice
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReportUnresponsiveDeviceRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ReportUnresponsiveDeviceAsync(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ReportUnresponsiveDevice");
 
     /// <summary>
     /// SubmitDiagnostics
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SubmitDiagnosticsRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>SubmitDiagnosticsResponse</returns>
-    public Task<SubmitDiagnosticsResponse> SubmitDiagnostics(SubmitDiagnosticsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SubmitDiagnosticsRequest, SubmitDiagnosticsResponse>(request, cancellationToken);
+    public Task<SubmitDiagnosticsResponse> SubmitDiagnosticsAsync(SubmitDiagnosticsRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<SubmitDiagnosticsRequest, SubmitDiagnosticsResponse>(request, cancellationToken, "SubmitDiagnostics");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology")]
@@ -245,4 +245,82 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
 
         public string? ZonePlayerUUIDsInGroup { get; }
     }
+
+    /// <summary>
+    /// BeginSoftwareUpdate
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use BeginSoftwareUpdateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> BeginSoftwareUpdate(BeginSoftwareUpdateRequest request, CancellationToken cancellationToken = default) => BeginSoftwareUpdateAsync(request, cancellationToken);
+
+    /// <summary>
+    /// CheckForUpdate
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>CheckForUpdateResponse</returns>
+    [Obsolete("This method is obsolete. Use CheckForUpdateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<CheckForUpdateResponse> CheckForUpdate(CheckForUpdateRequest request, CancellationToken cancellationToken = default) => CheckForUpdateAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Get information about the current Zone
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetZoneGroupAttributesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetZoneGroupAttributesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetZoneGroupAttributesResponse> GetZoneGroupAttributes(CancellationToken cancellationToken = default) => GetZoneGroupAttributesAsync(cancellationToken);
+
+    /// <summary>
+    /// Get all the Sonos groups, (as XML)
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Some libraries also support GetParsedZoneGroupState that parses the xml for you.</remarks>
+    /// <returns>GetZoneGroupStateResponse</returns>
+    [Obsolete("This method is obsolete. Use GetZoneGroupStateAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetZoneGroupStateResponse> GetZoneGroupState(CancellationToken cancellationToken = default) => GetZoneGroupStateAsync(cancellationToken);
+
+    /// <summary>
+    /// RegisterMobileDevice
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RegisterMobileDeviceAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RegisterMobileDevice(RegisterMobileDeviceRequest request, CancellationToken cancellationToken = default) => RegisterMobileDeviceAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReportAlarmStartedRunning
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ReportAlarmStartedRunningAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ReportAlarmStartedRunning(CancellationToken cancellationToken = default) => ReportAlarmStartedRunningAsync(cancellationToken);
+
+    /// <summary>
+    /// ReportUnresponsiveDevice
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ReportUnresponsiveDeviceAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ReportUnresponsiveDevice(ReportUnresponsiveDeviceRequest request, CancellationToken cancellationToken = default) => ReportUnresponsiveDeviceAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SubmitDiagnostics
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>SubmitDiagnosticsResponse</returns>
+    [Obsolete("This method is obsolete. Use SubmitDiagnosticsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<SubmitDiagnosticsResponse> SubmitDiagnostics(SubmitDiagnosticsRequest request, CancellationToken cancellationToken = default) => SubmitDiagnosticsAsync(request, cancellationToken);
 }

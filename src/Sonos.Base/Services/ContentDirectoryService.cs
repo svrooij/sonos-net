@@ -35,9 +35,9 @@ public partial class ContentDirectoryService
     /// <param name="cancellationToken">CancellationToken</param>
     /// <remarks>(1) If the title contains an apostrophe the returned uri will contain a `&apos;`. (2) Some libraries support a BrowseAndParse, so you don't have to parse the xml.</remarks>
     /// <returns>BrowseResponse</returns>
-    public Task<BrowseResponse> Browse(string ObjectID, string BrowseFlag = "BrowseDirectChildren", string Filter = "*", int StartingIndex = 0, int Count = 0, string SortCriteria = "", CancellationToken cancellationToken = default)
+    public Task<BrowseResponse> BrowseAsync(string ObjectID, string BrowseFlag = "BrowseDirectChildren", string Filter = "*", int StartingIndex = 0, int Count = 0, string SortCriteria = "", CancellationToken cancellationToken = default)
     {
-        return Browse(new BrowseRequest
+        return BrowseAsync(new BrowseRequest
         {
             ObjectID = ObjectID,
             BrowseFlag = BrowseFlag,
@@ -54,7 +54,7 @@ public partial class ContentDirectoryService
     /// <param name="count">Number of items to load</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<BrowseResponse> CurrentQueue(int count = 100, CancellationToken cancellationToken = default) => Browse("Q:0", Count: count, cancellationToken: cancellationToken);
+    public Task<BrowseResponse> CurrentQueueAsync(int count = 100, CancellationToken cancellationToken = default) => BrowseAsync("Q:0", Count: count, cancellationToken: cancellationToken);
 
     /// <summary>
     /// Browse the favorite radio shows
@@ -62,7 +62,7 @@ public partial class ContentDirectoryService
     /// <param name="count"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<BrowseResponse> FavoriteRadioShows(int count = 100, CancellationToken cancellationToken = default) => Browse("R:0/1", Count: count, cancellationToken: cancellationToken);
+    public Task<BrowseResponse> FavoriteRadioShowsAsync(int count = 100, CancellationToken cancellationToken = default) => BrowseAsync("R:0/1", Count: count, cancellationToken: cancellationToken);
 
     /// <summary>
     /// Browse the favorite radio stations
@@ -70,7 +70,7 @@ public partial class ContentDirectoryService
     /// <param name="count">Number of items to load</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<BrowseResponse> FavoriteRadioStations(int count = 100, CancellationToken cancellationToken = default) => Browse("R:0/0", Count: count, cancellationToken: cancellationToken);
+    public Task<BrowseResponse> FavoriteRadioStationsAsync(int count = 100, CancellationToken cancellationToken = default) => BrowseAsync("R:0/0", Count: count, cancellationToken: cancellationToken);
 
     /// <summary>
     /// Browse favorites
@@ -78,7 +78,7 @@ public partial class ContentDirectoryService
     /// <param name="count">Number of items to load</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<BrowseResponse> Favorites(int count = 100, CancellationToken cancellationToken = default) => Browse("FV:2", Count: count, cancellationToken: cancellationToken);
+    public Task<BrowseResponse> FavoritesAsync(int count = 100, CancellationToken cancellationToken = default) => BrowseAsync("FV:2", Count: count, cancellationToken: cancellationToken);
 
     public partial class BrowseResponse
     {

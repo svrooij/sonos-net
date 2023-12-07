@@ -38,34 +38,34 @@ public partial class GroupManagementService : SonosBaseService<GroupManagementSe
     /// <summary>
     /// AddMember
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddMemberRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddMemberResponse</returns>
-    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMemberRequest, AddMemberResponse>(request, cancellationToken);
+    public Task<AddMemberResponse> AddMemberAsync(AddMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddMemberRequest, AddMemberResponse>(request, cancellationToken, "AddMember");
 
     /// <summary>
     /// RemoveMember
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveMemberRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveMemberAsync(RemoveMemberRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RemoveMember");
 
     /// <summary>
     /// ReportTrackBufferingResult
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReportTrackBufferingResultRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ReportTrackBufferingResultAsync(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ReportTrackBufferingResult");
 
     /// <summary>
     /// SetSourceAreaIds
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetSourceAreaIdsRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetSourceAreaIdsAsync(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetSourceAreaIds");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/GroupManagement/Control", "GroupManagement")]
@@ -149,4 +149,44 @@ public partial class GroupManagementService : SonosBaseService<GroupManagementSe
 
         public string? VolumeAVTransportURI { get; }
     }
+
+    /// <summary>
+    /// AddMember
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddMemberResponse</returns>
+    [Obsolete("This method is obsolete. Use AddMemberAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddMemberResponse> AddMember(AddMemberRequest request, CancellationToken cancellationToken = default) => AddMemberAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RemoveMember
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveMemberAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveMember(RemoveMemberRequest request, CancellationToken cancellationToken = default) => RemoveMemberAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReportTrackBufferingResult
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ReportTrackBufferingResultAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ReportTrackBufferingResult(ReportTrackBufferingResultRequest request, CancellationToken cancellationToken = default) => ReportTrackBufferingResultAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetSourceAreaIds
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetSourceAreaIdsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetSourceAreaIds(SetSourceAreaIdsRequest request, CancellationToken cancellationToken = default) => SetSourceAreaIdsAsync(request, cancellationToken);
 }

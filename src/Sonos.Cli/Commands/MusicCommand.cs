@@ -53,7 +53,7 @@ public class MusicCommand
         var sonos = host.CreateSonosDeviceWithOptions(options);
         var token = ctx.GetCancellationToken();
 
-        var services = await sonos.MusicServicesService.ListAvailableServices(token);
+        var services = await sonos.MusicServicesService.ListAvailableServicesAsync(token);
 
         if (options.Json == true)
         {
@@ -116,7 +116,7 @@ public class MusicCommand
 
         var musicClient = await sonos.GetMusicClientAsync(options.ServiceId ?? -1, cancellationToken: token);
 
-        var result = await musicClient.GetMetadataAsync(new Base.Music.Models.GetMetadataRequest { Id = options.Input }, token);
+        var result = await musicClient.GetMetadataAsync(new Base.Music.Models.GetMetadataRequest { Id = options.Input! }, token);
 
         if (result != null)
         {
@@ -134,7 +134,7 @@ public class MusicCommand
                     {
                         Console.WriteLine("{0}\t\t{1}\t\t{2}", media.Id, media.ItemType, media.Title);
                     }
-                } else
+                } else if (result.MediaMetadata != null)
                 {
                     Console.WriteLine("Id\tItemType\tName");
                     foreach (var media in result.MediaMetadata)

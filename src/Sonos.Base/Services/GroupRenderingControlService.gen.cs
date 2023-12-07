@@ -38,53 +38,53 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
     /// <summary>
     /// Get the group mute state.
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupMuteResponse</returns>
-    public Task<GetGroupMuteResponse> GetGroupMute(CancellationToken cancellationToken = default) => ExecuteRequest<GetGroupMuteRequest, GetGroupMuteResponse>(new GetGroupMuteRequest(), cancellationToken);
+    public Task<GetGroupMuteResponse> GetGroupMuteAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetGroupMuteRequest, GetGroupMuteResponse>(new GetGroupMuteRequest(), cancellationToken, "GetGroupMute");
 
     /// <summary>
     /// Get the group volume.
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>GetGroupVolumeResponse</returns>
-    public Task<GetGroupVolumeResponse> GetGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest<GetGroupVolumeRequest, GetGroupVolumeResponse>(new GetGroupVolumeRequest(), cancellationToken);
+    public Task<GetGroupVolumeResponse> GetGroupVolumeAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetGroupVolumeRequest, GetGroupVolumeResponse>(new GetGroupVolumeRequest(), cancellationToken, "GetGroupVolume");
 
     /// <summary>
     /// (Un-/)Mute the entire group
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetGroupMuteRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetGroupMuteAsync(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetGroupMute");
 
     /// <summary>
     /// Change group volume. Players volume will be changed proportionally based on last snapshot
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetGroupVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetGroupVolumeAsync(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetGroupVolume");
 
     /// <summary>
     /// Relatively change group volume - returns final group volume. Players volume will be changed proportionally based on last snapshot
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetRelativeGroupVolumeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>SetRelativeGroupVolumeResponse</returns>
-    public Task<SetRelativeGroupVolumeResponse> SetRelativeGroupVolume(SetRelativeGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SetRelativeGroupVolumeRequest, SetRelativeGroupVolumeResponse>(request, cancellationToken);
+    public Task<SetRelativeGroupVolumeResponse> SetRelativeGroupVolumeAsync(SetRelativeGroupVolumeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<SetRelativeGroupVolumeRequest, SetRelativeGroupVolumeResponse>(request, cancellationToken, "SetRelativeGroupVolume");
 
     /// <summary>
     /// Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Should be send to coordinator only</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) => ExecuteRequest(new SnapshotGroupVolumeRequest(), cancellationToken);
+    public Task<bool> SnapshotGroupVolumeAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new SnapshotGroupVolumeRequest(), cancellationToken, "SnapshotGroupVolume");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/GroupRenderingControl/Control", "GroupRenderingControl")]
@@ -219,4 +219,67 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
 
         public bool? GroupVolumeChangeable { get; }
     }
+
+    /// <summary>
+    /// Get the group mute state.
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>GetGroupMuteResponse</returns>
+    [Obsolete("This method is obsolete. Use GetGroupMuteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetGroupMuteResponse> GetGroupMute(CancellationToken cancellationToken = default) => GetGroupMuteAsync(cancellationToken);
+
+    /// <summary>
+    /// Get the group volume.
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>GetGroupVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetGroupVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetGroupVolumeResponse> GetGroupVolume(CancellationToken cancellationToken = default) => GetGroupVolumeAsync(cancellationToken);
+
+    /// <summary>
+    /// (Un-/)Mute the entire group
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetGroupMuteAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetGroupMute(SetGroupMuteRequest request, CancellationToken cancellationToken = default) => SetGroupMuteAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Change group volume. Players volume will be changed proportionally based on last snapshot
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetGroupVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetGroupVolume(SetGroupVolumeRequest request, CancellationToken cancellationToken = default) => SetGroupVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Relatively change group volume - returns final group volume. Players volume will be changed proportionally based on last snapshot
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>SetRelativeGroupVolumeResponse</returns>
+    [Obsolete("This method is obsolete. Use SetRelativeGroupVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<SetRelativeGroupVolumeResponse> SetRelativeGroupVolume(SetRelativeGroupVolumeRequest request, CancellationToken cancellationToken = default) => SetRelativeGroupVolumeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Should be send to coordinator only</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SnapshotGroupVolumeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SnapshotGroupVolume(CancellationToken cancellationToken = default) => SnapshotGroupVolumeAsync(cancellationToken);
 }

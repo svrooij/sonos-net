@@ -8,12 +8,12 @@ namespace Sonos.Base.Services
 {
     public partial class SystemPropertiesService
     {
-        public async Task<string> GetString(string variableName, CancellationToken cancellationToken = default)
+        public async Task<string> GetStringAsync(string variableName, CancellationToken cancellationToken = default)
         {
-            var result = await GetString(new GetStringRequest { VariableName = variableName }, cancellationToken);
+            var result = await GetStringAsync(new GetStringRequest { VariableName = variableName }, cancellationToken);
             return result.StringValue;
         }
 
-        public Task<bool> SetString(string variableName, string value, CancellationToken cancellationToken = default) => SetString(new SetStringRequest { VariableName = variableName, StringValue = value }, cancellationToken);
+        public Task<bool> SetStringAsync(string variableName, string value, CancellationToken cancellationToken = default) => SetStringAsync(new SetStringRequest { VariableName = variableName, StringValue = value }, cancellationToken);
     }
 }

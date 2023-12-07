@@ -13,10 +13,10 @@ public class InfoCommand
     {
         Position = 1,
         Transport = 2,
-
         //Volume = 3,
         Media = 4,
         MusicClient = 5,
+        DeviceDescription = 6,
     }
 
     public static Command GetCommand()
@@ -38,22 +38,26 @@ public class InfoCommand
         switch (options.Info)
         {
             case SonosInfo.Position:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo(token));
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfoAsync(token));
                 break;
 
             case SonosInfo.Transport:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfo(token));
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfoAsync(token));
                 break;
             //case SonosInfo.Volume:
-            //CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume());
+            //CommandHelpers.WriteJson(await sonos.RenderingControlService.Async());
             //break;
             case SonosInfo.Media:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo(token));
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfoAsync(token));
                 break;
             case SonosInfo.MusicClient:
-                var serial = await sonos.SystemPropertiesService.GetString("R_TrialZPSerial", token);
-                var householdId = (await sonos.DevicePropertiesService.GetHouseholdID(token)).CurrentHouseholdID;
+                var serial = await sonos.SystemPropertiesService.GetStringAsync("R_TrialZPSerial", token);
+                var householdId = (await sonos.DevicePropertiesService.GetHouseholdIDAsync(token)).CurrentHouseholdID;
                 CommandHelpers.WriteJson(new { serial, householdId });
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfoAsync(token));
+                break;
+            case SonosInfo.DeviceDescription:
+                CommandHelpers.WriteJson(await sonos.GetDeviceDescriptionAsync());
                 break;
         }
     }

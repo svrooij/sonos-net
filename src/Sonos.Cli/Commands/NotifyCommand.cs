@@ -26,12 +26,12 @@ public class NotifyCommand
         logger.LogDebug("Play notification on {ip} {sound}", options.Host, options.Sound);
         var sonos = host.CreateSonosDeviceWithOptions(options);
 
-        await sonos.QueueNotification(new Base.NotificationOptions(options.Sound, options.Volume));
+        await sonos.QueueNotificationAsync(new Base.NotificationOptions(options.Sound!, options.Volume));
     }
 
     public class NotifyCommandOptions : BaseOptions
     {
-        public Uri Sound { get; set; }
+        public Uri? Sound { get; set; }
         public int Volume { get; set; } = 25;
     }
 }

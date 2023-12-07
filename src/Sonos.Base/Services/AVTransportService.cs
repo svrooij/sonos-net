@@ -14,10 +14,10 @@ namespace Sonos.Base.Services
         /// <param name="didlDescription">Use the default or 'SA_RINCON2311_X_#Svc2311-0-Token' for spotify in europe (not sure where to get). Check constants in `DidlDesc` </param>
         /// <param name="cancellationToken">CancellationToken to cancel the request if needed</param>
         /// <returns></returns>
-        public Task<AddURIToQueueResponse> AddURIToQueuePlaylist(int musicServiceId, string itemId, int flags = 8300, int sn = 2, string didlDescription = DidlDesc.SpotifyEurope, CancellationToken cancellationToken = default)
+        public Task<AddURIToQueueResponse> AddURIToQueuePlaylistAsync(int musicServiceId, string itemId, int flags = 8300, int sn = 2, string didlDescription = DidlDesc.SpotifyEurope, CancellationToken cancellationToken = default)
         {
             if (itemId == null) throw new ArgumentNullException(nameof(itemId));
-            return AddURIToQueue(new AddURIToQueueRequest
+            return AddURIToQueueAsync(new AddURIToQueueRequest
             {
                 EnqueuedURI = $"x-rincon-cpcontainer:1006206c{itemId.Replace(":", "%3a")}?sid={musicServiceId}&flags={flags}&sn={sn}",
                 EnqueuedURIMetaDataObject = Didl.GetMetadataForPlaylist(itemId, didlDescription),
@@ -26,13 +26,7 @@ namespace Sonos.Base.Services
             }, cancellationToken);
         }
 
-        /// <summary>
-        /// Play request without required parameters
-        /// </summary>
-        /// <param name="cancellationToken">CancellationToken to cancel the request if needed</param>
-        public Task<bool> Play(CancellationToken cancellationToken = default) => Play(new PlayRequest { Speed = "1" }, cancellationToken);
-
-        public Task<bool> SetAVTransportURI(string trackUri, Didl? metadata, CancellationToken cancellationToken = default) => ExecuteRequest(new SetAVTransportURIRequest { CurrentURI = trackUri, CurrentURIMetaDataObject = metadata, InstanceID = 0 }, cancellationToken);
+        public Task<bool> SetAVTransportURIAsync(string trackUri, Didl? metadata, CancellationToken cancellationToken = default) => ExecuteRequestAsync(new SetAVTransportURIRequest { CurrentURI = trackUri, CurrentURIMetaDataObject = metadata, InstanceID = 0 }, cancellationToken, "SetAVTransportURI");
 
         /// <summary>
         /// Join another player
@@ -40,7 +34,7 @@ namespace Sonos.Base.Services
         /// <param name="otherPlayersUuid">UUID of the group coordinator</param>
         /// <param name="cancellationToken">CancellationToken to cancel the request if needed</param>
         /// <remarks>If the group you wish to join consists of several players be sure to pick the right one (the one on top)</remarks>
-        public Task<bool> SetAVTransportURIToOtherPlayer(string otherPlayersUuid, CancellationToken cancellationToken = default) => SetAVTransportURI($"x-rincon:{otherPlayersUuid}", null, cancellationToken);
+        public Task<bool> SetAVTransportURIToOtherPlayerAsync(string otherPlayersUuid, CancellationToken cancellationToken = default) => SetAVTransportURIAsync($"x-rincon:{otherPlayersUuid}", null, cancellationToken);
 
         /// <summary>
         /// Change your speaker to play a stream from a connected music service
@@ -52,9 +46,14 @@ namespace Sonos.Base.Services
         /// <param name="didlDescription">Use the default or 'SA_RINCON2311_X_#Svc2311-0-Token' for spotify in europe (not sure where to get). Check constants in `DidlDesc` </param>
         /// <param name="cancellationToken">CancellationToken to cancel the request if needed</param>
         /// <remarks>This does not start playback, you need to start playback afterwards</remarks>
-        public Task<bool> SetAVTransportURIToStreamItem(int musicServiceId, string itemId, int flags = 8224, int sn = 0, string didlDescription = DidlDesc.Default, CancellationToken cancellationToken = default)
+        public Task<bool> SetAVTransportURIToStreamItemAsync(int musicServiceId, string itemId, int flags = 8224, int sn = 0, string didlDescription = DidlDesc.Default, CancellationToken cancellationToken = default)
         {
-            return SetAVTransportURI($"x-sonosapi-stream:{itemId}?sid={musicServiceId}&flags={flags}&sn={sn}", Didl.GetMetadataForBroadcast(itemId, didlDescription), cancellationToken);
+            return SetAVTransportURIAsync($"x-sonosapi-stream:{itemId}?sid={musicServiceId}&flags={flags}&sn={sn}", Didl.GetMetadataForBroadcast(itemId, didlDescription), cancellationToken);
         }
+        public Task<bool> PlayAsync(CancellationToken cancellationToken = default) => PlayAsync(new PlayRequest { Speed = "1" }, cancellationToken);
+
+        [Obsolete("Use PlayAsync instead")]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public Task<bool> Play(CancellationToken cancellationToken = default) => PlayAsync(cancellationToken);
     }
 }

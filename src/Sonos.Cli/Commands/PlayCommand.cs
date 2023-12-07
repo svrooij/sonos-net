@@ -64,10 +64,10 @@ public class PlayCommand
         var sonos = host.CreateSonosDeviceWithOptions(options);
         var token = ctx.GetCancellationToken();
 
-        await sonos.AVTransportService.SetAVTransportURIToStreamItem(options.ServiceId, options.Input ?? "", cancellationToken:  token);
+        await sonos.AVTransportService.SetAVTransportURIToStreamItemAsync(options.ServiceId, options.Input ?? "", cancellationToken:  token);
 
         await Task.Delay(200, token);
-        await sonos.AVTransportService.Play(token);
+        await sonos.AVTransportService.PlayAsync(token);
     }
 
     private static async Task RunPlaylist(PlayCommandOptions options, IHost host, InvocationContext ctx)
@@ -78,11 +78,11 @@ public class PlayCommand
         var token = ctx.GetCancellationToken();
 
         //await sonos.QueueService.RemoveAllTracks(new Base.Services.QueueService.RemoveAllTracksRequest { QueueID = 0, UpdateID = 0 }, token);
-        await sonos.AVTransportService.RemoveAllTracksFromQueue(token);
-        await sonos.AVTransportService.AddURIToQueuePlaylist(options.ServiceId, options.Input ?? "", cancellationToken: token);
+        await sonos.AVTransportService.RemoveAllTracksFromQueueAsync(token);
+        await sonos.AVTransportService.AddURIToQueuePlaylistAsync(options.ServiceId, options.Input ?? "", cancellationToken: token);
 
         await Task.Delay(200, token);
-        await sonos.AVTransportService.Play(token);
+        await sonos.AVTransportService.PlayAsync(token);
     }
 
 

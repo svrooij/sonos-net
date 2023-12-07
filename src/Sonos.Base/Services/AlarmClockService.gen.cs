@@ -38,133 +38,133 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
     /// <summary>
     /// Create a single alarm, all properties are required
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CreateAlarmRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>CreateAlarmResponse</returns>
-    public Task<CreateAlarmResponse> CreateAlarm(CreateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateAlarmRequest, CreateAlarmResponse>(request, cancellationToken);
+    public Task<CreateAlarmResponse> CreateAlarmAsync(CreateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<CreateAlarmRequest, CreateAlarmResponse>(request, cancellationToken, "CreateAlarm");
 
     /// <summary>
     /// Delete an alarm
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="DestroyAlarmRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> DestroyAlarm(DestroyAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> DestroyAlarmAsync(DestroyAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "DestroyAlarm");
 
     /// <summary>
     /// GetDailyIndexRefreshTime
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetDailyIndexRefreshTimeResponse</returns>
-    public Task<GetDailyIndexRefreshTimeResponse> GetDailyIndexRefreshTime(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetDailyIndexRefreshTimeResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetDailyIndexRefreshTimeResponse> GetDailyIndexRefreshTimeAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetDailyIndexRefreshTimeResponse>(new BaseRequest(), cancellationToken, "GetDailyIndexRefreshTime");
 
     /// <summary>
     /// GetFormat
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetFormatResponse</returns>
-    public Task<GetFormatResponse> GetFormat(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetFormatResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetFormatResponse> GetFormatAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetFormatResponse>(new BaseRequest(), cancellationToken, "GetFormat");
 
     /// <summary>
     /// GetHouseholdTimeAtStamp
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetHouseholdTimeAtStampRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetHouseholdTimeAtStampResponse</returns>
-    public Task<GetHouseholdTimeAtStampResponse> GetHouseholdTimeAtStamp(GetHouseholdTimeAtStampRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetHouseholdTimeAtStampRequest, GetHouseholdTimeAtStampResponse>(request, cancellationToken);
+    public Task<GetHouseholdTimeAtStampResponse> GetHouseholdTimeAtStampAsync(GetHouseholdTimeAtStampRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetHouseholdTimeAtStampRequest, GetHouseholdTimeAtStampResponse>(request, cancellationToken, "GetHouseholdTimeAtStamp");
 
     /// <summary>
     /// GetTimeNow
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTimeNowResponse</returns>
-    public Task<GetTimeNowResponse> GetTimeNow(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeNowResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetTimeNowResponse> GetTimeNowAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetTimeNowResponse>(new BaseRequest(), cancellationToken, "GetTimeNow");
 
     /// <summary>
     /// GetTimeServer
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTimeServerResponse</returns>
-    public Task<GetTimeServerResponse> GetTimeServer(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeServerResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetTimeServerResponse> GetTimeServerAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetTimeServerResponse>(new BaseRequest(), cancellationToken, "GetTimeServer");
 
     /// <summary>
     /// GetTimeZone
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTimeZoneResponse</returns>
-    public Task<GetTimeZoneResponse> GetTimeZone(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeZoneResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetTimeZoneResponse> GetTimeZoneAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetTimeZoneResponse>(new BaseRequest(), cancellationToken, "GetTimeZone");
 
     /// <summary>
     /// GetTimeZoneAndRule
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTimeZoneAndRuleResponse</returns>
-    public Task<GetTimeZoneAndRuleResponse> GetTimeZoneAndRule(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, GetTimeZoneAndRuleResponse>(new BaseRequest(), cancellationToken);
+    public Task<GetTimeZoneAndRuleResponse> GetTimeZoneAndRuleAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, GetTimeZoneAndRuleResponse>(new BaseRequest(), cancellationToken, "GetTimeZoneAndRule");
 
     /// <summary>
     /// GetTimeZoneRule
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="GetTimeZoneRuleRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetTimeZoneRuleResponse</returns>
-    public Task<GetTimeZoneRuleResponse> GetTimeZoneRule(GetTimeZoneRuleRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetTimeZoneRuleRequest, GetTimeZoneRuleResponse>(request, cancellationToken);
+    public Task<GetTimeZoneRuleResponse> GetTimeZoneRuleAsync(GetTimeZoneRuleRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetTimeZoneRuleRequest, GetTimeZoneRuleResponse>(request, cancellationToken, "GetTimeZoneRule");
 
     /// <summary>
     /// Get the AlarmList as XML
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Some libraries also provide a ListAndParseAlarms where the alarm list xml is parsed</remarks>
     /// <returns>ListAlarmsResponse</returns>
-    public Task<ListAlarmsResponse> ListAlarms(CancellationToken cancellationToken = default) => ExecuteRequest<BaseRequest, ListAlarmsResponse>(new BaseRequest(), cancellationToken);
+    public Task<ListAlarmsResponse> ListAlarmsAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BaseRequest, ListAlarmsResponse>(new BaseRequest(), cancellationToken, "ListAlarms");
 
     /// <summary>
     /// SetDailyIndexRefreshTime
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetDailyIndexRefreshTimeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetDailyIndexRefreshTime(SetDailyIndexRefreshTimeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetDailyIndexRefreshTimeAsync(SetDailyIndexRefreshTimeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetDailyIndexRefreshTime");
 
     /// <summary>
     /// SetFormat
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetFormatRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetFormat(SetFormatRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetFormatAsync(SetFormatRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetFormat");
 
     /// <summary>
     /// SetTimeNow
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetTimeNowRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeNow(SetTimeNowRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetTimeNowAsync(SetTimeNowRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetTimeNow");
 
     /// <summary>
     /// SetTimeServer
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetTimeServerRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeServer(SetTimeServerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetTimeServerAsync(SetTimeServerRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetTimeServer");
 
     /// <summary>
     /// SetTimeZone
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetTimeZoneRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetTimeZone(SetTimeZoneRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetTimeZoneAsync(SetTimeZoneRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetTimeZone");
 
     /// <summary>
     /// Update an alarm, all parameters are required.
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="UpdateAlarmRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Some libraries support PatchAlarm where you can update a single parameter</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> UpdateAlarm(UpdateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> UpdateAlarmAsync(UpdateAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "UpdateAlarm");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/AlarmClock/Control", "AlarmClock")]
@@ -547,4 +547,169 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
 
         public string? TimeZone { get; }
     }
+
+    /// <summary>
+    /// Create a single alarm, all properties are required
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>CreateAlarmResponse</returns>
+    [Obsolete("This method is obsolete. Use CreateAlarmAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<CreateAlarmResponse> CreateAlarm(CreateAlarmRequest request, CancellationToken cancellationToken = default) => CreateAlarmAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Delete an alarm
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use DestroyAlarmAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> DestroyAlarm(DestroyAlarmRequest request, CancellationToken cancellationToken = default) => DestroyAlarmAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetDailyIndexRefreshTime
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetDailyIndexRefreshTimeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetDailyIndexRefreshTimeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetDailyIndexRefreshTimeResponse> GetDailyIndexRefreshTime(CancellationToken cancellationToken = default) => GetDailyIndexRefreshTimeAsync(cancellationToken);
+
+    /// <summary>
+    /// GetFormat
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetFormatResponse</returns>
+    [Obsolete("This method is obsolete. Use GetFormatAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetFormatResponse> GetFormat(CancellationToken cancellationToken = default) => GetFormatAsync(cancellationToken);
+
+    /// <summary>
+    /// GetHouseholdTimeAtStamp
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetHouseholdTimeAtStampResponse</returns>
+    [Obsolete("This method is obsolete. Use GetHouseholdTimeAtStampAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetHouseholdTimeAtStampResponse> GetHouseholdTimeAtStamp(GetHouseholdTimeAtStampRequest request, CancellationToken cancellationToken = default) => GetHouseholdTimeAtStampAsync(request, cancellationToken);
+
+    /// <summary>
+    /// GetTimeNow
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTimeNowResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTimeNowAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTimeNowResponse> GetTimeNow(CancellationToken cancellationToken = default) => GetTimeNowAsync(cancellationToken);
+
+    /// <summary>
+    /// GetTimeServer
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTimeServerResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTimeServerAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTimeServerResponse> GetTimeServer(CancellationToken cancellationToken = default) => GetTimeServerAsync(cancellationToken);
+
+    /// <summary>
+    /// GetTimeZone
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTimeZoneResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTimeZoneAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTimeZoneResponse> GetTimeZone(CancellationToken cancellationToken = default) => GetTimeZoneAsync(cancellationToken);
+
+    /// <summary>
+    /// GetTimeZoneAndRule
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTimeZoneAndRuleResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTimeZoneAndRuleAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTimeZoneAndRuleResponse> GetTimeZoneAndRule(CancellationToken cancellationToken = default) => GetTimeZoneAndRuleAsync(cancellationToken);
+
+    /// <summary>
+    /// GetTimeZoneRule
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetTimeZoneRuleResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTimeZoneRuleAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTimeZoneRuleResponse> GetTimeZoneRule(GetTimeZoneRuleRequest request, CancellationToken cancellationToken = default) => GetTimeZoneRuleAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Get the AlarmList as XML
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Some libraries also provide a ListAndParseAlarms where the alarm list xml is parsed</remarks>
+    /// <returns>ListAlarmsResponse</returns>
+    [Obsolete("This method is obsolete. Use ListAlarmsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ListAlarmsResponse> ListAlarms(CancellationToken cancellationToken = default) => ListAlarmsAsync(cancellationToken);
+
+    /// <summary>
+    /// SetDailyIndexRefreshTime
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetDailyIndexRefreshTimeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetDailyIndexRefreshTime(SetDailyIndexRefreshTimeRequest request, CancellationToken cancellationToken = default) => SetDailyIndexRefreshTimeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetFormat
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetFormatAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetFormat(SetFormatRequest request, CancellationToken cancellationToken = default) => SetFormatAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetTimeNow
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetTimeNowAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetTimeNow(SetTimeNowRequest request, CancellationToken cancellationToken = default) => SetTimeNowAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetTimeServer
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetTimeServerAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetTimeServer(SetTimeServerRequest request, CancellationToken cancellationToken = default) => SetTimeServerAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetTimeZone
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetTimeZoneAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetTimeZone(SetTimeZoneRequest request, CancellationToken cancellationToken = default) => SetTimeZoneAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Update an alarm, all parameters are required.
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Some libraries support PatchAlarm where you can update a single parameter</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use UpdateAlarmAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> UpdateAlarm(UpdateAlarmRequest request, CancellationToken cancellationToken = default) => UpdateAlarmAsync(request, cancellationToken);
 }

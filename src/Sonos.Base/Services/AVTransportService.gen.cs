@@ -38,337 +38,337 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
     /// <summary>
     /// AddMultipleURIsToQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddMultipleURIsToQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddMultipleURIsToQueueResponse</returns>
-    public Task<AddMultipleURIsToQueueResponse> AddMultipleURIsToQueue(AddMultipleURIsToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddMultipleURIsToQueueRequest, AddMultipleURIsToQueueResponse>(request, cancellationToken);
+    public Task<AddMultipleURIsToQueueResponse> AddMultipleURIsToQueueAsync(AddMultipleURIsToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddMultipleURIsToQueueRequest, AddMultipleURIsToQueueResponse>(request, cancellationToken, "AddMultipleURIsToQueue");
 
     /// <summary>
     /// Adds songs to the SONOS queue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddURIToQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>In NORMAL play mode the songs are added prior to the specified `DesiredFirstTrackNumberEnqueued`.</remarks>
     /// <returns>AddURIToQueueResponse</returns>
-    public Task<AddURIToQueueResponse> AddURIToQueue(AddURIToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToQueueRequest, AddURIToQueueResponse>(request, cancellationToken);
+    public Task<AddURIToQueueResponse> AddURIToQueueAsync(AddURIToQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddURIToQueueRequest, AddURIToQueueResponse>(request, cancellationToken, "AddURIToQueue");
 
     /// <summary>
     /// AddURIToSavedQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="AddURIToSavedQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>AddURIToSavedQueueResponse</returns>
-    public Task<AddURIToSavedQueueResponse> AddURIToSavedQueue(AddURIToSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<AddURIToSavedQueueRequest, AddURIToSavedQueueResponse>(request, cancellationToken);
+    public Task<AddURIToSavedQueueResponse> AddURIToSavedQueueAsync(AddURIToSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<AddURIToSavedQueueRequest, AddURIToSavedQueueResponse>(request, cancellationToken, "AddURIToSavedQueue");
 
     /// <summary>
     /// BackupQueue
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => ExecuteRequest(new BackupQueueRequest(), cancellationToken);
+    public Task<bool> BackupQueueAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new BackupQueueRequest(), cancellationToken, "BackupQueue");
 
     /// <summary>
     /// Leave the current group and revert to a single player.
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>BecomeCoordinatorOfStandaloneGroupResponse</returns>
-    public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroup(CancellationToken cancellationToken = default) => ExecuteRequest<BecomeCoordinatorOfStandaloneGroupRequest, BecomeCoordinatorOfStandaloneGroupResponse>(new BecomeCoordinatorOfStandaloneGroupRequest(), cancellationToken);
+    public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroupAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<BecomeCoordinatorOfStandaloneGroupRequest, BecomeCoordinatorOfStandaloneGroupResponse>(new BecomeCoordinatorOfStandaloneGroupRequest(), cancellationToken, "BecomeCoordinatorOfStandaloneGroup");
 
     /// <summary>
     /// BecomeGroupCoordinator
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="BecomeGroupCoordinatorRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinatorAsync(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "BecomeGroupCoordinator");
 
     /// <summary>
     /// BecomeGroupCoordinatorAndSource
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="BecomeGroupCoordinatorAndSourceRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> BecomeGroupCoordinatorAndSourceAsync(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "BecomeGroupCoordinatorAndSource");
 
     /// <summary>
     /// ChangeCoordinator
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ChangeCoordinatorRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ChangeCoordinatorAsync(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ChangeCoordinator");
 
     /// <summary>
     /// ChangeTransportSettings
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ChangeTransportSettingsRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ChangeTransportSettingsAsync(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ChangeTransportSettings");
 
     /// <summary>
     /// Stop playing after set sleep timer or cancel
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ConfigureSleepTimerRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ConfigureSleepTimerAsync(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ConfigureSleepTimer");
 
     /// <summary>
     /// CreateSavedQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="CreateSavedQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>CreateSavedQueueResponse</returns>
-    public Task<CreateSavedQueueResponse> CreateSavedQueue(CreateSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<CreateSavedQueueRequest, CreateSavedQueueResponse>(request, cancellationToken);
+    public Task<CreateSavedQueueResponse> CreateSavedQueueAsync(CreateSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<CreateSavedQueueRequest, CreateSavedQueueResponse>(request, cancellationToken, "CreateSavedQueue");
 
     /// <summary>
     /// Delegates the coordinator role to another player in the same group
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="DelegateGroupCoordinationToRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator has no results - should be avoided.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> DelegateGroupCoordinationToAsync(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "DelegateGroupCoordinationTo");
 
     /// <summary>
     /// EndDirectControlSession
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => ExecuteRequest(new EndDirectControlSessionRequest(), cancellationToken);
+    public Task<bool> EndDirectControlSessionAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new EndDirectControlSessionRequest(), cancellationToken, "EndDirectControlSession");
 
     /// <summary>
     /// Get crossfade mode
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator may return wrong value as only the coordinator value in a group</remarks>
     /// <returns>GetCrossfadeModeResponse</returns>
-    public Task<GetCrossfadeModeResponse> GetCrossfadeMode(CancellationToken cancellationToken = default) => ExecuteRequest<GetCrossfadeModeRequest, GetCrossfadeModeResponse>(new GetCrossfadeModeRequest(), cancellationToken);
+    public Task<GetCrossfadeModeResponse> GetCrossfadeModeAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetCrossfadeModeRequest, GetCrossfadeModeResponse>(new GetCrossfadeModeRequest(), cancellationToken, "GetCrossfadeMode");
 
     /// <summary>
     /// Get current transport actions such as Set, Stop, Pause, Play, X_DLNA_SeekTime, Next, X_DLNA_SeekTrackNr
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns only `Start` and `Stop` since it cannot control the stream.</remarks>
     /// <returns>GetCurrentTransportActionsResponse</returns>
-    public Task<GetCurrentTransportActionsResponse> GetCurrentTransportActions(CancellationToken cancellationToken = default) => ExecuteRequest<GetCurrentTransportActionsRequest, GetCurrentTransportActionsResponse>(new GetCurrentTransportActionsRequest(), cancellationToken);
+    public Task<GetCurrentTransportActionsResponse> GetCurrentTransportActionsAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetCurrentTransportActionsRequest, GetCurrentTransportActionsResponse>(new GetCurrentTransportActionsRequest(), cancellationToken, "GetCurrentTransportActions");
 
     /// <summary>
     /// GetDeviceCapabilities
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetDeviceCapabilitiesResponse</returns>
-    public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilities(CancellationToken cancellationToken = default) => ExecuteRequest<GetDeviceCapabilitiesRequest, GetDeviceCapabilitiesResponse>(new GetDeviceCapabilitiesRequest(), cancellationToken);
+    public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilitiesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetDeviceCapabilitiesRequest, GetDeviceCapabilitiesResponse>(new GetDeviceCapabilitiesRequest(), cancellationToken, "GetDeviceCapabilities");
 
     /// <summary>
     /// Get information about the current playing media (queue)
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetMediaInfoResponse</returns>
-    public Task<GetMediaInfoResponse> GetMediaInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetMediaInfoRequest, GetMediaInfoResponse>(new GetMediaInfoRequest(), cancellationToken);
+    public Task<GetMediaInfoResponse> GetMediaInfoAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetMediaInfoRequest, GetMediaInfoResponse>(new GetMediaInfoRequest(), cancellationToken, "GetMediaInfo");
 
     /// <summary>
     /// Get information about current position (position in queue and time in current song)
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetPositionInfoResponse</returns>
-    public Task<GetPositionInfoResponse> GetPositionInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetPositionInfoRequest, GetPositionInfoResponse>(new GetPositionInfoRequest(), cancellationToken);
+    public Task<GetPositionInfoResponse> GetPositionInfoAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetPositionInfoRequest, GetPositionInfoResponse>(new GetPositionInfoRequest(), cancellationToken, "GetPositionInfo");
 
     /// <summary>
     /// Get time left on sleeptimer.
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>GetRemainingSleepTimerDurationResponse</returns>
-    public Task<GetRemainingSleepTimerDurationResponse> GetRemainingSleepTimerDuration(CancellationToken cancellationToken = default) => ExecuteRequest<GetRemainingSleepTimerDurationRequest, GetRemainingSleepTimerDurationResponse>(new GetRemainingSleepTimerDurationRequest(), cancellationToken);
+    public Task<GetRemainingSleepTimerDurationResponse> GetRemainingSleepTimerDurationAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetRemainingSleepTimerDurationRequest, GetRemainingSleepTimerDurationResponse>(new GetRemainingSleepTimerDurationRequest(), cancellationToken, "GetRemainingSleepTimerDuration");
 
     /// <summary>
     /// GetRunningAlarmProperties
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>GetRunningAlarmPropertiesResponse</returns>
-    public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmProperties(CancellationToken cancellationToken = default) => ExecuteRequest<GetRunningAlarmPropertiesRequest, GetRunningAlarmPropertiesResponse>(new GetRunningAlarmPropertiesRequest(), cancellationToken);
+    public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmPropertiesAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetRunningAlarmPropertiesRequest, GetRunningAlarmPropertiesResponse>(new GetRunningAlarmPropertiesRequest(), cancellationToken, "GetRunningAlarmProperties");
 
     /// <summary>
     /// Get current transport status, speed and state such as PLAYING, STOPPED, PLAYING, PAUSED_PLAYBACK, TRANSITIONING, NO_MEDIA_PRESENT
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator always returns PLAYING</remarks>
     /// <returns>GetTransportInfoResponse</returns>
-    public Task<GetTransportInfoResponse> GetTransportInfo(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportInfoRequest, GetTransportInfoResponse>(new GetTransportInfoRequest(), cancellationToken);
+    public Task<GetTransportInfoResponse> GetTransportInfoAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetTransportInfoRequest, GetTransportInfoResponse>(new GetTransportInfoRequest(), cancellationToken, "GetTransportInfo");
 
     /// <summary>
     /// Get transport settings
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns the settings of it's queue</remarks>
     /// <returns>GetTransportSettingsResponse</returns>
-    public Task<GetTransportSettingsResponse> GetTransportSettings(CancellationToken cancellationToken = default) => ExecuteRequest<GetTransportSettingsRequest, GetTransportSettingsResponse>(new GetTransportSettingsRequest(), cancellationToken);
+    public Task<GetTransportSettingsResponse> GetTransportSettingsAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync<GetTransportSettingsRequest, GetTransportSettingsResponse>(new GetTransportSettingsRequest(), cancellationToken, "GetTransportSettings");
 
     /// <summary>
     /// Go to next song
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Next(CancellationToken cancellationToken = default) => ExecuteRequest(new NextRequest(), cancellationToken);
+    public Task<bool> NextAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new NextRequest(), cancellationToken, "Next");
 
     /// <summary>
     /// NotifyDeletedURI
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="NotifyDeletedURIRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> NotifyDeletedURIAsync(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "NotifyDeletedURI");
 
     /// <summary>
     /// Pause playback
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Pause(CancellationToken cancellationToken = default) => ExecuteRequest(new PauseRequest(), cancellationToken);
+    public Task<bool> PauseAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new PauseRequest(), cancellationToken, "Pause");
 
     /// <summary>
     /// Start playing the set TransportURI
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="PlayRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> PlayAsync(PlayRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "Play");
 
     /// <summary>
     /// Go to previous song
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Previous(CancellationToken cancellationToken = default) => ExecuteRequest(new PreviousRequest(), cancellationToken);
+    public Task<bool> PreviousAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new PreviousRequest(), cancellationToken, "Previous");
 
     /// <summary>
     /// Flushes the SONOS queue.
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>If queue is already empty it throw error 804. Send to non-coordinator returns error code 800.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => ExecuteRequest(new RemoveAllTracksFromQueueRequest(), cancellationToken);
+    public Task<bool> RemoveAllTracksFromQueueAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new RemoveAllTracksFromQueueRequest(), cancellationToken, "RemoveAllTracksFromQueue");
 
     /// <summary>
     /// RemoveTrackFromQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveTrackFromQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RemoveTrackFromQueueAsync(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RemoveTrackFromQueue");
 
     /// <summary>
     /// Removes the specified range of songs from the SONOS queue.
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RemoveTrackRangeFromQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>RemoveTrackRangeFromQueueResponse</returns>
-    public Task<RemoveTrackRangeFromQueueResponse> RemoveTrackRangeFromQueue(RemoveTrackRangeFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<RemoveTrackRangeFromQueueRequest, RemoveTrackRangeFromQueueResponse>(request, cancellationToken);
+    public Task<RemoveTrackRangeFromQueueResponse> RemoveTrackRangeFromQueueAsync(RemoveTrackRangeFromQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<RemoveTrackRangeFromQueueRequest, RemoveTrackRangeFromQueueResponse>(request, cancellationToken, "RemoveTrackRangeFromQueue");
 
     /// <summary>
     /// ReorderTracksInQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReorderTracksInQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> ReorderTracksInQueueAsync(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "ReorderTracksInQueue");
 
     /// <summary>
     /// ReorderTracksInSavedQueue
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="ReorderTracksInSavedQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>ReorderTracksInSavedQueueResponse</returns>
-    public Task<ReorderTracksInSavedQueueResponse> ReorderTracksInSavedQueue(ReorderTracksInSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<ReorderTracksInSavedQueueRequest, ReorderTracksInSavedQueueResponse>(request, cancellationToken);
+    public Task<ReorderTracksInSavedQueueResponse> ReorderTracksInSavedQueueAsync(ReorderTracksInSavedQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<ReorderTracksInSavedQueueRequest, ReorderTracksInSavedQueueResponse>(request, cancellationToken, "ReorderTracksInSavedQueue");
 
     /// <summary>
     /// RunAlarm
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="RunAlarmRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> RunAlarmAsync(RunAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "RunAlarm");
 
     /// <summary>
     /// Saves the current SONOS queue as a SONOS playlist and outputs objectID
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SaveQueueRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns error code 800</remarks>
     /// <returns>SaveQueueResponse</returns>
-    public Task<SaveQueueResponse> SaveQueue(SaveQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<SaveQueueRequest, SaveQueueResponse>(request, cancellationToken);
+    public Task<SaveQueueResponse> SaveQueueAsync(SaveQueueRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<SaveQueueRequest, SaveQueueResponse>(request, cancellationToken, "SaveQueue");
 
     /// <summary>
     /// Seek track in queue, time delta or absolute time in song
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SeekRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Returns error code 701 in case that content does not support Seek or send to non-coordinator</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SeekAsync(SeekRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "Seek");
 
     /// <summary>
     /// Set the transport URI to a song, a stream, the queue, another player-rincon and a lot more
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetAVTransportURIRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>If set to another player RINCON, the player is grouped with that one.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetAVTransportURIAsync(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetAVTransportURI");
 
     /// <summary>
     /// Set crossfade mode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetCrossfadeModeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns error code 800. Same for content, which does not support crossfade mode.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetCrossfadeModeAsync(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetCrossfadeMode");
 
     /// <summary>
     /// SetNextAVTransportURI
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetNextAVTransportURIRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetNextAVTransportURIAsync(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetNextAVTransportURI");
 
     /// <summary>
     /// Set the PlayMode
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SetPlayModeRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <remarks>Send to non-coordinator returns error code 712. If SONOS queue is not activated returns error code 712.</remarks>
     /// <returns>Success boolean</returns>
-    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SetPlayModeAsync(SetPlayModeRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SetPlayMode");
 
     /// <summary>
     /// Snooze the current alarm for some time.
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="SnoozeAlarmRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> SnoozeAlarmAsync(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "SnoozeAlarm");
 
     /// <summary>
     /// StartAutoplay
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="StartAutoplayRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
+    public Task<bool> StartAutoplayAsync(StartAutoplayRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync(request, cancellationToken, "StartAutoplay");
 
     /// <summary>
     /// Stop playback
     /// </summary>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>Success boolean</returns>
-    public Task<bool> Stop(CancellationToken cancellationToken = default) => ExecuteRequest(new StopRequest(), cancellationToken);
+    public Task<bool> StopAsync(CancellationToken cancellationToken = default) => ExecuteRequestAsync(new StopRequest(), cancellationToken, "Stop");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/MediaRenderer/AVTransport/Control", "AVTransport")]
@@ -1664,4 +1664,423 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
 
         public string? TransportStatus { get; }
     }
+
+    /// <summary>
+    /// AddMultipleURIsToQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddMultipleURIsToQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use AddMultipleURIsToQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddMultipleURIsToQueueResponse> AddMultipleURIsToQueue(AddMultipleURIsToQueueRequest request, CancellationToken cancellationToken = default) => AddMultipleURIsToQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Adds songs to the SONOS queue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>In NORMAL play mode the songs are added prior to the specified `DesiredFirstTrackNumberEnqueued`.</remarks>
+    /// <returns>AddURIToQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use AddURIToQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddURIToQueueResponse> AddURIToQueue(AddURIToQueueRequest request, CancellationToken cancellationToken = default) => AddURIToQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// AddURIToSavedQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>AddURIToSavedQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use AddURIToSavedQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<AddURIToSavedQueueResponse> AddURIToSavedQueue(AddURIToSavedQueueRequest request, CancellationToken cancellationToken = default) => AddURIToSavedQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// BackupQueue
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use BackupQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> BackupQueue(CancellationToken cancellationToken = default) => BackupQueueAsync(cancellationToken);
+
+    /// <summary>
+    /// Leave the current group and revert to a single player.
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>BecomeCoordinatorOfStandaloneGroupResponse</returns>
+    [Obsolete("This method is obsolete. Use BecomeCoordinatorOfStandaloneGroupAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<BecomeCoordinatorOfStandaloneGroupResponse> BecomeCoordinatorOfStandaloneGroup(CancellationToken cancellationToken = default) => BecomeCoordinatorOfStandaloneGroupAsync(cancellationToken);
+
+    /// <summary>
+    /// BecomeGroupCoordinator
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use BecomeGroupCoordinatorAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> BecomeGroupCoordinator(BecomeGroupCoordinatorRequest request, CancellationToken cancellationToken = default) => BecomeGroupCoordinatorAsync(request, cancellationToken);
+
+    /// <summary>
+    /// BecomeGroupCoordinatorAndSource
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use BecomeGroupCoordinatorAndSourceAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> BecomeGroupCoordinatorAndSource(BecomeGroupCoordinatorAndSourceRequest request, CancellationToken cancellationToken = default) => BecomeGroupCoordinatorAndSourceAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ChangeCoordinator
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ChangeCoordinatorAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ChangeCoordinator(ChangeCoordinatorRequest request, CancellationToken cancellationToken = default) => ChangeCoordinatorAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ChangeTransportSettings
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ChangeTransportSettingsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ChangeTransportSettings(ChangeTransportSettingsRequest request, CancellationToken cancellationToken = default) => ChangeTransportSettingsAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Stop playing after set sleep timer or cancel
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns error code 800</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ConfigureSleepTimerAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ConfigureSleepTimer(ConfigureSleepTimerRequest request, CancellationToken cancellationToken = default) => ConfigureSleepTimerAsync(request, cancellationToken);
+
+    /// <summary>
+    /// CreateSavedQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>CreateSavedQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use CreateSavedQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<CreateSavedQueueResponse> CreateSavedQueue(CreateSavedQueueRequest request, CancellationToken cancellationToken = default) => CreateSavedQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Delegates the coordinator role to another player in the same group
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator has no results - should be avoided.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use DelegateGroupCoordinationToAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> DelegateGroupCoordinationTo(DelegateGroupCoordinationToRequest request, CancellationToken cancellationToken = default) => DelegateGroupCoordinationToAsync(request, cancellationToken);
+
+    /// <summary>
+    /// EndDirectControlSession
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use EndDirectControlSessionAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> EndDirectControlSession(CancellationToken cancellationToken = default) => EndDirectControlSessionAsync(cancellationToken);
+
+    /// <summary>
+    /// Get crossfade mode
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator may return wrong value as only the coordinator value in a group</remarks>
+    /// <returns>GetCrossfadeModeResponse</returns>
+    [Obsolete("This method is obsolete. Use GetCrossfadeModeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetCrossfadeModeResponse> GetCrossfadeMode(CancellationToken cancellationToken = default) => GetCrossfadeModeAsync(cancellationToken);
+
+    /// <summary>
+    /// Get current transport actions such as Set, Stop, Pause, Play, X_DLNA_SeekTime, Next, X_DLNA_SeekTrackNr
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns only `Start` and `Stop` since it cannot control the stream.</remarks>
+    /// <returns>GetCurrentTransportActionsResponse</returns>
+    [Obsolete("This method is obsolete. Use GetCurrentTransportActionsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetCurrentTransportActionsResponse> GetCurrentTransportActions(CancellationToken cancellationToken = default) => GetCurrentTransportActionsAsync(cancellationToken);
+
+    /// <summary>
+    /// GetDeviceCapabilities
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetDeviceCapabilitiesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetDeviceCapabilitiesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetDeviceCapabilitiesResponse> GetDeviceCapabilities(CancellationToken cancellationToken = default) => GetDeviceCapabilitiesAsync(cancellationToken);
+
+    /// <summary>
+    /// Get information about the current playing media (queue)
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetMediaInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetMediaInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetMediaInfoResponse> GetMediaInfo(CancellationToken cancellationToken = default) => GetMediaInfoAsync(cancellationToken);
+
+    /// <summary>
+    /// Get information about current position (position in queue and time in current song)
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetPositionInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetPositionInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetPositionInfoResponse> GetPositionInfo(CancellationToken cancellationToken = default) => GetPositionInfoAsync(cancellationToken);
+
+    /// <summary>
+    /// Get time left on sleeptimer.
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns error code 800</remarks>
+    /// <returns>GetRemainingSleepTimerDurationResponse</returns>
+    [Obsolete("This method is obsolete. Use GetRemainingSleepTimerDurationAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetRemainingSleepTimerDurationResponse> GetRemainingSleepTimerDuration(CancellationToken cancellationToken = default) => GetRemainingSleepTimerDurationAsync(cancellationToken);
+
+    /// <summary>
+    /// GetRunningAlarmProperties
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>GetRunningAlarmPropertiesResponse</returns>
+    [Obsolete("This method is obsolete. Use GetRunningAlarmPropertiesAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetRunningAlarmPropertiesResponse> GetRunningAlarmProperties(CancellationToken cancellationToken = default) => GetRunningAlarmPropertiesAsync(cancellationToken);
+
+    /// <summary>
+    /// Get current transport status, speed and state such as PLAYING, STOPPED, PLAYING, PAUSED_PLAYBACK, TRANSITIONING, NO_MEDIA_PRESENT
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator always returns PLAYING</remarks>
+    /// <returns>GetTransportInfoResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTransportInfoAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTransportInfoResponse> GetTransportInfo(CancellationToken cancellationToken = default) => GetTransportInfoAsync(cancellationToken);
+
+    /// <summary>
+    /// Get transport settings
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns the settings of it's queue</remarks>
+    /// <returns>GetTransportSettingsResponse</returns>
+    [Obsolete("This method is obsolete. Use GetTransportSettingsAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<GetTransportSettingsResponse> GetTransportSettings(CancellationToken cancellationToken = default) => GetTransportSettingsAsync(cancellationToken);
+
+    /// <summary>
+    /// Go to next song
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use NextAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Next(CancellationToken cancellationToken = default) => NextAsync(cancellationToken);
+
+    /// <summary>
+    /// NotifyDeletedURI
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use NotifyDeletedURIAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> NotifyDeletedURI(NotifyDeletedURIRequest request, CancellationToken cancellationToken = default) => NotifyDeletedURIAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Pause playback
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PauseAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Pause(CancellationToken cancellationToken = default) => PauseAsync(cancellationToken);
+
+    /// <summary>
+    /// Start playing the set TransportURI
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PlayAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Play(PlayRequest request, CancellationToken cancellationToken = default) => PlayAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Go to previous song
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Possibly not supported at the moment see GetCurrentTransportActions</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use PreviousAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Previous(CancellationToken cancellationToken = default) => PreviousAsync(cancellationToken);
+
+    /// <summary>
+    /// Flushes the SONOS queue.
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>If queue is already empty it throw error 804. Send to non-coordinator returns error code 800.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveAllTracksFromQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveAllTracksFromQueue(CancellationToken cancellationToken = default) => RemoveAllTracksFromQueueAsync(cancellationToken);
+
+    /// <summary>
+    /// RemoveTrackFromQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RemoveTrackFromQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RemoveTrackFromQueue(RemoveTrackFromQueueRequest request, CancellationToken cancellationToken = default) => RemoveTrackFromQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Removes the specified range of songs from the SONOS queue.
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>RemoveTrackRangeFromQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use RemoveTrackRangeFromQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<RemoveTrackRangeFromQueueResponse> RemoveTrackRangeFromQueue(RemoveTrackRangeFromQueueRequest request, CancellationToken cancellationToken = default) => RemoveTrackRangeFromQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReorderTracksInQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use ReorderTracksInQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> ReorderTracksInQueue(ReorderTracksInQueueRequest request, CancellationToken cancellationToken = default) => ReorderTracksInQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// ReorderTracksInSavedQueue
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>ReorderTracksInSavedQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use ReorderTracksInSavedQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<ReorderTracksInSavedQueueResponse> ReorderTracksInSavedQueue(ReorderTracksInSavedQueueRequest request, CancellationToken cancellationToken = default) => ReorderTracksInSavedQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// RunAlarm
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use RunAlarmAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> RunAlarm(RunAlarmRequest request, CancellationToken cancellationToken = default) => RunAlarmAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Saves the current SONOS queue as a SONOS playlist and outputs objectID
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns error code 800</remarks>
+    /// <returns>SaveQueueResponse</returns>
+    [Obsolete("This method is obsolete. Use SaveQueueAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<SaveQueueResponse> SaveQueue(SaveQueueRequest request, CancellationToken cancellationToken = default) => SaveQueueAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Seek track in queue, time delta or absolute time in song
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Returns error code 701 in case that content does not support Seek or send to non-coordinator</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SeekAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Seek(SeekRequest request, CancellationToken cancellationToken = default) => SeekAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set the transport URI to a song, a stream, the queue, another player-rincon and a lot more
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>If set to another player RINCON, the player is grouped with that one.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetAVTransportURIAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetAVTransportURI(SetAVTransportURIRequest request, CancellationToken cancellationToken = default) => SetAVTransportURIAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set crossfade mode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns error code 800. Same for content, which does not support crossfade mode.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetCrossfadeModeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetCrossfadeMode(SetCrossfadeModeRequest request, CancellationToken cancellationToken = default) => SetCrossfadeModeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// SetNextAVTransportURI
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetNextAVTransportURIAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetNextAVTransportURI(SetNextAVTransportURIRequest request, CancellationToken cancellationToken = default) => SetNextAVTransportURIAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Set the PlayMode
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <remarks>Send to non-coordinator returns error code 712. If SONOS queue is not activated returns error code 712.</remarks>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SetPlayModeAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SetPlayMode(SetPlayModeRequest request, CancellationToken cancellationToken = default) => SetPlayModeAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Snooze the current alarm for some time.
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use SnoozeAlarmAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> SnoozeAlarm(SnoozeAlarmRequest request, CancellationToken cancellationToken = default) => SnoozeAlarmAsync(request, cancellationToken);
+
+    /// <summary>
+    /// StartAutoplay
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use StartAutoplayAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> StartAutoplay(StartAutoplayRequest request, CancellationToken cancellationToken = default) => StartAutoplayAsync(request, cancellationToken);
+
+    /// <summary>
+    /// Stop playback
+    /// </summary>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>Success boolean</returns>
+    [Obsolete("This method is obsolete. Use StopAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<bool> Stop(CancellationToken cancellationToken = default) => StopAsync(cancellationToken);
 }

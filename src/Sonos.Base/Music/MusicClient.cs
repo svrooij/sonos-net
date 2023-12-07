@@ -27,7 +27,7 @@ namespace Sonos.Base.Music
             {
                 throw new ArgumentNullException(nameof(options.HouseholdId));
             }
-            return GetAppLinkAsync(new GetAppLinkRequest { HouseholdId = options.HouseholdId }, cancellationToken);
+            return GetAppLinkAsync(new GetAppLinkRequest { HouseholdId = options.HouseholdId! }, cancellationToken);
         }
 
         public Task<GetAppLinkResult?> GetAppLinkAsync(GetAppLinkRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<GetAppLinkRequest, GetAppLinkResponse, GetAppLinkResult>("getAppLink", request, true, cancellationToken);

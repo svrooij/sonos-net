@@ -38,10 +38,10 @@ public partial class QPlayService : SonosBaseService
     /// <summary>
     /// QPlayAuth
     /// </summary>
-    /// <param name="request">Body payload</param>
-    /// <param name="cancellationToken">CancellationToken</param>
+    /// <param name="request"><see cref="QPlayAuthRequest"/> payload</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" /></param>
     /// <returns>QPlayAuthResponse</returns>
-    public Task<QPlayAuthResponse> QPlayAuth(QPlayAuthRequest request, CancellationToken cancellationToken = default) => ExecuteRequest<QPlayAuthRequest, QPlayAuthResponse>(request, cancellationToken);
+    public Task<QPlayAuthResponse> QPlayAuthAsync(QPlayAuthRequest request, CancellationToken cancellationToken = default) => ExecuteRequestAsync<QPlayAuthRequest, QPlayAuthResponse>(request, cancellationToken, "QPlayAuth");
 
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
     [SonosServiceRequest("/QPlay/Control", "QPlay")]
@@ -73,4 +73,14 @@ public partial class QPlayService : SonosBaseService
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string DID { get; set; }
     }
+
+    /// <summary>
+    /// QPlayAuth
+    /// </summary>
+    /// <param name="request">Body payload</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns>QPlayAuthResponse</returns>
+    [Obsolete("This method is obsolete. Use QPlayAuthAsync instead.")]
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public Task<QPlayAuthResponse> QPlayAuth(QPlayAuthRequest request, CancellationToken cancellationToken = default) => QPlayAuthAsync(request, cancellationToken);
 }

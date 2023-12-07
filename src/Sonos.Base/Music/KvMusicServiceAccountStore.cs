@@ -25,7 +25,7 @@ namespace Sonos.Base.Music
                 try
                 {
                     var key = GetKeyForService(serviceId);
-                    var data = await _propertiesService.GetString(key, cancellationToken);
+                    var data = await _propertiesService.GetStringAsync(key, cancellationToken);
                     var account = JsonSerializer.Deserialize<MusicClientAccount>(data);
                     if (account == null)
                     {
@@ -50,7 +50,7 @@ namespace Sonos.Base.Music
 
             try
             {
-                var result = await _propertiesService.SetString(GetKeyForService(serviceId), JsonSerializer.Serialize(account), cancellationToken);
+                var result = await _propertiesService.SetStringAsync(GetKeyForService(serviceId), JsonSerializer.Serialize(account), cancellationToken);
                 return result;
             }
             catch (Exception ex)

@@ -33,7 +33,7 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Next), "<InstanceID>0</InstanceID>");
 
             var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
-            var result = await sonos.Next();
+            var result = await sonos.NextAsync();
             Assert.True(result);
         }
 
@@ -44,7 +44,7 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Pause), "<InstanceID>0</InstanceID>");
 
             var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
-            var result = await sonos.Pause();
+            var result = await sonos.PauseAsync();
             Assert.True(result);
         }
 
@@ -55,7 +55,7 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Play), "<InstanceID>0</InstanceID><Speed>1</Speed>");
 
             var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
-            var result = await sonos.Play();
+            var result = await sonos.PlayAsync();
             Assert.True(result);
         }
 
@@ -66,7 +66,7 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Previous), "<InstanceID>0</InstanceID>");
 
             var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
-            var result = await sonos.Previous();
+            var result = await sonos.PreviousAsync();
             Assert.True(result);
         }
 
@@ -77,8 +77,23 @@ namespace Sonos.Base.Tests
             mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Stop), "<InstanceID>0</InstanceID>");
 
             var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
-            var result = await sonos.Stop();
+            var result = await sonos.StopAsync();
             Assert.True(result);
+        }
+
+
+        [Theory]
+        [InlineData(FakeData.S1DeviceDescription, "192.168.x.x - Sonos Play:5")]
+        [InlineData(FakeData.S2DeviceDescription, "192.168.1.10 - Sonos One")]
+
+        public async Task GetDeviceDescriptionAsync_ParsesDeviceDescription(string xml, string name)
+        {
+            var mockedHelper = new Mock<HttpClientHandler>();
+            mockedHelper.MockDeviceDescription(deviceDescription: xml);
+            var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHelper.Object)));
+            var description = await sonos.GetDeviceDescriptionAsync();
+            Assert.NotNull(description);
+            Assert.Equal(name, description.device.friendlyName);
         }
     }
 }
