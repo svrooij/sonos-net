@@ -28,7 +28,9 @@ jobs:
       - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.x
+          dotnet-version: |
+            6.x
+            8.x
 
       - name: 🔍 Enable problem matchers
         run: echo "::add-matcher::.github/matchers/dotnet.json"
@@ -75,7 +77,9 @@ jobs:
       - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.x
+          dotnet-version: |
+            6.x
+            8.x
 
       - name: 🔍 Enable problem matchers
         run: echo "::add-matcher::.github/matchers/dotnet.json"
