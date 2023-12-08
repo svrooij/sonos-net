@@ -94,7 +94,7 @@ namespace Sonos.Base.Music
                         await options.CredentialStore.SaveAccountAsync(options.ServiceId, fault.Details.NewToken.PrivateKey, fault.Details.NewToken.AuthToken, cancellationToken);
                         return await ExecuteRequest<TBody, TSoap, TResponse>(action, body, skipKeyAndToken, cancellationToken, true);
                     }
-                    throw new Exception(fault.Message?.Value ?? $"Sonos error {fault.Code}");
+                    throw new MusicClientException(fault.Message?.Value, fault.Code);
                 }
                 catch (Exception ex)
                 {

@@ -177,21 +177,36 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> StopAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.StopAsync(cancellationToken);
 
-    public async Task<bool> SwitchToLineIn(CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Switch a supported device to the Line-in input.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToLineInAsync(CancellationToken cancellationToken = default)
     {
         await LoadUuidAsync(cancellationToken);
         await AVTransportService.SetAVTransportURIAsync($"x-rincon-stream:{Uuid}", null, cancellationToken);
         return await AVTransportService.PlayAsync(cancellationToken);
     }
 
-    public async Task<bool> SwitchToQueue(CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Switch the speaker to play the queue
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToQueueAsync(CancellationToken cancellationToken = default)
     {
         await LoadUuidAsync(cancellationToken);
         return await AVTransportService.SetAVTransportURIAsync($"x-rincon-queue:{Uuid}#0", null, cancellationToken);
         
     }
 
-    public async Task<bool> SwitchToTv(CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Switch a supported device to the digital spdif input.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToTvAsync(CancellationToken cancellationToken = default)
     {
         await LoadUuidAsync(cancellationToken);
         await AVTransportService.SetAVTransportURIAsync($"x-sonos-htastream:{Uuid}:spdif", null, cancellationToken);

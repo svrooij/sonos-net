@@ -25,31 +25,23 @@ internal static class SoapFactory
 {
     internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action) where TPayload : class
     {
-        var attr = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
+        SonosServiceRequestAttribute serviceRequestAttribute = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
         if (action is null)
         {
             throw new ArgumentException("Could not determine action");
         }
 
-#if !DEBUG
-        var xml = GenerateXmlStream(attr.ServiceName, attr.Action ?? action, payload);
-        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
+        var xml = GenerateXmlStream(serviceRequestAttribute.ServiceName, serviceRequestAttribute.Action ?? action, payload);
+        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, serviceRequestAttribute.Path))
         {
             Content = new StreamContent(xml)
         };
-#else
 
-        var xml = GenerateXml(attr.ServiceName, attr.Action ?? action, payload);
-        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
-        {
-            Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
-        };
-#endif
 
         // Sonos doesn't like content-type 'text/xml; charset=utf-8'
         request.Content.Headers.Remove("content-type");
         request.Content.Headers.TryAddWithoutValidation("Content-Type", "text/xml; charset=\"utf-8\"");
-        request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{attr.ServiceName}:1#{attr.Action ?? action}");
+        request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{serviceRequestAttribute.ServiceName}:1#{serviceRequestAttribute.Action ?? action}");
         return request;
     }
 

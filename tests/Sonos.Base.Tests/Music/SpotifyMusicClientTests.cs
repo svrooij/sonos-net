@@ -10,8 +10,8 @@ namespace Sonos.Base.Tests.Music
     [Startup(typeof(Startup))]
     public class SpotifyMusicClientTests
     {
-        //private const string SkipReason = "No real tests";
-        private const string SkipReason = null;
+        private const string SkipReason = "No real tests";
+        //private const string SkipReason = null;
         private readonly IConfiguration _configuration;
         private readonly MusicClient _musicClient;
 
@@ -28,8 +28,8 @@ namespace Sonos.Base.Tests.Music
                 serviceId: 9,
                 AuthenticationType.AppLink,
                 timezone: "+02:00",
-                deviceId: _configuration.GetValue<string>("SONOS_DEVICE_ID"),
-                householdId: _configuration.GetValue<string>("SONOS_HOUSEHOLD_ID"), key: key, token: token));
+                deviceId: _configuration.GetValue<string>("SONOS_DEVICE_ID") ?? Guid.NewGuid().ToString(),
+                householdId: _configuration.GetValue<string>("SONOS_HOUSEHOLD_ID") ?? Guid.NewGuid().ToString(), key: key, token: token));
 
             
         }
@@ -45,7 +45,7 @@ namespace Sonos.Base.Tests.Music
             Assert.StartsWith("https://", result.AuthorizeAccount.DeviceLink.RegistrationUrl);
         }
 
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task MusicClient_LoadsDeviceAuthCode()
         {
             var linkCode = "ZDZNMD";

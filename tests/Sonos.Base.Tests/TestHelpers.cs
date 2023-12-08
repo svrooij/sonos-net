@@ -88,11 +88,9 @@ namespace Sonos.Base
             bool bodyChecked = false;
             if (requestBody != null)
             {
-                var streamContent = message.Content as StringContent;
-                
-                if (streamContent != null)
+                if (message.Content != null)
                 {
-                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult().RemoveXmlIndentation() ;
+                    var content = message.Content.ReadAsStringAsync().GetAwaiter().GetResult().RemoveXmlIndentation() ;
                     var expectedContent = string.Format(SoapRequestFormat, service, action, requestBody).RemoveXmlIndentation();
 #if DEBUG
                     Assert.Equal(expectedContent, content);

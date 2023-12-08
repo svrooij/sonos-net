@@ -99,9 +99,7 @@ namespace Sonos.Base.Tests.Music
             mockedHandler.MockMusicServiceRequest<GetMetadataRequest>("getMetadata", requestBody: new GetMetadataRequest { Id = metadataId }, responseBody: MusicClientConstants.RefreshTokenError(newKey, newToken), authenticationType: AuthenticationType.AppLink, deviceId: deviceId, key: key, token: token, householdId: householdId, httpStatusCode: System.Net.HttpStatusCode.Unauthorized, packResponse: false);
 
             var musicClient = new MusicClient(MusicClientHelpers.CreateOptions(deviceId: deviceId, authenticationType: AuthenticationType.AppLink, token: token, key: key, householdId: householdId), new HttpClient(mockedHandler.Object));
-            var result = await musicClient.GetMetadataAsync(new GetMetadataRequest { Id = metadataId });
-
-
+            await Assert.ThrowsAsync<MusicClientException>(() => musicClient.GetMetadataAsync(new GetMetadataRequest { Id = metadataId }));
         }
 
         [Fact]
