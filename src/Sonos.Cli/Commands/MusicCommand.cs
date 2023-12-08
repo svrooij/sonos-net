@@ -83,7 +83,7 @@ public class MusicCommand
         if (musicClient.AuthenticationType == AuthenticationType.AppLink)
         {
             var appLinkResult = await musicClient.GetAppLinkAsync(token);
-            linkCode = appLinkResult.AuthorizeAccount.DeviceLink.LinkCode;
+            linkCode = appLinkResult!.AuthorizeAccount.DeviceLink.LinkCode;
             Console.WriteLine("Go to {0}", appLinkResult.AuthorizeAccount.DeviceLink.RegistrationUrl);
             if(appLinkResult.AuthorizeAccount.DeviceLink.ShowLinkCode == true)
             {

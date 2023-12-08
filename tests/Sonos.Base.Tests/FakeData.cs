@@ -426,4 +426,9 @@ internal class FakeData
   </device>
 </root>
 ";
+
+    public const string DevicePropertiesGetZoneInfo = "<SerialNumber>00-0E-58-64-AA-AA:A</SerialNumber><SoftwareVersion>57.19-46310</SoftwareVersion><DisplaySoftwareVersion>11.12</DisplaySoftwareVersion><HardwareVersion>1.16.4.1-2.0</HardwareVersion><IPAddress>192.168.1.10</IPAddress><MACAddress>00:0E:58:64:AA:AA</MACAddress><CopyrightInfo>© 2003-2023, Sonos, Inc. All rights reserved.</CopyrightInfo><ExtraInfo>OTP: 1.1.1(1-16-4-zp5s-0.5)</ExtraInfo><HTAudioIn>0</HTAudioIn><Flags>1</Flags>";
+
+    public const string DevicePropertiesGetZoneInfoMac = "00:0E:58:64:AA:AA";
+    public static string DevicePropertiesGetZoneInfoUuid() => $"RINCON_{DevicePropertiesGetZoneInfoMac.Replace(":","")}01400";
 }

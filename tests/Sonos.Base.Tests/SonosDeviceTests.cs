@@ -95,5 +95,44 @@ namespace Sonos.Base.Tests
             Assert.NotNull(description);
             Assert.Equal(name, description.device.friendlyName);
         }
+
+        [Fact]
+        public async Task SwitchToLineInAsync_ExecutesCorrectCommands()
+        {
+            var mockedHandler = new Mock<HttpClientHandler>();
+            mockedHandler.MockDevicePropertiesGetZoneInfo();
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.SetAVTransportURI), $"<InstanceID>0</InstanceID><CurrentURI>x-rincon-stream:{FakeData.DevicePropertiesGetZoneInfoUuid()}</CurrentURI><CurrentURIMetaData />");
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Play), "<InstanceID>0</InstanceID><Speed>1</Speed>");
+
+            var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
+            var result = await sonos.SwitchToLineInAsync();
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task SwitchToQueueAsync_ExecutesCorrectCommands()
+        {
+            var mockedHandler = new Mock<HttpClientHandler>();
+            mockedHandler.MockDevicePropertiesGetZoneInfo();
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.SetAVTransportURI), $"<InstanceID>0</InstanceID><CurrentURI>x-rincon-queue:{FakeData.DevicePropertiesGetZoneInfoUuid()}#0</CurrentURI><CurrentURIMetaData />");
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Play), "<InstanceID>0</InstanceID><Speed>1</Speed>");
+
+            var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
+            var result = await sonos.SwitchToQueueAsync();
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task SwitchToTvAsync_ExecutesCorrectCommands()
+        {
+            var mockedHandler = new Mock<HttpClientHandler>();
+            mockedHandler.MockDevicePropertiesGetZoneInfo();
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.SetAVTransportURI), $"<InstanceID>0</InstanceID><CurrentURI>x-sonos-htastream:{FakeData.DevicePropertiesGetZoneInfoUuid()}:spdif</CurrentURI><CurrentURIMetaData />");
+            mockedHandler.MockSonosRequest(nameof(Services.SonosService.AVTransport), nameof(Services.AVTransportService.Play), "<InstanceID>0</InstanceID><Speed>1</Speed>");
+
+            var sonos = new SonosDevice(new SonosDeviceOptions(TestHelpers.DefaultUri, new StaticSonosServiceProvider(mockedHandler.Object)));
+            var result = await sonos.SwitchToTvAsync();
+            Assert.True(result);
+        }
     }
 }

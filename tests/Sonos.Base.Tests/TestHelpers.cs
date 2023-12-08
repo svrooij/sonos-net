@@ -55,6 +55,8 @@ namespace Sonos.Base
             return mock;
         }
 
+        public static Mock<HttpClientHandler> MockDevicePropertiesGetZoneInfo(this Mock<HttpClientHandler> mock, string baseUrl = defaultUri) => mock.MockSonosRequest(nameof(Services.SonosService.DeviceProperties), nameof(Services.DevicePropertiesService.GetZoneInfo), null, FakeData.DevicePropertiesGetZoneInfo, baseUrl);
+
         /// <summary>
         /// Mock a specific request to sonos speakers.
         /// </summary>
@@ -84,6 +86,11 @@ namespace Sonos.Base
 
         internal static bool VerifySonosRequest(this HttpRequestMessage message, string baseUrl, string service, string action, string? requestBody)
         {
+            if (message.RequestUri != new Uri(new Uri(baseUrl), GetPathForService(service)) ||
+                !message.Headers.ContainsHeaderWithValue(SoapActionHeader, $"urn:schemas-upnp-org:service:{service}:1#{action}"))
+            {
+                return false;
+            }
             // TODO: Verify body in tests
             bool bodyChecked = false;
             if (requestBody != null)
@@ -92,58 +99,16 @@ namespace Sonos.Base
                 {
                     var content = message.Content.ReadAsStringAsync().GetAwaiter().GetResult().RemoveXmlIndentation() ;
                     var expectedContent = string.Format(SoapRequestFormat, service, action, requestBody).RemoveXmlIndentation();
-#if DEBUG
-                    Assert.Equal(expectedContent, content);
-#endif
-                    bodyChecked = content.Equals(expectedContent);
-                }
-            }
-            return
-                message.RequestUri == new Uri(new Uri(baseUrl), GetPathForService(service)) &&
-                message.Headers.ContainsHeaderWithValue(SoapActionHeader, $"urn:schemas-upnp-org:service:{service}:1#{action}") &&
-                (requestBody == null || bodyChecked);
-        }
-
-//        public static Mock<HttpClientHandler> MockMusicServiceRequest(this Mock<HttpClientHandler> mock, string action, string? requestBody = null, string responseBody = "", string baseUrl = defaultUri)
-//        {
-//            string response = string.Format(MusicResponseFormat, action, responseBody);
-//            mock
-//                .Protected()
-//                .Setup<Task<HttpResponseMessage>>("SendAsync",
-//                    ItExpr.Is<HttpRequestMessage>(m => m.VerifyMusicServiceRequest(baseUrl, action, requestBody)),
-//                    ItExpr.IsAny<CancellationToken>()
-//                ).ReturnsAsync(new HttpResponseMessage
-//                {
-//                    StatusCode = System.Net.HttpStatusCode.OK,
-//                    Content = new StringContent(response)
-//                });
-
-//            return mock;
-//        }
-
-//        internal static bool VerifyMusicServiceRequest(this HttpRequestMessage message, string baseUrl, string action, string? requestBody)
-//        {
-//            // TODO: Verify body in tests
-//            bool bodyChecked = false;
-//            if (requestBody != null)
-//            {
-//                var streamContent = message.Content as StreamContent;
-
-//                if (streamContent != null)
-//                {
-//                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult();
-//                    var expectedContent = string.Format(MusicRequestFormat, action, requestBody);
-//                    bodyChecked = content.Equals(expectedContent);
 //#if DEBUG
 //                    Assert.Equal(expectedContent, content);
 //#endif
-//                }
-//            }
-//            return
-//                message.RequestUri == new Uri(baseUrl) &&
-//                message.Headers.ContainsHeaderWithValue(MusicActionHeader, $"http://www.sonos.com/Services/1.1#{action}") &&
-//                (requestBody == null || bodyChecked);
-//        }
+                    bodyChecked = content.Equals(expectedContent);
+                }
+            }
+            return requestBody == null || bodyChecked;
+        }
+
+
 
         internal static bool ContainsHeaderWithValue(this HttpRequestHeaders headers, string key, string value)
         {
