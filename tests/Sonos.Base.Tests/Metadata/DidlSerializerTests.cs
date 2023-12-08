@@ -56,4 +56,30 @@ public class DidlSerializerTests
         Assert.Equal("cdudn", item?.Desc?.Id);
         Assert.Equal("SA_RINCON2311_X_#Svc2311-0-Token", item?.Desc?.Value);
     }
+
+    private const string xmlRadioStation = @"<DIDL-Lite xmlns:dc=""http://purl.org/dc/elements/1.1/""
+    xmlns:upnp=""urn:schemas-upnp-org:metadata-1-0/upnp/""
+    xmlns:r=""urn:schemas-rinconnetworks-com:metadata-1-0/""
+    xmlns=""urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"">
+    <item id=""-1"" parentID=""-1"" restricted=""true"">
+        <res protocolInfo=""aac:*:application/octet-stream:*"">
+            aac://http://stream.srg-ssr.ch/m/drs3/aacp_96</res>
+        <r:streamContent>ANDRYY - BRUCHPILOT</r:streamContent>
+        <dc:title>aacp_96</dc:title>
+        <upnp:class>object.item</upnp:class>
+    </item>
+</DIDL-Lite>";
+
+    [Fact]
+    public void DeserializeMetadata_SonosRadioStream()
+    {
+        var didl = DidlSerializer.DeserializeMetadata(xmlRadioStation);
+        Assert.NotNull(didl);
+        Assert.Single(didl.Items);
+
+        var item = didl.Items[0];
+
+        Assert.Equal("aacp_96", item.Title);
+        Assert.Equal("ANDRYY - BRUCHPILOT", item.StreamContent);
+    }
 }
