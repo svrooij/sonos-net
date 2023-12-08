@@ -43,7 +43,7 @@ public class Item
     public VirtualLineIn? VitualLineIn { get; set; }
 
     [XmlElement("streamContent", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/")]
-    public StreamContent? StreamContent { get; set; }
+    public string? StreamContent { get; set; }
 
     [XmlElement("desc", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/", Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
     public DidlDesc? Desc { get; set; }
