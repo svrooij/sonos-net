@@ -20,7 +20,7 @@ namespace Sonos.Base.Services;
 
 public partial class ZoneGroupTopologyService
 {
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     [System.Xml.Serialization.XmlRoot(Namespace = "", IsNullable = false)]
@@ -59,7 +59,7 @@ public partial class ZoneGroupTopologyService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ZoneGroupStateZoneGroup
@@ -141,7 +141,7 @@ public partial class ZoneGroupTopologyService
     }
 
     /// <remarks/>
-    [System.Serializable()]
+    [Serializable()]
     [System.ComponentModel.DesignerCategory("code")]
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ZoneGroupStateZoneGroupZoneGroupMember

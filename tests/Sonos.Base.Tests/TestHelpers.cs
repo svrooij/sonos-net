@@ -26,15 +26,19 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Sonos.Base
 {
     public static class TestHelpers
     {
-        private const string defaultUri = "http://localhost/";
+        internal const string defaultUri = "http://localhost/";
         private const string SoapActionHeader = "soapaction";
-        private const string SoapResponseFormat = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:{1}Response xmlns:u=""urn:schemas-upnp-org:service:{0}:1"">{2}</u:{1}Response></s:Body></s:Envelope>";
 
+        private const string SoapResponseFormat = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:{1}Response xmlns:u=""urn:schemas-upnp-org:service:{0}:1"">{2}</u:{1}Response></s:Body></s:Envelope>";
+        private const string SoapRequestFormat = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/""><s:Body><u:{1} xmlns:u=""urn:schemas-upnp-org:service:{0}:1"">{2}</u:{1}></s:Body></s:Envelope>";
+
+        
         public static Mock<HttpClientHandler> MockDeviceDescription(this Mock<HttpClientHandler> mock, string deviceDescription, string baseUrl = defaultUri)
         {
             mock
@@ -80,10 +84,66 @@ namespace Sonos.Base
 
         internal static bool VerifySonosRequest(this HttpRequestMessage message, string baseUrl, string service, string action, string? requestBody)
         {
+            // TODO: Verify body in tests
+            bool bodyChecked = false;
+            if (requestBody != null)
+            {
+                if (message.Content != null)
+                {
+                    var content = message.Content.ReadAsStringAsync().GetAwaiter().GetResult().RemoveXmlIndentation() ;
+                    var expectedContent = string.Format(SoapRequestFormat, service, action, requestBody).RemoveXmlIndentation();
+#if DEBUG
+                    Assert.Equal(expectedContent, content);
+#endif
+                    bodyChecked = content.Equals(expectedContent);
+                }
+            }
             return
                 message.RequestUri == new Uri(new Uri(baseUrl), GetPathForService(service)) &&
-                message.Headers.ContainsHeaderWithValue(SoapActionHeader, $"urn:schemas-upnp-org:service:{service}:1#{action}");
+                message.Headers.ContainsHeaderWithValue(SoapActionHeader, $"urn:schemas-upnp-org:service:{service}:1#{action}") &&
+                (requestBody == null || bodyChecked);
         }
+
+//        public static Mock<HttpClientHandler> MockMusicServiceRequest(this Mock<HttpClientHandler> mock, string action, string? requestBody = null, string responseBody = "", string baseUrl = defaultUri)
+//        {
+//            string response = string.Format(MusicResponseFormat, action, responseBody);
+//            mock
+//                .Protected()
+//                .Setup<Task<HttpResponseMessage>>("SendAsync",
+//                    ItExpr.Is<HttpRequestMessage>(m => m.VerifyMusicServiceRequest(baseUrl, action, requestBody)),
+//                    ItExpr.IsAny<CancellationToken>()
+//                ).ReturnsAsync(new HttpResponseMessage
+//                {
+//                    StatusCode = System.Net.HttpStatusCode.OK,
+//                    Content = new StringContent(response)
+//                });
+
+//            return mock;
+//        }
+
+//        internal static bool VerifyMusicServiceRequest(this HttpRequestMessage message, string baseUrl, string action, string? requestBody)
+//        {
+//            // TODO: Verify body in tests
+//            bool bodyChecked = false;
+//            if (requestBody != null)
+//            {
+//                var streamContent = message.Content as StreamContent;
+
+//                if (streamContent != null)
+//                {
+//                    var content = streamContent.ReadAsStringAsync().GetAwaiter().GetResult();
+//                    var expectedContent = string.Format(MusicRequestFormat, action, requestBody);
+//                    bodyChecked = content.Equals(expectedContent);
+//#if DEBUG
+//                    Assert.Equal(expectedContent, content);
+//#endif
+//                }
+//            }
+//            return
+//                message.RequestUri == new Uri(baseUrl) &&
+//                message.Headers.ContainsHeaderWithValue(MusicActionHeader, $"http://www.sonos.com/Services/1.1#{action}") &&
+//                (requestBody == null || bodyChecked);
+//        }
 
         internal static bool ContainsHeaderWithValue(this HttpRequestHeaders headers, string key, string value)
         {
@@ -127,5 +187,11 @@ namespace Sonos.Base
             services.AddTransient<IHttpClientFactory>(_ => mockHttpClientFactory.Object);
             return services;
         }
+
+        internal static string RemoveXmlIndentation(this string xml)
+        {
+            return string.Concat(xml.Split("\r\n").Select(l => l.Trim()));
+        }
+
     }
 }

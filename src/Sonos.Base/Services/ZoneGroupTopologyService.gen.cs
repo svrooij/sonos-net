@@ -125,7 +125,12 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
     {
         public string UpdateType { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool CachedOnly { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'CachedOnly'</remarks>
+        [System.Xml.Serialization.XmlElement("CachedOnly")]
+        public int _CachedOnly { get { return CachedOnly ? 1 : 0; } set { CachedOnly = value == 1; } }
 
         public string Version { get; set; }
     }
@@ -193,7 +198,12 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
     [SonosServiceRequest("/ZoneGroupTopology/Control", "ZoneGroupTopology", "SubmitDiagnostics")]
     public class SubmitDiagnosticsRequest : BaseRequest
     {
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeControllers { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeControllers'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeControllers")]
+        public int _IncludeControllers { get { return IncludeControllers ? 1 : 0; } set { IncludeControllers = value == 1; } }
 
         public string Type { get; set; }
     }

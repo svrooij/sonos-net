@@ -198,7 +198,12 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Alarm enabled after creation
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public bool Enabled { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'Enabled'</remarks>
+        [System.Xml.Serialization.XmlElement("Enabled")]
+        public int _Enabled { get { return Enabled ? 1 : 0; } set { Enabled = value == 1; } }
 
         /// <summary>
         /// The UUID of the speaker you want this alarm for
@@ -218,7 +223,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Generate ProgramMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ProgramMetaDataObject
+        public Metadata.Didl? ProgramMetaDataObject
         {
             set
             {
@@ -239,7 +244,12 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Should grouped players also play the alarm?
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeLinkedZones { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeLinkedZones'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeLinkedZones")]
+        public int _IncludeLinkedZones { get { return IncludeLinkedZones ? 1 : 0; } set { IncludeLinkedZones = value == 1; } }
     }
 
     [System.Serializable()]
@@ -422,7 +432,12 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
     {
         public int Index { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool AutoAdjustDst { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'AutoAdjustDst'</remarks>
+        [System.Xml.Serialization.XmlElement("AutoAdjustDst")]
+        public int _AutoAdjustDst { get { return AutoAdjustDst ? 1 : 0; } set { AutoAdjustDst = value == 1; } }
     }
 
     [System.Serializable()]
@@ -453,7 +468,12 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Alarm enabled after creation
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public bool Enabled { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'Enabled'</remarks>
+        [System.Xml.Serialization.XmlElement("Enabled")]
+        public int _Enabled { get { return Enabled ? 1 : 0; } set { Enabled = value == 1; } }
 
         /// <summary>
         /// The UUID of the speaker you want this alarm for
@@ -473,7 +493,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Generate ProgramMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ProgramMetaDataObject
+        public Metadata.Didl? ProgramMetaDataObject
         {
             set
             {
@@ -494,7 +514,12 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Should grouped players also play the alarm?
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public bool IncludeLinkedZones { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'IncludeLinkedZones'</remarks>
+        [System.Xml.Serialization.XmlElement("IncludeLinkedZones")]
+        public int _IncludeLinkedZones { get { return IncludeLinkedZones ? 1 : 0; } set { IncludeLinkedZones = value == 1; } }
     }
 
     private readonly static Dictionary<int, SonosUpnpError> serviceSpecificErrors = new Dictionary<int, SonosUpnpError>{

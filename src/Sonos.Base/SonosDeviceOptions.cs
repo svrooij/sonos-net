@@ -15,15 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Sonos.Base;
 
 /// <summary>
 /// Configure your Sonos Device accordingly
 /// </summary>
-public class SonosDeviceOptions : Sonos.Base.Services.SonosServiceOptions
+public class SonosDeviceOptions : Services.SonosServiceOptions
 {
     public SonosDeviceOptions(Uri deviceUri, ISonosServiceProvider serviceProvider, string? uuid = null, string? deviceName = null, string? groupName = null, SonosDevice? coordinator = null) : base(deviceUri, serviceProvider, uuid)
     {

@@ -1,7 +1,6 @@
 ﻿using Sonos.Base.Services;
 using System.Net.WebSockets;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Sonos.Base.Internal
 {

@@ -143,7 +143,12 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// </summary>
         public int InstanceID { get; set; } = 0;
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool DesiredMute { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'DesiredMute'</remarks>
+        [System.Xml.Serialization.XmlElement("DesiredMute")]
+        public int _DesiredMute { get { return DesiredMute ? 1 : 0; } set { DesiredMute = value == 1; } }
     }
 
     [System.Serializable()]

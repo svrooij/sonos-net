@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using Sonos.Base.Services;
 using Sonos.Base.Internal;
 using System.Threading.Tasks;
+using Sonos.Base.Music;
 using System.Xml.Serialization;
 
 public partial class SonosDevice : IDisposable, IAsyncDisposable
@@ -86,7 +87,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         if (!Uuid.StartsWith("RINCON"))
         {
             var attributes = await DevicePropertiesService.GetZoneInfoAsync(cancellationToken);
-            Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}0{this.ServiceOptions.DeviceUri.Port}";
+            Uuid = $"RINCON_{attributes.MACAddress.Replace(":","")}01400";
         }
     }
 
@@ -112,6 +113,36 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         }
         await SonosWebSocket.QueueNoticiationAsync(Uuid, notificationOptions.SoundUri.ToString(), notificationOptions.Volume, cancellationToken);
         return true;
+    }
+
+    public IMusicClientCredentialStore GetKvCredentialStore()
+    {
+        var logger = ServiceOptions.ServiceProvider.CreateLogger<KvMusicServiceAccountStore>();
+        return new KvMusicServiceAccountStore(SystemPropertiesService, logger);
+    }
+
+    public async Task<MusicClient> GetMusicClientAsync(int serviceId, string timeZone = "+02:00", HttpClient? httpClient = null, CancellationToken cancellationToken = default)
+    {
+        var musicServices = await MusicServicesService.ListAvailableServicesAsync(cancellationToken);
+        var service = musicServices.MusicServices.SingleOrDefault(m => m.Id == serviceId);
+        if (service == null)
+        {
+            throw new ArgumentOutOfRangeException(nameof(serviceId), "Music services with this ID not found");
+        }
+
+        var deviceId = await SystemPropertiesService.GetStringAsync("R_TrialZPSerial", cancellationToken);
+        var householdId = (await DevicePropertiesService.GetHouseholdIDAsync(cancellationToken)).CurrentHouseholdID;
+
+        return new MusicClient(new MusicClientOptions
+        {
+            AuthenticationType = service.Policy.Auth,
+            BaseUri = service.SecureUri,
+            ServiceId = serviceId,
+            TimeZone = timeZone,
+            DeviceId = deviceId,
+            HouseholdId = householdId,
+            CredentialStore = GetKvCredentialStore(),
+        }, httpClient ?? ServiceOptions.ServiceProvider.GetHttpClientFactory()?.CreateClient(nameof(MusicClient)) ?? new HttpClient());
     }
 
     #region Shortcuts
@@ -145,6 +176,42 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     public Task<bool> StopAsync(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.StopAsync(cancellationToken);
+
+    /// <summary>
+    /// Switch a supported device to the Line-in input.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToLineInAsync(CancellationToken cancellationToken = default)
+    {
+        await LoadUuidAsync(cancellationToken);
+        await AVTransportService.SetAVTransportURIAsync($"x-rincon-stream:{Uuid}", null, cancellationToken);
+        return await AVTransportService.PlayAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// Switch the speaker to play the queue
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToQueueAsync(CancellationToken cancellationToken = default)
+    {
+        await LoadUuidAsync(cancellationToken);
+        return await AVTransportService.SetAVTransportURIAsync($"x-rincon-queue:{Uuid}#0", null, cancellationToken);
+        
+    }
+
+    /// <summary>
+    /// Switch a supported device to the digital spdif input.
+    /// </summary>
+    /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
+    /// <remarks>Shortcut to <see cref="AVTransportService.SetAVTransportURIAsync(string, Metadata.Didl?, CancellationToken)"/> with the correct trackUri</remarks>
+    public async Task<bool> SwitchToTvAsync(CancellationToken cancellationToken = default)
+    {
+        await LoadUuidAsync(cancellationToken);
+        await AVTransportService.SetAVTransportURIAsync($"x-sonos-htastream:{Uuid}:spdif", null, cancellationToken);
+        return await AVTransportService.PlayAsync(cancellationToken);
+    }
 
     #endregion Shortcuts
 

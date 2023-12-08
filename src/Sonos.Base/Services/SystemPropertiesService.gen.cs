@@ -262,7 +262,12 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
     [SonosServiceRequest("/SystemProperties/Control", "SystemProperties", "EnableRDM")]
     public class EnableRDMRequest : BaseRequest
     {
+        [System.Xml.Serialization.XmlIgnore]
         public bool RDMValue { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'RDMValue'</remarks>
+        [System.Xml.Serialization.XmlElement("RDMValue")]
+        public int _RDMValue { get { return RDMValue ? 1 : 0; } set { RDMValue = value == 1; } }
     }
 
     [System.Serializable()]

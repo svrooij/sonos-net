@@ -17,10 +17,10 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;CS8618;CS1591</NoWarn>
+    <NoWarn>1701;1702;CS8618;CS1591;CS1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;CS8618;CS1591;CS1573</NoWarn>
+    <NoWarn>1701;1702;CS8618;CS1591;CS1573;CS1998;CS0162</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\README.md" />

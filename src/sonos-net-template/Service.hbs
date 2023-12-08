@@ -77,13 +77,22 @@ public partial class {{serviceName}} : SonosBaseService
         /// {{{description}}}
         /// </summary>
         {{/if}}
+        {{#if (are_equal relatedStateVariable.dataType 'bool')}}
+        [System.Xml.Serialization.XmlIgnore]
+        public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use '{{name}}'</remarks>
+        [System.Xml.Serialization.XmlElement("{{name}}")]
+        public int _{{name}} { get { return {{name}} ? 1 : 0; } set { {{name}} = value == 1; } }
+        {{else}}
         public {{{relatedStateVariable.dataType}}} {{name}} { get; set; }{{#if (are_equal name 'InstanceID')}} = 0;{{/if}}
+        {{/if}}
         {{#if (ends_with name 'MetaData')}}
 
         /// <summary>
         /// Generate {{name}} xml from Didl data
         /// </summary>
-        public Metadata.Didl {{name}}Object
+        public Metadata.Didl? {{name}}Object
         {
             set
             {

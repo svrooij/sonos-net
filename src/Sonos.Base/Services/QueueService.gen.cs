@@ -147,7 +147,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
         /// <summary>
         /// Generate ContainerMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ContainerMetaDataObject
+        public Metadata.Didl? ContainerMetaDataObject
         {
             set
             {
@@ -157,7 +157,12 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
 
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool EnqueueAsNext { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'EnqueueAsNext'</remarks>
+        [System.Xml.Serialization.XmlElement("EnqueueAsNext")]
+        public int _EnqueueAsNext { get { return EnqueueAsNext ? 1 : 0; } set { EnqueueAsNext = value == 1; } }
 
         public int NumberOfURIs { get; set; }
 
@@ -166,7 +171,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
         /// <summary>
         /// Generate EnqueuedURIsAndMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIsAndMetaDataObject
+        public Metadata.Didl? EnqueuedURIsAndMetaDataObject
         {
             set
             {
@@ -208,7 +213,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
         /// <summary>
         /// Generate EnqueuedURIMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIMetaDataObject
+        public Metadata.Didl? EnqueuedURIMetaDataObject
         {
             set
             {
@@ -218,7 +223,12 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
 
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public bool EnqueueAsNext { get; set; }
+
+        /// <remarks>Noting to see here, XmlSerializer issue, use 'EnqueueAsNext'</remarks>
+        [System.Xml.Serialization.XmlElement("EnqueueAsNext")]
+        public int _EnqueueAsNext { get { return EnqueueAsNext ? 1 : 0; } set { EnqueueAsNext = value == 1; } }
     }
 
     [System.Serializable()]
@@ -386,7 +396,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
         /// <summary>
         /// Generate ContainerMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl ContainerMetaDataObject
+        public Metadata.Didl? ContainerMetaDataObject
         {
             set
             {
@@ -405,7 +415,7 @@ public partial class QueueService : SonosBaseService<QueueService.IQueueEvent>
         /// <summary>
         /// Generate EnqueuedURIsAndMetaData xml from Didl data
         /// </summary>
-        public Metadata.Didl EnqueuedURIsAndMetaDataObject
+        public Metadata.Didl? EnqueuedURIsAndMetaDataObject
         {
             set
             {

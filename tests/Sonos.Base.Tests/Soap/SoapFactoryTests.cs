@@ -15,6 +15,8 @@ public class SoapFactoryTests
   </s:Body>
 </s:Envelope>";
 
+    private const string xmlInputNextRequestNoIndentation = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/""><s:Body><u:Next xmlns:u=""urn:schemas-upnp-org:service:AVTransport:1""><InstanceID>0</InstanceID></u:Next></s:Body></s:Envelope>";
+
     [Fact]
     public void GeneratesXmlStream_AvTransportNextRequest_GeneratesExpectedXml()
     {
@@ -22,7 +24,7 @@ public class SoapFactoryTests
         using var reader = new StreamReader(stream);
         var xml = reader.ReadToEnd();
 
-        Assert.Equal(xmlInputNextRequest, xml);
+        Assert.Equal(xmlInputNextRequestNoIndentation, xml);
     }
 
     [Fact]

@@ -6,6 +6,7 @@ namespace Sonos.Base.Metadata;
 public static class DidlSerializer
 {
     internal const string NotImplemented = "NOT_IMPLEMENTED";
+
     public static Didl? DeserializeMetadata(string? xml)
     {
         if (xml is null || string.IsNullOrWhiteSpace(xml) || xml == NotImplemented)
@@ -14,7 +15,7 @@ public static class DidlSerializer
         }
         var serializer = new XmlSerializer(typeof(Didl));
         //serializer.UnknownElement += Serializer_UnknownElement;
-        // Hack for not parsing elements with namespace prefix defined but not used. 
+        // Hack for not parsing elements with namespace prefix defined but not used.
         xml = xml.Replace("<desc ", "<r:desc ").Replace("</desc>", "</r:desc>");
         using var textReader = new StringReader(xml);
         var result = (Didl?)serializer.Deserialize(textReader);
@@ -29,7 +30,6 @@ public static class DidlSerializer
     {
         if (sender == null)
         {
-
         }
     }
 
@@ -40,7 +40,7 @@ public static class DidlSerializer
             return string.Empty;
         }
         var overrides = DidlWritingOverrides();
-        var ns = DidlNamespaces();
+        var ns = DidlNamespacesForWriting();
         var settings = new XmlWriterSettings();
         settings.OmitXmlDeclaration = true;
         using var stream = new StringWriter();
@@ -48,13 +48,17 @@ public static class DidlSerializer
 
         var serializer = new XmlSerializer(metadata.GetType(), overrides);
         serializer.Serialize(writer, metadata, ns);
-        return stream.ToString();
+        var xml = stream.ToString();
+        return xml.Replace("<r:desc ", "<desc ").Replace("</r:desc", "</desc").Replace("id=\"cdudn\"", "id=\"cdudn\" nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"");
     }
 
-    internal static XmlSerializerNamespaces DidlNamespaces()
+    internal static XmlSerializerNamespaces DidlNamespacesForWriting()
     {
         var ns = new XmlSerializerNamespaces();
-        ns.Add("", ""); // Remove unwanted xsd namespaces.
+        ns.Add("", "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"); // Remove unwanted xsd namespaces.
+        ns.Add("dc", "http://purl.org/dc/elements/1.1/");
+        ns.Add("upnp", "urn:schemas-upnp-org:metadata-1-0/upnp/");
+        //ns.Add("r", "urn:schemas-rinconnetworks-com:metadata-1-0/");
         return ns;
     }
 

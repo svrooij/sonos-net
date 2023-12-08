@@ -18,34 +18,36 @@
 
 namespace Sonos.Base.Soap;
 
+using System.Xml;
 using System.Xml.Serialization;
 
 internal static class SoapFactory
 {
     internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action) where TPayload : class
     {
-        var attr = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
+        SonosServiceRequestAttribute serviceRequestAttribute = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
         if (action is null)
         {
             throw new ArgumentException("Could not determine action");
         }
 
-        var xml = GenerateXmlStream<TPayload>(attr.ServiceName, attr.Action ?? action, payload);
-        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, attr.Path))
+        var xml = GenerateXmlStream(serviceRequestAttribute.ServiceName, serviceRequestAttribute.Action ?? action, payload);
+        var request = new HttpRequestMessage(HttpMethod.Post, new Uri(baseUri, serviceRequestAttribute.Path))
         {
-            // Content = new StringContent(xml, System.Text.Encoding.UTF8, "text/xml")
             Content = new StreamContent(xml)
         };
+
+
         // Sonos doesn't like content-type 'text/xml; charset=utf-8'
         request.Content.Headers.Remove("content-type");
         request.Content.Headers.TryAddWithoutValidation("Content-Type", "text/xml; charset=\"utf-8\"");
-        request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{attr.ServiceName}:1#{attr.Action ?? action}");
+        request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{serviceRequestAttribute.ServiceName}:1#{serviceRequestAttribute.Action ?? action}");
         return request;
     }
 
     internal static string GenerateXml<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
-        var envelope = new Soap.Envelope<TPayload>(payload);
+        var envelope = new Envelope<TPayload>(payload);
         var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
         var ns = SoapNamespaces();
 
@@ -58,12 +60,18 @@ internal static class SoapFactory
     internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
         var stream = new MemoryStream();
-        var envelope = new Soap.Envelope<TPayload>(payload);
+        var envelope = new Envelope<TPayload>(payload);
         var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
         var ns = SoapNamespaces();
 
         var serializer = new XmlSerializer(envelope.GetType(), overrides);
-        serializer.Serialize(stream, envelope, ns);
+        using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
+        {
+            Indent = false,
+            NewLineHandling = NewLineHandling.None,
+        });
+
+        serializer.Serialize(xmlWriter, envelope, ns);
         stream.Seek(0, SeekOrigin.Begin);
         return stream;
     }
@@ -123,7 +131,6 @@ internal static class SoapFactory
     {
         var overrides = GenerateResponseOverrides<TOut>(service);
         var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
-
         var result = (Envelope<TOut>?)serializer.Deserialize(stream);
         if (result is null)
         {
