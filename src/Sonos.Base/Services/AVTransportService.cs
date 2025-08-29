@@ -9,5 +9,13 @@ namespace Sonos.Base.Services
     public partial class AVTransportService
     {
         public Task<bool> Play(CancellationToken cancellationToken = default) => Play(new PlayRequest { Speed = "1" }, cancellationToken);
+
+        public static class TransportState
+        {
+            public const string Stopped = "STOPPED";
+            public const string Playing = "PLAYING";
+            public const string Paused = "PAUSED_PLAYBACK";
+            public const string Transitioning = "TRANSITIONING";
+        }
     }
 }

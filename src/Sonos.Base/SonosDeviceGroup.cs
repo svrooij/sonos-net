@@ -19,7 +19,15 @@ namespace Sonos.Base;
 
 public class SonosDeviceGroup
 {
+    public string GroupId { get; init; }
     public string GroupName { get; init; }
-    public SonosDevice Coordinator { get; init; }
-    public SonosDevice[]? Members { get; init; }
+    public SonosDeviceInfo Coordinator { get; init; }
+    public IEnumerable<SonosDeviceInfo>? Members { get; init; }
+}
+
+public class SonosDeviceInfo
+{
+    public string Uuid { get; init; }
+    public string Name { get; init; }
+    public Uri Uri { get; init; }
 }

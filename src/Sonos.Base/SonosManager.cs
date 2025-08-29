@@ -25,6 +25,7 @@ namespace Sonos.Base
     public class SonosManager
     {
         private readonly ConcurrentDictionary<string, SonosDeviceGroup> groups;
+        private readonly ConcurrentDictionary<string, SonosDevice> devices = new();
         private ZoneGroupTopologyService? zoneGroupTopologyService;
         private readonly ISonosServiceProvider provider;
         private readonly ILogger? logger;
@@ -53,12 +54,25 @@ namespace Sonos.Base
                 {
                     var coordinator = new SonosDevice(new SonosDeviceOptions(zone.CoordinatorMember.BaseUri, provider, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null));
 
+                    if (!devices.ContainsKey(coordinator.Uuid))
+                    {
+                        devices.TryAdd(coordinator.Uuid, coordinator);
+                    }
 
+                    var members = zone.Members.Select(member => new SonosDevice(new SonosDeviceOptions(member.BaseUri, provider, member.UUID, member.ZoneName, coordinator.GroupName, coordinator)));
+                    foreach (var member in members)
+                    {
+                        if (!devices.ContainsKey(member.Uuid))
+                        {
+                            devices.TryAdd(member.Uuid, member);
+                        }
+                    }
                     groups.TryAdd(zone.ID, new SonosDeviceGroup
                     {
-                        Coordinator = coordinator,
+                        GroupId = zone.ID,
+                        Coordinator = new SonosDeviceInfo { Name = coordinator.DeviceName, Uuid = coordinator.Uuid, Uri = zone.CoordinatorMember.BaseUri },
                         GroupName = zone.GroupName,
-                        Members = zone.Members.Select(member => new SonosDevice(new SonosDeviceOptions(member.BaseUri, provider, member.UUID, member.ZoneName, coordinator.GroupName, coordinator))).ToArray()
+                        Members = zone.Members.Select(m => new SonosDeviceInfo { Name = m.ZoneName, Uuid = m.UUID, Uri = m.BaseUri }).ToList()
                     });
                 }
             }
@@ -66,11 +80,15 @@ namespace Sonos.Base
 
         public IReadOnlyCollection<SonosDeviceGroup> GetGroups() => groups.Values.ToArray();
 
-        public IReadOnlyCollection<KeyValuePair<string, SonosDeviceGroup>> GetGroupsDictionary() => groups.ToArray();
-
-        public SonosDeviceGroup? GetGroupById(string id)
+        public SonosDevice GetSonosDevice(string uuid)
         {
-            return groups.TryGetValue(id, out var group) ? group : null;
+            if (devices.TryGetValue(uuid, out var device))
+            {
+                return device;
+            }
+            throw new KeyNotFoundException($"Device with uuid {uuid} not found");
         }
+
+        public IEnumerable<string> GetDeviceUuids() => devices.Keys;
     }
 }

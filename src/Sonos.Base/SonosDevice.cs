@@ -93,6 +93,18 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
 
+    public async Task<bool> TogglePlayback(CancellationToken cancellationToken = default)
+    {
+        var transportInfo = await Coordinator.AVTransportService.GetTransportInfo(cancellationToken);
+        
+        return transportInfo.CurrentTransportState switch
+        {
+            AVTransportService.TransportState.Transitioning or AVTransportService.TransportState.Playing => await Coordinator.Pause(cancellationToken),
+            AVTransportService.TransportState.Paused or AVTransportService.TransportState.Stopped => await Coordinator.Play(cancellationToken),
+            _ => false,
+        };
+    }
+
     #endregion Shortcuts
 
     public override string ToString()
