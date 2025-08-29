@@ -65,5 +65,12 @@ namespace Sonos.Base
         }
 
         public IReadOnlyCollection<SonosDeviceGroup> GetGroups() => groups.Values.ToArray();
+
+        public IReadOnlyCollection<KeyValuePair<string, SonosDeviceGroup>> GetGroupsDictionary() => groups.ToArray();
+
+        public SonosDeviceGroup? GetGroupById(string id)
+        {
+            return groups.TryGetValue(id, out var group) ? group : null;
+        }
     }
 }
