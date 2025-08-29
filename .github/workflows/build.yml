@@ -23,18 +23,20 @@ jobs:
 
     steps:
       - name: 👨‍💻 Check-out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: 🔍 Enable problem matchers
         run: echo "::add-matcher::.github/matchers/dotnet.json"
 
       - name: 🦸‍♂️ Restore steriods
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           # Look to see if there is a cache hit for the corresponding requirements file
@@ -75,13 +77,15 @@ jobs:
       - name: 👨‍🔧 Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.x
+          dotnet-version: |
+            8.x
+            9.x
 
       - name: 🔍 Enable problem matchers
         run: echo "::add-matcher::.github/matchers/dotnet.json"
 
       - name: 🦸‍♂️ Restore steriods
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           # Look to see if there is a cache hit for the corresponding requirements file
@@ -108,14 +112,16 @@ jobs:
 
       - name: 📦 Pack Sonos.Base
         run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base/Sonos.Base.csproj
+
+      - name: 📦 Pack Sonos.Base.Events.Http
+        run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
+
+      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
+        run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
       - name: ✈️ Publish Sonos.Base to nuget.org
         run: dotnet nuget push ./src/Sonos.Base/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
-      - name: 📦 Pack Sonos.Base.Events.Http
-        run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
-      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
-        run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
