@@ -10,7 +10,7 @@
   "files": [
     {
       "file": "Service.hbs",
-      "outputFile": "Sonos.Base/Services/{service}Service.gen.cs",
+      "outputFile": "Sonos.Base/Services/{service}Service.g.cs",
       "usage":"service"
     },
     {
@@ -20,7 +20,7 @@
     },
     {
       "file": "SonosDevice.hbs",
-      "outputFile": "Sonos.Base/SonosDevice.gen.cs",
+      "outputFile": "Sonos.Base/SonosDevice.g.cs",
       "usage":"index"
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "file": "SonosUpnpError.hbs",
-      "outputFile": "Sonos.Base/Services/SonosUpnpError.gen.cs",
+      "outputFile": "Sonos.Base/Services/SonosUpnpError.g.cs",
       "usage":"index"
     }
   ],

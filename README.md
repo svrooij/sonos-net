@@ -39,7 +39,7 @@ This project uses [CodeTour](https://marketplace.visualstudio.com/items?itemName
 
 We welcome all contributions to this project, to get started be sure to checkout the [CodeTour](#codetour-available) which will explain how some files get generated.
 
-If you see a file with the `.gen.cs` suffix it means that it is generated. Manual changes to these files will not be accepted because they will get lost upon next generation.
+If you see a file with the `.g.cs` suffix it means that it is generated. Manual changes to these files will not be accepted because they will get lost upon next generation.
 
 This library is [licensed](./LICENSE.md) under **GPL v3** and all contributions are considered to be publishable under that same license.
 
