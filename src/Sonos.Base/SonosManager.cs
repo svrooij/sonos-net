@@ -27,6 +27,7 @@ namespace Sonos.Base
         private readonly ConcurrentDictionary<string, SonosDeviceGroup> groups;
         private readonly ConcurrentDictionary<string, SonosDevice> devices = new();
         private ZoneGroupTopologyService? zoneGroupTopologyService;
+        private bool subscribed = false;
         private readonly ISonosServiceProvider provider;
         private readonly ILogger? logger;
 
@@ -78,15 +79,72 @@ namespace Sonos.Base
             }
         }
 
+        public async Task SubscribeToTopologyChanges(CancellationToken cancellationToken = default)
+        {
+            if (zoneGroupTopologyService == null)
+            {
+                throw new InvalidOperationException("Manager not initialized, call InitializeFromDevice first");
+            }
+            if (subscribed)
+            {
+                return;
+            }
+            zoneGroupTopologyService.OnEvent += ZoneGroupTopologyService_OnEvent;
+            await zoneGroupTopologyService.SubscribeForEventsAsync(cancellationToken);
+            subscribed = true;
+        }
+
+        private void ZoneGroupTopologyService_OnEvent(object? sender, ZoneGroupTopologyService.IZoneGroupTopologyEvent e)
+        {
+            // TODO: handle topology changes
+            logger?.LogInformation("Zones changed @{Zones}", e.ParsedState);
+            if (e.ParsedState?.ZoneGroups == null)
+            {
+                return;
+            }
+            foreach (var zone in e.ParsedState.ZoneGroups)
+            {
+                var coordinator = GetSonosDevice(zone.Coordinator);
+                if (coordinator == null)
+                {
+                    coordinator = new SonosDevice(new SonosDeviceOptions(zone.CoordinatorMember.BaseUri, provider, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null));
+                    devices.TryAdd(coordinator.Uuid, coordinator);
+                }
+                coordinator.UpdateCoordinator(null);
+
+                groups.AddOrUpdate(zone.ID, new SonosDeviceGroup
+                {
+                    GroupId = zone.ID,
+                    Coordinator = new SonosDeviceInfo { Name = coordinator.DeviceName, Uuid = coordinator.Uuid, Uri = zone.CoordinatorMember.BaseUri },
+                    GroupName = zone.GroupName,
+                    Members = zone.Members.Select(m => new SonosDeviceInfo { Name = m.ZoneName, Uuid = m.UUID, Uri = m.BaseUri }).ToList()
+                }, (old, newGroup) => newGroup);
+
+                foreach (var member in zone.Members)
+                {
+                    var device = GetSonosDevice(member.UUID);
+                    if (device == null)
+                    {
+                        device = new SonosDevice(new SonosDeviceOptions(member.BaseUri, provider, member.UUID, member.ZoneName, coordinator.GroupName, coordinator));
+                        devices.TryAdd(device.Uuid, device);
+                    }
+                    else
+                    {
+                        device.UpdateCoordinator(coordinator);
+                    }
+                }
+            }
+        }
+
         public IReadOnlyCollection<SonosDeviceGroup> GetGroups() => groups.Values.ToArray();
 
-        public SonosDevice GetSonosDevice(string uuid)
+        public SonosDevice? GetSonosDevice(string uuid)
         {
             if (devices.TryGetValue(uuid, out var device))
             {
                 return device;
             }
-            throw new KeyNotFoundException($"Device with uuid {uuid} not found");
+            return null;
         }
 
         public IEnumerable<string> GetDeviceUuids() => devices.Keys;

@@ -11,9 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi(api =>
 {
     api.ShouldInclude = (desc) => true;
+    api.AddOperationTransformer<Sonos.Web.OpenApi.RemoveInstanceIdTransformer>();
+    api.AddOperationTransformer<Sonos.Web.OpenApi.DocumentOperationTransformer>();
 });
 
-builder.Services.AddSingleton(new Sonos.Base.Events.Http.SonosEventReceiverOptions { Host = builder.Configuration.GetValue<string?>("SONOS_EVENT_HOST") });
+builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
+{
+    conf.Host = builder.Configuration.GetValue<string?>("SONOS_EVENT_HOST");
+});
+
 // Make the ISonosEventBus available for injection
 builder.Services.AddSingleton<ISonosEventBus, Sonos.Base.Events.Http.SonosEventReceiver>();
 // Register the SonosEventReceiver as a hosted service
@@ -55,6 +61,7 @@ app.MapScalarApiReference(options =>
     options.TagSorter = TagSorter.Alpha;
     options.Title = "Sonos-net API 📄 with Scalar";
     options.HideClientButton = true;
+    options.HideModels = true;
     options.EnabledTargets = [ScalarTarget.PowerShell, ScalarTarget.CSharp, ScalarTarget.Http, ScalarTarget.Shell];
     // options.EnabledClients = [ScalarClient.HttpClient];
 });

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -9,6 +11,7 @@ using Sonos.Base.Events.Http.Models;
 using Sonos.Base.Events.Http.Parsing;
 using Sonos.Base.Services;
 using System.Collections.Concurrent;
+using System.Net;
 using System.Xml.Serialization;
 
 namespace Sonos.Base.Events.Http;
@@ -22,7 +25,7 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
     private readonly ILogger<SonosEventReceiver> logger;
     private readonly SonosEventReceiverOptions options;
     private readonly ConcurrentBag<SonosEventSubscription> subscriptions = new ConcurrentBag<SonosEventSubscription>();
-    private WebApplication WebApplication;
+    private WebApplication _webApplication;
 
     /// <summary>
     /// SonosEventReceiver constructor
@@ -34,10 +37,10 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
     /// <remarks>Probably called from dependency injection</remarks>
     public SonosEventReceiver(HttpClient? httpClient = null, ILogger<SonosEventReceiver>? logger = null, ILoggerProvider? loggerProvider = null, IOptions<SonosEventReceiverOptions>? settings = null)
     {
-        this.logger = logger ?? NullLogger<SonosEventReceiver>.Instance;
+        this.logger = logger ?? new NullLogger<SonosEventReceiver>();
         this.httpClient = httpClient ?? new HttpClient();
         options = settings?.Value ?? new SonosEventReceiverOptions();
-        WebApplication = CreateWebApplication(options.Port, loggerProvider);
+        _webApplication = CreateWebApplication(options.Port, loggerProvider);
     }
 
     /// <summary>
@@ -75,7 +78,7 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
     public Task StartAsync(CancellationToken cancellationToken)
     {
         LogStartAsyncCalled();
-        return WebApplication.StartAsync(cancellationToken);
+        return _webApplication.StartAsync(cancellationToken);
     }
 
     /// <summary>
@@ -87,7 +90,7 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
     {
         LogStopAsyncCalled();
         await UnsubscribeAll(cancellationToken);
-        await WebApplication.StopAsync(cancellationToken);
+        await _webApplication.StopAsync(cancellationToken);
     }
 
     /// <summary>
@@ -321,28 +324,33 @@ public partial class SonosEventReceiver : IHostedService, ISonosEventBus
 
     private WebApplication CreateWebApplication(int port, ILoggerProvider? loggerProvider = null)
     {
-        //var builder = WebApplication.CreateBuilder(new WebApplicationOptions {
-        //    Args = new[]
-        //    {
-        //        $"--urls=http://*:{port}/"
-        //    }
-        //});
-        var builder = WebApplication.CreateBuilder();
 
+        var builder = WebApplication.CreateEmptyBuilder(new WebApplicationOptions
+        {
+            ApplicationName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+            Args = new[]
+            {
+                $"--urls=http://*:{port}/"
+            },
+        });
+        builder.Configuration.Sources.Clear();
+
+        builder.WebHost.ConfigureKestrel(builder =>
+        {
+            builder.Listen(IPAddress.Any, port);
+        });
+        builder.WebHost.UseKestrelCore();
+
+        builder.Services.AddRouting();
+        
         builder.Logging.ClearProviders();
         if (loggerProvider != null)
         {
             builder.Logging.AddProvider(loggerProvider);
         }
-            
 
-        //builder.Logging.AddJsonConsole();
-        //builder.Logging.AddConsole();
         var app = builder.Build();
         app.Urls.Add($"http://*:{port}/");
-        //app.Urls.Add($"http://0.0.0.0:{port}/");
-        //app.Urls.Add($"http://localhost:{port}/");
-
         app
             .MapMethods("/event/{uuid}/{service}", new[] { "NOTIFY" }, HandleEventAsync);
         //.Accepts<Models.PropertySet>("text/xml");

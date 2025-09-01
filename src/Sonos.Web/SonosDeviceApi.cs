@@ -1,16 +1,18 @@
-﻿using System.Text.RegularExpressions;
-
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Sonos.Base;
+using Sonos.Web.SonosServices;
 
 namespace Sonos.Web;
 
-public static class SonosDeviceApi
+internal static class SonosDeviceApi
 {
     public static void MapSonosApi(this WebApplication webApplication)
     {
 
         webApplication.MapSonosZones();
         webApplication.MapSonosControls();
+        webApplication.MapServicesApi();
     }
 
     private static void MapSonosZones(this WebApplication api)
@@ -18,17 +20,13 @@ public static class SonosDeviceApi
         var groups = api
             .MapGroup("/api/zones")
             .WithTags("Sonos Zones")
-            .WithGroupName("sonos-zones");
+            .WithGroupName("sonos-zones")
+            .WithOpenApi();
 
         groups.MapGet("/", GetZones)
-            .WithName(nameof(GetZones))
-            .Produces<IEnumerable<Models.SonosGroup>>()
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Sonos zones";
-                op.Description = "Get all sonos zones";
-                return op;
-            });
+            .WithSummary("Get zones")
+            .WithDescription("Get a list of all sonos groups")
+            .Produces<IEnumerable<Models.SonosGroup>>();
     }
 
     private static IResult GetZones(SonosManager sonosManager)
@@ -49,153 +47,153 @@ public static class SonosDeviceApi
     {
         var controls = api.MapGroup("/api/speakers")
             .WithTags("Sonos Speakers")
-            .WithGroupName("sonos-speakers");
+            .WithGroupName("sonos-speakers")
+            .WithOpenApi();
 
-        controls.MapGet("/", GetDevices)
-            .WithName(nameof(GetDevices))
-            .Produces<IEnumerable<string>>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Sonos speakers";
-                op.Description = "Get all sonos speakers";
-                return op;
-            });
+        controls.MapGet("/", GetSpeakers)
+            .WithSummary("Get speakers")
+            .WithDescription("Get all known speaker UUIDs")
+            .Produces<IEnumerable<string>>(200); ;
 
         controls.MapPost("/{speakerId}/next", Next)
-            .WithName(nameof(Next))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Next song";
-                op.Description = "Play next song";
-                return op;
-            });
+            .WithSummary(nameof(Next))
+            .WithDescription("Play next song")
+            .Produces<bool>(200);
 
         controls.MapPost("/{speakerId}/pause", Pause)
-            .WithName(nameof(Pause))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Pause playback";
-                op.Description = "Pause speaker playback";
-                return op;
-            });
+            .WithSummary(nameof(Pause))
+            .WithDescription("Pause speaker playback")
+            .Produces<bool>(200);
 
         controls.MapPost("/{speakerId}/play", Play)
-            .WithName(nameof(Play))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Start playback";
-                op.Description = "Start speaker playback";
-                return op;
-            });
+            .WithSummary(nameof(Play))
+            .WithDescription("Start speaker playback")
+            .Produces<bool>(200);
 
         controls.MapPost("/{speakerId}/previous", Previous)
-            .WithName(nameof(Previous))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Previous song";
-                op.Description = "Previous song";
-                return op;
-            });
-
-
-        controls.MapPost("/{speakerId}/toggle", TogglePlayback)
-            .WithName(nameof(TogglePlayback))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Toggle playback";
-                op.Description = "Toggle speaker playback";
-                return op;
-            });
+            .WithSummary(nameof(Previous))
+            .WithDescription("Play previous song")
+            .Produces<bool>(200);
 
         controls.MapPost("/{speakerId}/stop", Stop)
-            .WithName(nameof(Stop))
-            .Produces<bool>(200)
-            .WithOpenApi(op =>
-            {
-                op.Summary = "Stop playback";
-                op.Description = "Stop speaker playback";
-                return op;
-            });
+            .WithSummary(nameof(Stop))
+            .WithDescription("Stop speaker playback")
+            .Produces<bool>(200);
+
+        controls.MapPost("/{speakerId}/toggle", TogglePlayback)
+            .WithSummary("Toggle playback")
+            .WithDescription("Toggle speaker playback")
+            .Produces<bool>(200);
+
+        controls.MapGet("/{speakerId}/volume", GetVolume)
+            .WithSummary("Get volume")
+            .WithDescription("Get current main channel volume")
+            .Produces<int>(200);
+
+        controls.MapPost("/{speakerId}/volume", SetVolume)
+            .WithSummary("Set volume")
+            .WithDescription("Set main channel volume")
+            .Produces<bool>(200);
     }
 
 
-    private static IResult GetDevices(SonosManager sonosManager)
+    private static IResult GetSpeakers(SonosManager sonosManager)
     {
         var devices = sonosManager.GetDeviceUuids();
         return Results.Ok(devices);
     }
 
-    private static async Task<IResult> Next(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> Next(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.Next(cancellationToken);
         return Results.Ok(result);
     }
 
-
-    private static async Task<IResult> Pause(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> Pause(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.Pause(cancellationToken);
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> Previous(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> Previous(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.Previous(cancellationToken);
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> Play(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> Play(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.Play(cancellationToken);
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> TogglePlayback(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> TogglePlayback(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.TogglePlayback(cancellationToken);
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> Stop(string? speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> Stop(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
-        var device = sonosManager.GetSonosDevice(speakerId!);
+        var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
-            return Results.NotFound();
+            return SonosResults.DeviceNotFoundResult(speakerId);
         }
         var result = await device.Stop(cancellationToken);
         return Results.Ok(result);
     }
 
+    private static async Task<IResult> GetVolume(string speakerId, string? channel, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.RenderingControlService.GetVolume(channel ?? "Master", cancellationToken);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> SetVolume([FromRoute]string speakerId, [FromBody] int volume, [FromServices]SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        if (volume < 0 || volume > 100)
+        {
+            return Results.BadRequest("Volume must be between 0 and 100");
+        }
+        var device = sonosManager.GetSonosDevice(speakerId!);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = "Master", DesiredVolume = volume }, cancellationToken);
+
+        return Results.Ok(result);
+    }
 
 }

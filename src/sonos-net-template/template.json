@@ -32,6 +32,16 @@
       "file": "SonosUpnpError.hbs",
       "outputFile": "Sonos.Base/Services/SonosUpnpError.g.cs",
       "usage":"index"
+    },
+    {
+      "file": "Api-RegisterServices.hbs",
+      "outputFile": "Sonos.Web/SonosServices/RegisterServices.g.cs",
+      "usage":"index"
+    },
+        {
+      "file": "Api-MapService.hbs",
+      "outputFile": "Sonos.Web/SonosServices/{service}Service.g.cs",
+      "usage":"service"
     }
   ],
   "dataTypes": {

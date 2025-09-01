@@ -39,6 +39,9 @@ internal static class SoapFactory
         // Sonos doesn't like content-type 'text/xml; charset=utf-8'
         request.Content.Headers.Remove("content-type");
         request.Content.Headers.TryAddWithoutValidation("Content-Type", "text/xml; charset=\"utf-8\"");
+#if DEBUG
+        var debugXml = request.Content.ReadAsStringAsync().Result;
+#endif
         request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{attr.ServiceName}:1#{attr.Action ?? action}");
         return request;
     }

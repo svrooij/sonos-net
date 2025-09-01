@@ -41,6 +41,16 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         }
     }
 
+    internal void UpdateCoordinator(SonosDevice? newCoordinator)
+    {
+        if (newCoordinator?.Uuid != coordinator?.Uuid)
+        {
+            coordinator = newCoordinator;
+            logger?.LogInformation("Updated coordinator for {Device} to {Coordinator}", this, coordinator);
+        }
+        
+    }
+
     public string DeviceName { get; private set; }
     public string GroupName { get; private set; }
     public string Uuid { get; private set; }

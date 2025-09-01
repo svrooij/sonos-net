@@ -122,14 +122,24 @@ public partial class SonosBaseService : IDisposable
 public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IServiceEvent
 {
     protected readonly ISonosEventBus? eventBus;
+    private bool subscribed = false;
     internal SonosBaseService(SonosService serviceName, string controlPath, string eventPath, SonosServiceOptions options) : base(serviceName, controlPath, eventPath, options)
     {
         this.eventBus = options.ServiceProvider.GetSonosEventBus();
     }
 
-    public Task<bool> SubscribeForEventsAsync(CancellationToken cancellationToken = default)
+    public async Task<bool> SubscribeForEventsAsync(CancellationToken cancellationToken = default)
     {
-        return eventBus?.Subscribe(uuid, ServiceName, new Uri(BaseUri, EventPath), EmitEvent, cancellationToken) ?? Task.FromResult(false);
+        if (subscribed)
+        {
+            return await RenewEventSubscriptionAsync(cancellationToken);
+        }
+        if (eventBus is null)
+        {
+            return false;
+        }
+        subscribed = await eventBus!.Subscribe(uuid, ServiceName, new Uri(BaseUri, EventPath), EmitEvent, cancellationToken);
+        return subscribed;
     }
 
     public Task<bool> RenewEventSubscriptionAsync(CancellationToken cancellationToken = default)

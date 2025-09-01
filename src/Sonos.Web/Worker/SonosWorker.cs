@@ -13,16 +13,23 @@ public class SonosWorker : BackgroundService
         _logger = logger;
         _sonosManager = sonosManager;
         _discoveryDevice = configuration.GetValue<Uri>("SONOS_HOST") ?? throw new ArgumentException("SONOS_HOST not in settings");
+
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await _sonosManager.InitializeFromDevice(_discoveryDevice, stoppingToken);
+        await Task.Delay(10_000, stoppingToken); // Wait 15 seconds to allow initial subscriptions
+
+        await _sonosManager.SubscribeToTopologyChanges(stoppingToken);
         while (!stoppingToken.IsCancellationRequested)
         {
             _logger.LogInformation("Sonos Worker running at: {time}", DateTimeOffset.Now);
 
-            await _sonosManager.InitializeFromDevice(_discoveryDevice, stoppingToken);
+            
+
             // Delay ten minutes
-            Task.Delay(60_000 * 10, stoppingToken).Wait(stoppingToken);
+            await Task.Delay(60_000 * 10, stoppingToken);
         }
+
     }
 }
