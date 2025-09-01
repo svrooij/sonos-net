@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -183,36 +184,43 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// The start time as `hh:mm:ss`
         /// </summary>
+        [Description("The start time as `hh:mm:ss`")]
         public string StartLocalTime { get; set; }
 
         /// <summary>
         /// The duration as `hh:mm:ss`
         /// </summary>
+        [Description("The duration as `hh:mm:ss`")]
         public string Duration { get; set; }
 
         /// <summary>
         /// Repeat this alarm on
         /// </summary>
+        [Description("Repeat this alarm on")]
         public string Recurrence { get; set; }
 
         /// <summary>
         /// Alarm enabled after creation
         /// </summary>
+        [Description("Alarm enabled after creation")]
         public bool Enabled { get; set; }
 
         /// <summary>
         /// The UUID of the speaker you want this alarm for
         /// </summary>
+        [Description("The UUID of the speaker you want this alarm for")]
         public string RoomUUID { get; set; }
 
         /// <summary>
         /// The sound uri
         /// </summary>
+        [Description("The sound uri")]
         public string ProgramURI { get; set; }
 
         /// <summary>
         /// The sound metadata, can be empty string
         /// </summary>
+        [Description("The sound metadata, can be empty string")]
         public string ProgramMetaData { get; set; }
 
         /// <summary>
@@ -229,16 +237,19 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Alarm play mode
         /// </summary>
+        [Description("Alarm play mode")]
         public string PlayMode { get; set; }
 
         /// <summary>
         /// Volume between 0 and 100
         /// </summary>
+        [Description("Volume between 0 and 100")]
         public int Volume { get; set; }
 
         /// <summary>
         /// Should grouped players also play the alarm?
         /// </summary>
+        [Description("Should grouped players also play the alarm?")]
         public bool IncludeLinkedZones { get; set; }
     }
 
@@ -249,6 +260,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// The ID of the new alarm
         /// </summary>
+        [Description("The ID of the new alarm")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int AssignedID { get; set; }
     }
@@ -261,6 +273,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// The Alarm ID from ListAlarms
         /// </summary>
+        [Description("The Alarm ID from ListAlarms")]
         public int ID { get; set; }
     }
 
@@ -372,6 +385,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// xml string, see remarks
         /// </summary>
+        [Description("xml string, see remarks")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string CurrentAlarmList { get; set; }
 
@@ -433,41 +447,49 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// The ID of the alarm see ListAlarms
         /// </summary>
+        [Description("The ID of the alarm see ListAlarms")]
         public int ID { get; set; }
 
         /// <summary>
         /// The start time as `hh:mm:ss`
         /// </summary>
+        [Description("The start time as `hh:mm:ss`")]
         public string StartLocalTime { get; set; }
 
         /// <summary>
         /// The duration as `hh:mm:ss`
         /// </summary>
+        [Description("The duration as `hh:mm:ss`")]
         public string Duration { get; set; }
 
         /// <summary>
         /// Repeat this alarm on
         /// </summary>
+        [Description("Repeat this alarm on")]
         public string Recurrence { get; set; }
 
         /// <summary>
         /// Alarm enabled after creation
         /// </summary>
+        [Description("Alarm enabled after creation")]
         public bool Enabled { get; set; }
 
         /// <summary>
         /// The UUID of the speaker you want this alarm for
         /// </summary>
+        [Description("The UUID of the speaker you want this alarm for")]
         public string RoomUUID { get; set; }
 
         /// <summary>
         /// The sound uri
         /// </summary>
+        [Description("The sound uri")]
         public string ProgramURI { get; set; }
 
         /// <summary>
         /// The sound metadata, can be empty string
         /// </summary>
+        [Description("The sound metadata, can be empty string")]
         public string ProgramMetaData { get; set; }
 
         /// <summary>
@@ -484,16 +506,19 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         /// <summary>
         /// Alarm play mode
         /// </summary>
+        [Description("Alarm play mode")]
         public string PlayMode { get; set; }
 
         /// <summary>
         /// Volume between 0 and 100
         /// </summary>
+        [Description("Volume between 0 and 100")]
         public int Volume { get; set; }
 
         /// <summary>
         /// Should grouped players also play the alarm?
         /// </summary>
+        [Description("Should grouped players also play the alarm?")]
         public bool IncludeLinkedZones { get; set; }
     }
 

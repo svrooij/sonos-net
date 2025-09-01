@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -103,6 +104,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -122,6 +124,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -141,6 +144,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public bool DesiredMute { get; set; }
@@ -154,11 +158,13 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// New volume between 0 and 100
         /// </summary>
+        [Description("New volume between 0 and 100")]
         public int DesiredVolume { get; set; }
     }
 
@@ -170,11 +176,13 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Number between -100 and +100
         /// </summary>
+        [Description("Number between -100 and +100")]
         public int Adjustment { get; set; }
     }
 
@@ -194,6 +202,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 

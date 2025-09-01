@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -387,6 +388,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public int UpdateID { get; set; }
@@ -453,6 +455,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string EnqueuedURI { get; set; }
@@ -473,6 +476,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// use `0` to add at the end or `1` to insert at the beginning
         /// </summary>
+        [Description("use `0` to add at the end or `1` to insert at the beginning")]
         public int DesiredFirstTrackNumberEnqueued { get; set; }
 
         public bool EnqueueAsNext { get; set; }
@@ -500,6 +504,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string ObjectID { get; set; }
@@ -546,6 +551,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -557,6 +563,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -579,6 +586,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string CurrentCoordinator { get; set; }
@@ -623,6 +631,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string CurrentCoordinator { get; set; }
@@ -669,6 +678,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string CurrentCoordinator { get; set; }
@@ -688,6 +698,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string NewTransportSettings { get; set; }
@@ -703,11 +714,13 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Time to stop after, as `hh:mm:ss` or empty string to cancel
         /// </summary>
+        [Description("Time to stop after, as `hh:mm:ss` or empty string to cancel")]
         public string NewSleepTimerDuration { get; set; }
     }
 
@@ -719,6 +732,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Title { get; set; }
@@ -764,16 +778,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// uuid of the new coordinator - must be in same group
         /// </summary>
+        [Description("uuid of the new coordinator - must be in same group")]
         public string NewCoordinator { get; set; }
 
         /// <summary>
         /// Should former coordinator rejoin the group?
         /// </summary>
+        [Description("Should former coordinator rejoin the group?")]
         public bool RejoinGroup { get; set; }
     }
 
@@ -785,6 +802,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -796,6 +814,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -815,6 +834,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -834,6 +854,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -859,6 +880,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -924,6 +946,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -975,6 +998,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -985,6 +1009,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// Format hh:mm:ss or empty string if not set
         /// </summary>
+        [Description("Format hh:mm:ss or empty string if not set")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string RemainingSleepTimerDuration { get; set; }
 
@@ -1000,6 +1025,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1025,6 +1051,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1050,6 +1077,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1072,6 +1100,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1083,6 +1112,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string DeletedURI { get; set; }
@@ -1096,6 +1126,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1107,11 +1138,13 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Play speed usually 1, can be a fraction of 1
         /// </summary>
+        [Description("Play speed usually 1, can be a fraction of 1")]
         public string Speed { get; set; }
     }
 
@@ -1123,6 +1156,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1134,6 +1168,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -1145,6 +1180,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string ObjectID { get; set; }
@@ -1160,16 +1196,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Leave blank
         /// </summary>
+        [Description("Leave blank")]
         public int UpdateID { get; set; }
 
         /// <summary>
         /// between 1 and queue-length
         /// </summary>
+        [Description("between 1 and queue-length")]
         public int StartingIndex { get; set; }
 
         public int NumberOfTracks { get; set; }
@@ -1191,6 +1230,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public int StartingIndex { get; set; }
@@ -1210,6 +1250,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string ObjectID { get; set; }
@@ -1243,6 +1284,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public int AlarmID { get; set; }
@@ -1281,16 +1323,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// SONOS playlist title
         /// </summary>
+        [Description("SONOS playlist title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Leave blank
         /// </summary>
+        [Description("Leave blank")]
         public string ObjectID { get; set; }
     }
 
@@ -1310,16 +1355,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// What to seek
         /// </summary>
+        [Description("What to seek")]
         public string Unit { get; set; }
 
         /// <summary>
         /// Position of track in queue (start at 1) or `hh:mm:ss` for `REL_TIME` or `+/-hh:mm:ss` for `TIME_DELTA`
         /// </summary>
+        [Description("Position of track in queue (start at 1) or `hh:mm:ss` for `REL_TIME` or `+/-hh:mm:ss` for `TIME_DELTA`")]
         public string Target { get; set; }
     }
 
@@ -1331,16 +1379,19 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// The new TransportURI - its a special SONOS format
         /// </summary>
+        [Description("The new TransportURI - its a special SONOS format")]
         public string CurrentURI { get; set; }
 
         /// <summary>
         /// Track Metadata, see MetadataHelper.GuessTrack to guess based on track uri
         /// </summary>
+        [Description("Track Metadata, see MetadataHelper.GuessTrack to guess based on track uri")]
         public string CurrentURIMetaData { get; set; }
 
         /// <summary>
@@ -1363,6 +1414,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public bool CrossfadeMode { get; set; }
@@ -1376,6 +1428,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string NextURI { get; set; }
@@ -1402,11 +1455,13 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// New playmode
         /// </summary>
+        [Description("New playmode")]
         public string NewPlayMode { get; set; }
     }
 
@@ -1418,11 +1473,13 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Snooze time as `hh:mm:ss`, 10 minutes = 00:10:00
         /// </summary>
+        [Description("Snooze time as `hh:mm:ss`, 10 minutes = 00:10:00")]
         public string Duration { get; set; }
     }
 
@@ -1434,6 +1491,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string ProgramURI { get; set; }
@@ -1466,6 +1524,7 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 

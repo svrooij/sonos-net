@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -162,6 +163,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
         /// <summary>
         /// xml string, see remarks
         /// </summary>
+        [Description("xml string, see remarks")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string ZoneGroupState { get; set; }
     }

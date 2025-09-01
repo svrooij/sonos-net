@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -281,6 +282,7 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
         /// <summary>
         /// The key for this variable
         /// </summary>
+        [Description("The key for this variable")]
         public string VariableName { get; set; }
     }
 
@@ -353,6 +355,7 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
         /// <summary>
         /// The key for this variable
         /// </summary>
+        [Description("The key for this variable")]
         public string VariableName { get; set; }
     }
 
@@ -410,6 +413,7 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
         /// <summary>
         /// The key for this variable, use something unique
         /// </summary>
+        [Description("The key for this variable, use something unique")]
         public string VariableName { get; set; }
 
         public string StringValue { get; set; }

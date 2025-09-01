@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -281,6 +282,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
         /// <summary>
         /// example: `RINCON_000PPP1400:LF,RF;RINCON_000RRR1400:RR;RINCON_000SSS1400:LR;RINCON_000QQQ1400:SW`
         /// </summary>
+        [Description("example: `RINCON_000PPP1400:LF,RF;RINCON_000RRR1400:RR;RINCON_000SSS1400:LR;RINCON_000QQQ1400:SW`")]
         public string HTSatChanMapSet { get; set; }
     }
 
@@ -292,6 +294,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
         /// <summary>
         /// example: `RINCON_B8E9375831C001400:LF,LF;RINCON_000E58FE3AEA01400:RF,RF`
         /// </summary>
+        [Description("example: `RINCON_B8E9375831C001400:LF,LF;RINCON_000E58FE3AEA01400:RF,RF`")]
         public string ChannelMapSet { get; set; }
     }
 
@@ -473,6 +476,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
         /// <summary>
         /// SPDIF input, `0` not connected / `2` stereo / `7` Dolby 2.0 / `18` dolby 5.1 / `21` not listening / `22` silence
         /// </summary>
+        [Description("SPDIF input, `0` not connected / `2` stereo / `7` Dolby 2.0 / `18` dolby 5.1 / `21` not listening / `22` silence")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int HTAudioIn { get; set; }
 
@@ -498,6 +502,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
         /// <summary>
         /// example: `RINCON_000RRR1400`
         /// </summary>
+        [Description("example: `RINCON_000RRR1400`")]
         public string SatRoomUUID { get; set; }
     }
 
@@ -537,6 +542,7 @@ public partial class DevicePropertiesService : SonosBaseService<DeviceProperties
         /// <summary>
         /// example: `RINCON_B8E9375831C001400:LF,LF;RINCON_000E58FE3AEA01400:RF,RF`
         /// </summary>
+        [Description("example: `RINCON_B8E9375831C001400:LF,LF;RINCON_000E58FE3AEA01400:RF,RF`")]
         public string ChannelMapSet { get; set; }
     }
 

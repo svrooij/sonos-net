@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -271,6 +272,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -290,11 +292,13 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
         /// </summary>
+        [Description("Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
         public string EQType { get; set; }
     }
 
@@ -305,6 +309,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// Booleans return `1` / `0`, rest number as specified
         /// </summary>
+        [Description("Booleans return `1` / `0`, rest number as specified")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentValue { get; set; }
     }
@@ -317,6 +322,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -336,6 +342,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -357,6 +364,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -378,6 +386,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -397,6 +406,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -419,6 +429,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -438,6 +449,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -448,6 +460,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// Number between -10 and 10
         /// </summary>
+        [Description("Number between -10 and 10")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentTreble { get; set; }
     }
@@ -460,6 +473,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -472,6 +486,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// Number between 0 and 100
         /// </summary>
+        [Description("Number between 0 and 100")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentVolume { get; set; }
     }
@@ -484,6 +499,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -505,6 +521,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -529,6 +546,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -558,6 +576,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
     }
 
@@ -589,6 +608,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string EQType { get; set; }
@@ -602,6 +622,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -615,6 +636,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public int DesiredBass { get; set; }
@@ -628,6 +650,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string ChannelMap { get; set; }
@@ -641,16 +664,19 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
         /// </summary>
+        [Description("Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
         public string EQType { get; set; }
 
         /// <summary>
         /// Booleans required `1` for true or `0` for false, rest number as specified
         /// </summary>
+        [Description("Booleans required `1` for true or `0` for false, rest number as specified")]
         public int DesiredValue { get; set; }
     }
 
@@ -662,6 +688,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -677,6 +704,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -692,6 +720,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public bool DesiredFixed { get; set; }
@@ -705,6 +734,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -728,6 +758,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public bool RoomCalibrationEnabled { get; set; }
@@ -741,6 +772,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string CalibrationID { get; set; }
@@ -758,11 +790,13 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
         /// between -10 and 10
         /// </summary>
+        [Description("between -10 and 10")]
         public int DesiredTreble { get; set; }
     }
 
@@ -774,6 +808,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }
@@ -789,6 +824,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         /// <summary>
         /// InstanceID should always be `0`
         /// </summary>
+        [Description("InstanceID should always be `0`")]
         public int InstanceID { get; set; } = 0;
 
         public string Channel { get; set; }

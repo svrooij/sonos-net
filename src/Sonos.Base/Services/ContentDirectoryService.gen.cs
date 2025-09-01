@@ -20,6 +20,7 @@
 
 namespace Sonos.Base.Services;
 
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -174,31 +175,37 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
         /// <summary>
         /// The search query, (`A:ARTIST` / `A:ALBUMARTIST` / `A:ALBUM` / `A:GENRE` / `A:COMPOSER` / `A:TRACKS` / `A:PLAYLISTS` / `FV:2` / `Q:`/ `R:0/0` / `R:0/1` / `S:` / `SQ:`) with optionally `:search+query` behind it.
         /// </summary>
+        [Description("The search query, (`A:ARTIST` / `A:ALBUMARTIST` / `A:ALBUM` / `A:GENRE` / `A:COMPOSER` / `A:TRACKS` / `A:PLAYLISTS` / `FV:2` / `Q:`/ `R:0/0` / `R:0/1` / `S:` / `SQ:`) with optionally `:search+query` behind it.")]
         public string ObjectID { get; set; }
 
         /// <summary>
         /// How to browse
         /// </summary>
+        [Description("How to browse")]
         public string BrowseFlag { get; set; }
 
         /// <summary>
         /// Which fields should be returned `*` for all.
         /// </summary>
+        [Description("Which fields should be returned `*` for all.")]
         public string Filter { get; set; }
 
         /// <summary>
         /// Paging, where to start, usually 0
         /// </summary>
+        [Description("Paging, where to start, usually 0")]
         public int StartingIndex { get; set; }
 
         /// <summary>
         /// Paging, number of items, maximum is 1,000. This parameter does NOT restrict the number of items being searched (filter) but only the number being returned. Using 0 is equivalent to 1,000
         /// </summary>
+        [Description("Paging, number of items, maximum is 1,000. This parameter does NOT restrict the number of items being searched (filter) but only the number being returned. Using 0 is equivalent to 1,000")]
         public int RequestedCount { get; set; }
 
         /// <summary>
         /// Sort the results based on metadata fields. `+upnp:artist,+dc:title` for sorting on artist then on title.
         /// </summary>
+        [Description("Sort the results based on metadata fields. `+upnp:artist,+dc:title` for sorting on artist then on title.")]
         public string SortCriteria { get; set; }
     }
 
@@ -209,6 +216,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
         /// <summary>
         /// Encoded DIDL-Lite XML. See remark (2)
         /// </summary>
+        [Description("Encoded DIDL-Lite XML. See remark (2)")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string Result { get; set; }
 
@@ -358,6 +366,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
         /// <summary>
         /// `WMP`, `ITUNES` or `NONE`
         /// </summary>
+        [Description("`WMP`, `ITUNES` or `NONE`")]
         public string AlbumArtistDisplayOption { get; set; }
     }
 
