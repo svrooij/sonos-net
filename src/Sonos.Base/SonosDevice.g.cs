@@ -24,261 +24,100 @@ using Sonos.Base.Services;
 public partial class SonosDevice
 {
     private AlarmClockService? _alarmclock;
-
     /// <summary>
     /// Auto initialized AlarmClock Service for this device
     /// </summary>
-    public AlarmClockService AlarmClockService
-    {
-        get
-        {
-            if (_alarmclock is null)
-            {
-                _alarmclock = new AlarmClockService(ServiceOptions);
-            }
-            return _alarmclock;
-        }
-    }
-    private AudioInService? _audioin;
+    public AlarmClockService AlarmClockService => _alarmclock ??= new AlarmClockService(ServiceOptions);
 
+    private AudioInService? _audioin;
     /// <summary>
     /// Auto initialized AudioIn Service for this device
     /// </summary>
-    public AudioInService AudioInService
-    {
-        get
-        {
-            if (_audioin is null)
-            {
-                _audioin = new AudioInService(ServiceOptions);
-            }
-            return _audioin;
-        }
-    }
-    private AVTransportService? _avtransport;
+    public AudioInService AudioInService => _audioin ??= new AudioInService(ServiceOptions);
 
+    private AVTransportService? _avtransport;
     /// <summary>
     /// Auto initialized AVTransport Service for this device
     /// </summary>
-    public AVTransportService AVTransportService
-    {
-        get
-        {
-            if (_avtransport is null)
-            {
-                _avtransport = new AVTransportService(ServiceOptions);
-            }
-            return _avtransport;
-        }
-    }
-    private ConnectionManagerService? _connectionmanager;
+    public AVTransportService AVTransportService => _avtransport ??= new AVTransportService(ServiceOptions);
 
+    private ConnectionManagerService? _connectionmanager;
     /// <summary>
     /// Auto initialized ConnectionManager Service for this device
     /// </summary>
-    public ConnectionManagerService ConnectionManagerService
-    {
-        get
-        {
-            if (_connectionmanager is null)
-            {
-                _connectionmanager = new ConnectionManagerService(ServiceOptions);
-            }
-            return _connectionmanager;
-        }
-    }
-    private ContentDirectoryService? _contentdirectory;
+    public ConnectionManagerService ConnectionManagerService => _connectionmanager ??= new ConnectionManagerService(ServiceOptions);
 
+    private ContentDirectoryService? _contentdirectory;
     /// <summary>
     /// Auto initialized ContentDirectory Service for this device
     /// </summary>
-    public ContentDirectoryService ContentDirectoryService
-    {
-        get
-        {
-            if (_contentdirectory is null)
-            {
-                _contentdirectory = new ContentDirectoryService(ServiceOptions);
-            }
-            return _contentdirectory;
-        }
-    }
-    private DevicePropertiesService? _deviceproperties;
+    public ContentDirectoryService ContentDirectoryService => _contentdirectory ??= new ContentDirectoryService(ServiceOptions);
 
+    private DevicePropertiesService? _deviceproperties;
     /// <summary>
     /// Auto initialized DeviceProperties Service for this device
     /// </summary>
-    public DevicePropertiesService DevicePropertiesService
-    {
-        get
-        {
-            if (_deviceproperties is null)
-            {
-                _deviceproperties = new DevicePropertiesService(ServiceOptions);
-            }
-            return _deviceproperties;
-        }
-    }
-    private GroupManagementService? _groupmanagement;
+    public DevicePropertiesService DevicePropertiesService => _deviceproperties ??= new DevicePropertiesService(ServiceOptions);
 
+    private GroupManagementService? _groupmanagement;
     /// <summary>
     /// Auto initialized GroupManagement Service for this device
     /// </summary>
-    public GroupManagementService GroupManagementService
-    {
-        get
-        {
-            if (_groupmanagement is null)
-            {
-                _groupmanagement = new GroupManagementService(ServiceOptions);
-            }
-            return _groupmanagement;
-        }
-    }
-    private GroupRenderingControlService? _grouprenderingcontrol;
+    public GroupManagementService GroupManagementService => _groupmanagement ??= new GroupManagementService(ServiceOptions);
 
+    private GroupRenderingControlService? _grouprenderingcontrol;
     /// <summary>
     /// Auto initialized GroupRenderingControl Service for this device
     /// </summary>
-    public GroupRenderingControlService GroupRenderingControlService
-    {
-        get
-        {
-            if (_grouprenderingcontrol is null)
-            {
-                _grouprenderingcontrol = new GroupRenderingControlService(ServiceOptions);
-            }
-            return _grouprenderingcontrol;
-        }
-    }
-    private HTControlService? _htcontrol;
+    public GroupRenderingControlService GroupRenderingControlService => _grouprenderingcontrol ??= new GroupRenderingControlService(ServiceOptions);
 
+    private HTControlService? _htcontrol;
     /// <summary>
     /// Auto initialized HTControl Service for this device
     /// </summary>
-    public HTControlService HTControlService
-    {
-        get
-        {
-            if (_htcontrol is null)
-            {
-                _htcontrol = new HTControlService(ServiceOptions);
-            }
-            return _htcontrol;
-        }
-    }
-    private MusicServicesService? _musicservices;
+    public HTControlService HTControlService => _htcontrol ??= new HTControlService(ServiceOptions);
 
+    private MusicServicesService? _musicservices;
     /// <summary>
     /// Auto initialized MusicServices Service for this device
     /// </summary>
-    public MusicServicesService MusicServicesService
-    {
-        get
-        {
-            if (_musicservices is null)
-            {
-                _musicservices = new MusicServicesService(ServiceOptions);
-            }
-            return _musicservices;
-        }
-    }
-    private QPlayService? _qplay;
+    public MusicServicesService MusicServicesService => _musicservices ??= new MusicServicesService(ServiceOptions);
 
+    private QPlayService? _qplay;
     /// <summary>
     /// Auto initialized QPlay Service for this device
     /// </summary>
-    public QPlayService QPlayService
-    {
-        get
-        {
-            if (_qplay is null)
-            {
-                _qplay = new QPlayService(ServiceOptions);
-            }
-            return _qplay;
-        }
-    }
-    private QueueService? _queue;
+    public QPlayService QPlayService => _qplay ??= new QPlayService(ServiceOptions);
 
+    private QueueService? _queue;
     /// <summary>
     /// Auto initialized Queue Service for this device
     /// </summary>
-    public QueueService QueueService
-    {
-        get
-        {
-            if (_queue is null)
-            {
-                _queue = new QueueService(ServiceOptions);
-            }
-            return _queue;
-        }
-    }
-    private RenderingControlService? _renderingcontrol;
+    public QueueService QueueService => _queue ??= new QueueService(ServiceOptions);
 
+    private RenderingControlService? _renderingcontrol;
     /// <summary>
     /// Auto initialized RenderingControl Service for this device
     /// </summary>
-    public RenderingControlService RenderingControlService
-    {
-        get
-        {
-            if (_renderingcontrol is null)
-            {
-                _renderingcontrol = new RenderingControlService(ServiceOptions);
-            }
-            return _renderingcontrol;
-        }
-    }
-    private SystemPropertiesService? _systemproperties;
+    public RenderingControlService RenderingControlService => _renderingcontrol ??= new RenderingControlService(ServiceOptions);
 
+    private SystemPropertiesService? _systemproperties;
     /// <summary>
     /// Auto initialized SystemProperties Service for this device
     /// </summary>
-    public SystemPropertiesService SystemPropertiesService
-    {
-        get
-        {
-            if (_systemproperties is null)
-            {
-                _systemproperties = new SystemPropertiesService(ServiceOptions);
-            }
-            return _systemproperties;
-        }
-    }
-    private VirtualLineInService? _virtuallinein;
+    public SystemPropertiesService SystemPropertiesService => _systemproperties ??= new SystemPropertiesService(ServiceOptions);
 
+    private VirtualLineInService? _virtuallinein;
     /// <summary>
     /// Auto initialized VirtualLineIn Service for this device
     /// </summary>
-    public VirtualLineInService VirtualLineInService
-    {
-        get
-        {
-            if (_virtuallinein is null)
-            {
-                _virtuallinein = new VirtualLineInService(ServiceOptions);
-            }
-            return _virtuallinein;
-        }
-    }
-    private ZoneGroupTopologyService? _zonegrouptopology;
+    public VirtualLineInService VirtualLineInService => _virtuallinein ??= new VirtualLineInService(ServiceOptions);
 
+    private ZoneGroupTopologyService? _zonegrouptopology;
     /// <summary>
     /// Auto initialized ZoneGroupTopology Service for this device
     /// </summary>
-    public ZoneGroupTopologyService ZoneGroupTopologyService
-    {
-        get
-        {
-            if (_zonegrouptopology is null)
-            {
-                _zonegrouptopology = new ZoneGroupTopologyService(ServiceOptions);
-            }
-            return _zonegrouptopology;
-        }
-    }
+    public ZoneGroupTopologyService ZoneGroupTopologyService => _zonegrouptopology ??= new ZoneGroupTopologyService(ServiceOptions);
 
     private void DisposeServices()
     {
@@ -298,5 +137,73 @@ public partial class SonosDevice
         _systemproperties?.Dispose();
         _virtuallinein?.Dispose();
         _zonegrouptopology?.Dispose();
+    }
+
+    private async ValueTask DisposeServicesAsync()
+    {
+        if (_alarmclock is not null)
+        {
+            await _alarmclock.DisposeAsync();
+        }
+        if (_audioin is not null)
+        {
+            await _audioin.DisposeAsync();
+        }
+        if (_avtransport is not null)
+        {
+            await _avtransport.DisposeAsync();
+        }
+        if (_connectionmanager is not null)
+        {
+            await _connectionmanager.DisposeAsync();
+        }
+        if (_contentdirectory is not null)
+        {
+            await _contentdirectory.DisposeAsync();
+        }
+        if (_deviceproperties is not null)
+        {
+            await _deviceproperties.DisposeAsync();
+        }
+        if (_groupmanagement is not null)
+        {
+            await _groupmanagement.DisposeAsync();
+        }
+        if (_grouprenderingcontrol is not null)
+        {
+            await _grouprenderingcontrol.DisposeAsync();
+        }
+        if (_htcontrol is not null)
+        {
+            await _htcontrol.DisposeAsync();
+        }
+        if (_musicservices is not null)
+        {
+            await _musicservices.DisposeAsync();
+        }
+        if (_qplay is not null)
+        {
+            await _qplay.DisposeAsync();
+        }
+        if (_queue is not null)
+        {
+            await _queue.DisposeAsync();
+        }
+        if (_renderingcontrol is not null)
+        {
+            await _renderingcontrol.DisposeAsync();
+        }
+        if (_systemproperties is not null)
+        {
+            await _systemproperties.DisposeAsync();
+        }
+        if (_virtuallinein is not null)
+        {
+            await _virtuallinein.DisposeAsync();
+        }
+        if (_zonegrouptopology is not null)
+        {
+            await _zonegrouptopology.DisposeAsync();
+        }
     }
 }

@@ -41,14 +41,18 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         }
     }
 
-    internal void UpdateCoordinator(SonosDevice? newCoordinator)
+    internal void UpdateCoordinator(SonosDevice? newCoordinator, string groupId, string groupName)
     {
         if (newCoordinator?.Uuid != coordinator?.Uuid)
         {
             coordinator = newCoordinator;
-            logger?.LogInformation("Updated coordinator for {Device} to {Coordinator}", this, coordinator);
+            logger?.LogInformation("Updated coordinator for {Device} to {Coordinator}", this, coordinator?.ToString() ?? "itself");
         }
-        
+        Status ??= new ();
+
+        Status.GroupId = groupId;
+        Status.GroupName = groupName;
+
     }
 
     public string DeviceName { get; private set; }
@@ -62,6 +66,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         DeviceName = options.DeviceName ?? "Not specified";
         Uuid = options.Uuid ?? Guid.NewGuid().ToString();
         logger = options.ServiceProvider.CreateLogger<SonosDevice>();
+        GroupName = options.GroupName ?? "Not specified";
     }
 
     internal SonosServiceOptions ServiceOptions { get; private set; }
@@ -77,7 +82,12 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public async Task<bool> QueueNotification(NotificationOptions notificationOptions, CancellationToken cancellationToken = default)
     {
-        //TODO Check if speaker is playing else skip
+        if (subscribedToEvents && notificationOptions.OnlyWhenPlaying && (Status?.IsPlaying != true))
+        {
+            logger?.LogInformation("Skipping notification on {Device} because it is not playing", this);
+            return false;
+        }
+
         if (notificationOptions.Volume < 1 || notificationOptions.Volume > 100)
         {
             throw new ArgumentOutOfRangeException(nameof(NotificationOptions.Volume), "Volume must be between 1 and 100");
@@ -91,8 +101,6 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         return true;
     }
 
-    #region Shortcuts
-
     public Task<bool> Next(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Next(cancellationToken);
 
     public Task<bool> Pause(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Pause(cancellationToken);
@@ -105,17 +113,88 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public async Task<bool> TogglePlayback(CancellationToken cancellationToken = default)
     {
+        // Fast path if events are used and we have a status
+        if (Status?.TransportState is not null)
+        {
+            if (Status.IsPlaying == true)
+            {
+                return await Coordinator.Pause(cancellationToken);
+            }
+            else
+            {
+                return await Coordinator.Play(cancellationToken);
+            }
+        }
         var transportInfo = await Coordinator.AVTransportService.GetTransportInfo(cancellationToken);
         
-        return transportInfo.CurrentTransportState switch
+        return AVTransportService.TransportState.IsPlaying(transportInfo.CurrentTransportState) switch
         {
-            AVTransportService.TransportState.Transitioning or AVTransportService.TransportState.Playing => await Coordinator.Pause(cancellationToken),
-            AVTransportService.TransportState.Paused or AVTransportService.TransportState.Stopped => await Coordinator.Play(cancellationToken),
-            _ => false,
+            true => await Coordinator.Pause(cancellationToken),
+            false => await Coordinator.Play(cancellationToken),
+            null => false
         };
     }
 
-    #endregion Shortcuts
+    public Models.SonosEvent? Status { get; private set; }
+    public event EventHandler<Models.SonosEvent>? OnStatusChanged;
+    private bool subscribedToEvents = false;
+
+    public async Task SubscribeToEvents(CancellationToken cancellationToken = default)
+    {
+        if (!subscribedToEvents)
+        {
+            AVTransportService.OnEvent += AVTransportService_OnEvent;
+            RenderingControlService.OnEvent += RenderingControlService_OnEvent;
+            subscribedToEvents = true;
+        }
+        
+        await AVTransportService.SubscribeForEventsAsync(cancellationToken);
+        await RenderingControlService.SubscribeForEventsAsync(cancellationToken);
+    }
+
+    private void RenderingControlService_OnEvent(object? sender, RenderingControlService.IRenderingControlEvent e)
+    {
+        Status ??= new ();
+        if (e.Volume is not null)
+        {
+            Status.Volume = e.Volume["Master"];
+        }
+
+        if (e.Mute is not null)
+        {
+            Status.Muted = e.Mute["Master"];
+        }
+
+        OnStatusChanged?.Invoke(this, Status);
+    }
+
+    private void AVTransportService_OnEvent(object? sender, AVTransportService.IAVTransportEvent e)
+    {
+        Status ??= new ();
+        if (e.TransportState is not null)
+        {
+            Status.TransportState = e.TransportState;
+        }
+
+        if (e.CurrentTrackURI is not null && e.CurrentTrackURI != Status.CurrentTrackUri)
+        {
+            Status.CurrentTrackUri = e.CurrentTrackURI;
+            if (e.CurrentTrackMetaDataObject?.Items is not null)
+            {
+                Status.CurrentTrack = e.CurrentTrackMetaDataObject.Items.FirstOrDefault();
+            }
+        }
+
+        if (e.NextTrackURI is not null && e.NextTrackURI != Status.NextTrackUri)
+        {
+            Status.NextTrackUri = e.NextTrackURI;
+            if (e.NextTrackMetaDataObject?.Items is not null)
+            {
+                Status.NextTrack = e.NextTrackMetaDataObject.Items.FirstOrDefault();
+            }
+        }
+        OnStatusChanged?.Invoke(this, Status);
+    }
 
     public override string ToString()
     {

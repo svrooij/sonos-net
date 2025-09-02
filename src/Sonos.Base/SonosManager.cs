@@ -85,13 +85,13 @@ namespace Sonos.Base
             {
                 throw new InvalidOperationException("Manager not initialized, call InitializeFromDevice first");
             }
-            if (subscribed)
+            if (!subscribed)
             {
-                return;
+                zoneGroupTopologyService.OnEvent += ZoneGroupTopologyService_OnEvent;
+                subscribed = true;
             }
-            zoneGroupTopologyService.OnEvent += ZoneGroupTopologyService_OnEvent;
+            
             await zoneGroupTopologyService.SubscribeForEventsAsync(cancellationToken);
-            subscribed = true;
         }
 
         private void ZoneGroupTopologyService_OnEvent(object? sender, ZoneGroupTopologyService.IZoneGroupTopologyEvent e)
@@ -110,7 +110,7 @@ namespace Sonos.Base
                     coordinator = new SonosDevice(new SonosDeviceOptions(zone.CoordinatorMember.BaseUri, provider, zone.CoordinatorMember.UUID, zone.CoordinatorMember.ZoneName, zone.GroupName, null));
                     devices.TryAdd(coordinator.Uuid, coordinator);
                 }
-                coordinator.UpdateCoordinator(null);
+                coordinator.UpdateCoordinator(null, zone.ID, zone.GroupName);
 
                 groups.AddOrUpdate(zone.ID, new SonosDeviceGroup
                 {
@@ -130,7 +130,7 @@ namespace Sonos.Base
                     }
                     else
                     {
-                        device.UpdateCoordinator(coordinator);
+                        device.UpdateCoordinator(coordinator, zone.ID, zone.GroupName);
                     }
                 }
             }

@@ -25,27 +25,26 @@ public partial class SonosDevice
 {
     {{#each services}}
     private {{name}}Service? _{{lower name}};
-
     /// <summary>
     /// Auto initialized {{name}} Service for this device
     /// </summary>
-    public {{name}}Service {{name}}Service
-    {
-        get
-        {
-            if (_{{lower name}} is null)
-            {
-                _{{lower name}} = new {{name}}Service(ServiceOptions);
-            }
-            return _{{lower name}};
-        }
-    }
-    {{/each}}
+    public {{name}}Service {{name}}Service => _{{lower name}} ??= new {{name}}Service(ServiceOptions);
 
+    {{/each}}
     private void DisposeServices()
     {
         {{#each services}}
         _{{lower name}}?.Dispose();
+        {{/each}}
+    }
+
+    private async ValueTask DisposeServicesAsync()
+    {
+        {{#each services}}
+        if (_{{lower name}} is not null)
+        {
+            await _{{lower name}}.DisposeAsync();
+        }
         {{/each}}
     }
 }

@@ -27,7 +27,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 
-public partial class SonosBaseService : IDisposable
+public partial class SonosBaseService : IDisposable, IAsyncDisposable
 {
     protected readonly string ControlPath;
     protected readonly string EventPath;
@@ -104,6 +104,11 @@ public partial class SonosBaseService : IDisposable
 
     }
 
+    public virtual ValueTask DisposeAsync()
+    {
+        return ValueTask.CompletedTask;
+    }
+
     internal virtual Dictionary<int, SonosUpnpError> ServiceErrors { get => SonosUpnpError.DefaultErrors; }
 
     [LoggerMessage(EventId = 100, Level = LogLevel.Debug, Message = "ExecuteRequest started {Uuid}/{Service} {Action}")]
@@ -117,6 +122,8 @@ public partial class SonosBaseService : IDisposable
 
     [LoggerMessage(EventId = 104, Level = LogLevel.Warning, Message = "Sonos request failed {Uuid}/{Service} {Action}")]
     private partial void LogHandleErrorResponse(SonosServiceException e, string uuid, SonosService service, string? action);
+
+
 }
 
 public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IServiceEvent
@@ -161,6 +168,15 @@ public class SonosBaseService<TEvent> : SonosBaseService where TEvent : IService
             
         base.Dispose();
 
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (eventBus is not null)
+        {
+            await CancelEventSubscriptionAsync(CancellationToken.None);
+        }
+        await base.DisposeAsync();
     }
 
     public event EventHandler<TEvent> OnEvent;

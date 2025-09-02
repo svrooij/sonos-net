@@ -16,6 +16,15 @@ namespace Sonos.Base.Services
             public const string Playing = "PLAYING";
             public const string Paused = "PAUSED_PLAYBACK";
             public const string Transitioning = "TRANSITIONING";
+
+            public static bool? IsPlaying(string? state)
+            {
+                if (string.IsNullOrEmpty(state))
+                {
+                    return null;
+                }
+                return state == Playing || state == Transitioning;
+            }
         }
     }
 }
