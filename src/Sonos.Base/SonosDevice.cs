@@ -196,6 +196,14 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         OnStatusChanged?.Invoke(this, Status);
     }
 
+    public async Task<HttpResponseMessage> GetAlbumArtAsync(string queryString, CancellationToken cancellationToken = default)
+    {
+        var baseUri = new Uri(ServiceOptions.DeviceUri, $"/getaa?{queryString}");
+        var fullUri = new Uri(baseUri, queryString);
+        using var httpClient = ServiceOptions.ServiceProvider.GetHttpClient();
+        return await httpClient.GetAsync(fullUri, cancellationToken);
+    }
+
     public override string ToString()
     {
         return $"SonosSpeaker {DeviceName} ({Uuid})";

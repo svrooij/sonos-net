@@ -19,13 +19,23 @@ public class SonosWorker : BackgroundService
     {
         await _sonosManager.InitializeFromDevice(_discoveryDevice, stoppingToken);
         await Task.Delay(10_000, stoppingToken); // Wait 15 seconds to allow initial subscriptions
-
-        await _sonosManager.SubscribeToTopologyChanges(stoppingToken);
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Sonos Worker running at: {time}", DateTimeOffset.Now);
+            _logger.LogInformation("Sonos Worker renew subscriptions: {time}", DateTimeOffset.Now);
+            await _sonosManager.SubscribeToTopologyChanges(stoppingToken);
 
-            
+            var devices = _sonosManager.GetDeviceUuids();
+            List<Task> tasks = new ();
+            foreach (var item in devices)
+            {
+                var device = _sonosManager.GetSonosDevice(item);
+                if (device != null)
+                {
+                    tasks.Add(device.SubscribeToEvents(stoppingToken));
+                }
+            }
+            await Task.WhenAll(tasks);
+
 
             // Delay ten minutes
             await Task.Delay(60_000 * 10, stoppingToken);

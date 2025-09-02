@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Sonos.Base;
 using Sonos.Web.SonosServices;
@@ -13,6 +14,13 @@ internal static class SonosDeviceApi
         webApplication.MapSonosZones();
         webApplication.MapSonosControls();
         webApplication.MapServicesApi();
+
+        webApplication.MapGet("/getaa", AlbumArtProxy)
+            .WithSummary("Album art proxy")
+            .WithDescription("Proxy to get album art from Sonos devices")
+            .Produces(200)
+            .Produces(400)
+            .Produces(404);
     }
 
     private static void MapSonosZones(this WebApplication api)
@@ -75,6 +83,11 @@ internal static class SonosDeviceApi
             .WithDescription("Play previous song")
             .Produces<bool>(200);
 
+        controls.MapGet("/{speakerId}/status", Status)
+            .WithSummary(nameof(Status))
+            .WithDescription("Player status")
+            .Produces<Sonos.Base.Models.SonosEvent>(200);
+
         controls.MapPost("/{speakerId}/stop", Stop)
             .WithSummary(nameof(Stop))
             .WithDescription("Stop speaker playback")
@@ -95,7 +108,6 @@ internal static class SonosDeviceApi
             .WithDescription("Set main channel volume")
             .Produces<bool>(200);
     }
-
 
     private static IResult GetSpeakers(SonosManager sonosManager)
     {
@@ -158,6 +170,17 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
+    private static IResult Status(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        
+        return Results.Ok(device.Status);
+    }
+
     private static async Task<IResult> Stop(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
         var device = sonosManager.GetSonosDevice(speakerId);
@@ -196,4 +219,32 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
+    private static async Task<IResult> AlbumArtProxy(HttpContext context, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        if (!context.Request.QueryString.HasValue)
+        {
+            return Results.Problem("Missing query string", statusCode: 400);
+        }
+
+        var device = sonosManager.GetSonosDevice(sonosManager.GetDeviceUuids().First());
+        var result = await device!.GetAlbumArtAsync(context.Request.QueryString.Value!, cancellationToken);
+
+        if (result.IsSuccessStatusCode)
+        {
+            // Set cache header for 168 hour (7 days)
+            context.Response.Headers.CacheControl = "public,max-age=604800";
+            var contentType = result.Content.Headers.ContentType?.MediaType ?? "image/jpeg";
+            var content = await result.Content.ReadAsByteArrayAsync(cancellationToken);
+            
+            return Results.File(content, contentType);
+        }
+        else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return Results.NotFound();
+        }
+        else
+        {
+            return Results.Problem($"Error retrieving album art: {result.ReasonPhrase}", statusCode: (int)result.StatusCode);
+        }
+    }
 }

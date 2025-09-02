@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Sonos.Base.Events.Http.Tests
 {
     internal static class TestHelpers
     {
-        internal static Mock<HttpClientHandler> MockEventRequest(this Mock<HttpClientHandler> handler, Uri uri, string method, Dictionary<string,string>? verifyHeaders = null, Dictionary<string,string>? responseHeaders = null)
+        internal static Mock<HttpClientHandler> MockEventRequest(this Mock<HttpClientHandler> handler, Uri uri, string method, Dictionary<string,string>? verifyHeaders = null, Dictionary<string,string>? responseHeaders = null, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             
 
@@ -20,7 +21,7 @@ namespace Sonos.Base.Events.Http.Tests
                     "SendAsync",
                     ItExpr.Is<HttpRequestMessage>(m => m.VerifyEventRequest(uri, method, verifyHeaders)),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(OkResponseMessage(responseHeaders));
+                .ReturnsAsync(StatusResponseMessage(statusCode, responseHeaders));
             return handler;
         }
 
@@ -43,11 +44,11 @@ namespace Sonos.Base.Events.Http.Tests
             return true;
         }
 
-        internal static HttpResponseMessage OkResponseMessage(Dictionary<string, string>? headers = null)
+        internal static HttpResponseMessage StatusResponseMessage(HttpStatusCode statusCode, Dictionary<string, string>? headers = null)
         {
             var message = new HttpResponseMessage
             {
-                StatusCode = System.Net.HttpStatusCode.OK
+                StatusCode = statusCode
             };
 
             if (headers is not null)
