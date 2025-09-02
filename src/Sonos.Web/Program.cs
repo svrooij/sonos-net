@@ -1,4 +1,5 @@
-﻿using Scalar.AspNetCore;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Scalar.AspNetCore;
 
 using Sonos.Base;
 using Sonos.Web;
@@ -41,6 +42,13 @@ app.MapOpenApi();
 
 app.UseHttpsRedirection();
 
+// Enable serving static files for Blazor WebAssembly
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+
+// Configure routing
+app.UseRouting();
+
 app.MapScalarApiReference(options =>
 {
     //options.AddOAuth2Authentication("jwt", auth =>
@@ -67,5 +75,8 @@ app.MapScalarApiReference(options =>
 });
 
 app.MapSonosApi();
+
+// Fallback routing for Blazor WebAssembly
+app.MapFallbackToFile("index.html");
 
 app.Run();

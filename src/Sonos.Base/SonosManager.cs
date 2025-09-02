@@ -112,13 +112,20 @@ namespace Sonos.Base
                 }
                 coordinator.UpdateCoordinator(null, zone.ID, zone.GroupName);
 
-                groups.AddOrUpdate(zone.ID, new SonosDeviceGroup
+                groups[zone.ID] = new SonosDeviceGroup
                 {
                     GroupId = zone.ID,
                     Coordinator = new SonosDeviceInfo { Name = coordinator.DeviceName, Uuid = coordinator.Uuid, Uri = zone.CoordinatorMember.BaseUri },
                     GroupName = zone.GroupName,
                     Members = zone.Members.Select(m => new SonosDeviceInfo { Name = m.ZoneName, Uuid = m.UUID, Uri = m.BaseUri }).ToList()
-                }, (old, newGroup) => newGroup);
+                };
+                //groups.AddOrUpdate(zone.ID, new SonosDeviceGroup
+                //{
+                //    GroupId = zone.ID,
+                //    Coordinator = new SonosDeviceInfo { Name = coordinator.DeviceName, Uuid = coordinator.Uuid, Uri = zone.CoordinatorMember.BaseUri },
+                //    GroupName = zone.GroupName,
+                //    Members = zone.Members.Select(m => new SonosDeviceInfo { Name = m.ZoneName, Uuid = m.UUID, Uri = m.BaseUri }).ToList()
+                //}, (old, newGroup) => newGroup);
 
                 foreach (var member in zone.Members)
                 {
@@ -133,6 +140,12 @@ namespace Sonos.Base
                         device.UpdateCoordinator(coordinator, zone.ID, zone.GroupName);
                     }
                 }
+            }
+
+            var groupsToRemove = groups.Keys.Except(e.ParsedState.ZoneGroups.Select(z => z.ID)).ToList();
+            foreach (var item in groupsToRemove)
+            {
+                groups.TryRemove(item, out _);
             }
         }
 

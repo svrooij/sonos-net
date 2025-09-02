@@ -1,0 +1,277 @@
+﻿@page "/control/{SpeakerId}"
+@using Sonos.Web.Blazor.Client;
+@inject SonosWebClient client
+@inject NavigationManager Navigation
+
+<PageTitle>Control player</PageTitle>
+
+@if (Status is null)
+{
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+        Loading player status...
+    </div>
+}
+else
+{
+    <div class="music-player">
+        @if (!string.IsNullOrEmpty(Status.CurrentTrack?.AlbumArtUri))
+        {
+            <img src="@GetAlbumArtUrl(Status.CurrentTrack.AlbumArtUri)" 
+                 alt="Album Art" 
+                 class="album-art"
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNjY3ZWVhIiBvcGFjaXR5PSIwLjMiLz4KPHN2ZyB4PSI3NSIgeT0iNzUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAzdjEwLjU1Yy0uNTktLjM0LTEuMjctLjU1LTItLjU1LTIuMjEgMC00IDEuNzktNCA0czEuNzkgNCA0IDRzNC0xLjc5IDQtNFY3aDR2LTRoLTZ6Ii8+Cjwvc3ZnPgo8L3N2Zz4='" />
+        }
+        else
+        {
+            <div class="album-art" style="background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="white" opacity="0.5">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4v-4h-6z"/>
+                </svg>
+            </div>
+        }
+
+        <div class="track-info">
+            <div class="track-title">
+                @(Status.CurrentTrack?.Title ?? "No track playing")
+            </div>
+            @if (!string.IsNullOrEmpty(Status.CurrentTrack?.Creator))
+            {
+                <div class="track-artist">@Status.CurrentTrack.Creator</div>
+            }
+            @if (!string.IsNullOrEmpty(Status.CurrentTrack?.Album))
+            {
+                <div class="track-album">@Status.CurrentTrack.Album</div>
+            }
+            <div class="group-name">
+                @Status.GroupName
+                <span class="state-indicator @GetStateClass()"></span>
+            </div>
+        </div>
+
+        <div class="playback-controls">
+            <button class="control-btn" @onclick="PreviousAsync" title="Previous track">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                </svg>
+            </button>
+
+            <button class="control-btn play-pause-btn" @onclick="TogglePlaybackAsync" title="@(Status.IsPlaying == true ? "Pause" : "Play")">
+                @if (Status.IsPlaying == true)
+                {
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                }
+                else
+                {
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="m7 4 10 6L7 16V4z"/>
+                    </svg>
+                }
+            </button>
+
+            <button class="control-btn" @onclick="NextAsync" title="Next track">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="volume-control">
+            <div class="volume-label">
+                <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                        @if (Status.Muted == true)
+                        {
+                            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                        }
+                        else if (Status.Volume > 66)
+                        {
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        }
+                        else if (Status.Volume > 33)
+                        {
+                            <path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>
+                        }
+                        else
+                        {
+                            <path d="M7 9v6h4l5 5V4l-5 5H7z"/>
+                        }
+                    </svg>
+                    Volume
+                </span>
+                <span>@(Status.Volume ?? 0)%</span>
+            </div>
+            <input type="range" 
+                   min="0" 
+                   max="100" 
+                   value="@(Status.Volume ?? 0)" 
+                   class="volume-slider"
+                   @onchange="OnVolumeChanged"
+                   @oninput="OnVolumeInput" />
+        </div>
+    </div>
+}
+
+@code{
+    [Parameter]
+    public string? SpeakerId { get; set; }
+    public Client.Models.SonosEvent? Status { get; set; }
+    private Timer? _refreshTimer;
+    private bool _isRefreshing = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        await RefreshStatusAsunc();
+        StartAutoRefresh();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    private void StartAutoRefresh()
+    {
+        _refreshTimer?.Dispose();
+        _refreshTimer = new Timer(async _ =>
+        {
+            if (!_isRefreshing)
+            {
+                _isRefreshing = true;
+                try
+                {
+                    await InvokeAsync(async () =>
+                    {
+                        await RefreshStatusAsunc();
+                        StateHasChanged();
+                    });
+                }
+                finally
+                {
+                    _isRefreshing = false;
+                }
+            }
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+    }
+
+    public async Task RefreshStatusAsunc()
+    {
+        if (SpeakerId is not null)
+        {
+            try
+            {
+                Status = await client.Api.Speakers[SpeakerId].Status.GetAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error refreshing status: {ex.Message}");
+            }
+        }
+    }
+
+    public async Task TogglePlaybackAsync()
+    {
+        try
+        {
+            await client.Api.Speakers[SpeakerId!].Toggle.PostAsync();
+            await Task.Delay(500); // Small delay before refresh
+            await RefreshStatusAsunc();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling playback: {ex.Message}");
+        }
+    }
+
+    public async Task NextAsync()
+    {
+        try
+        {
+            await client.Api.Speakers[SpeakerId!].Next.PostAsync();
+            await Task.Delay(500);
+            await RefreshStatusAsunc();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error skipping to next: {ex.Message}");
+        }
+    }
+
+    public async Task PreviousAsync()
+    {
+        try
+        {
+            await client.Api.Speakers[SpeakerId!].Previous.PostAsync();
+            await Task.Delay(500);
+            await RefreshStatusAsunc();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error skipping to previous: {ex.Message}");
+        }
+    }
+
+    public async Task SetVolumeAsync(int newVolume)
+    {
+        try
+        {
+            await client.Api.Speakers[SpeakerId!].Volume.PostAsync(newVolume);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error setting volume: {ex.Message}");
+        }
+    }
+
+    private async Task OnVolumeChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int newVolume))
+        {
+            await SetVolumeAsync(newVolume);
+            await Task.Delay(200);
+            await RefreshStatusAsunc();
+        }
+    }
+
+    private async Task OnVolumeInput(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int newVolume) && Status != null)
+        {
+            Status.Volume = newVolume; // Update UI immediately for responsiveness
+            StateHasChanged();
+        }
+    }
+
+    private string GetAlbumArtUrl(string albumArtUri)
+    {
+        if (string.IsNullOrEmpty(albumArtUri))
+            return string.Empty;
+        
+        // If it's already a full URL, return as is
+        if (albumArtUri.StartsWith("http://") || albumArtUri.StartsWith("https://"))
+            return albumArtUri;
+        
+        // Otherwise, prepend the base URL from Navigation
+        var baseUrl = Navigation.BaseUri.TrimEnd('/');
+        return $"{baseUrl}{albumArtUri}";
+    }
+
+    private string GetStateClass()
+    {
+        return Status?.TransportState?.ToLower() switch
+        {
+            "playing" => "state-playing",
+            "paused_playback" => "state-paused",
+            "stopped" => "state-stopped",
+            _ => "state-stopped"
+        };
+    }
+
+    public void Dispose()
+    {
+        _refreshTimer?.Dispose();
+    }
+}
