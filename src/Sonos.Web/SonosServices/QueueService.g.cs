@@ -28,7 +28,7 @@ internal static class QueueApi
 {
     private const string SERVICE_NAME = "Queue";
     private const string SERVICE_NAME_KEBAB = "queue";
-    internal static void MapQueueApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapQueueApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/queue")
@@ -78,6 +78,8 @@ internal static class QueueApi
         group.MapPost("/saveassonosplaylist", SaveAsSonosPlaylistAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SaveAsSonosPlaylist", SERVICE_NAME_KEBAB, null)
             .Produces<QueueService.SaveAsSonosPlaylistResponse>(200);
+
+        return group;
     }
 
     private static async Task<IResult> AddMultipleURIsAsync(

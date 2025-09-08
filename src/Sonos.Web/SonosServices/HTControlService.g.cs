@@ -28,7 +28,7 @@ internal static class HTControlApi
 {
     private const string SERVICE_NAME = "HTControl";
     private const string SERVICE_NAME_KEBAB = "ht-control";
-    internal static void MapHTControlApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapHTControlApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/htcontrol")
@@ -66,6 +66,8 @@ internal static class HTControlApi
         group.MapPost("/setledfeedbackstate", SetLEDFeedbackStateAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SetLEDFeedbackState", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> CommitLearnedIRCodesAsync(

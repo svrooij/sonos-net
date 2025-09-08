@@ -28,7 +28,7 @@ internal static class MusicServicesApi
 {
     private const string SERVICE_NAME = "MusicServices";
     private const string SERVICE_NAME_KEBAB = "music-services";
-    internal static void MapMusicServicesApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapMusicServicesApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/musicservices")
@@ -46,6 +46,8 @@ internal static class MusicServicesApi
         group.MapGet("/updateavailableservices", UpdateAvailableServicesAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateAvailableServices", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> GetSessionIdAsync(

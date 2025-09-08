@@ -28,7 +28,7 @@ internal static class GroupManagementApi
 {
     private const string SERVICE_NAME = "GroupManagement";
     private const string SERVICE_NAME_KEBAB = "group-management";
-    internal static void MapGroupManagementApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapGroupManagementApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/groupmanagement")
@@ -50,6 +50,8 @@ internal static class GroupManagementApi
         group.MapPost("/setsourceareaids", SetSourceAreaIdsAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SetSourceAreaIds", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> AddMemberAsync(

@@ -1,0 +1,202 @@
+﻿@page "/alarms"
+@using Sonos.Web.Blazor.Client;
+@inject SonosWebClient client
+
+<PageTitle>Manage sonos alarms</PageTitle>
+
+<div class="space-y-6">
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-primary mb-2">Alarms</h1>
+        <p class="text-secondary">Manage your Sonos alarm settings</p>
+    </div>
+
+    @if (ListAlarmsResponse is not null && ListAlarmsResponse.Alarms?.Any() == true)
+    {
+        <!-- Alarms Grid -->
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            @foreach (var alarm in ListAlarmsResponse.Alarms)
+            {
+                <div class="alarm-card group">
+                    <!-- Card Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="alarm-icon">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-primary">@alarm.ProgramMetaDataObject?.Items?.First().Title</h3>
+                                <p class="text-sm text-secondary">@GetRoomName(alarm.RoomUUID)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Indicator -->
+                        <div class="status-indicator @(alarm.Enabled == 1 ? "status-active" : "status-inactive")"></div>
+                    </div>
+
+                    <!-- Time Display -->
+                    <div class="time-display">
+                        <div class="time-text">
+                            @(alarm.StartTime!.Value.ToString("HH:mm"))
+                        </div>
+                    </div>
+
+                    <!-- Recurrence Info -->
+                    @if (!string.IsNullOrEmpty(alarm.Recurrence))
+                    {
+                        <div class="recurrence-info">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>@GetRecurrenceText(alarm.Recurrence)</span>
+                        </div>
+                    }
+
+                    <!-- Volume Info -->
+                    @if (alarm.Volume > 0)
+                    {
+                        <div class="volume-info">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.617 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.617l3.766-3.793a1 1 0 011 .87zM16 8a2 2 0 11-4 0 2 2 0 014 0zM14 6.5a3.5 3.5 0 000 7 1 1 0 01-.707-1.707A1.5 1.5 0 1014 6.5z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Volume @alarm.Volume%</span>
+                        </div>
+                    }
+
+                    <!-- Toggle Switch -->
+                    <div class="alarm-toggle-container">
+                        <label class="alarm-toggle-label">
+                            <span class="alarm-toggle-text">@(alarm.Enabled == 1 ? "Enabled" : "Disabled")</span>
+                            <div class="relative">
+                                <input type="checkbox" 
+                                       class="sr-only alarm-toggle-input" 
+                                       checked="@(alarm.Enabled == 1)"
+                                       @onchange="@(async () => await ToggleAlarm(alarm.Id!.Value, alarm.Enabled != 1))" />
+                                <div class="alarm-toggle-track @(alarm.Enabled == 1 ? "alarm-toggle-active" : "")">
+                                    <div class="alarm-toggle-thumb @(alarm.Enabled == 1 ? "translate-x-6" : "translate-x-1")"></div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else if (ListAlarmsResponse is not null)
+    {
+        <!-- No Alarms State -->
+        <div class="no-alarms-card">
+            <div class="no-alarms-icon">
+                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="no-alarms-title">No Alarms Set</h3>
+            <p class="no-alarms-description">You haven't configured any alarms yet. Set up your first alarm to wake up to your favorite music.</p>
+            <button class="btn-primary mt-4">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+                Create Alarm
+            </button>
+        </div>
+    }
+    else
+    {
+        <!-- Loading State -->
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading your alarms...</p>
+        </div>
+    }
+</div>
+
+@code {
+    private string playerId = "RINCON_00000000000001400";
+    public Sonos.Web.Blazor.Client.Models.ListAlarmsResponse? ListAlarmsResponse { get; set; }
+    public List<Sonos.Web.Blazor.Client.Models.SonosGroup>? SonosGroups { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ListAlarmsResponse = await client.Api.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
+            SonosGroups = await client.Api.Zones.GetAsync();
+        }
+        catch (Exception ex)
+        {
+            // Handle error - you might want to show an error message to the user
+            Console.WriteLine($"Error loading alarms: {ex.Message}");
+        }
+        await base.OnInitializedAsync();
+    }
+
+    public async Task ToggleAlarm(int alarmId, bool enabled)
+    {
+        try
+        {
+            var result = await client.Api.Speakers[playerId].Alarmclock.Alarms[alarmId].PatchAsync(new Client.Models.PatchAlarmRequest
+            {
+                Enabled = enabled
+            });
+
+            if (result == true)
+            {
+                // Alarm updated successfully - refresh the list
+                ListAlarmsResponse = await client.Api.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
+                StateHasChanged(); // Trigger UI update
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle error - you might want to show an error message to the user
+            Console.WriteLine($"Error toggling alarm {alarmId}: {ex.Message}");
+        }
+    }
+
+    private string? GetRoomName(string? roomUUID)
+    {
+        // You might want to maintain a lookup of room UUIDs to friendly names
+        // For now, return a shortened version of the UUID
+        if (string.IsNullOrEmpty(roomUUID))
+            return "Unknown Room";
+
+        if (SonosGroups?.Any() == true)
+        {
+            var speaker = SonosGroups
+                .FirstOrDefault(s => s.Coordinator!.Uuid == roomUUID)?.Coordinator!.Name ??
+                SonosGroups.Where(g => g.Members is not null).SelectMany(s => s.Members!).FirstOrDefault(m => m.Uuid == roomUUID)?.Name;
+            return speaker;
+        }
+
+        return roomUUID.Length > 10 ? $"Room {roomUUID.Substring(roomUUID.Length - 4)}" : roomUUID;
+    }
+
+    private string GetRecurrenceText(string? recurrence)
+    {
+        if (string.IsNullOrEmpty(recurrence) || recurrence == "ONCE")
+            return "Once";
+
+        if (recurrence.StartsWith("ON_"))
+        {
+            // ON_15 means Monday and Friday
+            // Extract days
+
+            var days = recurrence[3..].Select(c =>  (DayOfWeek)int.Parse(c.ToString()));
+            return "On " + string.Join(", ", days.Select(d => d.ToString().Substring(0, 3)));
+            
+        }
+
+        return recurrence switch
+        {
+            "DAILY" => "Every day",
+            "WEEKDAYS" => "Weekdays",
+            "WEEKENDS" => "Weekends",  
+            "WEEKLY" => "Weekly",
+            _ => recurrence
+        };
+    }
+}

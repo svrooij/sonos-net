@@ -51,7 +51,7 @@ public partial class AlarmClockService
 
         var updateRequest = new UpdateAlarmRequest
         {
-            ID = request.ID,
+            ID = request.ID!.Value,
             StartLocalTime = request.StartLocalTime ?? alarm.StartTime.ToString("HH:mm:ss"),
             Duration = request.Duration ?? alarm.Duration.ToString("HH:mm:ss"),
             Recurrence = request.Recurrence ?? alarm.Recurrence,
@@ -73,7 +73,7 @@ public partial class AlarmClockService
         /// <summary>
         /// The ID of the alarm see ListAlarms
         /// </summary>
-        public int ID { get; set; }
+        public int? ID { get; set; }
 
         /// <summary>
         /// The start time as `hh:mm:ss`

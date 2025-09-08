@@ -28,7 +28,7 @@ internal static class GroupRenderingControlApi
 {
     private const string SERVICE_NAME = "GroupRenderingControl";
     private const string SERVICE_NAME_KEBAB = "group-rendering-control";
-    internal static void MapGroupRenderingControlApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapGroupRenderingControlApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/grouprenderingcontrol")
@@ -61,6 +61,8 @@ internal static class GroupRenderingControlApi
 
             .WithSonosServiceDescription(SERVICE_NAME, "SnapshotGroupVolume", SERVICE_NAME_KEBAB, "Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume")
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> GetGroupMuteAsync(

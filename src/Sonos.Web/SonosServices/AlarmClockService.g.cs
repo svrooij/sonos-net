@@ -28,7 +28,7 @@ internal static class AlarmClockApi
 {
     private const string SERVICE_NAME = "AlarmClock";
     private const string SERVICE_NAME_KEBAB = "alarm-clock";
-    internal static void MapAlarmClockApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapAlarmClockApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/alarmclock")
@@ -102,6 +102,8 @@ internal static class AlarmClockApi
         group.MapPost("/updatealarm", UpdateAlarmAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateAlarm", SERVICE_NAME_KEBAB, "Update an alarm, all parameters are required.")
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> CreateAlarmAsync(

@@ -28,7 +28,7 @@ internal static class AVTransportApi
 {
     private const string SERVICE_NAME = "AVTransport";
     private const string SERVICE_NAME_KEBAB = "av-transport";
-    internal static void MapAVTransportApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapAVTransportApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/avtransport")
@@ -219,6 +219,8 @@ internal static class AVTransportApi
 
             .WithSonosServiceDescription(SERVICE_NAME, "Stop", SERVICE_NAME_KEBAB, "Stop playback")
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> AddMultipleURIsToQueueAsync(

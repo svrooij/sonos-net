@@ -29,6 +29,8 @@ builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiv
 builder.Services.AddSingleton<ISonosServiceProvider, SonosServiceProvider>();
 builder.Services.AddSingleton<SonosManager>();
 
+builder.Services.AddSignalR();
+
 builder.Services.AddHostedService<SonosWorker>();
 
 var app = builder.Build();
@@ -75,6 +77,8 @@ app.MapScalarApiReference(options =>
 });
 
 app.MapSonosApi();
+
+app.MapHub<Sonos.Web.Hubs.PlayerStatusHub>("/api/ws/player");
 
 // Fallback routing for Blazor WebAssembly
 app.MapFallbackToFile("index.html");

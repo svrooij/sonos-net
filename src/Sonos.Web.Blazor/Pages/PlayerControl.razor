@@ -1,5 +1,6 @@
 ﻿@page "/control/{SpeakerId}"
 @using Sonos.Web.Blazor.Client;
+@using Microsoft.AspNetCore.SignalR.Client;
 @inject SonosWebClient client
 @inject NavigationManager Navigation
 
@@ -120,17 +121,40 @@ else
     public Client.Models.SonosEvent? Status { get; set; }
     private Timer? _refreshTimer;
     private bool _isRefreshing = false;
+    private HubConnection? _hubConnection;
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        await RefreshStatusAsunc();
-        StartAutoRefresh();
+        await RefreshStatusAsync();
+        await _hubConnection!.InvokeAsync<string>("Subscribe", SpeakerId!);
+        //StartAutoRefresh();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/api/ws/player"))
+            .WithAutomaticReconnect()
+            .Build();
+        _hubConnection.On<string, Sonos.Web.Blazor.Client.Models.SonosEvent>("PlayerStatusChanged", async (speakerId, status) =>
+        {
+            if (speakerId == SpeakerId)
+            {
+                Status = status;
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+        await _hubConnection.StartAsync();
+
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if(_hubConnection is not null)
+        {
+            await _hubConnection.DisposeAsync();
+        }
     }
 
     private void StartAutoRefresh()
@@ -145,7 +169,7 @@ else
                 {
                     await InvokeAsync(async () =>
                     {
-                        await RefreshStatusAsunc();
+                        await RefreshStatusAsync();
                         StateHasChanged();
                     });
                 }
@@ -157,7 +181,7 @@ else
         }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
     }
 
-    public async Task RefreshStatusAsunc()
+    public async Task RefreshStatusAsync()
     {
         if (SpeakerId is not null)
         {
@@ -177,8 +201,6 @@ else
         try
         {
             await client.Api.Speakers[SpeakerId!].Toggle.PostAsync();
-            await Task.Delay(500); // Small delay before refresh
-            await RefreshStatusAsunc();
         }
         catch (Exception ex)
         {
@@ -191,8 +213,6 @@ else
         try
         {
             await client.Api.Speakers[SpeakerId!].Next.PostAsync();
-            await Task.Delay(500);
-            await RefreshStatusAsunc();
         }
         catch (Exception ex)
         {
@@ -205,8 +225,6 @@ else
         try
         {
             await client.Api.Speakers[SpeakerId!].Previous.PostAsync();
-            await Task.Delay(500);
-            await RefreshStatusAsunc();
         }
         catch (Exception ex)
         {
@@ -231,8 +249,6 @@ else
         if (int.TryParse(e.Value?.ToString(), out int newVolume))
         {
             await SetVolumeAsync(newVolume);
-            await Task.Delay(200);
-            await RefreshStatusAsunc();
         }
     }
 

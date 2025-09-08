@@ -28,7 +28,7 @@ internal static class ZoneGroupTopologyApi
 {
     private const string SERVICE_NAME = "ZoneGroupTopology";
     private const string SERVICE_NAME_KEBAB = "zone-group-topology";
-    internal static void MapZoneGroupTopologyApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapZoneGroupTopologyApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/zonegrouptopology")
@@ -66,6 +66,8 @@ internal static class ZoneGroupTopologyApi
         group.MapPost("/submitdiagnostics", SubmitDiagnosticsAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SubmitDiagnostics", SERVICE_NAME_KEBAB, null)
             .Produces<ZoneGroupTopologyService.SubmitDiagnosticsResponse>(200);
+
+        return group;
     }
 
     private static async Task<IResult> BeginSoftwareUpdateAsync(

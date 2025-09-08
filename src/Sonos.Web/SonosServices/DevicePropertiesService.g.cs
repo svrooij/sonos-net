@@ -28,7 +28,7 @@ internal static class DevicePropertiesApi
 {
     private const string SERVICE_NAME = "DeviceProperties";
     private const string SERVICE_NAME_KEBAB = "device-properties";
-    internal static void MapDevicePropertiesApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapDevicePropertiesApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/deviceproperties")
@@ -146,6 +146,8 @@ internal static class DevicePropertiesApi
         group.MapPost("/setzoneattributes", SetZoneAttributesAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SetZoneAttributes", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> AddBondedZonesAsync(

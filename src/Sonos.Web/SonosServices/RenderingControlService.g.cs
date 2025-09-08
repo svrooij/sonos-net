@@ -28,7 +28,7 @@ internal static class RenderingControlApi
 {
     private const string SERVICE_NAME = "RenderingControl";
     private const string SERVICE_NAME_KEBAB = "rendering-control";
-    internal static void MapRenderingControlApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapRenderingControlApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/renderingcontrol")
@@ -153,6 +153,8 @@ internal static class RenderingControlApi
         group.MapPost("/setvolumedb", SetVolumeDBAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SetVolumeDB", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> GetBassAsync(

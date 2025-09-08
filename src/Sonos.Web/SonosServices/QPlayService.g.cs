@@ -28,7 +28,7 @@ internal static class QPlayApi
 {
     private const string SERVICE_NAME = "QPlay";
     private const string SERVICE_NAME_KEBAB = "q-play";
-    internal static void MapQPlayApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapQPlayApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/qplay")
@@ -38,6 +38,8 @@ internal static class QPlayApi
         group.MapPost("/qplayauth", QPlayAuthAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "QPlayAuth", SERVICE_NAME_KEBAB, null)
             .Produces<QPlayService.QPlayAuthResponse>(200);
+
+        return group;
     }
 
     private static async Task<IResult> QPlayAuthAsync(

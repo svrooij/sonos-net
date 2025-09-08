@@ -153,6 +153,16 @@ namespace Sonos.Base
 
         public SonosDevice? GetSonosDevice(string uuid)
         {
+            // Some services respond the same for all speakers (like AlarmClock)
+            if (uuid == "RINCON_00000000000001400")
+            {
+                var firstDevice = devices.Values.FirstOrDefault();
+                if(firstDevice is not null)
+                {
+                    return firstDevice;
+                }
+
+            }
             if (devices.TryGetValue(uuid, out var device))
             {
                 return device;

@@ -17,6 +17,8 @@ builder.Services.AddHttpClient<SonosWebClientFactory>((sp, client) =>
    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
 });
 
+
+
 builder.Services.AddTransient(sp => sp.GetRequiredService<SonosWebClientFactory>().CreateClient());
 
 

@@ -20,26 +20,43 @@
 
 namespace Sonos.Web.SonosServices;
 
+/// <summary>
+/// Maps the Sonos service APIs to their corresponding route groups within the specified web application.
+/// </summary>
+/// <remarks>This method registers the APIs for various Sonos services, such as AlarmClock, AudioIn, AVTransport,
+/// and others, by associating each service with its corresponding route group in the web application. The returned
+/// dictionary can be used to access the route groups for further customization or inspection.</remarks>
 internal static class RegisterServicesApi
 {
-    internal static void MapServicesApi(this WebApplication webApplication)
+    /// <summary>
+    /// Maps the Sonos service APIs to their corresponding route groups in the specified web application.
+    /// </summary>
+    /// <remarks>This method initializes and maps a set of predefined Sonos service APIs to route groups
+    /// within the provided  <see cref="WebApplication"/>. Each service is associated with a specific route group,
+    /// enabling the web application  to handle requests for the corresponding Sonos service functionality.</remarks>
+    /// <param name="webApplication">The <see cref="WebApplication"/> instance to which the Sonos service APIs will be mapped.</param>
+    /// <returns>A dictionary where the keys are Sonos services of type <see cref="Sonos.Base.Services.SonosService"/>, and the
+    /// values are <see cref="RouteGroupBuilder"/> instances representing the mapped route groups for each service.</returns>
+    internal static Dictionary<Sonos.Base.Services.SonosService, RouteGroupBuilder> MapServicesApi(this WebApplication webApplication)
     {
-            webApplication.MapAlarmClockApi();
-            webApplication.MapAudioInApi();
-            webApplication.MapAVTransportApi();
-            webApplication.MapConnectionManagerApi();
-            webApplication.MapContentDirectoryApi();
-            webApplication.MapDevicePropertiesApi();
-            webApplication.MapGroupManagementApi();
-            webApplication.MapGroupRenderingControlApi();
-            webApplication.MapHTControlApi();
-            webApplication.MapMusicServicesApi();
-            webApplication.MapQPlayApi();
-            webApplication.MapQueueApi();
-            webApplication.MapRenderingControlApi();
-            webApplication.MapSystemPropertiesApi();
-            webApplication.MapVirtualLineInApi();
-            webApplication.MapZoneGroupTopologyApi();
+        Dictionary<Sonos.Base.Services.SonosService, RouteGroupBuilder> groups = new();
+        groups.Add(Sonos.Base.Services.SonosService.AlarmClock, webApplication.MapAlarmClockApi());
+        groups.Add(Sonos.Base.Services.SonosService.AudioIn, webApplication.MapAudioInApi());
+        groups.Add(Sonos.Base.Services.SonosService.AVTransport, webApplication.MapAVTransportApi());
+        groups.Add(Sonos.Base.Services.SonosService.ConnectionManager, webApplication.MapConnectionManagerApi());
+        groups.Add(Sonos.Base.Services.SonosService.ContentDirectory, webApplication.MapContentDirectoryApi());
+        groups.Add(Sonos.Base.Services.SonosService.DeviceProperties, webApplication.MapDevicePropertiesApi());
+        groups.Add(Sonos.Base.Services.SonosService.GroupManagement, webApplication.MapGroupManagementApi());
+        groups.Add(Sonos.Base.Services.SonosService.GroupRenderingControl, webApplication.MapGroupRenderingControlApi());
+        groups.Add(Sonos.Base.Services.SonosService.HTControl, webApplication.MapHTControlApi());
+        groups.Add(Sonos.Base.Services.SonosService.MusicServices, webApplication.MapMusicServicesApi());
+        groups.Add(Sonos.Base.Services.SonosService.QPlay, webApplication.MapQPlayApi());
+        groups.Add(Sonos.Base.Services.SonosService.Queue, webApplication.MapQueueApi());
+        groups.Add(Sonos.Base.Services.SonosService.RenderingControl, webApplication.MapRenderingControlApi());
+        groups.Add(Sonos.Base.Services.SonosService.SystemProperties, webApplication.MapSystemPropertiesApi());
+        groups.Add(Sonos.Base.Services.SonosService.VirtualLineIn, webApplication.MapVirtualLineInApi());
+        groups.Add(Sonos.Base.Services.SonosService.ZoneGroupTopology, webApplication.MapZoneGroupTopologyApi());
+        return groups;
     }
 }
 

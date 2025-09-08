@@ -28,7 +28,7 @@ internal static class {{name}}Api
 {
     private const string SERVICE_NAME = "{{name}}";
     private const string SERVICE_NAME_KEBAB = "{{kebabName}}";
-    internal static void Map{{name}}Api(this WebApplication webApplication)
+    internal static RouteGroupBuilder Map{{name}}Api(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/{{lower name}}")
@@ -47,6 +47,8 @@ internal static class {{name}}Api
             .WithSonosServiceDescription(SERVICE_NAME, "{{name}}", SERVICE_NAME_KEBAB, {{#if description}}"{{description}}"{{else}}null{{/if}})
             .Produces<{{#if outputs}}{{../serviceName}}.{{name}}Response{{else}}bool{{/if}}>(200);
         {{/each}}
+
+        return group;
     }
     {{#each actions}}
 

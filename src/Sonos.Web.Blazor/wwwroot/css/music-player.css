@@ -20,6 +20,13 @@
     transition: transform 0.3s ease;
 }
 
+/* Dark mode support for music player */
+@media (prefers-color-scheme: dark) {
+    .music-player {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+}
+
 .album-art:hover {
     transform: scale(1.05);
 }
@@ -151,11 +158,11 @@
     align-items: center;
     min-height: 400px;
     font-size: 1.1rem;
-    color: #666;
+    color: var(--color-text-secondary);
 }
 
 .loading-spinner {
-    border: 3px solid #f3f3f3;
+    border: 3px solid var(--color-border);
     border-top: 3px solid #667eea;
     border-radius: 50%;
     width: 30px;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.8" />
     <PackageReference Include="Microsoft.Kiota.Bundle" Version="1.19.1" />
   </ItemGroup>
@@ -17,5 +18,27 @@
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
+
+  <!-- Tailwind CSS Build Targets -->
+  <Target Name="NpmInstall" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+    <Message Text="Installing npm packages..." Importance="high" />
+    <Exec Command="npm install" />
+  </Target>
+
+  <Target Name="BuildTailwindCss" BeforeTargets="BeforeBuild" DependsOnTargets="NpmInstall">
+    <Message Text="Building Tailwind CSS..." Importance="high" />
+    <Exec Command="npm run build-css-prod" />
+  </Target>
+
+  <!-- Clean up generated CSS on Clean -->
+  <Target Name="CleanTailwindCss" BeforeTargets="Clean">
+    <Delete Files="wwwroot/css/tailwind.css" />
+  </Target>
+
+  <!-- Development watch mode (optional - for manual use) -->
+  <Target Name="WatchTailwindCss">
+    <Message Text="Starting Tailwind CSS watch mode..." Importance="high" />
+    <Exec Command="npm run build-css" />
+  </Target>
 
 </Project>

@@ -28,7 +28,7 @@ internal static class VirtualLineInApi
 {
     private const string SERVICE_NAME = "VirtualLineIn";
     private const string SERVICE_NAME_KEBAB = "virtual-line-in";
-    internal static void MapVirtualLineInApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapVirtualLineInApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/virtuallinein")
@@ -70,6 +70,8 @@ internal static class VirtualLineInApi
         group.MapPost("/stoptransmission", StopTransmissionAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "StopTransmission", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> NextAsync(

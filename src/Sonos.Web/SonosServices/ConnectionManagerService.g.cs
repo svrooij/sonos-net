@@ -28,7 +28,7 @@ internal static class ConnectionManagerApi
 {
     private const string SERVICE_NAME = "ConnectionManager";
     private const string SERVICE_NAME_KEBAB = "connection-manager";
-    internal static void MapConnectionManagerApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapConnectionManagerApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/connectionmanager")
@@ -46,6 +46,8 @@ internal static class ConnectionManagerApi
         group.MapGet("/getprotocolinfo", GetProtocolInfoAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "GetProtocolInfo", SERVICE_NAME_KEBAB, null)
             .Produces<ConnectionManagerService.GetProtocolInfoResponse>(200);
+
+        return group;
     }
 
     private static async Task<IResult> GetCurrentConnectionIDsAsync(

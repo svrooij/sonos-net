@@ -28,7 +28,7 @@ internal static class ContentDirectoryApi
 {
     private const string SERVICE_NAME = "ContentDirectory";
     private const string SERVICE_NAME_KEBAB = "content-directory";
-    internal static void MapContentDirectoryApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapContentDirectoryApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/contentdirectory")
@@ -98,6 +98,8 @@ internal static class ContentDirectoryApi
         group.MapPost("/updateobject", UpdateObjectAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateObject", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> BrowseAsync(

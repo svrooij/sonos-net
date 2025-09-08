@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
+using Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Alarms;
 using Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Createalarm;
 using Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Destroyalarm;
 using Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Getdailyindexrefreshtime;
@@ -31,6 +32,11 @@ namespace Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AlarmclockRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The alarms property</summary>
+        public global::Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Alarms.AlarmsRequestBuilder Alarms
+        {
+            get => new global::Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Alarms.AlarmsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The createalarm property</summary>
         public global::Sonos.Web.Blazor.Client.Api.Speakers.Item.Alarmclock.Createalarm.CreatealarmRequestBuilder Createalarm
         {

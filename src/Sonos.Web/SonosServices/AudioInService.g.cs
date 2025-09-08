@@ -28,7 +28,7 @@ internal static class AudioInApi
 {
     private const string SERVICE_NAME = "AudioIn";
     private const string SERVICE_NAME_KEBAB = "audio-in";
-    internal static void MapAudioInApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapAudioInApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/audioin")
@@ -62,6 +62,8 @@ internal static class AudioInApi
         group.MapPost("/stoptransmissiontogroup", StopTransmissionToGroupAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "StopTransmissionToGroup", SERVICE_NAME_KEBAB, null)
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> GetAudioInputAttributesAsync(

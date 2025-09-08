@@ -28,7 +28,7 @@ internal static class SystemPropertiesApi
 {
     private const string SERVICE_NAME = "SystemProperties";
     private const string SERVICE_NAME_KEBAB = "system-properties";
-    internal static void MapSystemPropertiesApi(this WebApplication webApplication)
+    internal static RouteGroupBuilder MapSystemPropertiesApi(this WebApplication webApplication)
     {
         var group = webApplication
             .MapGroup("/api/speakers/{speakerId}/systemproperties")
@@ -102,6 +102,8 @@ internal static class SystemPropertiesApi
         group.MapPost("/setstring", SetStringAsync)
             .WithSonosServiceDescription(SERVICE_NAME, "SetString", SERVICE_NAME_KEBAB, "Save a string in the system")
             .Produces<bool>(200);
+
+        return group;
     }
 
     private static async Task<IResult> AddAccountXAsync(

@@ -13,7 +13,9 @@ internal static class SonosDeviceApi
 
         webApplication.MapSonosZones();
         webApplication.MapSonosControls();
-        webApplication.MapServicesApi();
+        
+        var sonosServiceGroups = webApplication.MapServicesApi();
+        sonosServiceGroups.MapServiceExtensions();
 
         webApplication.MapGet("/getaa", AlbumArtProxy)
             .ExcludeFromDescription();
@@ -246,6 +248,46 @@ internal static class SonosDeviceApi
         else
         {
             return Results.Problem($"Error retrieving album art: {result.ReasonPhrase}", statusCode: (int)result.StatusCode);
+        }
+    }
+
+    private static void MapServiceExtensions(this Dictionary<Sonos.Base.Services.SonosService, RouteGroupBuilder> groups)
+    {
+        groups[Sonos.Base.Services.SonosService.AlarmClock].MapPatch("alarms/{alarmId}", PatchAlarm)
+            .WithSummary("Patch alarm")
+            .WithDescription("Patch an existing alarm")
+            .Produces<bool>(200);
+    }
+
+    private static async Task<IResult> PatchAlarm(
+        [FromRoute] string speakerId,
+        [FromRoute] int alarmId,
+        [FromBody] Sonos.Base.Services.AlarmClockService.PatchAlarmRequest patchAlarmRequest,
+        [FromServices] SonosManager sonosManager,
+        CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId!);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        if (alarmId < 0)
+        {
+            return Results.BadRequest("Invalid alarm ID");
+        }
+        try
+        {
+            patchAlarmRequest.ID = alarmId;
+            var result = await device.AlarmClockService.PatchAlarm(patchAlarmRequest, cancellationToken);
+            return Results.Ok(result);
+        }
+        catch (SonosException ex) when (ex.Message.Contains("not found", StringComparison.OrdinalIgnoreCase))
+        {
+            return Results.NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message, statusCode: 500);
         }
     }
 }
