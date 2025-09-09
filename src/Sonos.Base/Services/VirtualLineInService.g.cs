@@ -104,6 +104,7 @@ public partial class VirtualLineInService : SonosBaseService<VirtualLineInServic
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:VirtualLineIn:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -215,4 +216,5 @@ public partial class VirtualLineInService : SonosBaseService<VirtualLineInServic
 
         public string? LastChange { get; }
     }
+    #nullable disable
 }

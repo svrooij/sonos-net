@@ -7,6 +7,8 @@ on:
       - main
       - develop
       - feature/*
+    tags:
+      - v*
   pull_request:
     branches:
       - main
@@ -71,7 +73,7 @@ jobs:
     needs: [build]
     steps:
       - name: 👨‍💻 Check-out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: 👨‍🔧 Setup .NET Core SDK
@@ -116,12 +118,14 @@ jobs:
       - name: 📦 Pack Sonos.Base.Events.Http
         run: dotnet pack --configuration Release --no-build --no-restore ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
 
-      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
-        run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
       - name: ✈️ Publish Sonos.Base to nuget.org
         run: dotnet nuget push ./src/Sonos.Base/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
+        run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
 

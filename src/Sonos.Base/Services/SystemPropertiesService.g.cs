@@ -180,6 +180,7 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:SystemProperties:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -434,4 +435,5 @@ public partial class SystemPropertiesService : SonosBaseService<SystemProperties
 
         public int? VoiceUpdateID { get; }
     }
+    #nullable disable
 }

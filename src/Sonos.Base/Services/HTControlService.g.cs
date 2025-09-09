@@ -105,6 +105,7 @@ public partial class HTControlService : SonosBaseService<HTControlService.IHTCon
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:HTControl:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -185,4 +186,5 @@ public partial class HTControlService : SonosBaseService<HTControlService.IHTCon
 
         public bool? TOSLinkConnected { get; }
     }
+    #nullable disable
 }

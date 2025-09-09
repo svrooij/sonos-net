@@ -19,6 +19,7 @@ builder.Services.AddOpenApi(api =>
 builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
 {
     conf.Host = builder.Configuration.GetValue<string?>("SONOS_EVENT_HOST");
+    conf.Port = builder.Configuration.GetValue<int?>("SONOS_EVENT_PORT") ?? 6329;
 });
 
 // Make the ISonosEventBus available for injection
@@ -41,11 +42,19 @@ var app = builder.Build();
 //    app.MapOpenApi();
 //}
 app.MapOpenApi();
+if (builder.Configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER") == true)
+{
+    // Assume HTTPS termination is handled by the container orchestrator (e.g., Kubernetes, Docker Swarm)
+    app.UseForwardedHeaders();
+}
+else
+{
+    app.UseHttpsRedirection();
+}
 
-app.UseHttpsRedirection();
 
-// Enable serving static files for Blazor WebAssembly
-app.UseBlazorFrameworkFiles();
+    // Enable serving static files for Blazor WebAssembly
+    app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 // Configure routing
@@ -78,6 +87,8 @@ app.MapScalarApiReference(options =>
 
 app.MapSonosApi();
 
+// Map the SignalR hub for player status updates
+// be sure to subscribe for updates from the right player
 app.MapHub<Sonos.Web.Hubs.PlayerStatusHub>("/api/ws/player");
 
 // Fallback routing for Blazor WebAssembly

@@ -23,6 +23,7 @@ namespace Sonos.Base;
 using Sonos.Base.Services;
 public partial class SonosDevice
 {
+    #nullable enable
     private AlarmClockService? _alarmclock;
     /// <summary>
     /// Auto initialized AlarmClock Service for this device
@@ -138,6 +139,7 @@ public partial class SonosDevice
         _virtuallinein?.Dispose();
         _zonegrouptopology?.Dispose();
     }
+    #nullable disable
 
     private async ValueTask DisposeServicesAsync()
     {

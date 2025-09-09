@@ -26,10 +26,39 @@ Always wanted to control sonos speakers right from your dotnet application? I've
 Currently this library is not at version one, these are the planned features that need to be build before this can be called a version one.
 
 - [X] All sonos services generated from service discovery
-- [ ] Event subscriptions
+- [X] Event subscriptions
 - [ ] Dynamic metadata generation based on [these docs](https://svrooij.io/sonos-api-docs/metadata.html)
-- [ ] SonosManager class that keeps track of speaker groups
+- [X] SonosManager class that keeps track of speaker groups
 - [ ] Device discovery, though it hardly works
+
+## Sonos-web
+
+As an experiment I've created (mostly generated) an api and a blazor web interface to control sonos speakers.
+
+[![Sonos-web screenshot](./assets/sonos-web-controls.png)](./docs/sonos-web-controls.png)]
+
+Endpoints:
+
+- Scalar API documentation at `/scalar`
+- API endpoints at `/api`
+- Album proxy at `/getaa`
+- Blazor web interface at `/`
+
+Want to try it out? Deploy the following docker compose file:
+
+```yaml
+services:
+  web:
+    image: ghcr.io/svrooij/sonos-net:0.3.0-beta
+    restart: unless-stopped
+    ports: 
+      - "8080:8080" # Web interface
+      - "6329:6329" # Sonos event listener
+    environment:
+      "SONOS_EVENT_HOST": "192.168.y.y" # Change to the IP of the machine running this container, so the sonos speakers know where to send the events 
+      "SONOS_EVENT_PORT": 6329 # Change to the port you want to listen on, make sure it's the same as the one in the ports section
+      "SONOS_HOST": "http://192.168.x.x:1400/" # Change to the IP of one of your sonos speakers
+```
 
 ## CodeTour available
 

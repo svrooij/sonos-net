@@ -106,6 +106,7 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:ZoneGroupTopology:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -237,4 +238,5 @@ public partial class ZoneGroupTopologyService : SonosBaseService<ZoneGroupTopolo
 
         public string? ZonePlayerUUIDsInGroup { get; }
     }
+    #nullable disable
 }

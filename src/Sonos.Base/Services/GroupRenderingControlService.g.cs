@@ -95,6 +95,7 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:GroupRenderingControl:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -223,4 +224,5 @@ public partial class GroupRenderingControlService : SonosBaseService<GroupRender
 
         public bool? GroupVolumeChangeable { get; }
     }
+    #nullable disable
 }

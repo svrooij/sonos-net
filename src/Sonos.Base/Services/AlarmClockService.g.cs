@@ -175,6 +175,7 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AlarmClock:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -547,4 +548,5 @@ public partial class AlarmClockService : SonosBaseService<AlarmClockService.IAla
 
         public string? TimeZone { get; }
     }
+    #nullable disable
 }

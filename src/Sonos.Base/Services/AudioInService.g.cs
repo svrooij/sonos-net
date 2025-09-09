@@ -98,6 +98,7 @@ public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEv
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:AudioIn:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlType("GetAudioInputAttributesResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:AudioIn:1")]
@@ -190,4 +191,5 @@ public partial class AudioInService : SonosBaseService<AudioInService.IAudioInEv
 
         public int? RightLineInLevel { get; }
     }
+    #nullable disable
 }

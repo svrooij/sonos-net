@@ -67,6 +67,7 @@ public partial class MusicServicesService : SonosBaseService<MusicServicesServic
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:MusicServices:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -113,4 +114,5 @@ public partial class MusicServicesService : SonosBaseService<MusicServicesServic
 
         public string? Username { get; }
     }
+    #nullable disable
 }

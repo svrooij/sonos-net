@@ -23,6 +23,7 @@ namespace Sonos.Base;
 using Sonos.Base.Services;
 public partial class SonosDevice
 {
+    #nullable enable
     {{#each services}}
     private {{name}}Service? _{{lower name}};
     /// <summary>
@@ -37,6 +38,7 @@ public partial class SonosDevice
         _{{lower name}}?.Dispose();
         {{/each}}
     }
+    #nullable disable
 
     private async ValueTask DisposeServicesAsync()
     {

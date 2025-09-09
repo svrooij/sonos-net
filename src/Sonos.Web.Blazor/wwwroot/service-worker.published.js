@@ -39,7 +39,12 @@ async function onActivate(event) {
 
 async function onFetch(event) {
     let cachedResponse = null;
-    if (event.request.method === 'GET') {
+    if (event.request.url.includes('/scalar/') || event.request.url.includes('/api/') || event.request.url.includes('/getaa'))
+    {
+        // For API requests, just do network fetch
+        return fetch(event.request);
+    }
+    else if (event.request.method === 'GET') {
         // For all navigation requests, try to serve index.html from cache,
         // unless that request is for an offline resource.
         // If you need some URLs to be server-rendered, edit the following check to exclude those URLs

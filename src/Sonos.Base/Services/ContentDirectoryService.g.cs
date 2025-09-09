@@ -166,6 +166,7 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:ContentDirectory:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -457,4 +458,5 @@ public partial class ContentDirectoryService : SonosBaseService<ContentDirectory
 
         public string? UserRadioUpdateID { get; }
     }
+    #nullable disable
 }

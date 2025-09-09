@@ -66,6 +66,7 @@ public partial class ConnectionManagerService : SonosBaseService<ConnectionManag
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:ConnectionManager:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlType("GetCurrentConnectionIDsResponse", AnonymousType = true, Namespace = "urn:schemas-upnp-org:service:ConnectionManager:1")]
@@ -131,4 +132,5 @@ public partial class ConnectionManagerService : SonosBaseService<ConnectionManag
 
         public string? SourceProtocolInfo { get; }
     }
+    #nullable disable
 }

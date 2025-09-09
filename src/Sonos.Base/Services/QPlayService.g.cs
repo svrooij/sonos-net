@@ -52,6 +52,7 @@ public partial class QPlayService : SonosBaseService
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:QPlay:1"), });
     }
+    #nullable enable
 
     [System.Serializable()]
     [System.Xml.Serialization.XmlRoot(Namespace = "")]
@@ -74,4 +75,5 @@ public partial class QPlayService : SonosBaseService
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public string DID { get; set; }
     }
+    #nullable disable
 }

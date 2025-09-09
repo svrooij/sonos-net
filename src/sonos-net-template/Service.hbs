@@ -64,6 +64,7 @@ public partial class {{serviceName}} : SonosBaseService
         public System.Xml.Serialization.XmlSerializerNamespaces xmlns = new System.Xml.Serialization.XmlSerializerNamespaces(
           new[] { new System.Xml.XmlQualifiedName("u", "urn:schemas-upnp-org:service:{{name}}:1"), });
     }
+    #nullable enable
     {{#each actions}}
     {{#if inputs}}
 
@@ -166,4 +167,5 @@ public partial class {{serviceName}} : SonosBaseService
     {{/each}}
     }
     {{/if}}
+    #nullable disable
 }
