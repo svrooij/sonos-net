@@ -125,7 +125,6 @@
         "contentHash": "c9xLpVz6PL9lp/djOWtk5KPDZq3cSYpmXoJQY524EOtuFl5z9ZtsotpsyrDW40U1DRnQSYvcPKEUV0X//u6gkQ=="
       }
     },
-    "net8.0/linux-x64": {},
     "net9.0": {
       "Microsoft.Extensions.Http": {
         "type": "Direct",
@@ -243,7 +242,6 @@
         "resolved": "9.0.0",
         "contentHash": "N3qEBzmLMYiASUlKxxFIISP4AiwuPTHF5uCh+2CWSwwzAJiIYx0kBJsS30cp1nvhSySFAVi30jecD307jV+8Kg=="
       }
-    },
-    "net9.0/linux-x64": {}
+    }
   }
 }

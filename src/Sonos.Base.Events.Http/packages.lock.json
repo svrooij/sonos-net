@@ -151,7 +151,6 @@
         }
       }
     },
-    "net8.0/linux-x64": {},
     "net9.0": {
       "Microsoft.Extensions.Hosting.Abstractions": {
         "type": "Direct",
@@ -295,7 +294,6 @@
           "Microsoft.Extensions.Logging.Abstractions": "[9.0.0, )"
         }
       }
-    },
-    "net9.0/linux-x64": {}
+    }
   }
 }
