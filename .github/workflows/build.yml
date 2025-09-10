@@ -49,7 +49,7 @@ jobs:
       - name: 🛠️ Build code
         run: |
           dotnet build ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj --configuration Release --no-restore 
-          for p in $(find . -name tests/**/*.csproj); do dotnet build $p --configuration Release --no-restore; done
+          for p in $(find . -name 'tests/**/*.csproj'); do dotnet build $p --configuration Release --no-restore; done
 
       - name: 🫣 Testing code
         run: |
