@@ -47,7 +47,9 @@ jobs:
         run: dotnet restore
     
       - name: 🛠️ Build code
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          dotnet build ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj --configuration Release --no-restore 
+          for p in $(find . -name tests/**/*.csproj); do dotnet build $p --configuration Release --no-restore; done
 
       - name: 🫣 Testing code
         run: |
@@ -148,6 +150,8 @@ jobs:
 
       - name: 🎒 Load packages for Sonos.Web
         run: dotnet restore ./src/Sonos.Web/Sonos.Web.csproj
+        env:
+          INCLUDE_API_DOCS: false
 
       - name: 🔑 Login to github container registry
         uses: docker/login-action@v3
@@ -161,4 +165,4 @@ jobs:
           dotnet publish --os linux --arch "amd64;arm64" --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Web/Sonos.Web.csproj
         env:
           CONTAINER_IMAGE_TAGS: ${{ contains(github.ref_name, 'beta') && format('{0};beta', github.ref_name) || format('{0};latest', github.ref_name) }}
-
+          INCLUDE_API_DOCS: false
