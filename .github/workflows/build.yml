@@ -53,8 +53,8 @@ jobs:
       - name: 🫣 Testing code
         run: |
           echo "## 🧪 Test results" >> $GITHUB_STEP_SUMMARY
-          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.net9.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Tests -- RunConfiguration.CollectSourceInformation=true
-          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.net9.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Events.Http.Tests -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Tests -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Events.Http.Tests -- RunConfiguration.CollectSourceInformation=true
   
       - name: 📝 Code Coverage report
         run: |
