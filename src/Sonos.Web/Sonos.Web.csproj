@@ -13,6 +13,7 @@
     <ContainerRegistry>ghcr.io</ContainerRegistry>
     <IncludeApiDocs Condition="'$(IncludeApiDocs)' == ''">$(INCLUDE_API_DOCS)</IncludeApiDocs>
     <IncludeApiDocs Condition="'$(IncludeApiDocs)' == ''">true</IncludeApiDocs>
+    <ContainerImageTags>dev</ContainerImageTags>
   </PropertyGroup>
 
   <ItemGroup>
