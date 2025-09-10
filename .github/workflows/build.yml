@@ -97,12 +97,15 @@ jobs:
         run: dotnet restore
 
       - name: 🛠️ Build code
+        shell: pwsh
         run: dotnet build --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
 
       - name: 📦 Pack Sonos.Base
+        shell: pwsh
         run: dotnet pack --configuration Release --no-build -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base/Sonos.Base.csproj
 
       - name: 📦 Pack Sonos.Base.Events.Http
+        shell: pwsh
         run: dotnet pack --configuration Release --no-build -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
 
       - name: ✈️ Publish Sonos.Base to nuget.org
@@ -160,6 +163,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: 🐳 Publish to docker
+        shell: pwsh
         run: |
           dotnet publish --os linux --arch "amd64;arm64" --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Web/Sonos.Web.csproj
         env:
