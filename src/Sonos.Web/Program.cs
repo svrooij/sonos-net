@@ -53,9 +53,12 @@ else
 }
 
 
-    // Enable serving static files for Blazor WebAssembly
-    app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
+// Enable serving static files for Blazor WebAssembly
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    RedirectToAppendTrailingSlash = true,
+});
 
 // Configure routing
 app.UseRouting();
