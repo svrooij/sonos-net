@@ -39,12 +39,32 @@ public class Envelope<TBody>
 }
 
 [System.Serializable()]
+[System.ComponentModel.DesignerCategory("code")]
+[System.Xml.Serialization.XmlRoot("Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", IsNullable = false)]
+public class Envelope<TBody, TFault> where TFault : SoapFault
+{
+    public Envelope()
+    { }
+
+    [System.Xml.Serialization.XmlElement("Body", Namespace = "http://schemas.xmlsoap.org/soap/envelope/", Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+    public EnvelopeBody<TBody, TFault> Body { get; set; }
+
+    [System.Xml.Serialization.XmlAttribute("encodingStyle", Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
+    public string EncodingStyle { get; set; } = "http://schemas.xmlsoap.org/soap/encoding/";
+}
+
+[System.Serializable()]
 [System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
 public class EnvelopeBody<TBody>
 {
     //[System.Xml.Serialization.XmlElement("GetBassResponse", Namespace = "urn:schemas-upnp-org:service:RenderingControl:1", Type = typeof(Services.RenderingControlService.GetBassResponse))]
     //[System.Xml.Serialization.XmlAnyElement()]
-    public TBody Message { get; set; }
+    public TBody? Message { get; set; }
+}
+
+public class EnvelopeBody<TBody, TFault> : EnvelopeBody<TBody> where TFault : SoapFault
+{
+    public TFault? Fault { get; set; }
 }
 
 [System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
@@ -57,9 +77,14 @@ public class SoapFault
 
     public string FaultString { get; set; }
 
+}
+
+public class UpnpSoapFault : SoapFault
+{
     [System.Xml.Serialization.XmlElement("detail", Namespace = "")]
 
     public FaultDetail? Detail { get; set; }
+
 
     [System.Xml.Serialization.XmlIgnore]
     public int? UpnpErrorCode
@@ -72,7 +97,7 @@ public class FaultDetail
 {
     [System.Xml.Serialization.XmlElement("UPnPError", Namespace = "urn:schemas-upnp-org:control-1-0")]
 
-    public UpnpError UpnpError { get; set; }
+    public UpnpError? UpnpError { get; set; }
 }
 
 public class UpnpError

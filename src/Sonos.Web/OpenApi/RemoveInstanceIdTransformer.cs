@@ -13,23 +13,22 @@ internal class RemoveInstanceIdTransformer : IOpenApiOperationTransformer
             return Task.CompletedTask;
         }
 
-        if (operation.RequestBody.Content != null)
+        
+        foreach (var mediaType in operation.RequestBody.Content.Values)
         {
-            foreach (var mediaType in operation.RequestBody.Content.Values)
+            if (mediaType.Schema?.Properties != null)
             {
-                if (mediaType.Schema?.Properties != null)
-                {
-                    // Remove InstanceID property (case-insensitive)
-                    mediaType.Schema.Properties.Remove("instanceID");
+                // Remove InstanceID property (case-insensitive)
+                mediaType.Schema.Properties.Remove("instanceID");
 
-                    // Remove from required properties if present
-                    if (mediaType.Schema.Required != null)
-                    {
-                        mediaType.Schema.Required.Remove("instanceID");
-                    }
+                // Remove from required properties if present
+                if (mediaType.Schema.Required != null)
+                {
+                    mediaType.Schema.Required.Remove("instanceID");
                 }
             }
         }
+        
 
         return Task.CompletedTask;
 

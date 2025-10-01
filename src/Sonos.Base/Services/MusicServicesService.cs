@@ -38,4 +38,32 @@ public partial class MusicServicesService
             }
         }
     }
+
+    public partial class ServicesServicePolicy
+    {
+        public MusicServiceAuthentication Authentication => Auth switch
+        {
+            MusicServiceAuthenticationConstants.AppLink => MusicServiceAuthentication.AppLink,
+            MusicServiceAuthenticationConstants.DeviceLink => MusicServiceAuthentication.DeviceLink,
+            MusicServiceAuthenticationConstants.UserId => MusicServiceAuthentication.UserId,
+            MusicServiceAuthenticationConstants.Anonymous => MusicServiceAuthentication.Anonymous,
+            _ => throw new ArgumentOutOfRangeException(nameof(Auth))
+        };
+    }
+
+    private class MusicServiceAuthenticationConstants
+    {
+        public const string Anonymous = nameof(Anonymous);
+        public const string AppLink = nameof(AppLink);
+        public const string DeviceLink = nameof(DeviceLink);
+        public const string UserId = nameof(UserId);
+    }
+
+    public enum MusicServiceAuthentication
+    {
+        Anonymous = 0,
+        UserId = 1,
+        DeviceLink = 2,
+        AppLink = 4
+    }
 }

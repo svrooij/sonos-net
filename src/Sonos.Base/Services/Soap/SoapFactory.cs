@@ -161,11 +161,11 @@ internal static class SoapFactory
         return result.Body.Message;
     }
 
-    internal static SoapFault? ParseFaultXml(Stream stream)
+    internal static UpnpSoapFault? ParseFaultXml(Stream stream)
     {
         var overrides = GenerateFaultResponseOverrides();
-        var serializer = new XmlSerializer(typeof(Envelope<SoapFault>), overrides);
-        var result = (Envelope<SoapFault>?)serializer.Deserialize(stream);
+        var serializer = new XmlSerializer(typeof(Envelope<UpnpSoapFault>), overrides);
+        var result = (Envelope<UpnpSoapFault>?)serializer.Deserialize(stream);
         if (result is null)
         {
             return null;

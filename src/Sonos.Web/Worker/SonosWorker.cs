@@ -41,7 +41,7 @@ public class SonosWorker : BackgroundService
                 var device = _sonosManager.GetSonosDevice(item);
                 if (device != null)
                 {
-                    tasks.Add(device.SubscribeToEvents(stoppingToken));
+                    //tasks.Add(device.SubscribeToEvents(stoppingToken));
                     if (!subscribed)
                     {
                         device.OnStatusChanged += async (s, e) =>

@@ -2,7 +2,9 @@
 using Scalar.AspNetCore;
 
 using Sonos.Base;
+using Sonos.Base.Music;
 using Sonos.Web;
+using Sonos.Web.Music;
 using Sonos.Web.Worker;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,9 @@ builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(con
     conf.Port = builder.Configuration.GetValue<int?>("SONOS_EVENT_PORT") ?? 6329;
 });
 
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpClient();
+
 // Make the ISonosEventBus available for injection
 builder.Services.AddSingleton<ISonosEventBus, Sonos.Base.Events.Http.SonosEventReceiver>();
 // Register the SonosEventReceiver as a hosted service
@@ -29,6 +34,7 @@ builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiv
 
 builder.Services.AddSingleton<ISonosServiceProvider, SonosServiceProvider>();
 builder.Services.AddSingleton<SonosManager>();
+builder.Services.AddMusicClientSupport();
 
 builder.Services.AddSignalR();
 
@@ -89,6 +95,7 @@ app.MapScalarApiReference(options =>
 });
 
 app.MapSonosApi();
+app.MapMusicServices();
 
 // Map the SignalR hub for player status updates
 // be sure to subscribe for updates from the right player

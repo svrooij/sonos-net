@@ -22,5 +22,6 @@ public class SonosException : Exception
 {
     public SonosException() { }
     public SonosException(string message) : base(message) { }
+    public SonosException(string message, Exception? innerException) : base(message, innerException) { }
     public int StatusCode { get; set; }
 }
