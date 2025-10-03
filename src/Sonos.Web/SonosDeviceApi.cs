@@ -10,20 +10,21 @@ internal static class SonosDeviceApi
 {
     public static void MapSonosApi(this WebApplication webApplication)
     {
-
+        webApplication.MapGet("/getaa", AlbumArtProxy)
+            .ExcludeFromDescription();
+        //.WithSummary("Album art proxy")
+        //.WithDescription("Proxy to get album art from Sonos devices")
+        //.Produces(200)
+        //.Produces(400)
+        //.Produces(404);
+        webApplication.UsePathBase("/api");
         webApplication.MapSonosZones();
         webApplication.MapSonosControls();
         
         var sonosServiceGroups = webApplication.MapServicesApi();
         sonosServiceGroups.MapServiceExtensions();
 
-        webApplication.MapGet("/getaa", AlbumArtProxy)
-            .ExcludeFromDescription();
-            //.WithSummary("Album art proxy")
-            //.WithDescription("Proxy to get album art from Sonos devices")
-            //.Produces(200)
-            //.Produces(400)
-            //.Produces(404);
+        
     }
 
     private static void MapSonosZones(this WebApplication api)

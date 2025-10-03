@@ -17,7 +17,7 @@
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach (var alarm in ListAlarmsResponse.Alarms)
             {
-                <div class="alarm-card group">
+                <div class="sonos-card group">
                     <!-- Card Header -->
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-3">
@@ -123,8 +123,8 @@
     {
         try
         {
-            ListAlarmsResponse = await client.Api.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
-            SonosGroups = await client.Api.Zones.GetAsync();
+            ListAlarmsResponse = await client.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
+            SonosGroups = await client.Zones.GetAsync();
         }
         catch (Exception ex)
         {
@@ -138,7 +138,7 @@
     {
         try
         {
-            var result = await client.Api.Speakers[playerId].Alarmclock.Alarms[alarmId].PatchAsync(new Client.Models.PatchAlarmRequest
+            var result = await client.Speakers[playerId].Alarmclock.Alarms[alarmId].PatchAsync(new Client.Models.PatchAlarmRequest
             {
                 Enabled = enabled
             });
@@ -146,7 +146,7 @@
             if (result == true)
             {
                 // Alarm updated successfully - refresh the list
-                ListAlarmsResponse = await client.Api.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
+                ListAlarmsResponse = await client.Speakers[playerId].Alarmclock.Listalarms.GetAsync();
                 StateHasChanged(); // Trigger UI update
             }
         }

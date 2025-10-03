@@ -113,7 +113,7 @@
     
     protected override async Task OnInitializedAsync()
     {
-        var groups = await client.Api.Zones.GetAsync();
+        var groups = await client.Zones.GetAsync();
         Groups = groups!.OrderBy(g => g.GroupName).ToList();
     }
 }

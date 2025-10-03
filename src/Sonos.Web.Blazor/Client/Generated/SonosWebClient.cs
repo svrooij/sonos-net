@@ -6,7 +6,9 @@ using Microsoft.Kiota.Serialization.Form;
 using Microsoft.Kiota.Serialization.Json;
 using Microsoft.Kiota.Serialization.Multipart;
 using Microsoft.Kiota.Serialization.Text;
-using Sonos.Web.Blazor.Client.Api;
+using Sonos.Web.Blazor.Client.Musicservices;
+using Sonos.Web.Blazor.Client.Speakers;
+using Sonos.Web.Blazor.Client.Zones;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,10 +21,20 @@ namespace Sonos.Web.Blazor.Client
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SonosWebClient : BaseRequestBuilder
     {
-        /// <summary>The api property</summary>
-        public global::Sonos.Web.Blazor.Client.Api.ApiRequestBuilder Api
+        /// <summary>The musicservices property</summary>
+        public global::Sonos.Web.Blazor.Client.Musicservices.MusicservicesRequestBuilder Musicservices
         {
-            get => new global::Sonos.Web.Blazor.Client.Api.ApiRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::Sonos.Web.Blazor.Client.Musicservices.MusicservicesRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The speakers property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.SpeakersRequestBuilder Speakers
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.SpeakersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The zones property</summary>
+        public global::Sonos.Web.Blazor.Client.Zones.ZonesRequestBuilder Zones
+        {
+            get => new global::Sonos.Web.Blazor.Client.Zones.ZonesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.SonosWebClient"/> and sets the default values.
@@ -37,6 +49,11 @@ namespace Sonos.Web.Blazor.Client
             ApiClientBuilder.RegisterDefaultDeserializer<JsonParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<TextParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
+            if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
+            {
+                RequestAdapter.BaseUrl = "/api";
+            }
+            PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);
         }
     }
 }

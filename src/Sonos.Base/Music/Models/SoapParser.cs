@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 using Sonos.Base.Soap;
@@ -20,6 +21,7 @@ internal static class SoapParser
         var myAttributes = new XmlAttributes();
         myAttributes.XmlElements.Add(messageAttribute);
         var overrides = new XmlAttributeOverrides();
+
         overrides.Add(typeof(EnvelopeBody<TBody>), nameof(EnvelopeBody<TBody>.Message), myAttributes);
         return overrides;
     }
@@ -33,9 +35,18 @@ internal static class SoapParser
     internal static TOut ParseXml<TOut>(Stream stream) where TOut : class
     {
         var overrides = GenerateResponseOverrides<TOut>();
-        var serializer = new XmlSerializer(typeof(Envelope<TOut, MusicServiceSoapFault>), overrides);
-
-        var result = (Envelope<TOut, MusicServiceSoapFault>?)serializer.Deserialize(stream);
+        using var reader = XmlReader.Create(stream);
+        // The serializer default namespace must match the SOAP envelope namespace so the Envelope root is recognized.
+        var serializer = new XmlSerializer(typeof(Envelope<TOut, MusicServiceSoapFault>), overrides, null, null, "http://schemas.xmlsoap.org/soap/envelope/");
+        serializer.UnknownAttribute += (s, e) =>
+        {
+            // Ignore unknown attributes
+        };
+        serializer.UnknownElement += (s, e) =>
+        {
+            // Ignore unknown elements
+        };
+        var result = (Envelope<TOut, MusicServiceSoapFault>?)serializer.Deserialize(reader);
         if (result?.Body is null)
         {
             throw new SonosException("Response does not contain expected soap body");

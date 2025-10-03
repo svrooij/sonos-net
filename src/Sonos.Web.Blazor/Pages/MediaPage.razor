@@ -1,0 +1,229 @@
+﻿@page "/media"
+@page "/media/{MusicServiceId:int}"
+@page "/media/{MusicServiceId:int}/{MediaId}"
+
+@using Sonos.Web.Blazor.Client;
+@inject SonosWebClient client
+
+<PageTitle>Browse media</PageTitle>
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6 lg:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Media Browser</h1>
+            <p class="text-gray-600 dark:text-gray-300">Browse your music services and media library</p>
+        </div>
+
+        <!-- Media Collections (Albums, Playlists, etc.) -->
+        @if(MediaList?.MediaCollection?.Count > 0)
+        {
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Browse</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                    @foreach(var item in MediaList.MediaCollection)
+                    {
+                        <a href="/media/@MusicServiceId/@item.Id" class="group block">
+                            <div class="sonos-card transition-shadow duration-300 overflow-hidden">
+                                <div class="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 flex items-center justify-center relative overflow-hidden">
+                                    @if (!string.IsNullOrEmpty(item.AlbumArtUri))
+                                    {
+                                        <img src="@item.AlbumArtUri" alt="@item.Title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                    }
+                                    else
+                                    {
+                                        <div class="text-gray-400 dark:text-gray-500 text-4xl">
+                                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 01-1.414-1.414A7.972 7.972 0 0017 12a7.972 7.972 0 00-1.343-4.243 1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                <path d="M13.828 7.172a1 1 0 011.414 0A5.983 5.983 0 0117 12a5.983 5.983 0 01-1.758 4.828 1 1 0 01-1.414-1.656A3.983 3.983 0 0015 12a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.414z"></path>
+                                            </svg>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-medium text-secondary truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">@item.Title</h3>
+                                    @if (!string.IsNullOrEmpty(item.DisplayType))
+                                    {
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 capitalize">@item.DisplayType</p>
+                                    }
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Media Metadata (Tracks) -->
+        @if(MediaList?.MediaMetadata?.Count > 0)
+        {
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Tracks</h2>
+                <div class="bg-primary-subtle rounded-lg shadow-md overflow-hidden">
+                    <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                        @foreach(var item in MediaList.MediaMetadata)
+                        {
+                            <div class="p-4 hover:bg-secondary text-primary bover:text-secondary-emphasis transition-colors cursor-pointer">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-none">
+                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.AlbumArtUri))
+                                        {
+                                            <img src="@item.TrackMetadata.AlbumArtUri" alt="@item.Title" class="w-28 h-28 rounded object-cover" />
+                                        }
+                                        else
+                                        {
+                                            <div class="w-28 h-28 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded flex items-center justify-center">
+                                                <svg class="w-14 h-14 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="flex-grow-1 min-w-0">
+                                        <p class="truncate text-xl">@item.Title</p>
+                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.Artist))
+                                        {
+                                            <p class="truncate text-lg">@item.TrackMetadata.Artist
+                                                @if (!string.IsNullOrEmpty(item.TrackMetadata?.Album))
+                                                {
+                                                    
+                                                <span> - @item.TrackMetadata.Album</span>
+                                            }
+                                            </p>
+                                        }
+                                        
+                                    </div>
+                                    <div class="flex-none">
+                                        <button class="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Music Services -->
+        @if(!MusicServiceId.HasValue && enabledMusicServices?.Count > 0)
+        {
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Music Services</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    @foreach(var service in enabledMusicServices)
+                    {
+                        <a href="/media/@service.Id/root" class="group block">
+                            <div class="sonos-card">
+                                <div class="p-6">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 01-1.414-1.414A7.972 7.972 0 0017 12a7.972 7.972 0 00-1.343-4.243 1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h3 class="text-lg font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">@service.Name</h3>
+                                            @if (service.Version.HasValue)
+                                            {
+                                                <p class="text-sm text-gray-500 dark:text-gray-400">Version @service.Version.Value</p>
+                                            }
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+        else if (!MusicServiceId.HasValue)
+        {
+            <!-- No Music Services Available -->
+            <div class="text-center py-12">
+                <div class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No music services available</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">Set up your music services to start browsing your library.</p>
+                <div class="mt-6">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900">
+                        <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        Add Music Service
+                    </button>
+                </div>
+            </div>
+        }
+
+        <!-- Empty State for Media Lists -->
+        @if(MusicServiceId.HasValue && (MediaList?.MediaCollection?.Count == 0 || MediaList?.MediaCollection == null) && (MediaList?.MediaMetadata?.Count == 0 || MediaList?.MediaMetadata == null))
+        {
+            <div class="text-center py-12">
+                <div class="mx-auto h-24 w-24 text-gray-400 dark:text-gray-500">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No media found</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">This music service doesn't have any media available to browse.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? MusicServiceId { get; set; }
+
+    [Parameter]
+    public string? MediaId { get; set; }
+
+    List<Client.Models.MusicService>? enabledMusicServices;
+    List<Client.Models.MusicService>? musicServices;
+    Client.Models.MediaList? MediaList;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrEmpty(MediaId))
+        {
+            await LoadMediaServices(false);
+        }
+
+        if (MusicServiceId > 0)
+        {
+            MediaList = await client.Musicservices[MusicServiceId.Value].Browse.GetAsync(requestConfiguration =>
+            {
+                requestConfiguration.QueryParameters.Id = MediaId;
+            });
+        }
+
+    }
+
+    private async Task LoadMediaServices(bool loadAllServices = false)
+    {
+        if (enabledMusicServices is null)
+        {
+            enabledMusicServices = await client.Musicservices.Enabled.GetAsync();
+            
+        }
+
+        if (musicServices is null && (loadAllServices || enabledMusicServices is null || enabledMusicServices.Count == 0))
+        {
+            musicServices = await client.Musicservices.GetAsync();
+        }
+    }
+}

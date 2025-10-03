@@ -14,7 +14,7 @@ builder.Services.AddKiotaHandlers();
 
 builder.Services.AddHttpClient<SonosWebClientFactory>((sp, client) =>
 {
-   client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+   client.BaseAddress = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "/api/");
 });
 
 

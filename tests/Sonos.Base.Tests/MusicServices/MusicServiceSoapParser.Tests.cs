@@ -14,51 +14,24 @@ public class MusicServiceSoapParser
     [Fact]
     public void Parse_GetAppLinkResponseXml_CreatesCorrectObject()
     {
-        var parsedObject = Sonos.Base.Music.Models.SoapParser.ParseXml<Sonos.Base.Music.Models.getAppLinkResponse>(getAppLinkResponseXml);
+        var parsedObject = Sonos.Base.Music.Models.SoapParser.ParseXml<Sonos.Base.Music.GetAppLinkResponse>(getAppLinkResponseXml);
         Assert.NotNull(parsedObject);
-        Assert.NotNull(parsedObject.getAppLinkResult);
-        Assert.NotNull(parsedObject.getAppLinkResult.authorizeAccount);
-        Assert.Equal("SIGN_IN", parsedObject.getAppLinkResult.authorizeAccount.appUrlStringId);
-        Assert.NotNull(parsedObject.getAppLinkResult.authorizeAccount.deviceLink);
-        Assert.Equal("SC2X69T", parsedObject.getAppLinkResult.authorizeAccount.deviceLink.linkCode);
-        Assert.Equal("https://spotify-v5.ws.sonos.com/deviceLink/home?linkCode=SC2X69T", parsedObject.getAppLinkResult.authorizeAccount.deviceLink.regUrl);
-        Assert.False(parsedObject.getAppLinkResult.authorizeAccount.deviceLink.showLinkCode);
-        Assert.NotNull(parsedObject.getAppLinkResult.createAccount);
-        Assert.Equal("CREATE_NEW", parsedObject.getAppLinkResult.createAccount.appUrlStringId);
+        Assert.NotNull(parsedObject.GetAppLinkResult?.AuthorizeAccount);
+        Assert.Equal("SIGN_IN", parsedObject.GetAppLinkResult?.AuthorizeAccount.AppUrlStringId);
+        Assert.NotNull(parsedObject.GetAppLinkResult?.AuthorizeAccount.DeviceLink);
+        Assert.Equal("SC2X69T", parsedObject.GetAppLinkResult?.AuthorizeAccount.DeviceLink.LinkCode);
+        Assert.Equal("https://spotify-v5.ws.sonos.com/deviceLink/home?linkCode=SC2X69T", parsedObject.GetAppLinkResult?.AuthorizeAccount.DeviceLink.RegUrl);
+        Assert.False(parsedObject.GetAppLinkResult?.AuthorizeAccount.DeviceLink.ShowLinkCode);
+        Assert.NotNull(parsedObject.GetAppLinkResult?.CreateAccount);
+        Assert.Equal("CREATE_NEW", parsedObject.GetAppLinkResult?.CreateAccount.AppUrlStringId);
     }
-
-    private const string musicServiceTokenRefreshFault = @"<?xml version=""1.0"" encoding=""utf-8"" ?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ns=""http://www.sonos.com/Services/1.1"">
- <s:Body>
-  <s:Fault>
-    <faultcode>tokenRefreshRequired</faultcode>
-    <faultstring>Log-Message</faultstring>
-    <detail>
-     <ns:refreshAuthTokenResult>
-      <ns:authToken>NEW_TOKEN</ns:authToken>
-      <ns:privateKey>REFRESH_TOKEN</ns:privateKey>
-     </ns:refreshAuthTokenResult>
-    </detail>
-  </s:Fault>
- </s:Body>
-</s:Envelope>";
-
-    //[Fact]
-    //public void Parse_MusicServiceTokenRefreshFault_ThrowsSmapiException()
-    //{
-    //    var exception = Assert.Throws<Sonos.Base.Music.SmapiException>(() => Sonos.Base.Music.Models.SoapParser.ParseXml<Sonos.Base.Music.Models.getAppLinkResponse>(musicServiceTokenRefreshFault));
-    //    Assert.Equal("Log-Message", exception.FaultString);
-    //    Assert.Equal("tokenRefreshRequired", exception.FaultCode);
-    //    Assert.NotNull(exception.RefreshAuthResult);
-    //    Assert.Equal("NEW_TOKEN", exception.RefreshAuthResult.AuthToken);
-    //    Assert.Equal("REFRESH_TOKEN", exception.RefreshAuthResult.PrivateKey);
-    //}
 
     private const string spotifyFault = @"<?xml version=""1.0"" encoding=""utf-8"" ?><SOAP-ENV:Envelope xmlns:SOAP-ENV=""http://schemas.xmlsoap.org/soap/envelope/""><SOAP-ENV:Header/><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode xmlns:ns0=""SOAP-ENV"">ns0:Client.TokenRefreshRequired</faultcode><faultstring xml:lang=""en"">tokenRefreshRequired</faultstring><detail><refreshAuthTokenResult xmlns:ns2=""http://www.sonos.com/Services/1.1""><ns2:authToken>xxx</ns2:authToken><ns2:privateKey>aaa/NL/yyy</ns2:privateKey><ns2:userInfo><ns2:userIdHashCode>...</ns2:userIdHashCode><ns2:accountTier>paidPremium</ns2:accountTier><ns2:nickname>...</ns2:nickname></ns2:userInfo></refreshAuthTokenResult></detail></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>";
 
     [Fact]
     public void Parse_SpotifyFault_ThrowsSmapiException()
     {
-        var exception = Assert.Throws<Sonos.Base.Music.SmapiException>(() => Sonos.Base.Music.Models.SoapParser.ParseXml<Sonos.Base.Music.Models.getAppLinkResponse>(spotifyFault));
+        var exception = Assert.Throws<Sonos.Base.Music.SmapiException>(() => Sonos.Base.Music.Models.SoapParser.ParseXml<Sonos.Base.Music.GetAppLinkResponse>(spotifyFault));
         Assert.Equal("tokenRefreshRequired", exception.FaultString);
         Assert.Equal("ns0:Client.TokenRefreshRequired", exception.FaultCode);
         Assert.NotNull(exception.RefreshAuthResult);

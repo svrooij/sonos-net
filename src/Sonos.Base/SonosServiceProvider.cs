@@ -12,6 +12,7 @@ namespace Sonos.Base
     /// </summary>
     public class SonosServiceProvider : ISonosServiceProvider
     {
+        public const string HttpClientName = nameof(SonosServiceProvider);
         private readonly IHttpClientFactory? httpClientFactory;
         private readonly ILoggerFactory? loggerFactory;
         private readonly ISonosEventBus? bus;
@@ -23,7 +24,7 @@ namespace Sonos.Base
             this.bus = bus;
         }
 
-        public HttpClient GetHttpClient() => httpClientFactory?.CreateClient() ?? new HttpClient();
+        public HttpClient GetHttpClient() => httpClientFactory?.CreateClient(HttpClientName) ?? new HttpClient();
 
         public IHttpClientFactory? GetHttpClientFactory() => httpClientFactory;
 

@@ -22,7 +22,7 @@ internal class DocumentOperationTransformer : IOpenApiOperationTransformer
                 {
                     Type = "string",
                     Pattern = "^RINCON_[A-F0-9]{12}01400$",
-                    Example = new OpenApiString("RINCON_38420BB9D72E01400")
+                    Example = new OpenApiString("RINCON_38420BB9D72E01400"),
                 };
             }
         }

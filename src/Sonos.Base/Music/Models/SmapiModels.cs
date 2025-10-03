@@ -27,22 +27,55 @@ public class MediaMetadata
 
     [XmlElement("title", Namespace = "http://www.sonos.com/Services/1.1")]
     public string Title { get; set; } = string.Empty;
+    [XmlElement("mimeType", Namespace = "http://www.sonos.com/Services/1.1")]
 
-    [XmlElement("summary", Namespace = "http://www.sonos.com/Services/1.1")]
-    public string? Summary { get; set; }
+    public string? MimeType { get; set; } = null;
+
+    [XmlElement("trackMetadata", Namespace = "http://www.sonos.com/Services/1.1")]
+    public TrackMetadata? TrackMetadata { get; set; }
+
+    //[XmlElement("summary", Namespace = "http://www.sonos.com/Services/1.1")]
+    //public string? Summary { get; set; }
 
     [XmlElement("trackUri", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? TrackUri { get; set; }
 
-    [XmlElement("albumArtUri", Namespace = "http://www.sonos.com/Services/1.1")]
+    //[XmlElement("albumArtURI", Namespace = "http://www.sonos.com/Services/1.1")]
+    //public string? AlbumArtUri { get; set; }
+
+
+    //[XmlElement("genre", Namespace = "http://www.sonos.com/Services/1.1")]
+    //public string? Genre { get; set; }
+    //[XmlElement("trackNumber", Namespace = "http://www.sonos.com/Services/1.1")]
+    //public int? TrackNumber { get; set; }
+}
+
+public class TrackMetadata
+{
+    [XmlElement("artistId", Namespace = "http://www.sonos.com/Services/1.1")]
+    public string? ArtistId { get; set; }
+    [XmlElement("artist", Namespace = "http://www.sonos.com/Services/1.1")]
+    public string? Artist { get; set; }
+    [XmlElement("albumId", Namespace = "http://www.sonos.com/Services/1.1")]
+    public string? AlbumId { get; set; }
+    
+
+    [XmlElement("album", Namespace = "http://www.sonos.com/Services/1.1")]
+    public string? Album { get; set; }
+
+    [XmlElement("duration", Namespace = "http://www.sonos.com/Services/1.1")]
+    public int? Duration { get; set; }
+    [XmlElement("albumArtURI", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? AlbumArtUri { get; set; }
 
+    [XmlElement("canPlay", Namespace = "http://www.sonos.com/Services/1.1")]
+    public bool? CanPlay { get; set; }
 
-    public string? Artist { get; set; }
-    public string? Album { get; set; }
-    public int? Duration { get; set; }
-    public string? Genre { get; set; }
-    public int? TrackNumber { get; set; }
+    [XmlElement("canSkip", Namespace = "http://www.sonos.com/Services/1.1")]
+    public bool? CanSkip { get; set; }
+
+    [XmlElement("canAddToFavorites", Namespace = "http://www.sonos.com/Services/1.1")]
+    public bool? CanAddToFavorites { get; set; }
 }
 
 public class MediaItem
@@ -56,7 +89,7 @@ public class MediaItem
     [XmlElement("title", Namespace = "http://www.sonos.com/Services/1.1")]
     public string Title { get; set; } = string.Empty;
 
-    [XmlElement("albumArtUri", Namespace = "http://www.sonos.com/Services/1.1")]
+    [XmlElement("albumArtURI", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? AlbumArtUri { get; set; }
 
     [XmlElement("canEnumerate", Namespace = "http://www.sonos.com/Services/1.1")]
@@ -78,39 +111,64 @@ public class MediaUri
 
 public class DeviceLink
 {
+    [XmlElement("regUrl", Namespace = "http://www.sonos.com/Services/1.1")]
     public string RegUrl { get; set; } = string.Empty;
+    [XmlElement("linkCode", Namespace = "http://www.sonos.com/Services/1.1")]
     public string LinkCode { get; set; } = string.Empty;
+    [XmlElement("showLinkCode", Namespace = "http://www.sonos.com/Services/1.1")]
     public bool ShowLinkCode { get; set; }
 }
 
+[Serializable]
+[XmlRoot("getAppLinkResponse", Namespace = "http://www.sonos.com/Services/1.1")]
 public class GetAppLinkResponse
 {
+    [XmlElement("getAppLinkResult", Namespace = "http://www.sonos.com/Services/1.1")]
+    public GetAppLinkResult? GetAppLinkResult { get; set; }
+}
+
+public class GetAppLinkResult
+{
+    [XmlElement("authorizeAccount", Namespace = "http://www.sonos.com/Services/1.1")]
     public AuthorizeAccount? AuthorizeAccount { get; set; }
+    [XmlElement("createAccount", Namespace = "http://www.sonos.com/Services/1.1")]
     public CreateAccount? CreateAccount { get; set; }
 }
 
 public class AuthorizeAccount
 {
+    [XmlElement("appUrlStringId", Namespace = "http://www.sonos.com/Services/1.1")]
     public string AppUrlStringId { get; set; } = string.Empty;
-    public DeviceLink DeviceLink { get; set; } = new();
+    [XmlElement("deviceLink", Namespace = "http://www.sonos.com/Services/1.1")]
+    public DeviceLink DeviceLink { get; set; }
 }
 
 public class CreateAccount
 {
+    [XmlElement("appUrlStringId", Namespace = "http://www.sonos.com/Services/1.1")]
     public string AppUrlStringId { get; set; } = string.Empty;
 }
 
 public class DeviceAuthResponse
 {
+    [XmlElement("authToken", Namespace = "http://www.sonos.com/Services/1.1")]
+
     public string AuthToken { get; set; } = string.Empty;
+    [XmlElement("privateKey", Namespace = "http://www.sonos.com/Services/1.1")]
     public string PrivateKey { get; set; } = string.Empty;
+    [XmlElement("userInfo", Namespace = "http://www.sonos.com/Services/1.1")]
     public UserInfo? UserInfo { get; set; }
 }
 
 public class UserInfo
 {
+    [XmlElement("accountTier", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? AccountTier { get; set; }
+    
+    [XmlElement("nickname", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? Nickname { get; set; }
+
+    [XmlElement("userIdHashCode", Namespace = "http://www.sonos.com/Services/1.1")]
     public string? UserIdHashCode { get; set; }
 }
 

@@ -36,9 +36,10 @@ public class SonosMusicServiceClient : IDisposable, IAsyncDisposable
         if (_options.Authentication == MusicServiceAuthentication.AppLink)
         {
             var appLink = await GetAppLinkAsync(cancellationToken);
-            if (appLink.AuthorizeAccount != null)
+            // Use GetAppLinkResult on the response to access AuthorizeAccount
+            if (appLink.GetAppLinkResult?.AuthorizeAccount != null)
             {
-                return appLink.AuthorizeAccount.DeviceLink;
+                return appLink.GetAppLinkResult.AuthorizeAccount.DeviceLink;
             }
         }
 

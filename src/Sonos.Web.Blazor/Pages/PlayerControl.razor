@@ -187,7 +187,7 @@ else
         {
             try
             {
-                Status = await client.Api.Speakers[SpeakerId].Status.GetAsync();
+                Status = await client.Speakers[SpeakerId].Status.GetAsync();
             }
             catch (Exception ex)
             {
@@ -200,7 +200,7 @@ else
     {
         try
         {
-            await client.Api.Speakers[SpeakerId!].Toggle.PostAsync();
+            await client.Speakers[SpeakerId!].Toggle.PostAsync();
         }
         catch (Exception ex)
         {
@@ -212,7 +212,7 @@ else
     {
         try
         {
-            await client.Api.Speakers[SpeakerId!].Next.PostAsync();
+            await client.Speakers[SpeakerId!].Next.PostAsync();
         }
         catch (Exception ex)
         {
@@ -224,7 +224,7 @@ else
     {
         try
         {
-            await client.Api.Speakers[SpeakerId!].Previous.PostAsync();
+            await client.Speakers[SpeakerId!].Previous.PostAsync();
         }
         catch (Exception ex)
         {
@@ -236,7 +236,7 @@ else
     {
         try
         {
-            await client.Api.Speakers[SpeakerId!].Volume.PostAsync(newVolume);
+            await client.Speakers[SpeakerId!].Volume.PostAsync(newVolume);
         }
         catch (Exception ex)
         {

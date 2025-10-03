@@ -14,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi(api =>
 {
     api.ShouldInclude = (desc) => true;
-    api.AddOperationTransformer<Sonos.Web.OpenApi.RemoveInstanceIdTransformer>();
-    api.AddOperationTransformer<Sonos.Web.OpenApi.DocumentOperationTransformer>();
+    api.AddOperationTransformer(new Sonos.Web.OpenApi.RemoveInstanceIdTransformer());
+    api.AddOperationTransformer(new Sonos.Web.OpenApi.DocumentOperationTransformer());
+    api.AddOperationTransformer(new Sonos.Web.OpenApi.BasePathOperationTransformer());
+    api.AddDocumentTransformer(new Sonos.Web.OpenApi.BasePathDocumentTransformer());
 });
 
 builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
@@ -32,6 +34,10 @@ builder.Services.AddSingleton<ISonosEventBus, Sonos.Base.Events.Http.SonosEventR
 // Register the SonosEventReceiver as a hosted service
 builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiver)sp.GetRequiredService<ISonosEventBus>());
 
+builder.Services.AddHttpClient(SonosServiceProvider.HttpClientName, httpClient =>
+{
+    httpClient.Timeout = TimeSpan.FromSeconds(20);
+});
 builder.Services.AddSingleton<ISonosServiceProvider, SonosServiceProvider>();
 builder.Services.AddSingleton<SonosManager>();
 builder.Services.AddMusicClientSupport();

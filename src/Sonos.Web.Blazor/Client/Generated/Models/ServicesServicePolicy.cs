@@ -22,6 +22,8 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Auth { get; set; }
 #endif
+        /// <summary>The authentication property</summary>
+        public int? Authentication { get; set; }
         /// <summary>The pollInterval property</summary>
         public int? PollInterval { get; set; }
         /// <summary>
@@ -50,6 +52,7 @@ namespace Sonos.Web.Blazor.Client.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "auth", n => { Auth = n.GetStringValue(); } },
+                { "authentication", n => { Authentication = n.GetIntValue(); } },
                 { "pollInterval", n => { PollInterval = n.GetIntValue(); } },
             };
         }
@@ -61,6 +64,7 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("auth", Auth);
+            writer.WriteIntValue("authentication", Authentication);
             writer.WriteIntValue("pollInterval", PollInterval);
             writer.WriteAdditionalData(AdditionalData);
         }
