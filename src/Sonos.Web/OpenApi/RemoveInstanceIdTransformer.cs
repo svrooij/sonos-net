@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace Sonos.Web.OpenApi;
 

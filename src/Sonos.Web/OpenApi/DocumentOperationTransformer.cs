@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace Sonos.Web.OpenApi;
 
@@ -17,13 +16,13 @@ internal class DocumentOperationTransformer : IOpenApiOperationTransformer
             {
                 hasSpeakerIdParameter = true;
                 speakerIdParam.Description = "UUID of the Sonos speaker";
-                speakerIdParam.Required = true;
-                speakerIdParam.Schema = new OpenApiSchema
-                {
-                    Type = "string",
-                    Pattern = "^RINCON_[A-F0-9]{12}01400$",
-                    Example = new OpenApiString("RINCON_38420BB9D72E01400"),
-                };
+                //speakerIdParam.Required = true;
+                //speakerIdParam.Schema = new OpenApiSchema
+                //{
+                //    Type = "string",
+                //    Pattern = "^RINCON_[A-F0-9]{12}01400$",
+                //    Example = new OpenApiString("RINCON_38420BB9D72E01400"),
+                //};
             }
         }
 

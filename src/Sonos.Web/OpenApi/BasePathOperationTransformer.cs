@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace Sonos.Web.OpenApi;
 
@@ -33,7 +33,7 @@ internal class BasePathDocumentTransformer : IOpenApiDocumentTransformer
             foreach(var server in document.Servers)
             {
                 // Add /api/ base path if not already present
-                if (!server.Url.EndsWith(BasePath))
+                if (!server.Url!.EndsWith(BasePath))
                 {
                     server.Url = server.Url.TrimEnd('/') + BasePath;
                 }

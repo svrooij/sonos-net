@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+﻿using System.Text.Json.Serialization;
 using Scalar.AspNetCore;
-
 using Sonos.Base;
-using Sonos.Base.Music;
 using Sonos.Web;
 using Sonos.Web.Music;
 using Sonos.Web.Worker;
@@ -14,10 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi(api =>
 {
     api.ShouldInclude = (desc) => true;
-    api.AddOperationTransformer(new Sonos.Web.OpenApi.RemoveInstanceIdTransformer());
-    api.AddOperationTransformer(new Sonos.Web.OpenApi.DocumentOperationTransformer());
-    api.AddOperationTransformer(new Sonos.Web.OpenApi.BasePathOperationTransformer());
-    api.AddDocumentTransformer(new Sonos.Web.OpenApi.BasePathDocumentTransformer());
+    api.AddSchemaTransformer<Sonos.Web.OpenApi.SonosSchemaTransformer>();
+    api.AddOperationTransformer<Sonos.Web.OpenApi.RemoveInstanceIdTransformer>();
+    api.AddOperationTransformer<Sonos.Web.OpenApi.DocumentOperationTransformer>();
+    api.AddOperationTransformer<Sonos.Web.OpenApi.BasePathOperationTransformer>();
+    api.AddDocumentTransformer<Sonos.Web.OpenApi.BasePathDocumentTransformer>();
+});
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
 });
 
 builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>

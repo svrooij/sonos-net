@@ -35,7 +35,7 @@ public class SonosWorker : BackgroundService
             await _sonosManager.SubscribeToTopologyChanges(stoppingToken);
 
             var devices = _sonosManager.GetDeviceUuids();
-            List<Task> tasks = new ();
+            List<Task> tasks = new();
             foreach (var item in devices)
             {
                 var device = _sonosManager.GetSonosDevice(item);
@@ -51,17 +51,22 @@ public class SonosWorker : BackgroundService
                     }
                 }
 
-                
+
             }
 
             subscribed = true;
             await Task.WhenAll(tasks);
 
-
-            // Delay ten minutes
-            await Task.Delay(60_000 * 10, stoppingToken);
+            try
+            {
+                // Delay ten minutes
+                await Task.Delay(60_000 * 10, stoppingToken);
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore
+            }
         }
-
     }
 
     private async Task EmitStatusAsync(string uuid, Sonos.Base.Models.SonosEvent sonosEvent)

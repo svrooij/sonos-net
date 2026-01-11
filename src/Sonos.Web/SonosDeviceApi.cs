@@ -1,10 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sonos.Base;
 using Sonos.Web.SonosServices;
-
 namespace Sonos.Web;
+
 
 internal static class SonosDeviceApi
 {
@@ -32,8 +30,7 @@ internal static class SonosDeviceApi
         var groups = api
             .MapGroup("/api/zones")
             .WithTags("Sonos Zones")
-            .WithGroupName("sonos-zones")
-            .WithOpenApi();
+            .WithGroupName("sonos-zones");
 
         groups.MapGet("/", GetZones)
             .WithSummary("Get zones")
@@ -59,8 +56,7 @@ internal static class SonosDeviceApi
     {
         var controls = api.MapGroup("/api/speakers")
             .WithTags("Sonos Speakers")
-            .WithGroupName("sonos-speakers")
-            .WithOpenApi();
+            .WithGroupName("sonos-speakers");
 
         controls.MapGet("/", GetSpeakers)
             .WithSummary("Get speakers")

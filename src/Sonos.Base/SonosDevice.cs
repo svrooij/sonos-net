@@ -198,7 +198,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public async Task<HttpResponseMessage> GetAlbumArtAsync(string queryString, CancellationToken cancellationToken = default)
     {
-        var baseUri = new Uri(ServiceOptions.DeviceUri, $"/getaa?{queryString}");
+        var baseUri = new Uri(ServiceOptions.DeviceUri, $"/getaa?{queryString.TrimStart('?')}");
         var fullUri = new Uri(baseUri, queryString);
         using var httpClient = ServiceOptions.ServiceProvider.GetHttpClient();
         return await httpClient.GetAsync(fullUri, cancellationToken);

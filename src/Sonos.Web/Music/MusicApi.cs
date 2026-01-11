@@ -14,8 +14,7 @@ internal static class MusicApi
         var music = app
             .MapGroup("/api/musicservices")
             .WithTags("Music Services")
-            .WithGroupName("music-services")
-            .WithOpenApi();
+            .WithGroupName("music-services");
 
         music.MapGet("/", GetMusicServices)
             .WithSummary("Get all music services")
