@@ -1,37 +1,46 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System.CommandLine;
+
+using Albatross.CommandLine;
+using Albatross.CommandLine.Annotations;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
+
+using Sonos.Base;
 
 namespace Sonos.Cli.Commands;
 
-public class NotifyCommand
+[Verb<NotifyCommandHandler>("notify", Description = "Play a notification on your speaker")]
+public record class NotifyCommandOptions : SonosOptions
 {
-    public static Command GetCommand()
-    {
-        var command = new Command("notify", "Control a speaker")
-        {
-            new Argument<Uri>("sound", "Uri of the mp3 you want to play"),
-            new Option<int>("--volume","The Sound volume")
-        };
-        command.Handler = CommandHandler.Create<NotifyCommandOptions, IHost>(Run);
+    [Argument(Description = "Uri of the mp3 you want to play")]
+    public required Uri Sound { get; init; }
+    [Option("--volume", Description = "The Sound volume")]
+    public int Volume { get; set; } = 25;
+}
 
-        return command;
+public class NotifyCommandHandler : IAsyncCommandHandler
+{
+    private readonly NotifyCommandOptions _options;
+    private readonly ILogger<NotifyCommandHandler> _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
+
+    public NotifyCommandHandler(
+        NotifyCommandOptions options,
+        ILogger<NotifyCommandHandler> logger,
+        ISonosServiceProvider sonosServiceProvider)
+    {
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
     }
 
-    private static async Task Run(NotifyCommandOptions options, IHost host)
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
-        var logger = host.Services.GetRequiredService<ILogger<NotifyCommand>>();
-        logger.LogDebug("Play notification on {ip} {sound}", options.Host, options.Sound);
-        var sonos = host.CreateSonosDeviceWithOptions(options);
+        _logger.LogDebug("Play notification on {ip} {sound}", _options.Host, _options.Sound);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
 
-        await sonos.QueueNotification(new Base.NotificationOptions(options.Sound!, options.Volume));
+        await sonos.QueueNotification(new Base.NotificationOptions(_options.Sound!, _options.Volume));
+        return 0;
     }
 
-    public class NotifyCommandOptions : BaseOptions
-    {
-        public Uri? Sound { get; set; }
-        public int Volume { get; set; } = 25;
-    }
+    
 }

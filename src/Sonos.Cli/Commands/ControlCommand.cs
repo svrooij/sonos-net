@@ -1,39 +1,50 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System.CommandLine;
+
+using Albatross.CommandLine;
+using Albatross.CommandLine.Annotations;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
+
+using Sonos.Base;
 
 namespace Sonos.Cli.Commands;
 
-public class ControlCommand
+public enum ControlAction
 {
-    public enum ControlAction
+    Stop = 0,
+    Play = 1,
+    Pause = 2,
+    Next = 3,
+    Previous = 4,
+}
+
+[Verb<ControlCommandHandler>("control", Description = "Control Sonos speaker playback")]
+public record class ControlCommandOptions : SonosOptions
+{
+    [Argument(Description = "Action to perform on the speaker")]
+    public ControlAction Action { get; init; }
+}
+
+public class ControlCommandHandler : IAsyncCommandHandler
+{
+    private readonly ControlCommandOptions _options;
+    private readonly ILogger _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
+
+    public ControlCommandHandler(
+        ControlCommandOptions options,
+        ILogger<ControlCommandHandler> logger,
+        ISonosServiceProvider sonosServiceProvider)
     {
-        Stop = 0,
-        Play = 1,
-        Pause = 2,
-        Next = 3,
-        Previous = 4,
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
     }
 
-    public static Command GetCommand()
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
-        var command = new Command("control", "Control a speaker")
-        {
-            new Argument<ControlAction>("action")
-        };
-        command.Handler = CommandHandler.Create<ControlCommandOptions, IHost>(Run);
-
-        return command;
-    }
-
-    private static async Task Run(ControlCommandOptions options, IHost host)
-    {
-        var logger = host.Services.GetRequiredService<ILogger<ControlCommand>>();
-        logger.LogDebug("Execute control command {ip} {action}", options.Host, options.Action);
-        var sonos = host.CreateSonosDeviceWithOptions(options);
-        switch (options.Action)
+        _logger.LogDebug("Execute control command {ip} {action}", _options.Host, _options.Action);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
+        switch (_options.Action)
         {
             case ControlAction.Stop:
                 await sonos.Stop();
@@ -55,10 +66,6 @@ public class ControlCommand
                 await sonos.Previous();
                 break;
         }
-    }
-
-    public class ControlCommandOptions : BaseOptions
-    {
-        public ControlAction Action { get; set; }
+        return 0;
     }
 }

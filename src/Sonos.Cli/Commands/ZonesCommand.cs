@@ -1,30 +1,28 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
 
-namespace Sonos.Cli.Commands
+using Sonos.Base;
+
+namespace Sonos.Cli.Commands;
+
+public class ZonesCommandHandler : IAsyncCommandHandler
 {
-    public class ZonesCommand
-    {
-        public static Command GetCommand()
-        {
-            var command = new Command("zones", "Control your speaker groups")
-            {
-            };
-            var listCommand = new Command("list", "List your speaker groups");
-            listCommand.Handler = CommandHandler.Create<BaseOptions, IHost>(RunListZones);
-            command.Add(listCommand);
-            return command;
-        }
+    private readonly SonosOptions _options;
+    private readonly ILogger<ZonesCommandHandler> _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
 
-        private static async Task RunListZones(BaseOptions options, IHost host)
-        {
-            var logger = host.Services.GetRequiredService<ILogger<ZonesCommand>>();
-            logger.LogDebug("Execute List Zones {host}", options.Host);
-            var sonos = host.CreateSonosDeviceWithOptions(options);
-            CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupState())?.ParsedState?.ZoneGroups);
-        }
+    public ZonesCommandHandler(SonosOptions options, ILogger<ZonesCommandHandler> logger, ISonosServiceProvider sonosServiceProvider)
+    {
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
+    }
+
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogDebug("Execute List Zones {host}", _options.Host);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
+        CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupState())?.ParsedState?.ZoneGroups);
+        return 0;
     }
 }

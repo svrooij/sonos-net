@@ -7,7 +7,7 @@ namespace Sonos.Cli.Commands;
 
 internal static class IHostExtensions
 {
-    internal static SonosDevice CreateSonosDeviceWithOptions(this IHost host, BaseOptions options)
+    internal static SonosDevice CreateSonosDeviceWithOptions(this IHost host, SonosOptions options)
     {
         if (string.IsNullOrEmpty(options.Host))
         {

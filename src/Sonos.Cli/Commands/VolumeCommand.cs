@@ -1,43 +1,50 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System.CommandLine;
+
+using Albatross.CommandLine;
+using Albatross.CommandLine.Annotations;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
+
+using Sonos.Base;
 
 namespace Sonos.Cli.Commands;
 
-public class VolumeCommand
+public record class VolumeCommandOptions : SonosOptions
 {
-    public static Command GetCommand()
+    [Option("--newVolume", "Set the volume")]
+    public int? NewVolume { get; set; }
+    [Option("--channel", "Get/set volume for different channel than 'Master'")]
+    public string Channel { get; set; } = "Master";
+}
+
+public class VolumeCommandHandler : IAsyncCommandHandler
+{
+    private readonly VolumeCommandOptions _options;
+    private readonly ILogger<VolumeCommandHandler> _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
+
+    public VolumeCommandHandler(VolumeCommandOptions options, ILogger<VolumeCommandHandler> logger, ISonosServiceProvider sonosServiceProvider)
     {
-        var command = new Command("volume", "Show or set Sonos Volume")
-        {
-            new Option<int?>("--newVolume", "Set the volume"),
-            new Option<string>("--channel", "Get/set volume for different channel than 'Master'"),
-        };
-        command.Handler = CommandHandler.Create<VolumeCommandOptions, IHost>(Run);
-        return command;
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
     }
 
-    private static async Task Run(VolumeCommandOptions options, IHost host)
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
-        var logger = host.Services.GetRequiredService<ILogger<VolumeCommand>>();
-        logger.LogDebug("Execute volume command {host}", options.Host);
-        var sonos = host.CreateSonosDeviceWithOptions(options);
-        if (options.NewVolume.HasValue)
+        _logger.LogDebug("Execute volume command {host}", _options.Host);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
+
+        if (_options.NewVolume.HasValue)
         {
-            await sonos.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = options.Channel, DesiredVolume = options.NewVolume.Value, InstanceID = 0 });
-            CommandHelpers.WriteJson(options.NewVolume.Value);
+            await sonos.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = _options.Channel, DesiredVolume = _options.NewVolume.Value, InstanceID = 0 });
+            CommandHelpers.WriteJson(_options.NewVolume.Value);
         }
         else
         {
-            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume(options.Channel));
+            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume(_options.Channel));
         }
+        return 0;
     }
 
-    public class VolumeCommandOptions : BaseOptions
-    {
-        public int? NewVolume { get; set; }
-        public string Channel { get; set; } = "Master";
-    }
+
 }

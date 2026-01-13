@@ -1,29 +1,29 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Albatross.CommandLine;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
 
-namespace Sonos.Cli.Commands
+using Sonos.Base;
+
+namespace Sonos.Cli.Commands;
+
+public class AlarmsCommandHandler : IAsyncCommandHandler
 {
-    public class AlarmsCommand
-    {
-        public static Command GetCommand()
-        {
-            var command = new Command("alarms", "Manage Sonos alarms")
-            {
-            };
-            command.Handler = CommandHandler.Create<BaseOptions, IHost>(Run);
-            return command;
-        }
+    private readonly SonosOptions _options;
+    private readonly ILogger _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
 
-        private static async Task Run(BaseOptions options, IHost host)
-        {
-            var logger = host.Services.GetRequiredService<ILogger<AlarmsCommand>>();
-            logger.LogDebug("Execute alarms command {host}", options.Host);
-            var sonos = host.CreateSonosDeviceWithOptions(options);
-            var response = await sonos.AlarmClockService.ListAlarms();
-            CommandHelpers.WriteJson(response.Alarms);
-        }
+    public AlarmsCommandHandler(SonosOptions options, ILogger<AlarmsCommandHandler> logger, ISonosServiceProvider sonosServiceProvider)
+    {
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
+    }
+
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogDebug("Execute alarms command {host}", _options.Host);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
+        var response = await sonos.AlarmClockService.ListAlarms();
+        CommandHelpers.WriteJson(response.Alarms);
+        return 0;
     }
 }

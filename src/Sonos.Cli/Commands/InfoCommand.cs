@@ -1,38 +1,47 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System.CommandLine;
+
+using Albatross.CommandLine;
+using Albatross.CommandLine.Annotations;
 using Microsoft.Extensions.Logging;
-using System.CommandLine;
-using System.CommandLine.NamingConventionBinder;
+
+using Sonos.Base;
 
 namespace Sonos.Cli.Commands;
 
-public class InfoCommand
+public enum SonosInfo
 {
-    public enum SonosInfo
-    {
-        Position = 1,
-        Transport = 2,
+    Position = 1,
+    Transport = 2,
 
-        //Volume = 3,
-        Media = 4,
+    //Volume = 3,
+    Media = 4,
+}
+
+[Verb<InfoCommandHandler>("info", Description = "Get details from your sonos speakers")]
+public record class InfoCommandOptions : SonosOptions
+{
+    [Argument(Description = "What info do you want")]
+    public SonosInfo Info { get; init; }
+}
+
+public class InfoCommandHandler : IAsyncCommandHandler
+{
+    private readonly InfoCommandOptions _options;
+    private readonly ILogger _logger;
+    private readonly ISonosServiceProvider _sonosServiceProvider;
+
+    public InfoCommandHandler(InfoCommandOptions options, ILogger<InfoCommandHandler> logger, ISonosServiceProvider sonosServiceProvider)
+    {
+        _options = options;
+        _logger = logger;
+        _sonosServiceProvider = sonosServiceProvider;
     }
 
-    public static Command GetCommand()
+    public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
-        var command = new Command("info", "Show speaker info")
-        {
-            new Argument<SonosInfo>("info")
-        };
-        command.Handler = CommandHandler.Create<InfoCommandOptions, IHost>(Run);
-        return command;
-    }
-
-    private static async Task Run(InfoCommandOptions options, IHost host)
-    {
-        var logger = host.Services.GetRequiredService<ILogger<InfoCommand>>();
-        logger.LogDebug("Execute info command {host} {info}", options.Host, options.Info);
-        var sonos = host.CreateSonosDeviceWithOptions(options);
-        switch (options.Info)
+        _logger.LogDebug("Execute info command {host} {info}", _options.Host, _options.Info);
+        var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
+        switch (_options.Info)
         {
             case SonosInfo.Position:
                 CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo());
@@ -48,10 +57,6 @@ public class InfoCommand
                 CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo());
                 break;
         }
-    }
-
-    public class InfoCommandOptions : BaseOptions
-    {
-        public SonosInfo Info { get; set; }
+        return 0;
     }
 }
