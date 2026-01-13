@@ -22,7 +22,7 @@ public class AlarmsCommandHandler : IAsyncCommandHandler
     {
         _logger.LogDebug("Execute alarms command {host}", _options.Host);
         var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
-        var response = await sonos.AlarmClockService.ListAlarms();
+        var response = await sonos.AlarmClockService.ListAlarms(cancellationToken);
         CommandHelpers.WriteJson(response.Alarms);
         return 0;
     }

@@ -44,17 +44,17 @@ public class InfoCommandHandler : IAsyncCommandHandler
         switch (_options.Info)
         {
             case SonosInfo.Position:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetPositionInfo(cancellationToken));
                 break;
 
             case SonosInfo.Transport:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetTransportInfo(cancellationToken));
                 break;
             //case SonosInfo.Volume:
             //CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume());
             //break;
             case SonosInfo.Media:
-                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo());
+                CommandHelpers.WriteJson(await sonos.AVTransportService.GetMediaInfo(cancellationToken));
                 break;
         }
         return 0;

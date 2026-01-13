@@ -47,23 +47,23 @@ public class ControlCommandHandler : IAsyncCommandHandler
         switch (_options.Action)
         {
             case ControlAction.Stop:
-                await sonos.Stop();
+                await sonos.Stop(cancellationToken);
                 break;
 
             case ControlAction.Play:
-                await sonos.Play();
+                await sonos.Play(cancellationToken);
                 break;
 
             case ControlAction.Pause:
-                await sonos.Pause();
+                await sonos.Pause(cancellationToken);
                 break;
 
             case ControlAction.Next:
-                await sonos.Next();
+                await sonos.Next(cancellationToken);
                 break;
 
             case ControlAction.Previous:
-                await sonos.Previous();
+                await sonos.Previous(cancellationToken);
                 break;
         }
         return 0;

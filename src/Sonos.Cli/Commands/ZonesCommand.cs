@@ -22,7 +22,7 @@ public class ZonesCommandHandler : IAsyncCommandHandler
     {
         _logger.LogDebug("Execute List Zones {host}", _options.Host);
         var sonos = new SonosDevice(new SonosDeviceOptions(new Uri($"http://{_options.Host}:1400/"), _sonosServiceProvider));
-        CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupState())?.ParsedState?.ZoneGroups);
+        CommandHelpers.WriteJson((await sonos.ZoneGroupTopologyService.GetZoneGroupState(cancellationToken))?.ParsedState?.ZoneGroups);
         return 0;
     }
 }

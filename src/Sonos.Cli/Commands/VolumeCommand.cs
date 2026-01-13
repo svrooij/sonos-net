@@ -36,12 +36,12 @@ public class VolumeCommandHandler : IAsyncCommandHandler
 
         if (_options.NewVolume.HasValue)
         {
-            await sonos.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = _options.Channel, DesiredVolume = _options.NewVolume.Value, InstanceID = 0 });
+            await sonos.RenderingControlService.SetVolume(new Base.Services.RenderingControlService.SetVolumeRequest { Channel = _options.Channel, DesiredVolume = _options.NewVolume.Value, InstanceID = 0 }, cancellationToken);
             CommandHelpers.WriteJson(_options.NewVolume.Value);
         }
         else
         {
-            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume(_options.Channel));
+            CommandHelpers.WriteJson(await sonos.RenderingControlService.GetVolume(_options.Channel, cancellationToken));
         }
         return 0;
     }
