@@ -46,38 +46,51 @@ public class SonosMusicManager
 
     public async Task<IEnumerable<Sonos.Base.Services.MusicServicesService.MusicService>?> GetEnabledMusicServicesAsync(CancellationToken cancellationToken)
     {
-        
-        var device = _sonosManager.GetSonosDevice(GENERIC_DEVICE_ID);
-        if (device == null)
+        var enabledServices = _sonosManager.MusicServers?.Select(s => s.ServiceId).ToHashSet();
+        if (enabledServices == null || enabledServices.Count == 0)
         {
-            _logger.LogWarning("Generic device with ID {deviceId} not found. Cannot filter enabled music services.", GENERIC_DEVICE_ID);
+            _logger.LogWarning("No enabled music services found in SonosManager MusicServers.");
             return null;
         }
+        var allServices = await GetAllMusicServicesAsync(cancellationToken);
+        if (allServices == null)
+        {
+            _logger.LogWarning("No music services available to filter for device {deviceId}", GENERIC_DEVICE_ID);
+            return null;
+        }
+        return allServices.Where(s => enabledServices.Contains(s.Id)).OrderBy(m => m.Name);
 
-        try
-        {
-            var enabledServices = await device.SystemPropertiesService.GetString(new Services.SystemPropertiesService.GetStringRequest
-            {
-                VariableName = ENABLED_MUSIC_SERVICES_KEY
-            }, cancellationToken);
-            if (string.IsNullOrWhiteSpace(enabledServices?.StringValue))
-            {
-                _logger.LogWarning("No enabled music services found in system properties for device {deviceId}", GENERIC_DEVICE_ID);
-                return null;
-            }
-            var enabledServiceIds = enabledServices.StringValue.Split(',').Select(id => ushort.Parse(id)).ToHashSet();
-            var allServices = await GetAllMusicServicesAsync(cancellationToken);
-            if (allServices == null)
-            {
-                _logger.LogWarning("No music services available to filter for device {deviceId}", GENERIC_DEVICE_ID);
-                return null;
-            }
-            return allServices.Where(s => enabledServiceIds.Contains(s.Id)).OrderBy(m => m.Name);
-        } catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error fetching enabled music services from device {deviceId}", GENERIC_DEVICE_ID);
-            return null;
-        }
+        //var device = _sonosManager.GetSonosDevice(GENERIC_DEVICE_ID);
+        //if (device == null)
+        //{
+        //    _logger.LogWarning("Generic device with ID {deviceId} not found. Cannot filter enabled music services.", GENERIC_DEVICE_ID);
+        //    return null;
+        //}
+
+        //try
+        //{
+        //    var enabledServices = await device.SystemPropertiesService.GetString(new Services.SystemPropertiesService.GetStringRequest
+        //    {
+        //        VariableName = ENABLED_MUSIC_SERVICES_KEY
+        //    }, cancellationToken);
+        //    if (string.IsNullOrWhiteSpace(enabledServices?.StringValue))
+        //    {
+        //        _logger.LogWarning("No enabled music services found in system properties for device {deviceId}", GENERIC_DEVICE_ID);
+        //        return null;
+        //    }
+        //    var enabledServiceIds = enabledServices.StringValue.Split(',').Select(id => ushort.Parse(id)).ToHashSet();
+        //    var allServices = await GetAllMusicServicesAsync(cancellationToken);
+        //    if (allServices == null)
+        //    {
+        //        _logger.LogWarning("No music services available to filter for device {deviceId}", GENERIC_DEVICE_ID);
+        //        return null;
+        //    }
+        //    return allServices.Where(s => enabledServiceIds.Contains(s.Id)).OrderBy(m => m.Name);
+        //} catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, "Error fetching enabled music services from device {deviceId}", GENERIC_DEVICE_ID);
+        //    return null;
+        //}
     }
 
     private async Task<IEnumerable<Sonos.Base.Services.MusicServicesService.MusicService>?> FetchMusicServicesAsync(CancellationToken cancellationToken)
@@ -122,11 +135,18 @@ public class SonosMusicManager
             var household = await device.DevicePropertiesService.GetHouseholdID(cancellationToken);
             options.HouseholdId = household!.CurrentHouseholdID;
 
-            var auth = await device.SystemPropertiesService.GetMusicServiceAuth(service.Id, cancellationToken);
-            options.Key = auth?.Key;
-            options.AuthToken = auth?.Token;
+            //var auth = await device.SystemPropertiesService.GetMusicServiceAuth(service.Id, cancellationToken);
+            //options.Key = auth?.Key;
+            //options.AuthToken = auth?.Token;
 
-            options.SaveNewToken = device.SystemPropertiesService.SaveMusicServiceAuth;
+            //options.SaveNewToken = device.SystemPropertiesService.SaveMusicServiceAuth;
+
+            var serviceAuth = _sonosManager.MusicServers?.FirstOrDefault(s => s.ServiceId == service.Id);
+            if (serviceAuth is not null)
+            {
+                options.Key = serviceAuth.Key;
+                options.AuthToken = serviceAuth.Token;
+            }
         }
 
         return new SonosMusicServiceClient(

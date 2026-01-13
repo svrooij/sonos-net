@@ -115,14 +115,14 @@ public partial class ZoneGroupTopologyService
         }
     }
 
-    public static ZoneGroup.MediaServers? DecryptAndParseMediaServers(in string? householdId, in string? encryptedData)
+    public static ThirdPartyMediaServersResponse? DecryptAndParseMediaServers(in string? householdId, in string? encryptedData)
     {
         var decryptedXml = DecryptMediaServers(householdId, encryptedData);
         if (decryptedXml is null)
         {
             return null;
         }
-        return SoapFactory.ParseEmbeddedXml<ZoneGroup.MediaServers>(decryptedXml);
+        return SoapFactory.ParseEmbeddedXml<ThirdPartyMediaServersResponse>(decryptedXml);
     }
 
     public partial class GetZoneGroupStateResponse

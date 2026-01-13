@@ -20,10 +20,12 @@ internal static class MusicApi
             .WithSummary("Get all music services")
             .WithDescription("Get a cached list of all sonos music services")
             .Produces<IEnumerable<Sonos.Base.Services.MusicServicesService.MusicService>>();
+
         music.MapGet("/enabled", GetEnabledMusicServices)
             .WithSummary("Get enabled music services")
             .WithDescription("Get a list off all music services that are enabled in Sonos Web")
             .Produces<IEnumerable<Sonos.Base.Services.MusicServicesService.MusicService>>();
+
         music.MapGet("{musicServiceId:int}", GetMusicServiceById)
             .WithSummary("Get a music service")
             .WithDescription("Get a music service by it's ID")

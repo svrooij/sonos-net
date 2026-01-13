@@ -31,7 +31,7 @@ namespace Sonos.Base
         private readonly ISonosServiceProvider provider;
         private readonly ILogger? logger;
 
-        public Services.ZoneGroup.MediaServersService[]? MusicData { get; private set; }
+        public ZoneGroupTopologyService.ThirdPartyMediaServer[]? MusicServers { get; private set; }
 
         public SonosManager(ISonosServiceProvider provider, ILogger<SonosManager>? logger = null)
         {
@@ -100,9 +100,10 @@ namespace Sonos.Base
         {
             // TODO: handle topology changes
             logger?.LogInformation("Zones changed @{Zones}", e.ParsedState);
+            // Not sure if the services are updated. But if they are, sent in the event just update them here.
             if (e.ThirdPartyMediaServersX != null)
             {
-                MusicData = ZoneGroupTopologyService.DecryptAndParseMediaServers(e.MuseHouseholdId, e.ThirdPartyMediaServersX)?.Service ?? MusicData;
+                MusicServers = ZoneGroupTopologyService.DecryptAndParseMediaServers(e.MuseHouseholdId, e.ThirdPartyMediaServersX)?.Servers ?? MusicServers;
             }
             if (e.ParsedState?.ZoneGroups == null)
             {

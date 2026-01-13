@@ -608,4 +608,134 @@ public partial class ZoneGroupTopologyService
             return $"ZoneGroupMember {ZoneName} ({UUID})";
         }
     }
+
+    /// <summary>
+    /// Represents the xml document containing a collection of third-party media servers.
+    /// </summary>
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRoot("MediaServers", Namespace = "", IsNullable = false)]
+    public partial class ThirdPartyMediaServersResponse
+    {
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElement("Service")]
+        public ThirdPartyMediaServer[] Servers { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a third-party media server and its associated account information.
+    /// </summary>
+    /// <remarks>This class is typically used for serialization and deserialization of media server data, including
+    /// account credentials and server metadata. Property values correspond to XML attributes and may be required for
+    /// integration with external systems or services.</remarks>
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ThirdPartyMediaServer
+    {
+        /// <summary>
+        /// Gets the unique music service device name (UDN)
+        /// </summary>
+        /// <remarks>Looks like `SA_RINCON2311_X_#Svc2311-0-Token` for spotify</remarks>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string UDN { get; set; }
+
+        /// <summary>
+        /// Number of accounts for this media service.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int NumAccounts { get; set; }
+
+        /// <summary>
+        /// Md0 value, unknown purpose.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Md0")]
+        public string Md { get; set; }
+
+        /// <summary>
+        /// Internal username for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Username0")]
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Nickname associated with the media service account, not provided by all services.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Nickname0")]
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// Value of SerialNum0, purpose unknown.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("SerialNum0")]
+        public int SerialNum { get; set; }
+
+        /// <summary>
+        /// Value of Flags0, purpose unknown.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Flags0")]
+        public int Flags { get; set; }
+
+        /// <summary>
+        /// Tier of the media service, 1 = free, 3 = premium
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Tier0")]
+        public int Tier { get; set; }
+
+        /// <summary>
+        /// Access token for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Token0")]
+        public string Token { get; set; }
+
+        /// <summary>
+        /// Refresh key for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Key0")]
+        public string Key { get; set; }
+    }
+
+    public partial class ThirdPartyMediaServer
+    {
+        private int? serviceId;
+        /// <summary>
+        /// Gets the unique identifier for the service associated with this instance.
+        /// </summary>
+        /// <remarks>The service identifier is derived from the UDN (Unique Device Name) property.</remarks>
+        /// <exception cref="FormatException">Thrown when the UDN is not in the expected format.</exception>"
+        public int ServiceId
+        {
+            get
+            {
+                if (!serviceId.HasValue)
+                {
+                    // UDN looks like: SA_RINCON2311_X_#Svc2311-0-Token, extract the number after RINCON using a generated regular expression
+                    if (string.IsNullOrEmpty(UDN) || !RegularExpressions.UdnRegex().IsMatch(UDN))
+                    {
+                        throw new FormatException($"UDN '{UDN}' is not in the expected format.");
+                    }
+
+                    var result = RegularExpressions.UdnRegex().Match(UDN);
+                    // Don't ask me how I found out about this encoding, but Sonos encodes the service id like this: ServiceId = (encodedServiceNumber - 7) / 256
+                    var encodedServiceNumber = int.Parse(result.Groups["ServiceId"].Value);
+                    serviceId = (encodedServiceNumber - 7)/256;
+                }
+                return serviceId.Value;
+            }
+        }
+        public override string ToString()
+        {
+            return $"ThirdPartyMediaServer UDN={UDN}, Username={Username}, Nickname={Nickname}, Tier={Tier}";
+        }
+    }
+
+
+
+}
+
+public static partial class RegularExpressions
+{
+    [System.Text.RegularExpressions.GeneratedRegex(@"^SA_RINCON(?<ServiceId>\d+)_X_#.*$")]
+    internal static partial System.Text.RegularExpressions.Regex UdnRegex();
 }
