@@ -180,7 +180,7 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
     /// </summary>
     /// <param name="request">Body payload</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    /// <remarks>Not supported by all speakers, TV related</remarks>
+    /// <remarks>On newer devices (e.g. Arc Ultra), dialog enhancement on/off is controlled via `SpeechEnhanceEnabled`, while `DialogLevel` represents the intensity level (1 = low, 2 = medium, 3 = high, 4 = max) and does not return 0 when disabled. Not all EQ types are available on every speaker. Not supported by all speakers, TV related</remarks>
     /// <returns>Success boolean</returns>
     public Task<bool> SetEQ(SetEQRequest request, CancellationToken cancellationToken = default) => ExecuteRequest(request, cancellationToken);
 
@@ -298,9 +298,9 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
-        /// Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
+        /// Allowed values `DialogLevel` (string, 1–4 on supported devices: 1 = low, 2 = medium, 3 = high, 4 = max) / `SpeechEnhanceEnabled` (bool) / `MusicSurroundLevel` (-15/+15) / `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
         /// </summary>
-        [Description("Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
+        [Description("Allowed values `DialogLevel` (string, 1–4 on supported devices: 1 = low, 2 = medium, 3 = high, 4 = max) / `SpeechEnhanceEnabled` (bool) / `MusicSurroundLevel` (-15/+15) / `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
         public string EQType { get; set; }
     }
 
@@ -309,9 +309,9 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
     public partial class GetEQResponse
     {
         /// <summary>
-        /// Booleans return `1` / `0`, rest number as specified
+        /// Booleans return `1` / `0`; `DialogLevel` returns a string value representing the dialog intensity level, rest return number as specified
         /// </summary>
-        [Description("Booleans return `1` / `0`, rest number as specified")]
+        [Description("Booleans return `1` / `0`; `DialogLevel` returns a string value representing the dialog intensity level, rest return number as specified")]
         [System.Xml.Serialization.XmlElement(Namespace = "")]
         public int CurrentValue { get; set; }
     }
@@ -670,15 +670,15 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         public int InstanceID { get; set; } = 0;
 
         /// <summary>
-        /// Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
+        /// Allowed values `DialogLevel` (string, 1–4 on supported devices: 1 = low, 2 = medium, 3 = high, 4 = max) / `SpeechEnhanceEnabled` (bool) / `MusicSurroundLevel` (-15/+15) / `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)
         /// </summary>
-        [Description("Allowed values `DialogLevel` (bool) / `MusicSurroundLevel` (-15/+15) /  `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
+        [Description("Allowed values `DialogLevel` (string, 1–4 on supported devices: 1 = low, 2 = medium, 3 = high, 4 = max) / `SpeechEnhanceEnabled` (bool) / `MusicSurroundLevel` (-15/+15) / `NightMode` (bool) / `SubGain` (-10/+10) / `SurroundEnable` (bool) / `SurroundLevel` (-15/+15) / `SurroundMode` (0 = ambient, 1 = full) / `HeightChannelLevel` (-10/+10)")]
         public string EQType { get; set; }
 
         /// <summary>
-        /// Booleans required `1` for true or `0` for false, rest number as specified
+        /// Booleans return `1` / `0`; `DialogLevel` returns a string value representing the dialog intensity levels, rest number as specified
         /// </summary>
-        [Description("Booleans required `1` for true or `0` for false, rest number as specified")]
+        [Description("Booleans return `1` / `0`; `DialogLevel` returns a string value representing the dialog intensity levels, rest number as specified")]
         public int DesiredValue { get; set; }
     }
 
@@ -881,6 +881,8 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
 
         public int? SpeakerSize { get; }
 
+        public bool? SpeechEnhanceEnabled { get; }
+
         public string? SubCrossover { get; }
 
         public bool? SubEnabled { get; }
@@ -888,6 +890,8 @@ public partial class RenderingControlService : SonosBaseService<RenderingControl
         public string? SubGain { get; }
 
         public string? SubPolarity { get; }
+
+        public bool? SupportsMaxDialogLevel { get; }
 
         public bool? SupportsOutputFixed { get; }
 

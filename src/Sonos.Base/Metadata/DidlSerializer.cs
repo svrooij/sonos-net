@@ -15,7 +15,7 @@ public static class DidlSerializer
         var serializer = new XmlSerializer(typeof(Didl));
         //serializer.UnknownElement += Serializer_UnknownElement;
         // Hack for not parsing elements with namespace prefix defined but not used. 
-        xml = xml.Replace("<desc ", "<r:desc ").Replace("</desc>", "</r:desc>");
+        //xml = xml.Replace("<desc ", "<r:desc ").Replace("</desc>", "</r:desc>");
         using var textReader = new StringReader(xml);
         var result = (Didl?)serializer.Deserialize(textReader);
         if (result is null)
@@ -48,7 +48,8 @@ public static class DidlSerializer
 
         var serializer = new XmlSerializer(metadata.GetType(), overrides);
         serializer.Serialize(writer, metadata, ns);
-        return stream.ToString();
+        // It seems I need to replace quotes with &quot; to prevent issues with Sonos parsing the metadata.
+        return stream.ToString();//.Replace("\"", "&quot;");
     }
 
     internal static XmlSerializerNamespaces DidlNamespaces()
@@ -63,9 +64,9 @@ public static class DidlSerializer
         var attributes = new XmlAttributes();
         attributes.XmlIgnore = true;
         var overrides = new XmlAttributeOverrides();
-        overrides.Add(typeof(Item), nameof(Item.Album), attributes);
-        overrides.Add(typeof(Item), nameof(Item.AlbumArtUri), attributes);
-        overrides.Add(typeof(Item), nameof(Item.Creator), attributes);
+        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Album), attributes);
+        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.AlbumArtUri), attributes);
+        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Creator), attributes);
         overrides.Add(typeof(Resource), nameof(Resource.Duration), attributes);
         return overrides;
     }

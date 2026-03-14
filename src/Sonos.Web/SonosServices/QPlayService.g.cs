@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class QPlayApi
 {
@@ -37,15 +39,16 @@ internal static class QPlayApi
             .WithGroupName("upnp-q-play");
 
         group.MapPost("/qplayauth", QPlayAuthAsync)
+            .Produces<QPlayService.QPlayAuthResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "QPlayAuth", SERVICE_NAME_KEBAB, null)
-            .Produces<QPlayService.QPlayAuthResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> QPlayAuthAsync(
         [FromRoute]string speakerId,
-        [FromBody]QPlayService.QPlayAuthRequest body, 
+        [FromBody, Description("Mandatory QPlayAuth body")]QPlayService.QPlayAuthRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -54,14 +57,8 @@ internal static class QPlayApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QPlayService.QPlayAuth(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QPlayService.QPlayAuth(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

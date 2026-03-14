@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class GroupRenderingControlApi
 {
@@ -38,30 +40,36 @@ internal static class GroupRenderingControlApi
 
         group.MapGet("/getgroupmute", GetGroupMuteAsync)
 
+            .Produces<GroupRenderingControlService.GetGroupMuteResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetGroupMute", SERVICE_NAME_KEBAB, "Get the group mute state.")
-            .Produces<GroupRenderingControlService.GetGroupMuteResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getgroupvolume", GetGroupVolumeAsync)
 
+            .Produces<GroupRenderingControlService.GetGroupVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetGroupVolume", SERVICE_NAME_KEBAB, "Get the group volume.")
-            .Produces<GroupRenderingControlService.GetGroupVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setgroupmute", SetGroupMuteAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetGroupMute", SERVICE_NAME_KEBAB, "(Un-/)Mute the entire group")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setgroupvolume", SetGroupVolumeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetGroupVolume", SERVICE_NAME_KEBAB, "Change group volume. Players volume will be changed proportionally based on last snapshot")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setrelativegroupvolume", SetRelativeGroupVolumeAsync)
+            .Produces<GroupRenderingControlService.SetRelativeGroupVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetRelativeGroupVolume", SERVICE_NAME_KEBAB, "Relatively change group volume - returns final group volume. Players volume will be changed proportionally based on last snapshot")
-            .Produces<GroupRenderingControlService.SetRelativeGroupVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/snapshotgroupvolume", SnapshotGroupVolumeAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SnapshotGroupVolume", SERVICE_NAME_KEBAB, "Creates a new group volume snapshot,  the volume ratio between all players. It is used by SetGroupVolume and SetRelativeGroupVolume")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
@@ -76,15 +84,9 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.GetGroupMute(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.GetGroupMute(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetGroupVolumeAsync(
@@ -97,20 +99,14 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.GetGroupVolume(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.GetGroupVolume(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetGroupMuteAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupRenderingControlService.SetGroupMuteRequest body, 
+        [FromBody, Description("Mandatory SetGroupMute body")]GroupRenderingControlService.SetGroupMuteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -119,20 +115,14 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.SetGroupMute(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.SetGroupMute(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetGroupVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupRenderingControlService.SetGroupVolumeRequest body, 
+        [FromBody, Description("Mandatory SetGroupVolume body")]GroupRenderingControlService.SetGroupVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -141,20 +131,14 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.SetGroupVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.SetGroupVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetRelativeGroupVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupRenderingControlService.SetRelativeGroupVolumeRequest body, 
+        [FromBody, Description("Mandatory SetRelativeGroupVolume body")]GroupRenderingControlService.SetRelativeGroupVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -163,15 +147,9 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.SetRelativeGroupVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.SetRelativeGroupVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SnapshotGroupVolumeAsync(
@@ -184,14 +162,8 @@ internal static class GroupRenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupRenderingControlService.SnapshotGroupVolume(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupRenderingControlService.SnapshotGroupVolume(cancellationToken);
+        return Results.Ok(result);
     }
 }

@@ -41,10 +41,10 @@ namespace Sonos.Web.Blazor.Client.Models
         /// <summary>The programMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Sonos.Web.Blazor.Client.Models.Didl? ProgramMetaDataObject { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject? ProgramMetaDataObject { get; set; }
 #nullable restore
 #else
-        public global::Sonos.Web.Blazor.Client.Models.Didl ProgramMetaDataObject { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject ProgramMetaDataObject { get; set; }
 #endif
         /// <summary>The programURI property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -105,7 +105,7 @@ namespace Sonos.Web.Blazor.Client.Models
                 { "includeLinkedZones", n => { IncludeLinkedZones = n.GetIntValue(); } },
                 { "playMode", n => { PlayMode = n.GetStringValue(); } },
                 { "programMetaData", n => { ProgramMetaData = n.GetStringValue(); } },
-                { "programMetaDataObject", n => { ProgramMetaDataObject = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.Didl>(global::Sonos.Web.Blazor.Client.Models.Didl.CreateFromDiscriminatorValue); } },
+                { "programMetaDataObject", n => { ProgramMetaDataObject = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject>(global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject.CreateFromDiscriminatorValue); } },
                 { "programURI", n => { ProgramURI = n.GetStringValue(); } },
                 { "recurrence", n => { Recurrence = n.GetStringValue(); } },
                 { "roomUUID", n => { RoomUUID = n.GetStringValue(); } },
@@ -126,13 +126,88 @@ namespace Sonos.Web.Blazor.Client.Models
             writer.WriteIntValue("includeLinkedZones", IncludeLinkedZones);
             writer.WriteStringValue("playMode", PlayMode);
             writer.WriteStringValue("programMetaData", ProgramMetaData);
-            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Didl>("programMetaDataObject", ProgramMetaDataObject);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject>("programMetaDataObject", ProgramMetaDataObject);
             writer.WriteStringValue("programURI", ProgramURI);
             writer.WriteStringValue("recurrence", Recurrence);
             writer.WriteStringValue("roomUUID", RoomUUID);
             writer.WriteDateTimeOffsetValue("startTime", StartTime);
             writer.WriteIntValue("volume", Volume);
             writer.WriteAdditionalData(AdditionalData);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1"/>, <see cref="global::Sonos.Web.Blazor.Client.Models.Didl"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class Alarm_programMetaDataObject : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1? AlarmProgramMetaDataObjectMember1 { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1 AlarmProgramMetaDataObjectMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.Didl"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.Didl? Didl { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.Didl Didl { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::Sonos.Web.Blazor.Client.Models.Alarm.Alarm_programMetaDataObject();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.AlarmProgramMetaDataObjectMember1 = new global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1();
+                }
+                else if("Didl".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Didl = new global::Sonos.Web.Blazor.Client.Models.Didl();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(AlarmProgramMetaDataObjectMember1 != null)
+                {
+                    return AlarmProgramMetaDataObjectMember1.GetFieldDeserializers();
+                }
+                else if(Didl != null)
+                {
+                    return Didl.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(AlarmProgramMetaDataObjectMember1 != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Alarm_programMetaDataObjectMember1>(null, AlarmProgramMetaDataObjectMember1);
+                }
+                else if(Didl != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Didl>(null, Didl);
+                }
+            }
         }
     }
 }

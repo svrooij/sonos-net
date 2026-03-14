@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "872F0984C5259E779CB6C9A583780DE3AD681401500194B030CB6C0CE8E32EB2CC331100D4E4214D82B2CDAB02E38EB3313337F4F680306A46E024365EAEA73D",
-  "descriptionLocation": "../../../Sonos.Web/obj/Sonos.Web.json",
+  "descriptionHash": "3832E6586ECBC8A3C9C375EA16E0926A743CA42D7B978D947D221799C6D24958B2FD594ED67CBB1E68DE0F9D7B31FB420BFE72604DAB5242E33F0AC1A63C6BEC",
+  "descriptionLocation": "../../../specs/openapi-v1.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.28.0",
+  "kiotaVersion": "1.24.3",
   "clientClassName": "SonosWebClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "Sonos.Web.Blazor.Client",

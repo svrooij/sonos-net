@@ -26,7 +26,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
-/// AVTransportService  - Service that controls stuff related to transport (play/pause/next/special urls)
+/// AVTransportService  - Service that controls stuff related to transport (play/pause/next/special URLs)
 /// </summary>
 public partial class AVTransportService : SonosBaseService<AVTransportService.IAVTransportEvent>
 {
@@ -690,6 +690,8 @@ public partial class AVTransportService : SonosBaseService<AVTransportService.IA
         public string NewTransportSettings { get; set; }
 
         public string CurrentAVTransportURI { get; set; }
+
+        public bool RestartSink { get; set; }
     }
 
     [System.Serializable()]

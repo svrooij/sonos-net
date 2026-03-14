@@ -18,6 +18,7 @@
 
 namespace Sonos.Base.Soap;
 
+using System.Xml;
 using System.Xml.Serialization;
 
 internal static class SoapFactory
@@ -41,6 +42,7 @@ internal static class SoapFactory
         request.Content.Headers.TryAddWithoutValidation("Content-Type", "text/xml; charset=\"utf-8\"");
 #if DEBUG
         var debugXml = request.Content.ReadAsStringAsync().Result;
+        var test = 0;
 #endif
         request.Headers.TryAddWithoutValidation("soapaction", $"urn:schemas-upnp-org:service:{attr.ServiceName}:1#{attr.Action ?? action}");
         return request;
@@ -66,7 +68,24 @@ internal static class SoapFactory
         var ns = SoapNamespaces();
 
         var serializer = new XmlSerializer(envelope.GetType(), overrides);
-        serializer.Serialize(stream, envelope, ns);
+        
+        //// Create XmlWriter with custom settings
+        //var settings = new XmlWriterSettings
+        //{
+        //    Encoding = System.Text.Encoding.UTF8,
+        //    Indent = false,
+        //    OmitXmlDeclaration = true,
+        //    // This will encode quotes in text content
+        //    CheckCharacters = true,
+        //    ConformanceLevel = ConformanceLevel.Document
+        //};
+
+        //using var writer = XmlWriter.Create(stream, settings);
+        //serializer.Serialize(writer, envelope, ns);
+        using (var writer = new QuoteEscapingXmlWriter(stream, System.Text.Encoding.UTF8))
+        {
+            serializer.Serialize(writer, envelope, ns);
+        }
         stream.Seek(0, SeekOrigin.Begin);
         return stream;
     }
@@ -93,11 +112,11 @@ internal static class SoapFactory
 
     internal static XmlAttributeOverrides GenerateFaultResponseOverrides()
     {
-        XmlElementAttribute messageAttribute = new XmlElementAttribute("Fault") { Namespace = "http://schemas.xmlsoap.org/soap/envelope/", Type = typeof(SoapFault) };
+        XmlElementAttribute messageAttribute = new XmlElementAttribute("Fault") { Namespace = "http://schemas.xmlsoap.org/soap/envelope/", Type = typeof(UpnpSoapFault) };
         var myAttributes = new XmlAttributes();
         myAttributes.XmlElements.Add(messageAttribute);
         var overrides = new XmlAttributeOverrides();
-        overrides.Add(typeof(EnvelopeBody<SoapFault>), nameof(EnvelopeBody<SoapFault>.Message), myAttributes);
+        overrides.Add(typeof(EnvelopeBody<UpnpSoapFault>), nameof(EnvelopeBody<UpnpSoapFault>.Message), myAttributes);
         return overrides;
     }
 
@@ -147,12 +166,12 @@ internal static class SoapFactory
         return result;
     }
 
-    internal static SoapFault? ParseFaultXml(string xml)
+    internal static UpnpSoapFault? ParseFaultXml(string xml)
     {
         var overrides = GenerateFaultResponseOverrides();
-        var serializer = new XmlSerializer(typeof(Envelope<SoapFault>), overrides);
+        var serializer = new XmlSerializer(typeof(Envelope<UpnpSoapFault>), overrides);
         using var textReader = new StringReader(xml);
-        var result = (Envelope<SoapFault>?)serializer.Deserialize(textReader);
+        var result = (Envelope<UpnpSoapFault>?)serializer.Deserialize(textReader);
         if (result is null)
         {
             return null;

@@ -687,13 +687,13 @@ public partial class ZoneGroupTopologyService
         /// Access token for the media service account.
         /// </summary>
         [System.Xml.Serialization.XmlAttribute("Token0")]
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
         /// <summary>
         /// Refresh key for the media service account.
         /// </summary>
         [System.Xml.Serialization.XmlAttribute("Key0")]
-        public string Key { get; set; }
+        public string? Key { get; set; }
     }
 
     public partial class ThirdPartyMediaServer

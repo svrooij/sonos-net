@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class ConnectionManagerApi
 {
@@ -37,16 +39,19 @@ internal static class ConnectionManagerApi
             .WithGroupName("upnp-connection-manager");
 
         group.MapGet("/getcurrentconnectionids", GetCurrentConnectionIDsAsync)
+            .Produces<ConnectionManagerService.GetCurrentConnectionIDsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetCurrentConnectionIDs", SERVICE_NAME_KEBAB, null)
-            .Produces<ConnectionManagerService.GetCurrentConnectionIDsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getcurrentconnectioninfo", GetCurrentConnectionInfoAsync)
+            .Produces<ConnectionManagerService.GetCurrentConnectionInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetCurrentConnectionInfo", SERVICE_NAME_KEBAB, null)
-            .Produces<ConnectionManagerService.GetCurrentConnectionInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getprotocolinfo", GetProtocolInfoAsync)
+            .Produces<ConnectionManagerService.GetProtocolInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetProtocolInfo", SERVICE_NAME_KEBAB, null)
-            .Produces<ConnectionManagerService.GetProtocolInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
@@ -61,20 +66,14 @@ internal static class ConnectionManagerApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ConnectionManagerService.GetCurrentConnectionIDs(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ConnectionManagerService.GetCurrentConnectionIDs(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetCurrentConnectionInfoAsync(
         [FromRoute]string speakerId,
-        [FromBody]ConnectionManagerService.GetCurrentConnectionInfoRequest body, 
+        [FromBody, Description("Mandatory GetCurrentConnectionInfo body")]ConnectionManagerService.GetCurrentConnectionInfoRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -83,15 +82,9 @@ internal static class ConnectionManagerApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ConnectionManagerService.GetCurrentConnectionInfo(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ConnectionManagerService.GetCurrentConnectionInfo(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetProtocolInfoAsync(
@@ -104,14 +97,8 @@ internal static class ConnectionManagerApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ConnectionManagerService.GetProtocolInfo(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ConnectionManagerService.GetProtocolInfo(cancellationToken);
+        return Results.Ok(result);
     }
 }

@@ -78,8 +78,8 @@ public partial class SonosBaseService : IDisposable, IAsyncDisposable
         LogHandleErrorResponseStarted(this.uuid, ServiceName, caller);
 
         // TODO HandleErrorResponse needs implementation
-        // var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        using var errorContent = await response.Content.ReadAsStreamAsync(cancellationToken);
+        var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
+        //using var errorContent = await response.Content.ReadAsStreamAsync(cancellationToken);
         var error = SoapFactory.ParseFaultXml(errorContent);
         if (error is not null)
         {

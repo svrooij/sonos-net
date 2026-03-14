@@ -7,22 +7,39 @@ using System.IO;
 using System;
 namespace Sonos.Web.Blazor.Client.Models
 {
+    /// <summary>
+    /// Object describing the current state of a Sonos device.
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class SonosEvent : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The avTransportMetadata property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata? AvTransportMetadata { get; set; }
+#nullable restore
+#else
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata AvTransportMetadata { get; set; }
+#endif
+        /// <summary>Current transport URI, queue, input, etc.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? AvTransportUri { get; set; }
+#nullable restore
+#else
+        public string AvTransportUri { get; set; }
+#endif
         /// <summary>The currentTrack property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Sonos.Web.Blazor.Client.Models.Item? CurrentTrack { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack? CurrentTrack { get; set; }
 #nullable restore
 #else
-        public global::Sonos.Web.Blazor.Client.Models.Item CurrentTrack { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack CurrentTrack { get; set; }
 #endif
-        /// <summary>The currentTrackUri property</summary>
+        /// <summary>Internal URI of the current track.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CurrentTrackUri { get; set; }
@@ -30,7 +47,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string CurrentTrackUri { get; set; }
 #endif
-        /// <summary>The groupId property</summary>
+        /// <summary>Gets or sets the unique identifier for the group associated with this entity.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? GroupId { get; set; }
@@ -38,7 +55,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string GroupId { get; set; }
 #endif
-        /// <summary>The groupName property</summary>
+        /// <summary>Name of the group</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? GroupName { get; set; }
@@ -46,19 +63,19 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string GroupName { get; set; }
 #endif
-        /// <summary>The isPlaying property</summary>
+        /// <summary>Gets or sets a value indicating whether the media is currently playing.</summary>
         public bool? IsPlaying { get; set; }
-        /// <summary>The muted property</summary>
+        /// <summary>Gets or sets a value indicating whether the audio output is muted.</summary>
         public bool? Muted { get; set; }
         /// <summary>The nextTrack property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Sonos.Web.Blazor.Client.Models.Item? NextTrack { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack? NextTrack { get; set; }
 #nullable restore
 #else
-        public global::Sonos.Web.Blazor.Client.Models.Item NextTrack { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack NextTrack { get; set; }
 #endif
-        /// <summary>The nextTrackUri property</summary>
+        /// <summary>Internal URI of the next track, if available.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? NextTrackUri { get; set; }
@@ -66,7 +83,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string NextTrackUri { get; set; }
 #endif
-        /// <summary>The transportState property</summary>
+        /// <summary>Current Transport State of the device, e.g. &quot;PLAYING&quot;, &quot;PAUSED_PLAYBACK&quot;, &quot;STOPPED&quot;, etc.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TransportState { get; set; }
@@ -74,7 +91,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string TransportState { get; set; }
 #endif
-        /// <summary>The volume property</summary>
+        /// <summary>Current Volume, value between 0 and 100.</summary>
         public int? Volume { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent"/> and sets the default values.
@@ -101,13 +118,15 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "currentTrack", n => { CurrentTrack = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.Item>(global::Sonos.Web.Blazor.Client.Models.Item.CreateFromDiscriminatorValue); } },
+                { "avTransportMetadata", n => { AvTransportMetadata = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata>(global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata.CreateFromDiscriminatorValue); } },
+                { "avTransportUri", n => { AvTransportUri = n.GetStringValue(); } },
+                { "currentTrack", n => { CurrentTrack = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack>(global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack.CreateFromDiscriminatorValue); } },
                 { "currentTrackUri", n => { CurrentTrackUri = n.GetStringValue(); } },
                 { "groupId", n => { GroupId = n.GetStringValue(); } },
                 { "groupName", n => { GroupName = n.GetStringValue(); } },
                 { "isPlaying", n => { IsPlaying = n.GetBoolValue(); } },
                 { "muted", n => { Muted = n.GetBoolValue(); } },
-                { "nextTrack", n => { NextTrack = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.Item>(global::Sonos.Web.Blazor.Client.Models.Item.CreateFromDiscriminatorValue); } },
+                { "nextTrack", n => { NextTrack = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack>(global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack.CreateFromDiscriminatorValue); } },
                 { "nextTrackUri", n => { NextTrackUri = n.GetStringValue(); } },
                 { "transportState", n => { TransportState = n.GetStringValue(); } },
                 { "volume", n => { Volume = n.GetIntValue(); } },
@@ -120,17 +139,244 @@ namespace Sonos.Web.Blazor.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Item>("currentTrack", CurrentTrack);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata>("avTransportMetadata", AvTransportMetadata);
+            writer.WriteStringValue("avTransportUri", AvTransportUri);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack>("currentTrack", CurrentTrack);
             writer.WriteStringValue("currentTrackUri", CurrentTrackUri);
             writer.WriteStringValue("groupId", GroupId);
             writer.WriteStringValue("groupName", GroupName);
             writer.WriteBoolValue("isPlaying", IsPlaying);
             writer.WriteBoolValue("muted", Muted);
-            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.Item>("nextTrack", NextTrack);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack>("nextTrack", NextTrack);
             writer.WriteStringValue("nextTrackUri", NextTrackUri);
             writer.WriteStringValue("transportState", TransportState);
             writer.WriteIntValue("volume", Volume);
             writer.WriteAdditionalData(AdditionalData);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1"/>, <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class SonosEvent_avTransportMetadata : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1? SonosEventAvTransportMetadataMember1 { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1 SonosEventAvTransportMetadataMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack? SonosTrack { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack SonosTrack { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_avTransportMetadata();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosEventAvTransportMetadataMember1 = new global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1();
+                }
+                else if("SonosTrack".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosTrack = new global::Sonos.Web.Blazor.Client.Models.SonosTrack();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(SonosEventAvTransportMetadataMember1 != null)
+                {
+                    return SonosEventAvTransportMetadataMember1.GetFieldDeserializers();
+                }
+                else if(SonosTrack != null)
+                {
+                    return SonosTrack.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(SonosEventAvTransportMetadataMember1 != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent_avTransportMetadataMember1>(null, SonosEventAvTransportMetadataMember1);
+                }
+                else if(SonosTrack != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosTrack>(null, SonosTrack);
+                }
+            }
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1"/>, <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class SonosEvent_currentTrack : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1? SonosEventCurrentTrackMember1 { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1 SonosEventCurrentTrackMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack? SonosTrack { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack SonosTrack { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_currentTrack();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosEventCurrentTrackMember1 = new global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1();
+                }
+                else if("SonosTrack".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosTrack = new global::Sonos.Web.Blazor.Client.Models.SonosTrack();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(SonosEventCurrentTrackMember1 != null)
+                {
+                    return SonosEventCurrentTrackMember1.GetFieldDeserializers();
+                }
+                else if(SonosTrack != null)
+                {
+                    return SonosTrack.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(SonosEventCurrentTrackMember1 != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent_currentTrackMember1>(null, SonosEventCurrentTrackMember1);
+                }
+                else if(SonosTrack != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosTrack>(null, SonosTrack);
+                }
+            }
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1"/>, <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class SonosEvent_nextTrack : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1? SonosEventNextTrackMember1 { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1 SonosEventNextTrackMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.SonosTrack"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack? SonosTrack { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.SonosTrack SonosTrack { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::Sonos.Web.Blazor.Client.Models.SonosEvent.SonosEvent_nextTrack();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosEventNextTrackMember1 = new global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1();
+                }
+                else if("SonosTrack".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.SonosTrack = new global::Sonos.Web.Blazor.Client.Models.SonosTrack();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(SonosEventNextTrackMember1 != null)
+                {
+                    return SonosEventNextTrackMember1.GetFieldDeserializers();
+                }
+                else if(SonosTrack != null)
+                {
+                    return SonosTrack.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(SonosEventNextTrackMember1 != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosEvent_nextTrackMember1>(null, SonosEventNextTrackMember1);
+                }
+                else if(SonosTrack != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.SonosTrack>(null, SonosTrack);
+                }
+            }
         }
     }
 }

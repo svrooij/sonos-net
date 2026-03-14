@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+using System.Reflection;
+using System.Text.Json.Serialization;
+
+
+using Microsoft.AspNetCore.StaticFiles;
+
 using Scalar.AspNetCore;
 using Sonos.Base;
 using Sonos.Web;
@@ -7,11 +12,14 @@ using Sonos.Web.Worker;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(api =>
 {
     api.ShouldInclude = (desc) => true;
+    api.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
     api.AddSchemaTransformer<Sonos.Web.OpenApi.SonosSchemaTransformer>();
     api.AddOperationTransformer<Sonos.Web.OpenApi.RemoveInstanceIdTransformer>();
     api.AddOperationTransformer<Sonos.Web.OpenApi.DocumentOperationTransformer>();
@@ -24,19 +32,32 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
 });
 
-builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
+
+
+    builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
 {
     conf.Host = builder.Configuration.GetValue<string?>("SONOS_EVENT_HOST");
     conf.Port = builder.Configuration.GetValue<int?>("SONOS_EVENT_PORT") ?? 6329;
 });
 
 builder.Services.AddMemoryCache();
-builder.Services.AddHttpClient();
+//builder.Services.AddHttpClient();
 
-// Make the ISonosEventBus available for injection
-builder.Services.AddSingleton<ISonosEventBus, Sonos.Base.Events.Http.SonosEventReceiver>();
-// Register the SonosEventReceiver as a hosted service
-builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiver)sp.GetRequiredService<ISonosEventBus>());
+bool specsServer = false;
+
+// If the crappy OpenAPI generator is not running
+if (Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider")
+{
+    // Make the ISonosEventBus available for injection
+    builder.Services.AddSingleton<ISonosEventBus, Sonos.Base.Events.Http.SonosEventReceiver>();
+    // Register the SonosEventReceiver as a hosted service
+    builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiver)sp.GetRequiredService<ISonosEventBus>());
+
+    builder.Services.AddHostedService<SonosWorker>();
+    specsServer = true;
+}
+
+
 
 builder.Services.AddHttpClient(SonosServiceProvider.HttpClientName, httpClient =>
 {
@@ -48,9 +69,10 @@ builder.Services.AddMusicClientSupport();
 
 builder.Services.AddSignalR();
 
-builder.Services.AddHostedService<SonosWorker>();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -65,16 +87,29 @@ if (builder.Configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER") == true)
 }
 else
 {
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 }
 
 
 // Enable serving static files for Blazor WebAssembly
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles(new StaticFileOptions
+if (false)
 {
-    RedirectToAppendTrailingSlash = true,
-});
+    //app.UseBlazorFrameworkFiles();
+} else
+{
+#if !DEBUG //maybe test for existence of wwwroot/index.html instead?
+    var provider = new FileExtensionContentTypeProvider();
+    provider.Mappings[".dat"] = "application/octet-stream";
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        RedirectToAppendTrailingSlash = true,
+        ContentTypeProvider = provider,
+        ServeUnknownFileTypes = false
+    });
+#endif
+}
+//app.UseBlazorFrameworkFiles();
+
 
 // Configure routing
 app.UseRouting();

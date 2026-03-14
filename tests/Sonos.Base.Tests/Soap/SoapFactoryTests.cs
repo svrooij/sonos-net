@@ -52,4 +52,12 @@ public class SoapFactoryTests
         Assert.NotNull(parsedObject);
         Assert.Equal("AA:2A:1B:AA:AA:AA", parsedObject.MACAddress);
     }
+
+    const string SonosUpnpErrorResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><s:Fault><faultcode>s:Client</faultcode><faultstring>UPnPError</faultstring><detail><UPnPError xmlns=""urn:schemas-upnp-org:control-1-0""><errorCode>402</errorCode></UPnPError></detail></s:Fault></s:Body></s:Envelope>";
+    [Fact]
+    public void CanParseErrorResponse()
+    {
+        var parsedError = SoapFactory.ParseFaultXml(SonosUpnpErrorResponse);
+        Assert.NotNull(parsedError);
+    }
 }

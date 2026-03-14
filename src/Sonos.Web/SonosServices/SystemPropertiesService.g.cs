@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class SystemPropertiesApi
 {
@@ -37,79 +39,96 @@ internal static class SystemPropertiesApi
             .WithGroupName("upnp-system-properties");
 
         group.MapPost("/addaccountx", AddAccountXAsync)
+            .Produces<SystemPropertiesService.AddAccountXResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddAccountX", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.AddAccountXResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/addoauthaccountx", AddOAuthAccountXAsync)
+            .Produces<SystemPropertiesService.AddOAuthAccountXResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddOAuthAccountX", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.AddOAuthAccountXResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/dopostupdatetasks", DoPostUpdateTasksAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "DoPostUpdateTasks", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/editaccountmd", EditAccountMdAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "EditAccountMd", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/editaccountpasswordx", EditAccountPasswordXAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "EditAccountPasswordX", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/enablerdm", EnableRDMAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "EnableRDM", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getrdm", GetRDMAsync)
+            .Produces<SystemPropertiesService.GetRDMResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetRDM", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.GetRDMResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getstring", GetStringAsync)
+            .Produces<SystemPropertiesService.GetStringResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetString", SERVICE_NAME_KEBAB, "Get a saved string.")
-            .Produces<SystemPropertiesService.GetStringResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getwebcode", GetWebCodeAsync)
+            .Produces<SystemPropertiesService.GetWebCodeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetWebCode", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.GetWebCodeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/provisioncredentialedtrialaccountx", ProvisionCredentialedTrialAccountXAsync)
+            .Produces<SystemPropertiesService.ProvisionCredentialedTrialAccountXResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ProvisionCredentialedTrialAccountX", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.ProvisionCredentialedTrialAccountXResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/refreshaccountcredentialsx", RefreshAccountCredentialsXAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RefreshAccountCredentialsX", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/remove", RemoveAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Remove", SERVICE_NAME_KEBAB, "Remove a saved string")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removeaccount", RemoveAccountAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveAccount", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/replaceaccountx", ReplaceAccountXAsync)
+            .Produces<SystemPropertiesService.ReplaceAccountXResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReplaceAccountX", SERVICE_NAME_KEBAB, null)
-            .Produces<SystemPropertiesService.ReplaceAccountXResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/resetthirdpartycredentials", ResetThirdPartyCredentialsAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ResetThirdPartyCredentials", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setaccountnicknamex", SetAccountNicknameXAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAccountNicknameX", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setstring", SetStringAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetString", SERVICE_NAME_KEBAB, "Save a string in the system")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> AddAccountXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.AddAccountXRequest body, 
+        [FromBody, Description("Mandatory AddAccountX body")]SystemPropertiesService.AddAccountXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -118,20 +137,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.AddAccountX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.AddAccountX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AddOAuthAccountXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.AddOAuthAccountXRequest body, 
+        [FromBody, Description("Mandatory AddOAuthAccountX body")]SystemPropertiesService.AddOAuthAccountXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -140,15 +153,9 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.AddOAuthAccountX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.AddOAuthAccountX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> DoPostUpdateTasksAsync(
@@ -161,20 +168,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.DoPostUpdateTasks(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.DoPostUpdateTasks(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> EditAccountMdAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.EditAccountMdRequest body, 
+        [FromBody, Description("Mandatory EditAccountMd body")]SystemPropertiesService.EditAccountMdRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -183,20 +184,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.EditAccountMd(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.EditAccountMd(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> EditAccountPasswordXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.EditAccountPasswordXRequest body, 
+        [FromBody, Description("Mandatory EditAccountPasswordX body")]SystemPropertiesService.EditAccountPasswordXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -205,20 +200,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.EditAccountPasswordX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.EditAccountPasswordX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> EnableRDMAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.EnableRDMRequest body, 
+        [FromBody, Description("Mandatory EnableRDM body")]SystemPropertiesService.EnableRDMRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -227,15 +216,9 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.EnableRDM(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.EnableRDM(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetRDMAsync(
@@ -248,20 +231,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.GetRDM(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.GetRDM(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetStringAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.GetStringRequest body, 
+        [FromBody, Description("Mandatory GetString body")]SystemPropertiesService.GetStringRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -270,20 +247,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.GetString(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.GetString(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetWebCodeAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.GetWebCodeRequest body, 
+        [FromBody, Description("Mandatory GetWebCode body")]SystemPropertiesService.GetWebCodeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -292,20 +263,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.GetWebCode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.GetWebCode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ProvisionCredentialedTrialAccountXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.ProvisionCredentialedTrialAccountXRequest body, 
+        [FromBody, Description("Mandatory ProvisionCredentialedTrialAccountX body")]SystemPropertiesService.ProvisionCredentialedTrialAccountXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -314,20 +279,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.ProvisionCredentialedTrialAccountX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.ProvisionCredentialedTrialAccountX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RefreshAccountCredentialsXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.RefreshAccountCredentialsXRequest body, 
+        [FromBody, Description("Mandatory RefreshAccountCredentialsX body")]SystemPropertiesService.RefreshAccountCredentialsXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -336,20 +295,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.RefreshAccountCredentialsX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.RefreshAccountCredentialsX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.RemoveRequest body, 
+        [FromBody, Description("Mandatory Remove body")]SystemPropertiesService.RemoveRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -358,20 +311,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.Remove(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.Remove(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveAccountAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.RemoveAccountRequest body, 
+        [FromBody, Description("Mandatory RemoveAccount body")]SystemPropertiesService.RemoveAccountRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -380,20 +327,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.RemoveAccount(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.RemoveAccount(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReplaceAccountXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.ReplaceAccountXRequest body, 
+        [FromBody, Description("Mandatory ReplaceAccountX body")]SystemPropertiesService.ReplaceAccountXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -402,15 +343,9 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.ReplaceAccountX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.ReplaceAccountX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ResetThirdPartyCredentialsAsync(
@@ -423,20 +358,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.ResetThirdPartyCredentials(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.ResetThirdPartyCredentials(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAccountNicknameXAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.SetAccountNicknameXRequest body, 
+        [FromBody, Description("Mandatory SetAccountNicknameX body")]SystemPropertiesService.SetAccountNicknameXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -445,20 +374,14 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.SetAccountNicknameX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.SetAccountNicknameX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetStringAsync(
         [FromRoute]string speakerId,
-        [FromBody]SystemPropertiesService.SetStringRequest body, 
+        [FromBody, Description("Mandatory SetString body")]SystemPropertiesService.SetStringRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -467,14 +390,8 @@ internal static class SystemPropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.SystemPropertiesService.SetString(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.SystemPropertiesService.SetString(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

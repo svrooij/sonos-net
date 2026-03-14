@@ -12,6 +12,6 @@ internal static class SonosResults
                 type: "https://sonos.svrooij.io/services/#upnp-errors",
                 title: "Sonos Service Error",
                 detail: $"{memberName} caused an upnp error ({ex.UpnpErrorCode}): {ex.UpnpErrorMessage}",
-                statusCode: 422,
+                statusCode: 409,
                 extensions: [new(nameof(ex.UpnpErrorCode), ex.UpnpErrorCode)]);
 }

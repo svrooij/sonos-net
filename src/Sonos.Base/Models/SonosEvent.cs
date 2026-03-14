@@ -12,9 +12,13 @@ public class SonosEvent
     public string? GroupId { get; internal set; }
     public string? GroupName { get; internal set; }
 
-    public Metadata.Item? CurrentTrack { get; internal set; }
+    public Metadata.DidlTrack? CurrentTrack { get; internal set; }
     public string? CurrentTrackUri { get; internal set; }
-    public Metadata.Item? NextTrack { get; internal set; }
+
+    public string? AVTransportUri{ get; internal set; }
+    public Metadata.DidlTrack? AVTransportMetadata { get; internal set; }
+
+    public Metadata.DidlTrack? NextTrack { get; internal set; }
     public string? NextTrackUri { get; internal set; }
     public bool? Muted { get; internal set; }
     public int? Volume { get; internal set; }

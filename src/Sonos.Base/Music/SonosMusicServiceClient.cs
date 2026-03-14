@@ -28,6 +28,9 @@ public class SonosMusicServiceClient : IDisposable, IAsyncDisposable
         _httpClient.BaseAddress = options.BaseUri;
     }
 
+    public string? Udn => _options.UDN;
+    public int? SerialNumber => _options.SerialNumber;
+
     /// <summary>
     /// Get the login link for this music service to connect it to your Sonos system.
     /// </summary>
@@ -138,10 +141,10 @@ public class SonosMusicServiceClient : IDisposable, IAsyncDisposable
     /// <summary>
     /// Get media metadata for a specific item
     /// </summary>
-    public async Task<MediaMetadata> GetMediaMetadataAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<GetMediaMetadataResponse> GetMediaMetadataAsync(string id, CancellationToken cancellationToken = default)
     {
         var request = new GetMediaMetadataRequest { Id = id };
-        return await SoapRequestWithBodyAsync<GetMediaMetadataRequest, MediaMetadata>("getMediaMetadata", request, cancellationToken);
+        return await SoapRequestWithBodyAsync<GetMediaMetadataRequest, GetMediaMetadataResponse>("getMediaMetadata", request, cancellationToken);
     }
 
     /// <summary>

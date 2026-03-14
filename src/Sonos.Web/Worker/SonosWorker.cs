@@ -71,10 +71,11 @@ public class SonosWorker : BackgroundService
 
     private async Task EmitStatusAsync(string uuid, Sonos.Base.Models.SonosEvent sonosEvent)
     {
-        _logger.LogDebug("Emitting status for {uuid}: {@event}", uuid, sonosEvent);
+        var webEvent = Sonos.Web.Models.SonosEvent.FromBaseEvent(sonosEvent)!;
+        _logger.LogDebug("Emitting status for {uuid}: {@event}", uuid, webEvent);
         // Emit the status to all connected clients in the group identified by the device UUID
         // This ensures that only clients interested in this specific device receive the update, to keep it snappy.
-        await _hubContext.Clients.Group(uuid).PlayerStatusChanged(uuid, sonosEvent);
+        await _hubContext.Clients.Group(uuid).PlayerStatusChanged(uuid, webEvent);
 
     }
 

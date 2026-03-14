@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel;
+
+using Microsoft.AspNetCore.Mvc;
 using Sonos.Base;
+using Sonos.Base.Music;
+using Sonos.Web.Filters;
 using Sonos.Web.SonosServices;
 namespace Sonos.Web;
 
@@ -10,11 +14,6 @@ internal static class SonosDeviceApi
     {
         webApplication.MapGet("/getaa", AlbumArtProxy)
             .ExcludeFromDescription();
-        //.WithSummary("Album art proxy")
-        //.WithDescription("Proxy to get album art from Sonos devices")
-        //.Produces(200)
-        //.Produces(400)
-        //.Produces(404);
         webApplication.UsePathBase("/api");
         webApplication.MapSonosZones();
         webApplication.MapSonosControls();
@@ -33,8 +32,14 @@ internal static class SonosDeviceApi
             .WithGroupName("sonos-zones");
 
         groups.MapGet("/", GetZones)
-            .WithSummary("Get zones")
-            .WithDescription("Get a list of all sonos groups")
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Get zones";
+                operation.Description = "Get a list of all sonos groups";
+                operation.Responses ??= new();
+                operation.Responses["200"].Description = "Success response with a list of sonos groups";
+                return Task.CompletedTask;
+            })
             .Produces<IEnumerable<Models.SonosGroup>>();
     }
 
@@ -59,54 +64,136 @@ internal static class SonosDeviceApi
             .WithGroupName("sonos-speakers");
 
         controls.MapGet("/", GetSpeakers)
-            .WithSummary("Get speakers")
-            .WithDescription("Get all known speaker UUIDs")
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Get all speakers";
+                operation.Description = "Get a list of know speaker ids";
+                operation.Responses ??= new();
+                operation.Responses["200"].Description = "Success response with an array of speaker ids";
+                return Task.CompletedTask;
+            })
             .Produces<IEnumerable<string>>(200); ;
 
+
+
         controls.MapPost("/{speakerId}/next", Next)
-            .WithSummary(nameof(Next))
-            .WithDescription("Play next song")
-            .Produces<bool>(200);
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Next";
+                operation.Description = "Go to next song";
+                operation.Responses ??= new();
+                operation.Responses["200"].Description = "Ok";
+                return Task.CompletedTask;
+            })
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/notify", PlayNotification)
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Play notification";
+                operation.Description = "Queue a notification and resume regular playback";
+                operation.Responses ??= new();
+                operation.Responses["200"].Description = "Ok";
+                return Task.CompletedTask;
+            })
+            .Produces<bool>(200)
+            .ProducesProblem(404);
 
         controls.MapPost("/{speakerId}/pause", Pause)
             .WithSummary(nameof(Pause))
             .WithDescription("Pause speaker playback")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
 
         controls.MapPost("/{speakerId}/play", Play)
             .WithSummary(nameof(Play))
             .WithDescription("Start speaker playback")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
 
         controls.MapPost("/{speakerId}/previous", Previous)
             .WithSummary(nameof(Previous))
             .WithDescription("Play previous song")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/settransporturi", SetTransportUri)
+            .WithSummary(nameof(SetTransportUri))
+            .WithDescription("Set the transport uri, with automatic metadata generation")
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
 
         controls.MapGet("/{speakerId}/status", Status)
             .WithSummary(nameof(Status))
             .WithDescription("Player status")
-            .Produces<Sonos.Base.Models.SonosEvent>(200);
+            .Produces<Sonos.Web.Models.SonosEvent>(200)
+            .Produces(StatusCodes.Status204NoContent)
+            .ProducesProblem(404); // If status is null, return 204 No Content
 
         controls.MapPost("/{speakerId}/stop", Stop)
             .WithSummary(nameof(Stop))
             .WithDescription("Stop speaker playback")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/switchtolinein", SwitchToLineIn)
+            .WithSummary(nameof(SwitchToLineIn))
+            .WithDescription("Switch to line in (only supported devices)")
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/switchtostream", SwitchToStream)
+            .WithSummary(nameof(SwitchToStream))
+            .WithDescription("Try to switch to a stream from a service")
+            .Produces<bool>(204)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/switchtoqueue", SwitchToQueue)
+            .WithSummary(nameof(SwitchToQueue))
+            .WithDescription("Switch to queue")
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/switchtotv", SwitchToTv)
+            .WithSummary(nameof(SwitchToTv))
+            .WithDescription("Switch to tv input (only supported devices)")
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+
 
         controls.MapPost("/{speakerId}/toggle", TogglePlayback)
             .WithSummary("Toggle playback")
             .WithDescription("Toggle speaker playback")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
 
-        controls.MapGet("/{speakerId}/volume", GetVolume)
-            .WithSummary("Get volume")
+        controls.MapGet("/{speakerId}/volume", VolumeGet)
+            .WithSummary("Volume Get")
             .WithDescription("Get current main channel volume")
-            .Produces<int>(200);
+            .Produces<int>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
 
-        controls.MapPost("/{speakerId}/volume", SetVolume)
-            .WithSummary("Set volume")
+        controls.MapPost("/{speakerId}/volume", VolumeSet)
+            .WithSummary("Volume set")
             .WithDescription("Set main channel volume")
-            .Produces<bool>(200);
+            .Produces<bool>(200)
+            .ProducesValidationProblem(400)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
     }
 
     private static IResult GetSpeakers(SonosManager sonosManager)
@@ -159,16 +246,17 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> TogglePlayback(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> SetTransportUri(string speakerId, [FromBody, Description("Mandatory body")] SetTransportUriRequest setTransportUriRequest, SonosManager sonosManager, CancellationToken cancellationToken)
     {
         var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        var result = await device.TogglePlayback(cancellationToken);
+        var result = await device.SetTransportUri(setTransportUriRequest, cancellationToken);
         return Results.Ok(result);
     }
+
 
     private static IResult Status(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
@@ -177,8 +265,14 @@ internal static class SonosDeviceApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        
-        return Results.Ok(device.Status);
+        if (device.Status is null)
+        {
+            // This happens if the status is not received yet, for example right after startup or if the event subscription is not working.
+            // In this case, return 204 No Content to indicate that the request was successful but there is no status available yet.
+            return Results.NoContent();
+        }
+        var webStatus = Models.SonosEvent.FromBaseEvent(device.Status);
+        return Results.Ok(webStatus);
     }
 
     private static async Task<IResult> Stop(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
@@ -192,7 +286,71 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> GetVolume(string speakerId, string? channel, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> SwitchToLineIn(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.SwitchToLineIn(cancellationToken);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> SwitchToStream([FromRoute]string speakerId, [FromBody]Models.SwitchToStreamRequest switchToStreamRequest, [FromServices]SonosManager sonosManager, [FromServices]SonosMusicManager sonosMusicManager, CancellationToken cancellationToken = default)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var mediaPlaybackInfo = await sonosMusicManager.GetMediaPlaybackInformationAsync((ushort)switchToStreamRequest.ServiceId, switchToStreamRequest.MediaId, cancellationToken);
+        await device.AVTransportService.SetAVTransportURI(new Base.Services.AVTransportService.SetAVTransportURIRequest
+        {
+            CurrentURI = mediaPlaybackInfo?.TrackUri!,
+            CurrentURIMetaDataObject = new Base.Metadata.Didl(mediaPlaybackInfo!.Metadata)
+        }, cancellationToken);
+        if (switchToStreamRequest.Play)
+        {
+            await device.Play(cancellationToken);
+        }
+        return Results.NoContent();
+    }
+
+    private static async Task<IResult> SwitchToQueue(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.SwitchToQueue(cancellationToken);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> SwitchToTv(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.SwitchToSpdif(cancellationToken);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> TogglePlayback(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.TogglePlayback(cancellationToken);
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> VolumeGet(string speakerId, string? channel, SonosManager sonosManager, CancellationToken cancellationToken)
     {
         var device = sonosManager.GetSonosDevice(speakerId);
         if (device is null)
@@ -203,11 +361,11 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> SetVolume([FromRoute]string speakerId, [FromBody] int volume, [FromServices]SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> VolumeSet([FromRoute]string speakerId, [FromBody] int volume, [FromServices]SonosManager sonosManager, CancellationToken cancellationToken)
     {
         if (volume < 0 || volume > 100)
         {
-            return Results.BadRequest("Volume must be between 0 and 100");
+            return Results.ValidationProblem(new Dictionary<string, string[]> { ["volume"] = new[] { "The volume must be between 0 and 100" } });
         }
         var device = sonosManager.GetSonosDevice(speakerId!);
         if (device is null)
@@ -219,7 +377,19 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> AlbumArtProxy(HttpContext context, SonosManager sonosManager, CancellationToken cancellationToken)
+    private static async Task<IResult> PlayNotification([FromRoute] string speakerId, [FromBody] Sonos.Base.NotificationOptions notificationOptions, [FromServices] SonosManager sonosManager, CancellationToken cancellationToken)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId!);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var result = await device.QueueNotification(notificationOptions, cancellationToken);
+
+        return Results.Ok(result);
+    }
+
+    private static async Task<IResult> AlbumArtProxy(HttpContext context, [FromServices]SonosManager sonosManager, [FromServices]HttpClient httpClient, CancellationToken cancellationToken)
     {
         if (!context.Request.QueryString.HasValue)
         {
@@ -227,7 +397,8 @@ internal static class SonosDeviceApi
         }
 
         var device = sonosManager.GetSonosDevice(sonosManager.GetDeviceUuids().First());
-        var result = await device!.GetAlbumArtAsync(context.Request.QueryString.Value!, cancellationToken);
+        var albumArtUri = device!.GenerateAlbumArtUrl(context.Request.QueryString.Value!);
+        var result = await httpClient.GetAsync(albumArtUri, cancellationToken);
 
         if (result.IsSuccessStatusCode)
         {
@@ -251,9 +422,17 @@ internal static class SonosDeviceApi
     private static void MapServiceExtensions(this Dictionary<Sonos.Base.Services.SonosService, RouteGroupBuilder> groups)
     {
         groups[Sonos.Base.Services.SonosService.AlarmClock].MapPatch("alarms/{alarmId}", PatchAlarm)
-            .WithSummary("Patch alarm")
-            .WithDescription("Patch an existing alarm")
-            .Produces<bool>(200);
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Patch Alarm";
+                operation.Description = "Patch some properties of an alarm, not generated.";
+                operation.Responses ??= new();
+                operation.Responses["200"].Description = "Successfully patched an alarm";
+                return Task.CompletedTask;
+            })
+            .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
     }
 
     private static async Task<IResult> PatchAlarm(
@@ -280,11 +459,7 @@ internal static class SonosDeviceApi
         }
         catch (SonosException ex) when (ex.Message.Contains("not found", StringComparison.OrdinalIgnoreCase))
         {
-            return Results.NotFound(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return Results.Problem(ex.Message, statusCode: 500);
+            return Results.Problem(ex.Message, statusCode: 404);
         }
     }
 }

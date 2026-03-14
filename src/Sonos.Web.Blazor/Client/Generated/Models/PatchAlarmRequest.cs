@@ -14,7 +14,7 @@ namespace Sonos.Web.Blazor.Client.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The duration property</summary>
+        /// <summary>The duration as `hh:mm:ss`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Duration { get; set; }
@@ -22,13 +22,13 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Duration { get; set; }
 #endif
-        /// <summary>The enabled property</summary>
+        /// <summary>Alarm enabled after creation</summary>
         public bool? Enabled { get; set; }
-        /// <summary>The id property</summary>
+        /// <summary>The ID of the alarm see ListAlarms</summary>
         public int? Id { get; set; }
-        /// <summary>The includeLinkedZones property</summary>
+        /// <summary>Should grouped players also play the alarm?</summary>
         public bool? IncludeLinkedZones { get; set; }
-        /// <summary>The playMode property</summary>
+        /// <summary>Alarm play mode</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PlayMode { get; set; }
@@ -36,7 +36,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string PlayMode { get; set; }
 #endif
-        /// <summary>The programMetaData property</summary>
+        /// <summary>The sound metadata, can be empty string</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ProgramMetaData { get; set; }
@@ -44,7 +44,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string ProgramMetaData { get; set; }
 #endif
-        /// <summary>The programURI property</summary>
+        /// <summary>The sound uri</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ProgramURI { get; set; }
@@ -52,7 +52,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string ProgramURI { get; set; }
 #endif
-        /// <summary>The recurrence property</summary>
+        /// <summary>Repeat this alarm on</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Recurrence { get; set; }
@@ -60,7 +60,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Recurrence { get; set; }
 #endif
-        /// <summary>The roomUUID property</summary>
+        /// <summary>The UUID of the speaker you want this alarm for</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RoomUUID { get; set; }
@@ -68,7 +68,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string RoomUUID { get; set; }
 #endif
-        /// <summary>The startLocalTime property</summary>
+        /// <summary>The start time as `hh:mm:ss`</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? StartLocalTime { get; set; }
@@ -76,7 +76,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string StartLocalTime { get; set; }
 #endif
-        /// <summary>The volume property</summary>
+        /// <summary>Volume between 0 and 100</summary>
         public int? Volume { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.PatchAlarmRequest"/> and sets the default values.

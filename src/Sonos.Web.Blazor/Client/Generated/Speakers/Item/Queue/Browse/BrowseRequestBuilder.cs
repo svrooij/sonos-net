@@ -36,7 +36,7 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Queue.Browse
         /// <summary>
         /// `Browse` action for `Queue` serviceSee [action description](https://sonos.svrooij.io/services/queue#browse) for more details
         /// </summary>
-        /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.BrowseResponse2"/></returns>
+        /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.BrowseResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -44,11 +44,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Queue.Browse
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Sonos.Web.Blazor.Client.Models.BrowseResponse2?> PostAsync(global::Sonos.Web.Blazor.Client.Models.BrowseRequest2 body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Sonos.Web.Blazor.Client.Models.BrowseResponse?> PostAsync(global::Sonos.Web.Blazor.Client.Models.BrowseRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Sonos.Web.Blazor.Client.Models.BrowseResponse2> PostAsync(global::Sonos.Web.Blazor.Client.Models.BrowseRequest2 body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Sonos.Web.Blazor.Client.Models.BrowseResponse> PostAsync(global::Sonos.Web.Blazor.Client.Models.BrowseRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
@@ -58,7 +58,7 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Queue.Browse
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
                 { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
-            return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.BrowseResponse2>(requestInfo, global::Sonos.Web.Blazor.Client.Models.BrowseResponse2.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
+            return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.BrowseResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.BrowseResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// `Browse` action for `Queue` serviceSee [action description](https://sonos.svrooij.io/services/queue#browse) for more details
@@ -68,11 +68,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Queue.Browse
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.BrowseRequest2 body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.BrowseRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.BrowseRequest2 body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.BrowseRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));

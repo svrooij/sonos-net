@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class ZoneGroupTopologyApi
 {
@@ -37,43 +39,51 @@ internal static class ZoneGroupTopologyApi
             .WithGroupName("upnp-zone-group-topology");
 
         group.MapPost("/beginsoftwareupdate", BeginSoftwareUpdateAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "BeginSoftwareUpdate", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/checkforupdate", CheckForUpdateAsync)
+            .Produces<ZoneGroupTopologyService.CheckForUpdateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CheckForUpdate", SERVICE_NAME_KEBAB, null)
-            .Produces<ZoneGroupTopologyService.CheckForUpdateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getzonegroupattributes", GetZoneGroupAttributesAsync)
+            .Produces<ZoneGroupTopologyService.GetZoneGroupAttributesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetZoneGroupAttributes", SERVICE_NAME_KEBAB, "Get information about the current Zone")
-            .Produces<ZoneGroupTopologyService.GetZoneGroupAttributesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getzonegroupstate", GetZoneGroupStateAsync)
+            .Produces<ZoneGroupTopologyService.GetZoneGroupStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetZoneGroupState", SERVICE_NAME_KEBAB, "Get all the Sonos groups, (as XML)")
-            .Produces<ZoneGroupTopologyService.GetZoneGroupStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/registermobiledevice", RegisterMobileDeviceAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RegisterMobileDevice", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/reportalarmstartedrunning", ReportAlarmStartedRunningAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReportAlarmStartedRunning", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/reportunresponsivedevice", ReportUnresponsiveDeviceAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReportUnresponsiveDevice", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/submitdiagnostics", SubmitDiagnosticsAsync)
+            .Produces<ZoneGroupTopologyService.SubmitDiagnosticsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SubmitDiagnostics", SERVICE_NAME_KEBAB, null)
-            .Produces<ZoneGroupTopologyService.SubmitDiagnosticsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> BeginSoftwareUpdateAsync(
         [FromRoute]string speakerId,
-        [FromBody]ZoneGroupTopologyService.BeginSoftwareUpdateRequest body, 
+        [FromBody, Description("Mandatory BeginSoftwareUpdate body")]ZoneGroupTopologyService.BeginSoftwareUpdateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -82,20 +92,14 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.BeginSoftwareUpdate(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.BeginSoftwareUpdate(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> CheckForUpdateAsync(
         [FromRoute]string speakerId,
-        [FromBody]ZoneGroupTopologyService.CheckForUpdateRequest body, 
+        [FromBody, Description("Mandatory CheckForUpdate body")]ZoneGroupTopologyService.CheckForUpdateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -104,15 +108,9 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.CheckForUpdate(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.CheckForUpdate(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetZoneGroupAttributesAsync(
@@ -125,15 +123,9 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.GetZoneGroupAttributes(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.GetZoneGroupAttributes(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetZoneGroupStateAsync(
@@ -146,20 +138,14 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.GetZoneGroupState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.GetZoneGroupState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RegisterMobileDeviceAsync(
         [FromRoute]string speakerId,
-        [FromBody]ZoneGroupTopologyService.RegisterMobileDeviceRequest body, 
+        [FromBody, Description("Mandatory RegisterMobileDevice body")]ZoneGroupTopologyService.RegisterMobileDeviceRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -168,15 +154,9 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.RegisterMobileDevice(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.RegisterMobileDevice(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReportAlarmStartedRunningAsync(
@@ -189,20 +169,14 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.ReportAlarmStartedRunning(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.ReportAlarmStartedRunning(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReportUnresponsiveDeviceAsync(
         [FromRoute]string speakerId,
-        [FromBody]ZoneGroupTopologyService.ReportUnresponsiveDeviceRequest body, 
+        [FromBody, Description("Mandatory ReportUnresponsiveDevice body")]ZoneGroupTopologyService.ReportUnresponsiveDeviceRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -211,20 +185,14 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.ReportUnresponsiveDevice(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.ReportUnresponsiveDevice(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SubmitDiagnosticsAsync(
         [FromRoute]string speakerId,
-        [FromBody]ZoneGroupTopologyService.SubmitDiagnosticsRequest body, 
+        [FromBody, Description("Mandatory SubmitDiagnostics body")]ZoneGroupTopologyService.SubmitDiagnosticsRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -233,14 +201,8 @@ internal static class ZoneGroupTopologyApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ZoneGroupTopologyService.SubmitDiagnostics(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ZoneGroupTopologyService.SubmitDiagnostics(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

@@ -7,14 +7,15 @@ using System.IO;
 using System;
 namespace Sonos.Web.Blazor.Client.Models
 {
+    /// <summary>
+    /// Sonos group, consisting of a coordinator and zero or more members
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class SonosGroup : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The coordinator property</summary>
+        /// <summary>The player responsible for the queue</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.SonosDevice? Coordinator { get; set; }
@@ -22,7 +23,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public global::Sonos.Web.Blazor.Client.Models.SonosDevice Coordinator { get; set; }
 #endif
-        /// <summary>The groupName property</summary>
+        /// <summary>Name of the group</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? GroupName { get; set; }
@@ -30,7 +31,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string GroupName { get; set; }
 #endif
-        /// <summary>The id property</summary>
+        /// <summary>Sonos group id, will change if you change anything to this group</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Id { get; set; }
@@ -38,7 +39,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Id { get; set; }
 #endif
-        /// <summary>The members property</summary>
+        /// <summary>All the members in this group</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Sonos.Web.Blazor.Client.Models.SonosDevice>? Members { get; set; }

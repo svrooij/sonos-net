@@ -12,7 +12,7 @@ public interface IPlayerStatusClient
     /// <param name="uuid">UUID of sonos speaker</param>
     /// <param name="data">status data</param>
     /// <returns></returns>
-    Task PlayerStatusChanged(string uuid, Sonos.Base.Models.SonosEvent data);
+    Task PlayerStatusChanged(string uuid, Sonos.Web.Models.SonosEvent data);
 
     /// <summary>
     /// Subscribe to updates for a specific player by UUID

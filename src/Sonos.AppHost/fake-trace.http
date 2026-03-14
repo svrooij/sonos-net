@@ -1,0 +1,27 @@
+﻿POST https://localhost:58695/otlp/v1/traces
+Content-Type: application/json
+x-otlp-api-key: d43ae979351c662d88ebc7c99de05e9d
+
+
+{
+  "name": "hello",
+  "context": {
+    "trace_id": "5b8aa5a2d2c872e8321cf37308d69df2",
+    "span_id": "051581bf3cb55c13"
+  },
+  "parent_id": null,
+  "start_time": "2026-03-13T18:52:58.114201Z",
+  "end_time": "2026-03-13T18:52:58.114687Z",
+  "attributes": {
+    "http.route": "some_route1"
+  },
+  "events": [
+    {
+      "name": "Guten Tag!",
+      "timestamp": "2026-03-13T18:52:58.114201Z",
+      "attributes": {
+        "event_attributes": 1
+      }
+    }
+  ]
+}

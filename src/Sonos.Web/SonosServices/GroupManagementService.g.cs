@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class GroupManagementApi
 {
@@ -37,27 +39,31 @@ internal static class GroupManagementApi
             .WithGroupName("upnp-group-management");
 
         group.MapPost("/addmember", AddMemberAsync)
+            .Produces<GroupManagementService.AddMemberResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddMember", SERVICE_NAME_KEBAB, null)
-            .Produces<GroupManagementService.AddMemberResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removemember", RemoveMemberAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveMember", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/reporttrackbufferingresult", ReportTrackBufferingResultAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReportTrackBufferingResult", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setsourceareaids", SetSourceAreaIdsAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetSourceAreaIds", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> AddMemberAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupManagementService.AddMemberRequest body, 
+        [FromBody, Description("Mandatory AddMember body")]GroupManagementService.AddMemberRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -66,20 +72,14 @@ internal static class GroupManagementApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupManagementService.AddMember(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupManagementService.AddMember(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveMemberAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupManagementService.RemoveMemberRequest body, 
+        [FromBody, Description("Mandatory RemoveMember body")]GroupManagementService.RemoveMemberRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -88,20 +88,14 @@ internal static class GroupManagementApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupManagementService.RemoveMember(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupManagementService.RemoveMember(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReportTrackBufferingResultAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupManagementService.ReportTrackBufferingResultRequest body, 
+        [FromBody, Description("Mandatory ReportTrackBufferingResult body")]GroupManagementService.ReportTrackBufferingResultRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -110,20 +104,14 @@ internal static class GroupManagementApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupManagementService.ReportTrackBufferingResult(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupManagementService.ReportTrackBufferingResult(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetSourceAreaIdsAsync(
         [FromRoute]string speakerId,
-        [FromBody]GroupManagementService.SetSourceAreaIdsRequest body, 
+        [FromBody, Description("Mandatory SetSourceAreaIds body")]GroupManagementService.SetSourceAreaIdsRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -132,14 +120,8 @@ internal static class GroupManagementApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.GroupManagementService.SetSourceAreaIds(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.GroupManagementService.SetSourceAreaIds(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

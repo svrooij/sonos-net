@@ -34,7 +34,7 @@ internal class DocumentOperationTransformer : IOpenApiOperationTransformer
                 notFoundResponse.Value.Description = hasSpeakerIdParameter ? "Speaker ID incorrect" : "Not found";
             }
 
-            var unprocessableEntityResponse = operation.Responses.FirstOrDefault(r => r.Key == "422");
+            var unprocessableEntityResponse = operation.Responses.FirstOrDefault(r => r.Key == "409");
             if (unprocessableEntityResponse.Value is not null)
             {
                 unprocessableEntityResponse.Value.Description = "Sonos service error";

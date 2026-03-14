@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class {{name}}Api
 {
@@ -45,8 +47,9 @@ internal static class {{name}}Api
         {{else}}
         group.MapGet("/{{lower name}}", {{name}}Async)
         {{/if}}
+            .Produces<{{#if outputs}}{{../serviceName}}.{{name}}Response{{else}}bool{{/if}}>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "{{name}}", SERVICE_NAME_KEBAB, {{#if description}}"{{description}}"{{else}}null{{/if}})
-            .Produces<{{#if outputs}}{{../serviceName}}.{{name}}Response{{else}}bool{{/if}}>(200);
+            .AddSonosServiceExceptionFilter();
         {{/each}}
 
         return group;
@@ -56,7 +59,7 @@ internal static class {{name}}Api
     private static async Task<IResult> {{name}}Async(
         [FromRoute]string speakerId,
         {{~#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}
-        [FromBody]{{@root.serviceName}}.{{name}}Request body, {{/if}}{{/if}}
+        [FromBody, Description("Mandatory {{name}} body")]{{@root.serviceName}}.{{name}}Request body, {{/if}}{{/if}}
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -65,15 +68,9 @@ internal static class {{name}}Api
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.{{@root.serviceName}}.{{name}}({{~#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}body, {{/if}}{{/if}}cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.{{@root.serviceName}}.{{name}}({{~#if inputs}}{{#if (sonos_if_only_instance_id inputs 'true')}}{{else}}body, {{/if}}{{/if}}cancellationToken);
+        return Results.Ok(result);
     }
     {{/each}}
 }

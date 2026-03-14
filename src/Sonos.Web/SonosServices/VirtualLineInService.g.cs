@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class VirtualLineInApi
 {
@@ -38,39 +40,47 @@ internal static class VirtualLineInApi
 
         group.MapGet("/next", NextAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Next", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/pause", PauseAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Pause", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/play", PlayAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Play", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/previous", PreviousAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Previous", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setvolume", SetVolumeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/starttransmission", StartTransmissionAsync)
+            .Produces<VirtualLineInService.StartTransmissionResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "StartTransmission", SERVICE_NAME_KEBAB, null)
-            .Produces<VirtualLineInService.StartTransmissionResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/stop", StopAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Stop", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/stoptransmission", StopTransmissionAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "StopTransmission", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
@@ -85,15 +95,9 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.Next(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.Next(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PauseAsync(
@@ -106,20 +110,14 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.Pause(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.Pause(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PlayAsync(
         [FromRoute]string speakerId,
-        [FromBody]VirtualLineInService.PlayRequest body, 
+        [FromBody, Description("Mandatory Play body")]VirtualLineInService.PlayRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -128,15 +126,9 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.Play(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.Play(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PreviousAsync(
@@ -149,20 +141,14 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.Previous(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.Previous(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]VirtualLineInService.SetVolumeRequest body, 
+        [FromBody, Description("Mandatory SetVolume body")]VirtualLineInService.SetVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -171,20 +157,14 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.SetVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.SetVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StartTransmissionAsync(
         [FromRoute]string speakerId,
-        [FromBody]VirtualLineInService.StartTransmissionRequest body, 
+        [FromBody, Description("Mandatory StartTransmission body")]VirtualLineInService.StartTransmissionRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -193,15 +173,9 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.StartTransmission(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.StartTransmission(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StopAsync(
@@ -214,20 +188,14 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.Stop(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.Stop(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StopTransmissionAsync(
         [FromRoute]string speakerId,
-        [FromBody]VirtualLineInService.StopTransmissionRequest body, 
+        [FromBody, Description("Mandatory StopTransmission body")]VirtualLineInService.StopTransmissionRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -236,14 +204,8 @@ internal static class VirtualLineInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.VirtualLineInService.StopTransmission(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.VirtualLineInService.StopTransmission(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class QueueApi
 {
@@ -37,55 +39,66 @@ internal static class QueueApi
             .WithGroupName("upnp-queue");
 
         group.MapPost("/addmultipleuris", AddMultipleURIsAsync)
+            .Produces<QueueService.AddMultipleURIsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddMultipleURIs", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.AddMultipleURIsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/adduri", AddURIAsync)
+            .Produces<QueueService.AddURIResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddURI", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.AddURIResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/attachqueue", AttachQueueAsync)
+            .Produces<QueueService.AttachQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AttachQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.AttachQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/backup", BackupAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Backup", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/browse", BrowseAsync)
+            .Produces<QueueService.BrowseResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Browse", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.BrowseResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/createqueue", CreateQueueAsync)
+            .Produces<QueueService.CreateQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CreateQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.CreateQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removealltracks", RemoveAllTracksAsync)
+            .Produces<QueueService.RemoveAllTracksResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveAllTracks", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.RemoveAllTracksResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removetrackrange", RemoveTrackRangeAsync)
+            .Produces<QueueService.RemoveTrackRangeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveTrackRange", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.RemoveTrackRangeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/reordertracks", ReorderTracksAsync)
+            .Produces<QueueService.ReorderTracksResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReorderTracks", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.ReorderTracksResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/replacealltracks", ReplaceAllTracksAsync)
+            .Produces<QueueService.ReplaceAllTracksResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReplaceAllTracks", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.ReplaceAllTracksResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/saveassonosplaylist", SaveAsSonosPlaylistAsync)
+            .Produces<QueueService.SaveAsSonosPlaylistResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SaveAsSonosPlaylist", SERVICE_NAME_KEBAB, null)
-            .Produces<QueueService.SaveAsSonosPlaylistResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> AddMultipleURIsAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.AddMultipleURIsRequest body, 
+        [FromBody, Description("Mandatory AddMultipleURIs body")]QueueService.AddMultipleURIsRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -94,20 +107,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.AddMultipleURIs(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.AddMultipleURIs(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AddURIAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.AddURIRequest body, 
+        [FromBody, Description("Mandatory AddURI body")]QueueService.AddURIRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -116,20 +123,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.AddURI(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.AddURI(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AttachQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.AttachQueueRequest body, 
+        [FromBody, Description("Mandatory AttachQueue body")]QueueService.AttachQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -138,15 +139,9 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.AttachQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.AttachQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BackupAsync(
@@ -159,20 +154,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.Backup(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.Backup(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BrowseAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.BrowseRequest body, 
+        [FromBody, Description("Mandatory Browse body")]QueueService.BrowseRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -181,20 +170,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.Browse(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.Browse(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> CreateQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.CreateQueueRequest body, 
+        [FromBody, Description("Mandatory CreateQueue body")]QueueService.CreateQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -203,20 +186,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.CreateQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.CreateQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveAllTracksAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.RemoveAllTracksRequest body, 
+        [FromBody, Description("Mandatory RemoveAllTracks body")]QueueService.RemoveAllTracksRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -225,20 +202,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.RemoveAllTracks(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.RemoveAllTracks(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveTrackRangeAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.RemoveTrackRangeRequest body, 
+        [FromBody, Description("Mandatory RemoveTrackRange body")]QueueService.RemoveTrackRangeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -247,20 +218,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.RemoveTrackRange(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.RemoveTrackRange(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReorderTracksAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.ReorderTracksRequest body, 
+        [FromBody, Description("Mandatory ReorderTracks body")]QueueService.ReorderTracksRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -269,20 +234,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.ReorderTracks(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.ReorderTracks(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReplaceAllTracksAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.ReplaceAllTracksRequest body, 
+        [FromBody, Description("Mandatory ReplaceAllTracks body")]QueueService.ReplaceAllTracksRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -291,20 +250,14 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.ReplaceAllTracks(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.ReplaceAllTracks(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SaveAsSonosPlaylistAsync(
         [FromRoute]string speakerId,
-        [FromBody]QueueService.SaveAsSonosPlaylistRequest body, 
+        [FromBody, Description("Mandatory SaveAsSonosPlaylist body")]QueueService.SaveAsSonosPlaylistRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -313,14 +266,8 @@ internal static class QueueApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.QueueService.SaveAsSonosPlaylist(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.QueueService.SaveAsSonosPlaylist(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

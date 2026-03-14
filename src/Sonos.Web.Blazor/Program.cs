@@ -10,6 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // Configure HttpClient to use the hosting server's base address
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+
 builder.Services.AddKiotaHandlers();
 
 builder.Services.AddHttpClient<SonosWebClientFactory>((sp, client) =>
@@ -20,6 +22,7 @@ builder.Services.AddHttpClient<SonosWebClientFactory>((sp, client) =>
 
 
 builder.Services.AddTransient(sp => sp.GetRequiredService<SonosWebClientFactory>().CreateClient());
+
 
 
 await builder.Build().RunAsync();

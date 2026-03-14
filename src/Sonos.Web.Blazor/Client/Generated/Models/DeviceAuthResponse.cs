@@ -33,10 +33,10 @@ namespace Sonos.Web.Blazor.Client.Models
         /// <summary>The userInfo property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Sonos.Web.Blazor.Client.Models.UserInfo? UserInfo { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo? UserInfo { get; set; }
 #nullable restore
 #else
-        public global::Sonos.Web.Blazor.Client.Models.UserInfo UserInfo { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo UserInfo { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse"/> and sets the default values.
@@ -65,7 +65,7 @@ namespace Sonos.Web.Blazor.Client.Models
             {
                 { "authToken", n => { AuthToken = n.GetStringValue(); } },
                 { "privateKey", n => { PrivateKey = n.GetStringValue(); } },
-                { "userInfo", n => { UserInfo = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.UserInfo>(global::Sonos.Web.Blazor.Client.Models.UserInfo.CreateFromDiscriminatorValue); } },
+                { "userInfo", n => { UserInfo = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo>(global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo.CreateFromDiscriminatorValue); } },
             };
         }
         /// <summary>
@@ -77,8 +77,83 @@ namespace Sonos.Web.Blazor.Client.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("authToken", AuthToken);
             writer.WriteStringValue("privateKey", PrivateKey);
-            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.UserInfo>("userInfo", UserInfo);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo>("userInfo", UserInfo);
             writer.WriteAdditionalData(AdditionalData);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1"/>, <see cref="global::Sonos.Web.Blazor.Client.Models.UserInfo"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class DeviceAuthResponse_userInfo : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1? DeviceAuthResponseUserInfoMember1 { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1 DeviceAuthResponseUserInfoMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::Sonos.Web.Blazor.Client.Models.UserInfo"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::Sonos.Web.Blazor.Client.Models.UserInfo? UserInfo { get; set; }
+#nullable restore
+#else
+            public global::Sonos.Web.Blazor.Client.Models.UserInfo UserInfo { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse.DeviceAuthResponse_userInfo();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.DeviceAuthResponseUserInfoMember1 = new global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1();
+                }
+                else if("UserInfo".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.UserInfo = new global::Sonos.Web.Blazor.Client.Models.UserInfo();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(DeviceAuthResponseUserInfoMember1 != null)
+                {
+                    return DeviceAuthResponseUserInfoMember1.GetFieldDeserializers();
+                }
+                else if(UserInfo != null)
+                {
+                    return UserInfo.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(DeviceAuthResponseUserInfoMember1 != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.DeviceAuthResponse_userInfoMember1>(null, DeviceAuthResponseUserInfoMember1);
+                }
+                else if(UserInfo != null)
+                {
+                    writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.UserInfo>(null, UserInfo);
+                }
+            }
         }
     }
 }

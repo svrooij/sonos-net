@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
+using Sonos.Base.Metadata;
+using Sonos.Base.Music.Models;
 using Sonos.Base.Services;
 
 namespace Sonos.Base.Music;
@@ -114,12 +116,15 @@ public class SonosMusicManager
         {
             throw new NotSupportedException("UserId authentication is not supported yet.");
         }
+        var serviceAuth = _sonosManager.MusicServers?.FirstOrDefault(s => s.ServiceId == service.Id);
         SonosMusicServiceClientOptions options = new SonosMusicServiceClientOptions
         {
             Name = service.Name,
             Id = service.Id,
             Authentication = service.Policy.Authentication,
             BaseUri = new Uri(service.SecureUri),
+            UDN = serviceAuth?.UDN,
+            SerialNumber = serviceAuth?.SerialNum,
         };
 
         if (service.Policy.Authentication == Services.MusicServicesService.MusicServiceAuthentication.DeviceLink
@@ -141,7 +146,7 @@ public class SonosMusicManager
 
             //options.SaveNewToken = device.SystemPropertiesService.SaveMusicServiceAuth;
 
-            var serviceAuth = _sonosManager.MusicServers?.FirstOrDefault(s => s.ServiceId == service.Id);
+            
             if (serviceAuth is not null)
             {
                 options.Key = serviceAuth.Key;
@@ -153,5 +158,36 @@ public class SonosMusicManager
                 _httpClientFactory.CreateClient(MUSIC_SERVICE_CLIENT_NAME),
                 _loggerFactory.CreateLogger($"Sonos.Base.Music.SonosMusicServiceClient{serviceId}"),
                 options);
+    }
+
+    public async Task<MediaPlaybackInformation?> GetMediaPlaybackInformationAsync(ushort serviceId, string mediaId, CancellationToken cancellationToken)
+    {
+        var client = await GetClientForServiceAsync(serviceId, cancellationToken);
+        var result = await client.GetMediaMetadataAsync(mediaId, cancellationToken);
+        if (result?.GetMediaMetadataResult is null)
+        {
+            throw new InvalidOperationException($"Failed to retrieve metadata for media ID {mediaId} from service ID {serviceId}. Cannot get playback information.");
+        }
+        var trackUri = $":{mediaId}?sid={serviceId}&sn={client.SerialNumber}";
+        var didl = new DidlTrack
+        {
+            Title = result.GetMediaMetadataResult.Title,
+            Desc = new DidlDesc
+            {
+                Value = client.Udn!
+            }
+        };
+        if (result.GetMediaMetadataResult.ItemType == "stream")
+        {
+            trackUri = "x-sonosapi-stream" + trackUri;
+            didl.Id = mediaId; // seems not needed?
+            didl.Class = "object.item.audioItem.audioBroadcast";
+        } else if (result.GetMediaMetadataResult.ItemType == "program")
+        {
+            trackUri = "x-sonosapi-radio" + trackUri;
+            didl.Id = mediaId; // seems not needed?
+            didl.Class = "object.item.audioItem.audioBroadcast";
+        }
+        return new MediaPlaybackInformation(trackUri, didl);
     }
 }

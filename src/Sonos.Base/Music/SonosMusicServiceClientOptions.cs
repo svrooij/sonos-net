@@ -15,6 +15,8 @@ public class SonosMusicServiceClientOptions
     public string? Timezone { get; set; }
     public string? Key { get; set; }
     public string? AuthToken { get; set; }
+    public string? UDN { get; set; }
+    public int? SerialNumber { get; set; }
     public Func<ushort, string, string, Task>? SaveNewToken { get; set; }
 }
 

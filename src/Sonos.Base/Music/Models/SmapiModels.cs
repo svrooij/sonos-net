@@ -32,7 +32,7 @@ public class MediaMetadata
     public string? MimeType { get; set; } = null;
 
     [XmlElement("trackMetadata", Namespace = "http://www.sonos.com/Services/1.1")]
-    public TrackMetadata? TrackMetadata { get; set; }
+    public TrackMetadata? TrackMetadata { get; set; } = null;
 
     //[XmlElement("summary", Namespace = "http://www.sonos.com/Services/1.1")]
     //public string? Summary { get; set; }
@@ -206,6 +206,14 @@ public class GetExtendedMetadataRequest
 public class GetMediaMetadataRequest
 {
     public string Id { get; set; } = string.Empty;
+}
+
+[Serializable]
+[XmlRoot("getMediaMetadataResponse", Namespace = "http://www.sonos.com/Services/1.1")]
+public class GetMediaMetadataResponse
+{
+    [XmlElement("getMediaMetadataResult", Namespace = "http://www.sonos.com/Services/1.1")]
+    public MediaMetadata? GetMediaMetadataResult { get; set; }
 }
 
 public class GetMediaUriRequest

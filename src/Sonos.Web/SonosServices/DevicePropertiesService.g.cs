@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class DevicePropertiesApi
 {
@@ -37,123 +39,151 @@ internal static class DevicePropertiesApi
             .WithGroupName("upnp-device-properties");
 
         group.MapPost("/addbondedzones", AddBondedZonesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddBondedZones", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/addhtsatellite", AddHTSatelliteAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddHTSatellite", SERVICE_NAME_KEBAB, "Adds satellites and/or a sub woofer to a (main) player. The satellites become hidden. The main player RINCON_* is mandatory. RR: right - rear, LF: left - front, SW: subwoofer")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/createstereopair", CreateStereoPairAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CreateStereoPair", SERVICE_NAME_KEBAB, "Create a stereo pair (left, right speakers), right one becomes hidden")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/enterconfigmode", EnterConfigModeAsync)
+            .Produces<DevicePropertiesService.EnterConfigModeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "EnterConfigMode", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.EnterConfigModeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/exitconfigmode", ExitConfigModeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ExitConfigMode", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getautoplaylinkedzones", GetAutoplayLinkedZonesAsync)
+            .Produces<DevicePropertiesService.GetAutoplayLinkedZonesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAutoplayLinkedZones", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetAutoplayLinkedZonesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getautoplayroomuuid", GetAutoplayRoomUUIDAsync)
+            .Produces<DevicePropertiesService.GetAutoplayRoomUUIDResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAutoplayRoomUUID", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetAutoplayRoomUUIDResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getautoplayvolume", GetAutoplayVolumeAsync)
+            .Produces<DevicePropertiesService.GetAutoplayVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAutoplayVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetAutoplayVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getbuttonlockstate", GetButtonLockStateAsync)
+            .Produces<DevicePropertiesService.GetButtonLockStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetButtonLockState", SERVICE_NAME_KEBAB, "Get the current button lock state")
-            .Produces<DevicePropertiesService.GetButtonLockStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getbuttonstate", GetButtonStateAsync)
+            .Produces<DevicePropertiesService.GetButtonStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetButtonState", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetButtonStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gethouseholdid", GetHouseholdIDAsync)
+            .Produces<DevicePropertiesService.GetHouseholdIDResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetHouseholdID", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetHouseholdIDResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gethtforwardstate", GetHTForwardStateAsync)
+            .Produces<DevicePropertiesService.GetHTForwardStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetHTForwardState", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetHTForwardStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getledstate", GetLEDStateAsync)
+            .Produces<DevicePropertiesService.GetLEDStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetLEDState", SERVICE_NAME_KEBAB, "Get the current LED state")
-            .Produces<DevicePropertiesService.GetLEDStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getuseautoplayvolume", GetUseAutoplayVolumeAsync)
+            .Produces<DevicePropertiesService.GetUseAutoplayVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetUseAutoplayVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetUseAutoplayVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getzoneattributes", GetZoneAttributesAsync)
+            .Produces<DevicePropertiesService.GetZoneAttributesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetZoneAttributes", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.GetZoneAttributesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getzoneinfo", GetZoneInfoAsync)
+            .Produces<DevicePropertiesService.GetZoneInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetZoneInfo", SERVICE_NAME_KEBAB, "Get information about this specific speaker")
-            .Produces<DevicePropertiesService.GetZoneInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removebondedzones", RemoveBondedZonesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveBondedZones", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removehtsatellite", RemoveHTSatelliteAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveHTSatellite", SERVICE_NAME_KEBAB, "Removes a satellite or a sub woofer from (main) player. The satellite becomes visible.")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/roomdetectionstartchirping", RoomDetectionStartChirpingAsync)
+            .Produces<DevicePropertiesService.RoomDetectionStartChirpingResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RoomDetectionStartChirping", SERVICE_NAME_KEBAB, null)
-            .Produces<DevicePropertiesService.RoomDetectionStartChirpingResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/roomdetectionstopchirping", RoomDetectionStopChirpingAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RoomDetectionStopChirping", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/separatestereopair", SeparateStereoPairAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SeparateStereoPair", SERVICE_NAME_KEBAB, "Separate a stereo pair")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setautoplaylinkedzones", SetAutoplayLinkedZonesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAutoplayLinkedZones", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setautoplayroomuuid", SetAutoplayRoomUUIDAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAutoplayRoomUUID", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setautoplayvolume", SetAutoplayVolumeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAutoplayVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setbuttonlockstate", SetButtonLockStateAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetButtonLockState", SERVICE_NAME_KEBAB, "Set the button lock state")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setledstate", SetLEDStateAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetLEDState", SERVICE_NAME_KEBAB, "Set the LED state")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setuseautoplayvolume", SetUseAutoplayVolumeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetUseAutoplayVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setzoneattributes", SetZoneAttributesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetZoneAttributes", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> AddBondedZonesAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.AddBondedZonesRequest body, 
+        [FromBody, Description("Mandatory AddBondedZones body")]DevicePropertiesService.AddBondedZonesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -162,20 +192,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.AddBondedZones(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.AddBondedZones(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AddHTSatelliteAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.AddHTSatelliteRequest body, 
+        [FromBody, Description("Mandatory AddHTSatellite body")]DevicePropertiesService.AddHTSatelliteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -184,20 +208,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.AddHTSatellite(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.AddHTSatellite(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> CreateStereoPairAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.CreateStereoPairRequest body, 
+        [FromBody, Description("Mandatory CreateStereoPair body")]DevicePropertiesService.CreateStereoPairRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -206,20 +224,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.CreateStereoPair(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.CreateStereoPair(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> EnterConfigModeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.EnterConfigModeRequest body, 
+        [FromBody, Description("Mandatory EnterConfigMode body")]DevicePropertiesService.EnterConfigModeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -228,20 +240,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.EnterConfigMode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.EnterConfigMode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ExitConfigModeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.ExitConfigModeRequest body, 
+        [FromBody, Description("Mandatory ExitConfigMode body")]DevicePropertiesService.ExitConfigModeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -250,20 +256,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.ExitConfigMode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.ExitConfigMode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetAutoplayLinkedZonesAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.GetAutoplayLinkedZonesRequest body, 
+        [FromBody, Description("Mandatory GetAutoplayLinkedZones body")]DevicePropertiesService.GetAutoplayLinkedZonesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -272,20 +272,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetAutoplayLinkedZones(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetAutoplayLinkedZones(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetAutoplayRoomUUIDAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.GetAutoplayRoomUUIDRequest body, 
+        [FromBody, Description("Mandatory GetAutoplayRoomUUID body")]DevicePropertiesService.GetAutoplayRoomUUIDRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -294,20 +288,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetAutoplayRoomUUID(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetAutoplayRoomUUID(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetAutoplayVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.GetAutoplayVolumeRequest body, 
+        [FromBody, Description("Mandatory GetAutoplayVolume body")]DevicePropertiesService.GetAutoplayVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -316,15 +304,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetAutoplayVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetAutoplayVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetButtonLockStateAsync(
@@ -337,15 +319,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetButtonLockState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetButtonLockState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetButtonStateAsync(
@@ -358,15 +334,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetButtonState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetButtonState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetHouseholdIDAsync(
@@ -379,15 +349,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetHouseholdID(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetHouseholdID(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetHTForwardStateAsync(
@@ -400,15 +364,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetHTForwardState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetHTForwardState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetLEDStateAsync(
@@ -421,20 +379,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetLEDState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetLEDState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetUseAutoplayVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.GetUseAutoplayVolumeRequest body, 
+        [FromBody, Description("Mandatory GetUseAutoplayVolume body")]DevicePropertiesService.GetUseAutoplayVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -443,15 +395,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetUseAutoplayVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetUseAutoplayVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetZoneAttributesAsync(
@@ -464,15 +410,9 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetZoneAttributes(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetZoneAttributes(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetZoneInfoAsync(
@@ -485,20 +425,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.GetZoneInfo(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.GetZoneInfo(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveBondedZonesAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.RemoveBondedZonesRequest body, 
+        [FromBody, Description("Mandatory RemoveBondedZones body")]DevicePropertiesService.RemoveBondedZonesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -507,20 +441,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.RemoveBondedZones(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.RemoveBondedZones(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveHTSatelliteAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.RemoveHTSatelliteRequest body, 
+        [FromBody, Description("Mandatory RemoveHTSatellite body")]DevicePropertiesService.RemoveHTSatelliteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -529,20 +457,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.RemoveHTSatellite(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.RemoveHTSatellite(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RoomDetectionStartChirpingAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.RoomDetectionStartChirpingRequest body, 
+        [FromBody, Description("Mandatory RoomDetectionStartChirping body")]DevicePropertiesService.RoomDetectionStartChirpingRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -551,20 +473,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.RoomDetectionStartChirping(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.RoomDetectionStartChirping(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RoomDetectionStopChirpingAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.RoomDetectionStopChirpingRequest body, 
+        [FromBody, Description("Mandatory RoomDetectionStopChirping body")]DevicePropertiesService.RoomDetectionStopChirpingRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -573,20 +489,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.RoomDetectionStopChirping(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.RoomDetectionStopChirping(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SeparateStereoPairAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SeparateStereoPairRequest body, 
+        [FromBody, Description("Mandatory SeparateStereoPair body")]DevicePropertiesService.SeparateStereoPairRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -595,20 +505,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SeparateStereoPair(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SeparateStereoPair(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAutoplayLinkedZonesAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetAutoplayLinkedZonesRequest body, 
+        [FromBody, Description("Mandatory SetAutoplayLinkedZones body")]DevicePropertiesService.SetAutoplayLinkedZonesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -617,20 +521,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetAutoplayLinkedZones(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetAutoplayLinkedZones(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAutoplayRoomUUIDAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetAutoplayRoomUUIDRequest body, 
+        [FromBody, Description("Mandatory SetAutoplayRoomUUID body")]DevicePropertiesService.SetAutoplayRoomUUIDRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -639,20 +537,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetAutoplayRoomUUID(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetAutoplayRoomUUID(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAutoplayVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetAutoplayVolumeRequest body, 
+        [FromBody, Description("Mandatory SetAutoplayVolume body")]DevicePropertiesService.SetAutoplayVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -661,20 +553,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetAutoplayVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetAutoplayVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetButtonLockStateAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetButtonLockStateRequest body, 
+        [FromBody, Description("Mandatory SetButtonLockState body")]DevicePropertiesService.SetButtonLockStateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -683,20 +569,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetButtonLockState(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetButtonLockState(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetLEDStateAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetLEDStateRequest body, 
+        [FromBody, Description("Mandatory SetLEDState body")]DevicePropertiesService.SetLEDStateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -705,20 +585,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetLEDState(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetLEDState(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetUseAutoplayVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetUseAutoplayVolumeRequest body, 
+        [FromBody, Description("Mandatory SetUseAutoplayVolume body")]DevicePropertiesService.SetUseAutoplayVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -727,20 +601,14 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetUseAutoplayVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetUseAutoplayVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetZoneAttributesAsync(
         [FromRoute]string speakerId,
-        [FromBody]DevicePropertiesService.SetZoneAttributesRequest body, 
+        [FromBody, Description("Mandatory SetZoneAttributes body")]DevicePropertiesService.SetZoneAttributesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -749,14 +617,8 @@ internal static class DevicePropertiesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.DevicePropertiesService.SetZoneAttributes(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.DevicePropertiesService.SetZoneAttributes(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

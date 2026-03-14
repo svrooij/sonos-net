@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.1.11304.174 d18.0
+VisualStudioVersion = 18.1.11304.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sonos.Base", "src\Sonos.Base\Sonos.Base.csproj", "{56D078AB-D3FC-4ED3-A4E2-47B3CB3816CE}"
 EndProject
@@ -27,6 +27,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonos.Web.Blazor", "src\Sonos.Web.Blazor\Sonos.Web.Blazor.csproj", "{AC2DAB67-AF09-46F2-A180-903E521808B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonos.Web.Specs", "src\Sonos.Web.Specs\Sonos.Web.Specs.csproj", "{CF7BBCC8-4D36-422A-BF42-14112F9D7EB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonos.AppHost", "src\Sonos.AppHost\Sonos.AppHost.csproj", "{AAC0699E-52E1-4289-9A3A-85503943D758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonos.ServiceDefaults", "src\Sonos.ServiceDefaults\Sonos.ServiceDefaults.csproj", "{814C9879-CBEE-D93E-9FA6-6B4C0F595536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +138,30 @@ Global
 		{CF7BBCC8-4D36-422A-BF42-14112F9D7EB4}.Release|x64.Build.0 = Release|Any CPU
 		{CF7BBCC8-4D36-422A-BF42-14112F9D7EB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF7BBCC8-4D36-422A-BF42-14112F9D7EB4}.Release|x86.Build.0 = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|x64.Build.0 = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Debug|x86.Build.0 = Debug|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|x64.ActiveCfg = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|x64.Build.0 = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|x86.ActiveCfg = Release|Any CPU
+		{AAC0699E-52E1-4289-9A3A-85503943D758}.Release|x86.Build.0 = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|x64.Build.0 = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Debug|x86.Build.0 = Debug|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|x64.ActiveCfg = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|x64.Build.0 = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|x86.ActiveCfg = Release|Any CPU
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +175,8 @@ Global
 		{30CA2EE3-19CB-4666-9747-B7564A1A9254} = {FA3E7966-A75D-44AF-8A7F-803CC6E1BC37}
 		{AC2DAB67-AF09-46F2-A180-903E521808B6} = {FA3E7966-A75D-44AF-8A7F-803CC6E1BC37}
 		{CF7BBCC8-4D36-422A-BF42-14112F9D7EB4} = {FA3E7966-A75D-44AF-8A7F-803CC6E1BC37}
+		{AAC0699E-52E1-4289-9A3A-85503943D758} = {FA3E7966-A75D-44AF-8A7F-803CC6E1BC37}
+		{814C9879-CBEE-D93E-9FA6-6B4C0F595536} = {FA3E7966-A75D-44AF-8A7F-803CC6E1BC37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6489A37-B04A-4D5B-A96B-AB59842626C2}

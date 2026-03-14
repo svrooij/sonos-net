@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class ContentDirectoryApi
 {
@@ -37,75 +39,91 @@ internal static class ContentDirectoryApi
             .WithGroupName("upnp-content-directory");
 
         group.MapPost("/browse", BrowseAsync)
+            .Produces<ContentDirectoryService.BrowseResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Browse", SERVICE_NAME_KEBAB, "Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the &#x60;TotalMatches&#x60; and - if necessary - do additional requests with higher &#x60;StartingIndex&#x60;. In case of duplicates only the first is returned! Example: albums with same title, even if artists are different")
-            .Produces<ContentDirectoryService.BrowseResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/createobject", CreateObjectAsync)
+            .Produces<ContentDirectoryService.CreateObjectResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CreateObject", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.CreateObjectResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/destroyobject", DestroyObjectAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "DestroyObject", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/findprefix", FindPrefixAsync)
+            .Produces<ContentDirectoryService.FindPrefixResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "FindPrefix", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.FindPrefixResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getalbumartistdisplayoption", GetAlbumArtistDisplayOptionAsync)
+            .Produces<ContentDirectoryService.GetAlbumArtistDisplayOptionResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAlbumArtistDisplayOption", SERVICE_NAME_KEBAB, "Get the current album art display option such as &#x60;WMP&#x60;, &#x60;ITUNES&#x60; or &#x60;NONE&#x60;")
-            .Produces<ContentDirectoryService.GetAlbumArtistDisplayOptionResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getallprefixlocations", GetAllPrefixLocationsAsync)
+            .Produces<ContentDirectoryService.GetAllPrefixLocationsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAllPrefixLocations", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetAllPrefixLocationsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getbrowseable", GetBrowseableAsync)
+            .Produces<ContentDirectoryService.GetBrowseableResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetBrowseable", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetBrowseableResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getlastindexchange", GetLastIndexChangeAsync)
+            .Produces<ContentDirectoryService.GetLastIndexChangeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetLastIndexChange", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetLastIndexChangeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getsearchcapabilities", GetSearchCapabilitiesAsync)
+            .Produces<ContentDirectoryService.GetSearchCapabilitiesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetSearchCapabilities", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetSearchCapabilitiesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getshareindexinprogress", GetShareIndexInProgressAsync)
+            .Produces<ContentDirectoryService.GetShareIndexInProgressResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetShareIndexInProgress", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetShareIndexInProgressResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getsortcapabilities", GetSortCapabilitiesAsync)
+            .Produces<ContentDirectoryService.GetSortCapabilitiesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetSortCapabilities", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetSortCapabilitiesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getsystemupdateid", GetSystemUpdateIDAsync)
+            .Produces<ContentDirectoryService.GetSystemUpdateIDResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetSystemUpdateID", SERVICE_NAME_KEBAB, null)
-            .Produces<ContentDirectoryService.GetSystemUpdateIDResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/refreshshareindex", RefreshShareIndexAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RefreshShareIndex", SERVICE_NAME_KEBAB, "Updates the music library (share) index")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/requestresort", RequestResortAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RequestResort", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setbrowseable", SetBrowseableAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetBrowseable", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/updateobject", UpdateObjectAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateObject", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> BrowseAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.BrowseRequest body, 
+        [FromBody, Description("Mandatory Browse body")]ContentDirectoryService.BrowseRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -114,20 +132,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.Browse(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.Browse(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> CreateObjectAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.CreateObjectRequest body, 
+        [FromBody, Description("Mandatory CreateObject body")]ContentDirectoryService.CreateObjectRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -136,20 +148,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.CreateObject(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.CreateObject(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> DestroyObjectAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.DestroyObjectRequest body, 
+        [FromBody, Description("Mandatory DestroyObject body")]ContentDirectoryService.DestroyObjectRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -158,20 +164,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.DestroyObject(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.DestroyObject(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> FindPrefixAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.FindPrefixRequest body, 
+        [FromBody, Description("Mandatory FindPrefix body")]ContentDirectoryService.FindPrefixRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -180,15 +180,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.FindPrefix(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.FindPrefix(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetAlbumArtistDisplayOptionAsync(
@@ -201,20 +195,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetAlbumArtistDisplayOption(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetAlbumArtistDisplayOption(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetAllPrefixLocationsAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.GetAllPrefixLocationsRequest body, 
+        [FromBody, Description("Mandatory GetAllPrefixLocations body")]ContentDirectoryService.GetAllPrefixLocationsRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -223,15 +211,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetAllPrefixLocations(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetAllPrefixLocations(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetBrowseableAsync(
@@ -244,15 +226,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetBrowseable(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetBrowseable(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetLastIndexChangeAsync(
@@ -265,15 +241,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetLastIndexChange(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetLastIndexChange(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetSearchCapabilitiesAsync(
@@ -286,15 +256,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetSearchCapabilities(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetSearchCapabilities(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetShareIndexInProgressAsync(
@@ -307,15 +271,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetShareIndexInProgress(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetShareIndexInProgress(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetSortCapabilitiesAsync(
@@ -328,15 +286,9 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetSortCapabilities(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetSortCapabilities(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetSystemUpdateIDAsync(
@@ -349,20 +301,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.GetSystemUpdateID(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.GetSystemUpdateID(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RefreshShareIndexAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.RefreshShareIndexRequest body, 
+        [FromBody, Description("Mandatory RefreshShareIndex body")]ContentDirectoryService.RefreshShareIndexRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -371,20 +317,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.RefreshShareIndex(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.RefreshShareIndex(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RequestResortAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.RequestResortRequest body, 
+        [FromBody, Description("Mandatory RequestResort body")]ContentDirectoryService.RequestResortRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -393,20 +333,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.RequestResort(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.RequestResort(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetBrowseableAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.SetBrowseableRequest body, 
+        [FromBody, Description("Mandatory SetBrowseable body")]ContentDirectoryService.SetBrowseableRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -415,20 +349,14 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.SetBrowseable(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.SetBrowseable(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> UpdateObjectAsync(
         [FromRoute]string speakerId,
-        [FromBody]ContentDirectoryService.UpdateObjectRequest body, 
+        [FromBody, Description("Mandatory UpdateObject body")]ContentDirectoryService.UpdateObjectRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -437,14 +365,8 @@ internal static class ContentDirectoryApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.ContentDirectoryService.UpdateObject(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.ContentDirectoryService.UpdateObject(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

@@ -71,6 +71,8 @@ public partial class RenderingControlEvent: RenderingControlService.IRenderingCo
 
     public int? SpeakerSize { get; init; }
 
+    public bool? SpeechEnhanceEnabled { get; init; }
+
     public string? SubCrossover { get; init; }
 
     public bool? SubEnabled { get; init; }
@@ -78,6 +80,8 @@ public partial class RenderingControlEvent: RenderingControlService.IRenderingCo
     public string? SubGain { get; init; }
 
     public string? SubPolarity { get; init; }
+
+    public bool? SupportsMaxDialogLevel { get; init; }
 
     public bool? SupportsOutputFixed { get; init; }
 
@@ -120,10 +124,12 @@ public partial class RenderingControlEvent: RenderingControlService.IRenderingCo
             RoomCalibrationEnabled = dic.TryGetBool(nameof(RoomCalibrationEnabled)),
             RoomCalibrationID = dic.TryGetString(nameof(RoomCalibrationID)),
             SpeakerSize = dic.TryGetInt(nameof(SpeakerSize)),
+            SpeechEnhanceEnabled = dic.TryGetBool(nameof(SpeechEnhanceEnabled)),
             SubCrossover = dic.TryGetString(nameof(SubCrossover)),
             SubEnabled = dic.TryGetBool(nameof(SubEnabled)),
             SubGain = dic.TryGetString(nameof(SubGain)),
             SubPolarity = dic.TryGetString(nameof(SubPolarity)),
+            SupportsMaxDialogLevel = dic.TryGetBool(nameof(SupportsMaxDialogLevel)),
             SupportsOutputFixed = dic.TryGetBool(nameof(SupportsOutputFixed)),
             SurroundEnabled = dic.TryGetBool(nameof(SurroundEnabled)),
             SurroundLevel = dic.TryGetString(nameof(SurroundLevel)),

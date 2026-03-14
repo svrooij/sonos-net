@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class RenderingControlApi
 {
@@ -38,122 +40,150 @@ internal static class RenderingControlApi
 
         group.MapGet("/getbass", GetBassAsync)
 
+            .Produces<RenderingControlService.GetBassResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetBass", SERVICE_NAME_KEBAB, "Get bass level between -10 and 10")
-            .Produces<RenderingControlService.GetBassResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/geteq", GetEQAsync)
+            .Produces<RenderingControlService.GetEQResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetEQ", SERVICE_NAME_KEBAB, "Get equalizer value")
-            .Produces<RenderingControlService.GetEQResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getheadphoneconnected", GetHeadphoneConnectedAsync)
 
+            .Produces<RenderingControlService.GetHeadphoneConnectedResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetHeadphoneConnected", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetHeadphoneConnectedResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getloudness", GetLoudnessAsync)
+            .Produces<RenderingControlService.GetLoudnessResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetLoudness", SERVICE_NAME_KEBAB, "Whether or not Loudness is on")
-            .Produces<RenderingControlService.GetLoudnessResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getmute", GetMuteAsync)
+            .Produces<RenderingControlService.GetMuteResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetMute", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetMuteResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getoutputfixed", GetOutputFixedAsync)
 
+            .Produces<RenderingControlService.GetOutputFixedResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetOutputFixed", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetOutputFixedResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getroomcalibrationstatus", GetRoomCalibrationStatusAsync)
 
+            .Produces<RenderingControlService.GetRoomCalibrationStatusResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetRoomCalibrationStatus", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetRoomCalibrationStatusResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getsupportsoutputfixed", GetSupportsOutputFixedAsync)
 
+            .Produces<RenderingControlService.GetSupportsOutputFixedResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetSupportsOutputFixed", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetSupportsOutputFixedResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettreble", GetTrebleAsync)
 
+            .Produces<RenderingControlService.GetTrebleResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTreble", SERVICE_NAME_KEBAB, "Get treble")
-            .Produces<RenderingControlService.GetTrebleResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getvolume", GetVolumeAsync)
+            .Produces<RenderingControlService.GetVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetVolume", SERVICE_NAME_KEBAB, "Get volume")
-            .Produces<RenderingControlService.GetVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getvolumedb", GetVolumeDBAsync)
+            .Produces<RenderingControlService.GetVolumeDBResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetVolumeDB", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetVolumeDBResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/getvolumedbrange", GetVolumeDBRangeAsync)
+            .Produces<RenderingControlService.GetVolumeDBRangeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetVolumeDBRange", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.GetVolumeDBRangeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/ramptovolume", RampToVolumeAsync)
+            .Produces<RenderingControlService.RampToVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RampToVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.RampToVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/resetbasiceq", ResetBasicEQAsync)
 
+            .Produces<RenderingControlService.ResetBasicEQResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ResetBasicEQ", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.ResetBasicEQResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/resetexteq", ResetExtEQAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ResetExtEQ", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/restorevolumepriortoramp", RestoreVolumePriorToRampAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RestoreVolumePriorToRamp", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setbass", SetBassAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetBass", SERVICE_NAME_KEBAB, "Set bass level, between -10 and 10")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setchannelmap", SetChannelMapAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetChannelMap", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/seteq", SetEQAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetEQ", SERVICE_NAME_KEBAB, "Set equalizer value for different types")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setloudness", SetLoudnessAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetLoudness", SERVICE_NAME_KEBAB, "Set loudness on / off")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setmute", SetMuteAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetMute", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setoutputfixed", SetOutputFixedAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetOutputFixed", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setrelativevolume", SetRelativeVolumeAsync)
+            .Produces<RenderingControlService.SetRelativeVolumeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetRelativeVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<RenderingControlService.SetRelativeVolumeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setroomcalibrationstatus", SetRoomCalibrationStatusAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetRoomCalibrationStatus", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setroomcalibrationx", SetRoomCalibrationXAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetRoomCalibrationX", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/settreble", SetTrebleAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetTreble", SERVICE_NAME_KEBAB, "Set treble level")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setvolume", SetVolumeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetVolume", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setvolumedb", SetVolumeDBAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetVolumeDB", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
@@ -168,20 +198,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetBass(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetBass(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetEQAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetEQRequest body, 
+        [FromBody, Description("Mandatory GetEQ body")]RenderingControlService.GetEQRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -190,15 +214,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetEQ(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetEQ(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetHeadphoneConnectedAsync(
@@ -211,20 +229,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetHeadphoneConnected(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetHeadphoneConnected(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetLoudnessAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetLoudnessRequest body, 
+        [FromBody, Description("Mandatory GetLoudness body")]RenderingControlService.GetLoudnessRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -233,20 +245,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetLoudness(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetLoudness(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetMuteAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetMuteRequest body, 
+        [FromBody, Description("Mandatory GetMute body")]RenderingControlService.GetMuteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -255,15 +261,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetMute(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetMute(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetOutputFixedAsync(
@@ -276,15 +276,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetOutputFixed(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetOutputFixed(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetRoomCalibrationStatusAsync(
@@ -297,15 +291,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetRoomCalibrationStatus(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetRoomCalibrationStatus(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetSupportsOutputFixedAsync(
@@ -318,15 +306,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetSupportsOutputFixed(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetSupportsOutputFixed(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTrebleAsync(
@@ -339,20 +321,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetTreble(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetTreble(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetVolumeRequest body, 
+        [FromBody, Description("Mandatory GetVolume body")]RenderingControlService.GetVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -361,20 +337,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetVolumeDBAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetVolumeDBRequest body, 
+        [FromBody, Description("Mandatory GetVolumeDB body")]RenderingControlService.GetVolumeDBRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -383,20 +353,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetVolumeDB(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetVolumeDB(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetVolumeDBRangeAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.GetVolumeDBRangeRequest body, 
+        [FromBody, Description("Mandatory GetVolumeDBRange body")]RenderingControlService.GetVolumeDBRangeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -405,20 +369,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.GetVolumeDBRange(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.GetVolumeDBRange(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RampToVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.RampToVolumeRequest body, 
+        [FromBody, Description("Mandatory RampToVolume body")]RenderingControlService.RampToVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -427,15 +385,9 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.RampToVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.RampToVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ResetBasicEQAsync(
@@ -448,20 +400,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.ResetBasicEQ(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.ResetBasicEQ(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ResetExtEQAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.ResetExtEQRequest body, 
+        [FromBody, Description("Mandatory ResetExtEQ body")]RenderingControlService.ResetExtEQRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -470,20 +416,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.ResetExtEQ(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.ResetExtEQ(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RestoreVolumePriorToRampAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.RestoreVolumePriorToRampRequest body, 
+        [FromBody, Description("Mandatory RestoreVolumePriorToRamp body")]RenderingControlService.RestoreVolumePriorToRampRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -492,20 +432,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.RestoreVolumePriorToRamp(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.RestoreVolumePriorToRamp(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetBassAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetBassRequest body, 
+        [FromBody, Description("Mandatory SetBass body")]RenderingControlService.SetBassRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -514,20 +448,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetBass(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetBass(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetChannelMapAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetChannelMapRequest body, 
+        [FromBody, Description("Mandatory SetChannelMap body")]RenderingControlService.SetChannelMapRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -536,20 +464,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetChannelMap(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetChannelMap(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetEQAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetEQRequest body, 
+        [FromBody, Description("Mandatory SetEQ body")]RenderingControlService.SetEQRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -558,20 +480,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetEQ(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetEQ(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetLoudnessAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetLoudnessRequest body, 
+        [FromBody, Description("Mandatory SetLoudness body")]RenderingControlService.SetLoudnessRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -580,20 +496,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetLoudness(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetLoudness(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetMuteAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetMuteRequest body, 
+        [FromBody, Description("Mandatory SetMute body")]RenderingControlService.SetMuteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -602,20 +512,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetMute(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetMute(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetOutputFixedAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetOutputFixedRequest body, 
+        [FromBody, Description("Mandatory SetOutputFixed body")]RenderingControlService.SetOutputFixedRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -624,20 +528,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetOutputFixed(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetOutputFixed(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetRelativeVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetRelativeVolumeRequest body, 
+        [FromBody, Description("Mandatory SetRelativeVolume body")]RenderingControlService.SetRelativeVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -646,20 +544,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetRelativeVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetRelativeVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetRoomCalibrationStatusAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetRoomCalibrationStatusRequest body, 
+        [FromBody, Description("Mandatory SetRoomCalibrationStatus body")]RenderingControlService.SetRoomCalibrationStatusRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -668,20 +560,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetRoomCalibrationStatus(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetRoomCalibrationStatus(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetRoomCalibrationXAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetRoomCalibrationXRequest body, 
+        [FromBody, Description("Mandatory SetRoomCalibrationX body")]RenderingControlService.SetRoomCalibrationXRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -690,20 +576,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetRoomCalibrationX(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetRoomCalibrationX(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetTrebleAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetTrebleRequest body, 
+        [FromBody, Description("Mandatory SetTreble body")]RenderingControlService.SetTrebleRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -712,20 +592,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetTreble(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetTreble(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetVolumeAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetVolumeRequest body, 
+        [FromBody, Description("Mandatory SetVolume body")]RenderingControlService.SetVolumeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -734,20 +608,14 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetVolume(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetVolume(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetVolumeDBAsync(
         [FromRoute]string speakerId,
-        [FromBody]RenderingControlService.SetVolumeDBRequest body, 
+        [FromBody, Description("Mandatory SetVolumeDB body")]RenderingControlService.SetVolumeDBRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -756,14 +624,8 @@ internal static class RenderingControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.RenderingControlService.SetVolumeDB(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.RenderingControlService.SetVolumeDB(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

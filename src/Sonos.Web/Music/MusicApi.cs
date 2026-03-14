@@ -46,6 +46,18 @@ internal static class MusicApi
             .WithDescription("Get metadata or browse music service")
             .Produces<Sonos.Base.Music.MediaList>();
 
+        music.MapGet("{musicServiceId:int}/media-metadata", GetMusicServiceMediaMetadata)
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Media metadata";
+                operation.Description = "Get the media metadata for a specific item";
+                operation.Responses ??= new(); // Not sure if this is needed, since the `Responses` are required.
+                operation.Responses["200"].Description = "Success response for media item";
+                return Task.CompletedTask;
+
+            })
+            .Produces<Sonos.Base.Music.MediaMetadata>();
+
         return app;
 
     }
@@ -132,5 +144,17 @@ internal static class MusicApi
 
         var items = await client.GetMetadataAsync(id, index, count, cancellationToken: cancellationToken);
         return Results.Ok(items);
+    }
+
+    private async static Task<IResult> GetMusicServiceMediaMetadata(ushort musicServiceId, SonosMusicManager sonosMusicManager, [FromQuery] string id, CancellationToken cancellationToken)
+    {
+        var client = await sonosMusicManager.GetClientForServiceAsync(musicServiceId, cancellationToken);
+        if (client == null)
+        {
+            return Results.NotFound($"Music service with ID {id} not found");
+        }
+
+        var result = await client.GetMediaMetadataAsync(id, cancellationToken);
+        return Results.Ok(result.GetMediaMetadataResult);
     }
 }

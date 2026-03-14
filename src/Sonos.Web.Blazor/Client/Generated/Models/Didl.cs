@@ -17,10 +17,10 @@ namespace Sonos.Web.Blazor.Client.Models
         /// <summary>The items property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<global::Sonos.Web.Blazor.Client.Models.Item2>? Items { get; set; }
+        public List<global::Sonos.Web.Blazor.Client.Models.DidlTrack>? Items { get; set; }
 #nullable restore
 #else
-        public List<global::Sonos.Web.Blazor.Client.Models.Item2> Items { get; set; }
+        public List<global::Sonos.Web.Blazor.Client.Models.DidlTrack> Items { get; set; }
 #endif
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.Didl"/> and sets the default values.
@@ -47,7 +47,7 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "items", n => { Items = n.GetCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.Item2>(global::Sonos.Web.Blazor.Client.Models.Item2.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "items", n => { Items = n.GetCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.DidlTrack>(global::Sonos.Web.Blazor.Client.Models.DidlTrack.CreateFromDiscriminatorValue)?.AsList(); } },
             };
         }
         /// <summary>
@@ -57,7 +57,7 @@ namespace Sonos.Web.Blazor.Client.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.Item2>("items", Items);
+            writer.WriteCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.DidlTrack>("items", Items);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

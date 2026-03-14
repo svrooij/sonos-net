@@ -16,7 +16,7 @@ public class Didl
       });
 
     public Didl() { }
-    public Didl(Item item)
+    public Didl(DidlTrack item)
     {
         Items = new[] { item };
     }
@@ -24,5 +24,5 @@ public class Didl
     // [XmlAnyElement]
     // public object[] Rest {get;set;}
     [XmlElement("item", Namespace = "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")]
-    public Item[] Items { get; set; }
+    public DidlTrack[] Items { get; set; }
 }

@@ -44,11 +44,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<bool?> PostAsync(global::Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay.StartautoplayPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<bool?> PostAsync(global::Sonos.Web.Blazor.Client.Models.StartAutoplayRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<bool?> PostAsync(global::Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay.StartautoplayPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<bool?> PostAsync(global::Sonos.Web.Blazor.Client.Models.StartAutoplayRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
@@ -68,11 +68,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay.StartautoplayPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.StartAutoplayRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Speakers.Item.Avtransport.Startautoplay.StartautoplayPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPostRequestInformation(global::Sonos.Web.Blazor.Client.Models.StartAutoplayRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));

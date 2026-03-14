@@ -79,6 +79,7 @@ public class SoapFault
 
 }
 
+[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
 public class UpnpSoapFault : SoapFault
 {
     [System.Xml.Serialization.XmlElement("detail", Namespace = "")]

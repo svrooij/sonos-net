@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class AVTransportApi
 {
@@ -37,196 +39,238 @@ internal static class AVTransportApi
             .WithGroupName("upnp-av-transport");
 
         group.MapPost("/addmultipleuristoqueue", AddMultipleURIsToQueueAsync)
+            .Produces<AVTransportService.AddMultipleURIsToQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddMultipleURIsToQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.AddMultipleURIsToQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/adduritoqueue", AddURIToQueueAsync)
+            .Produces<AVTransportService.AddURIToQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddURIToQueue", SERVICE_NAME_KEBAB, "Adds songs to the SONOS queue")
-            .Produces<AVTransportService.AddURIToQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/adduritosavedqueue", AddURIToSavedQueueAsync)
+            .Produces<AVTransportService.AddURIToSavedQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "AddURIToSavedQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.AddURIToSavedQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/backupqueue", BackupQueueAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "BackupQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/becomecoordinatorofstandalonegroup", BecomeCoordinatorOfStandaloneGroupAsync)
 
+            .Produces<AVTransportService.BecomeCoordinatorOfStandaloneGroupResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "BecomeCoordinatorOfStandaloneGroup", SERVICE_NAME_KEBAB, "Leave the current group and revert to a single player.")
-            .Produces<AVTransportService.BecomeCoordinatorOfStandaloneGroupResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/becomegroupcoordinator", BecomeGroupCoordinatorAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "BecomeGroupCoordinator", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/becomegroupcoordinatorandsource", BecomeGroupCoordinatorAndSourceAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "BecomeGroupCoordinatorAndSource", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/changecoordinator", ChangeCoordinatorAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ChangeCoordinator", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/changetransportsettings", ChangeTransportSettingsAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ChangeTransportSettings", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/configuresleeptimer", ConfigureSleepTimerAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ConfigureSleepTimer", SERVICE_NAME_KEBAB, "Stop playing after set sleep timer or cancel")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/createsavedqueue", CreateSavedQueueAsync)
+            .Produces<AVTransportService.CreateSavedQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CreateSavedQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.CreateSavedQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/delegategroupcoordinationto", DelegateGroupCoordinationToAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "DelegateGroupCoordinationTo", SERVICE_NAME_KEBAB, "Delegates the coordinator role to another player in the same group")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/enddirectcontrolsession", EndDirectControlSessionAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "EndDirectControlSession", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getcrossfademode", GetCrossfadeModeAsync)
 
+            .Produces<AVTransportService.GetCrossfadeModeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetCrossfadeMode", SERVICE_NAME_KEBAB, "Get crossfade mode")
-            .Produces<AVTransportService.GetCrossfadeModeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getcurrenttransportactions", GetCurrentTransportActionsAsync)
 
+            .Produces<AVTransportService.GetCurrentTransportActionsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetCurrentTransportActions", SERVICE_NAME_KEBAB, "Get current transport actions such as Set, Stop, Pause, Play, X_DLNA_SeekTime, Next, X_DLNA_SeekTrackNr")
-            .Produces<AVTransportService.GetCurrentTransportActionsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getdevicecapabilities", GetDeviceCapabilitiesAsync)
 
+            .Produces<AVTransportService.GetDeviceCapabilitiesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetDeviceCapabilities", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.GetDeviceCapabilitiesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getmediainfo", GetMediaInfoAsync)
 
+            .Produces<AVTransportService.GetMediaInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetMediaInfo", SERVICE_NAME_KEBAB, "Get information about the current playing media (queue)")
-            .Produces<AVTransportService.GetMediaInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getpositioninfo", GetPositionInfoAsync)
 
+            .Produces<AVTransportService.GetPositionInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetPositionInfo", SERVICE_NAME_KEBAB, "Get information about current position (position in queue and time in current song)")
-            .Produces<AVTransportService.GetPositionInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getremainingsleeptimerduration", GetRemainingSleepTimerDurationAsync)
 
+            .Produces<AVTransportService.GetRemainingSleepTimerDurationResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetRemainingSleepTimerDuration", SERVICE_NAME_KEBAB, "Get time left on sleeptimer.")
-            .Produces<AVTransportService.GetRemainingSleepTimerDurationResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getrunningalarmproperties", GetRunningAlarmPropertiesAsync)
 
+            .Produces<AVTransportService.GetRunningAlarmPropertiesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetRunningAlarmProperties", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.GetRunningAlarmPropertiesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettransportinfo", GetTransportInfoAsync)
 
+            .Produces<AVTransportService.GetTransportInfoResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTransportInfo", SERVICE_NAME_KEBAB, "Get current transport status, speed and state such as PLAYING, STOPPED, PLAYING, PAUSED_PLAYBACK, TRANSITIONING, NO_MEDIA_PRESENT")
-            .Produces<AVTransportService.GetTransportInfoResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettransportsettings", GetTransportSettingsAsync)
 
+            .Produces<AVTransportService.GetTransportSettingsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTransportSettings", SERVICE_NAME_KEBAB, "Get transport settings")
-            .Produces<AVTransportService.GetTransportSettingsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/next", NextAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Next", SERVICE_NAME_KEBAB, "Go to next song")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/notifydeleteduri", NotifyDeletedURIAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "NotifyDeletedURI", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/pause", PauseAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Pause", SERVICE_NAME_KEBAB, "Pause playback")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/play", PlayAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Play", SERVICE_NAME_KEBAB, "Start playing the set TransportURI")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/previous", PreviousAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Previous", SERVICE_NAME_KEBAB, "Go to previous song")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/removealltracksfromqueue", RemoveAllTracksFromQueueAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveAllTracksFromQueue", SERVICE_NAME_KEBAB, "Flushes the SONOS queue.")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removetrackfromqueue", RemoveTrackFromQueueAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveTrackFromQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/removetrackrangefromqueue", RemoveTrackRangeFromQueueAsync)
+            .Produces<AVTransportService.RemoveTrackRangeFromQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RemoveTrackRangeFromQueue", SERVICE_NAME_KEBAB, "Removes the specified range of songs from the SONOS queue.")
-            .Produces<AVTransportService.RemoveTrackRangeFromQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/reordertracksinqueue", ReorderTracksInQueueAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReorderTracksInQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/reordertracksinsavedqueue", ReorderTracksInSavedQueueAsync)
+            .Produces<AVTransportService.ReorderTracksInSavedQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ReorderTracksInSavedQueue", SERVICE_NAME_KEBAB, null)
-            .Produces<AVTransportService.ReorderTracksInSavedQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/runalarm", RunAlarmAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "RunAlarm", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/savequeue", SaveQueueAsync)
+            .Produces<AVTransportService.SaveQueueResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SaveQueue", SERVICE_NAME_KEBAB, "Saves the current SONOS queue as a SONOS playlist and outputs objectID")
-            .Produces<AVTransportService.SaveQueueResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/seek", SeekAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Seek", SERVICE_NAME_KEBAB, "Seek track in queue, time delta or absolute time in song")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setavtransporturi", SetAVTransportURIAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAVTransportURI", SERVICE_NAME_KEBAB, "Set the transport URI to a song, a stream, the queue, another player-rincon and a lot more")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setcrossfademode", SetCrossfadeModeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetCrossfadeMode", SERVICE_NAME_KEBAB, "Set crossfade mode")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setnextavtransporturi", SetNextAVTransportURIAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetNextAVTransportURI", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setplaymode", SetPlayModeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetPlayMode", SERVICE_NAME_KEBAB, "Set the PlayMode")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/snoozealarm", SnoozeAlarmAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SnoozeAlarm", SERVICE_NAME_KEBAB, "Snooze the current alarm for some time.")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/startautoplay", StartAutoplayAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "StartAutoplay", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/stop", StopAsync)
 
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "Stop", SERVICE_NAME_KEBAB, "Stop playback")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> AddMultipleURIsToQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.AddMultipleURIsToQueueRequest body, 
+        [FromBody, Description("Mandatory AddMultipleURIsToQueue body")]AVTransportService.AddMultipleURIsToQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -235,20 +279,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.AddMultipleURIsToQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.AddMultipleURIsToQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AddURIToQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.AddURIToQueueRequest body, 
+        [FromBody, Description("Mandatory AddURIToQueue body")]AVTransportService.AddURIToQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -257,20 +295,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.AddURIToQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.AddURIToQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> AddURIToSavedQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.AddURIToSavedQueueRequest body, 
+        [FromBody, Description("Mandatory AddURIToSavedQueue body")]AVTransportService.AddURIToSavedQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -279,15 +311,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.AddURIToSavedQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.AddURIToSavedQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BackupQueueAsync(
@@ -300,15 +326,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.BackupQueue(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.BackupQueue(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BecomeCoordinatorOfStandaloneGroupAsync(
@@ -321,20 +341,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.BecomeCoordinatorOfStandaloneGroup(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.BecomeCoordinatorOfStandaloneGroup(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BecomeGroupCoordinatorAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.BecomeGroupCoordinatorRequest body, 
+        [FromBody, Description("Mandatory BecomeGroupCoordinator body")]AVTransportService.BecomeGroupCoordinatorRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -343,20 +357,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.BecomeGroupCoordinator(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.BecomeGroupCoordinator(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> BecomeGroupCoordinatorAndSourceAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.BecomeGroupCoordinatorAndSourceRequest body, 
+        [FromBody, Description("Mandatory BecomeGroupCoordinatorAndSource body")]AVTransportService.BecomeGroupCoordinatorAndSourceRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -365,20 +373,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.BecomeGroupCoordinatorAndSource(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.BecomeGroupCoordinatorAndSource(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ChangeCoordinatorAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.ChangeCoordinatorRequest body, 
+        [FromBody, Description("Mandatory ChangeCoordinator body")]AVTransportService.ChangeCoordinatorRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -387,20 +389,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.ChangeCoordinator(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.ChangeCoordinator(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ChangeTransportSettingsAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.ChangeTransportSettingsRequest body, 
+        [FromBody, Description("Mandatory ChangeTransportSettings body")]AVTransportService.ChangeTransportSettingsRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -409,20 +405,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.ChangeTransportSettings(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.ChangeTransportSettings(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ConfigureSleepTimerAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.ConfigureSleepTimerRequest body, 
+        [FromBody, Description("Mandatory ConfigureSleepTimer body")]AVTransportService.ConfigureSleepTimerRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -431,20 +421,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.ConfigureSleepTimer(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.ConfigureSleepTimer(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> CreateSavedQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.CreateSavedQueueRequest body, 
+        [FromBody, Description("Mandatory CreateSavedQueue body")]AVTransportService.CreateSavedQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -453,20 +437,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.CreateSavedQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.CreateSavedQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> DelegateGroupCoordinationToAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.DelegateGroupCoordinationToRequest body, 
+        [FromBody, Description("Mandatory DelegateGroupCoordinationTo body")]AVTransportService.DelegateGroupCoordinationToRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -475,15 +453,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.DelegateGroupCoordinationTo(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.DelegateGroupCoordinationTo(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> EndDirectControlSessionAsync(
@@ -496,15 +468,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.EndDirectControlSession(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.EndDirectControlSession(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetCrossfadeModeAsync(
@@ -517,15 +483,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetCrossfadeMode(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetCrossfadeMode(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetCurrentTransportActionsAsync(
@@ -538,15 +498,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetCurrentTransportActions(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetCurrentTransportActions(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetDeviceCapabilitiesAsync(
@@ -559,15 +513,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetDeviceCapabilities(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetDeviceCapabilities(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetMediaInfoAsync(
@@ -580,15 +528,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetMediaInfo(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetMediaInfo(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetPositionInfoAsync(
@@ -601,15 +543,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetPositionInfo(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetPositionInfo(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetRemainingSleepTimerDurationAsync(
@@ -622,15 +558,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetRemainingSleepTimerDuration(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetRemainingSleepTimerDuration(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetRunningAlarmPropertiesAsync(
@@ -643,15 +573,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetRunningAlarmProperties(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetRunningAlarmProperties(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTransportInfoAsync(
@@ -664,15 +588,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetTransportInfo(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetTransportInfo(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTransportSettingsAsync(
@@ -685,15 +603,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.GetTransportSettings(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.GetTransportSettings(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> NextAsync(
@@ -706,20 +618,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Next(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Next(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> NotifyDeletedURIAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.NotifyDeletedURIRequest body, 
+        [FromBody, Description("Mandatory NotifyDeletedURI body")]AVTransportService.NotifyDeletedURIRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -728,15 +634,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.NotifyDeletedURI(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.NotifyDeletedURI(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PauseAsync(
@@ -749,20 +649,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Pause(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Pause(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PlayAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.PlayRequest body, 
+        [FromBody, Description("Mandatory Play body")]AVTransportService.PlayRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -771,15 +665,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Play(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Play(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> PreviousAsync(
@@ -792,15 +680,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Previous(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Previous(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveAllTracksFromQueueAsync(
@@ -813,20 +695,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.RemoveAllTracksFromQueue(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.RemoveAllTracksFromQueue(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveTrackFromQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.RemoveTrackFromQueueRequest body, 
+        [FromBody, Description("Mandatory RemoveTrackFromQueue body")]AVTransportService.RemoveTrackFromQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -835,20 +711,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.RemoveTrackFromQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.RemoveTrackFromQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RemoveTrackRangeFromQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.RemoveTrackRangeFromQueueRequest body, 
+        [FromBody, Description("Mandatory RemoveTrackRangeFromQueue body")]AVTransportService.RemoveTrackRangeFromQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -857,20 +727,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.RemoveTrackRangeFromQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.RemoveTrackRangeFromQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReorderTracksInQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.ReorderTracksInQueueRequest body, 
+        [FromBody, Description("Mandatory ReorderTracksInQueue body")]AVTransportService.ReorderTracksInQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -879,20 +743,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.ReorderTracksInQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.ReorderTracksInQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ReorderTracksInSavedQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.ReorderTracksInSavedQueueRequest body, 
+        [FromBody, Description("Mandatory ReorderTracksInSavedQueue body")]AVTransportService.ReorderTracksInSavedQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -901,20 +759,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.ReorderTracksInSavedQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.ReorderTracksInSavedQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> RunAlarmAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.RunAlarmRequest body, 
+        [FromBody, Description("Mandatory RunAlarm body")]AVTransportService.RunAlarmRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -923,20 +775,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.RunAlarm(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.RunAlarm(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SaveQueueAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SaveQueueRequest body, 
+        [FromBody, Description("Mandatory SaveQueue body")]AVTransportService.SaveQueueRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -945,20 +791,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SaveQueue(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SaveQueue(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SeekAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SeekRequest body, 
+        [FromBody, Description("Mandatory Seek body")]AVTransportService.SeekRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -967,20 +807,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Seek(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Seek(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAVTransportURIAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SetAVTransportURIRequest body, 
+        [FromBody, Description("Mandatory SetAVTransportURI body")]AVTransportService.SetAVTransportURIRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -989,20 +823,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SetAVTransportURI(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SetAVTransportURI(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetCrossfadeModeAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SetCrossfadeModeRequest body, 
+        [FromBody, Description("Mandatory SetCrossfadeMode body")]AVTransportService.SetCrossfadeModeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -1011,20 +839,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SetCrossfadeMode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SetCrossfadeMode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetNextAVTransportURIAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SetNextAVTransportURIRequest body, 
+        [FromBody, Description("Mandatory SetNextAVTransportURI body")]AVTransportService.SetNextAVTransportURIRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -1033,20 +855,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SetNextAVTransportURI(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SetNextAVTransportURI(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetPlayModeAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SetPlayModeRequest body, 
+        [FromBody, Description("Mandatory SetPlayMode body")]AVTransportService.SetPlayModeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -1055,20 +871,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SetPlayMode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SetPlayMode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SnoozeAlarmAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.SnoozeAlarmRequest body, 
+        [FromBody, Description("Mandatory SnoozeAlarm body")]AVTransportService.SnoozeAlarmRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -1077,20 +887,14 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.SnoozeAlarm(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.SnoozeAlarm(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StartAutoplayAsync(
         [FromRoute]string speakerId,
-        [FromBody]AVTransportService.StartAutoplayRequest body, 
+        [FromBody, Description("Mandatory StartAutoplay body")]AVTransportService.StartAutoplayRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -1099,15 +903,9 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.StartAutoplay(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.StartAutoplay(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StopAsync(
@@ -1120,14 +918,8 @@ internal static class AVTransportApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AVTransportService.Stop(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AVTransportService.Stop(cancellationToken);
+        return Results.Ok(result);
     }
 }

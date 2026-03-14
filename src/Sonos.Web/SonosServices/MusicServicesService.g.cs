@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class MusicServicesApi
 {
@@ -37,23 +39,26 @@ internal static class MusicServicesApi
             .WithGroupName("upnp-music-services");
 
         group.MapPost("/getsessionid", GetSessionIdAsync)
+            .Produces<MusicServicesService.GetSessionIdResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetSessionId", SERVICE_NAME_KEBAB, null)
-            .Produces<MusicServicesService.GetSessionIdResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/listavailableservices", ListAvailableServicesAsync)
+            .Produces<MusicServicesService.ListAvailableServicesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ListAvailableServices", SERVICE_NAME_KEBAB, "Load music service list as xml")
-            .Produces<MusicServicesService.ListAvailableServicesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/updateavailableservices", UpdateAvailableServicesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateAvailableServices", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> GetSessionIdAsync(
         [FromRoute]string speakerId,
-        [FromBody]MusicServicesService.GetSessionIdRequest body, 
+        [FromBody, Description("Mandatory GetSessionId body")]MusicServicesService.GetSessionIdRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -62,15 +67,9 @@ internal static class MusicServicesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.MusicServicesService.GetSessionId(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.MusicServicesService.GetSessionId(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ListAvailableServicesAsync(
@@ -83,15 +82,9 @@ internal static class MusicServicesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.MusicServicesService.ListAvailableServices(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.MusicServicesService.ListAvailableServices(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> UpdateAvailableServicesAsync(
@@ -104,14 +97,8 @@ internal static class MusicServicesApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.MusicServicesService.UpdateAvailableServices(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.MusicServicesService.UpdateAvailableServices(cancellationToken);
+        return Results.Ok(result);
     }
 }

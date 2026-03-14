@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class AlarmClockApi
 {
@@ -37,79 +39,96 @@ internal static class AlarmClockApi
             .WithGroupName("upnp-alarm-clock");
 
         group.MapPost("/createalarm", CreateAlarmAsync)
+            .Produces<AlarmClockService.CreateAlarmResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CreateAlarm", SERVICE_NAME_KEBAB, "Create a single alarm, all properties are required")
-            .Produces<AlarmClockService.CreateAlarmResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/destroyalarm", DestroyAlarmAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "DestroyAlarm", SERVICE_NAME_KEBAB, "Delete an alarm")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getdailyindexrefreshtime", GetDailyIndexRefreshTimeAsync)
+            .Produces<AlarmClockService.GetDailyIndexRefreshTimeResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetDailyIndexRefreshTime", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetDailyIndexRefreshTimeResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getformat", GetFormatAsync)
+            .Produces<AlarmClockService.GetFormatResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetFormat", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetFormatResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/gethouseholdtimeatstamp", GetHouseholdTimeAtStampAsync)
+            .Produces<AlarmClockService.GetHouseholdTimeAtStampResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetHouseholdTimeAtStamp", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetHouseholdTimeAtStampResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettimenow", GetTimeNowAsync)
+            .Produces<AlarmClockService.GetTimeNowResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTimeNow", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetTimeNowResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettimeserver", GetTimeServerAsync)
+            .Produces<AlarmClockService.GetTimeServerResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTimeServer", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetTimeServerResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettimezone", GetTimeZoneAsync)
+            .Produces<AlarmClockService.GetTimeZoneResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTimeZone", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetTimeZoneResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/gettimezoneandrule", GetTimeZoneAndRuleAsync)
+            .Produces<AlarmClockService.GetTimeZoneAndRuleResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTimeZoneAndRule", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetTimeZoneAndRuleResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/gettimezonerule", GetTimeZoneRuleAsync)
+            .Produces<AlarmClockService.GetTimeZoneRuleResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetTimeZoneRule", SERVICE_NAME_KEBAB, null)
-            .Produces<AlarmClockService.GetTimeZoneRuleResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/listalarms", ListAlarmsAsync)
+            .Produces<AlarmClockService.ListAlarmsResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "ListAlarms", SERVICE_NAME_KEBAB, "Get the AlarmList as XML")
-            .Produces<AlarmClockService.ListAlarmsResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setdailyindexrefreshtime", SetDailyIndexRefreshTimeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetDailyIndexRefreshTime", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setformat", SetFormatAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetFormat", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/settimenow", SetTimeNowAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetTimeNow", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/settimeserver", SetTimeServerAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetTimeServer", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/settimezone", SetTimeZoneAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetTimeZone", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/updatealarm", UpdateAlarmAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "UpdateAlarm", SERVICE_NAME_KEBAB, "Update an alarm, all parameters are required.")
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> CreateAlarmAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.CreateAlarmRequest body, 
+        [FromBody, Description("Mandatory CreateAlarm body")]AlarmClockService.CreateAlarmRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -118,20 +137,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.CreateAlarm(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.CreateAlarm(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> DestroyAlarmAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.DestroyAlarmRequest body, 
+        [FromBody, Description("Mandatory DestroyAlarm body")]AlarmClockService.DestroyAlarmRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -140,15 +153,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.DestroyAlarm(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.DestroyAlarm(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetDailyIndexRefreshTimeAsync(
@@ -161,15 +168,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetDailyIndexRefreshTime(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetDailyIndexRefreshTime(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetFormatAsync(
@@ -182,20 +183,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetFormat(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetFormat(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetHouseholdTimeAtStampAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.GetHouseholdTimeAtStampRequest body, 
+        [FromBody, Description("Mandatory GetHouseholdTimeAtStamp body")]AlarmClockService.GetHouseholdTimeAtStampRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -204,15 +199,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetHouseholdTimeAtStamp(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetHouseholdTimeAtStamp(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTimeNowAsync(
@@ -225,15 +214,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetTimeNow(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetTimeNow(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTimeServerAsync(
@@ -246,15 +229,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetTimeServer(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetTimeServer(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTimeZoneAsync(
@@ -267,15 +244,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetTimeZone(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetTimeZone(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTimeZoneAndRuleAsync(
@@ -288,20 +259,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetTimeZoneAndRule(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetTimeZoneAndRule(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetTimeZoneRuleAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.GetTimeZoneRuleRequest body, 
+        [FromBody, Description("Mandatory GetTimeZoneRule body")]AlarmClockService.GetTimeZoneRuleRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -310,15 +275,9 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.GetTimeZoneRule(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.GetTimeZoneRule(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> ListAlarmsAsync(
@@ -331,20 +290,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.ListAlarms(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.ListAlarms(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetDailyIndexRefreshTimeAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.SetDailyIndexRefreshTimeRequest body, 
+        [FromBody, Description("Mandatory SetDailyIndexRefreshTime body")]AlarmClockService.SetDailyIndexRefreshTimeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -353,20 +306,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.SetDailyIndexRefreshTime(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.SetDailyIndexRefreshTime(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetFormatAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.SetFormatRequest body, 
+        [FromBody, Description("Mandatory SetFormat body")]AlarmClockService.SetFormatRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -375,20 +322,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.SetFormat(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.SetFormat(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetTimeNowAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.SetTimeNowRequest body, 
+        [FromBody, Description("Mandatory SetTimeNow body")]AlarmClockService.SetTimeNowRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -397,20 +338,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.SetTimeNow(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.SetTimeNow(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetTimeServerAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.SetTimeServerRequest body, 
+        [FromBody, Description("Mandatory SetTimeServer body")]AlarmClockService.SetTimeServerRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -419,20 +354,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.SetTimeServer(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.SetTimeServer(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetTimeZoneAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.SetTimeZoneRequest body, 
+        [FromBody, Description("Mandatory SetTimeZone body")]AlarmClockService.SetTimeZoneRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -441,20 +370,14 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.SetTimeZone(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.SetTimeZone(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> UpdateAlarmAsync(
         [FromRoute]string speakerId,
-        [FromBody]AlarmClockService.UpdateAlarmRequest body, 
+        [FromBody, Description("Mandatory UpdateAlarm body")]AlarmClockService.UpdateAlarmRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -463,14 +386,8 @@ internal static class AlarmClockApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AlarmClockService.UpdateAlarm(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AlarmClockService.UpdateAlarm(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

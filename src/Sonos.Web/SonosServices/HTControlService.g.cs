@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class HTControlApi
 {
@@ -37,43 +39,51 @@ internal static class HTControlApi
             .WithGroupName("upnp-ht-control");
 
         group.MapPost("/commitlearnedircodes", CommitLearnedIRCodesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "CommitLearnedIRCodes", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getirrepeaterstate", GetIRRepeaterStateAsync)
+            .Produces<HTControlService.GetIRRepeaterStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetIRRepeaterState", SERVICE_NAME_KEBAB, null)
-            .Produces<HTControlService.GetIRRepeaterStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getledfeedbackstate", GetLEDFeedbackStateAsync)
+            .Produces<HTControlService.GetLEDFeedbackStateResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetLEDFeedbackState", SERVICE_NAME_KEBAB, null)
-            .Produces<HTControlService.GetLEDFeedbackStateResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/identifyirremote", IdentifyIRRemoteAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "IdentifyIRRemote", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/isremoteconfigured", IsRemoteConfiguredAsync)
+            .Produces<HTControlService.IsRemoteConfiguredResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "IsRemoteConfigured", SERVICE_NAME_KEBAB, null)
-            .Produces<HTControlService.IsRemoteConfiguredResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/learnircode", LearnIRCodeAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "LearnIRCode", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setirrepeaterstate", SetIRRepeaterStateAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetIRRepeaterState", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setledfeedbackstate", SetLEDFeedbackStateAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetLEDFeedbackState", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
 
     private static async Task<IResult> CommitLearnedIRCodesAsync(
         [FromRoute]string speakerId,
-        [FromBody]HTControlService.CommitLearnedIRCodesRequest body, 
+        [FromBody, Description("Mandatory CommitLearnedIRCodes body")]HTControlService.CommitLearnedIRCodesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -82,15 +92,9 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.CommitLearnedIRCodes(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.CommitLearnedIRCodes(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetIRRepeaterStateAsync(
@@ -103,15 +107,9 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.GetIRRepeaterState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.GetIRRepeaterState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetLEDFeedbackStateAsync(
@@ -124,20 +122,14 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.GetLEDFeedbackState(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.GetLEDFeedbackState(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> IdentifyIRRemoteAsync(
         [FromRoute]string speakerId,
-        [FromBody]HTControlService.IdentifyIRRemoteRequest body, 
+        [FromBody, Description("Mandatory IdentifyIRRemote body")]HTControlService.IdentifyIRRemoteRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -146,15 +138,9 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.IdentifyIRRemote(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.IdentifyIRRemote(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> IsRemoteConfiguredAsync(
@@ -167,20 +153,14 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.IsRemoteConfigured(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.IsRemoteConfigured(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> LearnIRCodeAsync(
         [FromRoute]string speakerId,
-        [FromBody]HTControlService.LearnIRCodeRequest body, 
+        [FromBody, Description("Mandatory LearnIRCode body")]HTControlService.LearnIRCodeRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -189,20 +169,14 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.LearnIRCode(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.LearnIRCode(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetIRRepeaterStateAsync(
         [FromRoute]string speakerId,
-        [FromBody]HTControlService.SetIRRepeaterStateRequest body, 
+        [FromBody, Description("Mandatory SetIRRepeaterState body")]HTControlService.SetIRRepeaterStateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -211,20 +185,14 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.SetIRRepeaterState(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.SetIRRepeaterState(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetLEDFeedbackStateAsync(
         [FromRoute]string speakerId,
-        [FromBody]HTControlService.SetLEDFeedbackStateRequest body, 
+        [FromBody, Description("Mandatory SetLEDFeedbackState body")]HTControlService.SetLEDFeedbackStateRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -233,14 +201,8 @@ internal static class HTControlApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.HTControlService.SetLEDFeedbackState(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.HTControlService.SetLEDFeedbackState(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

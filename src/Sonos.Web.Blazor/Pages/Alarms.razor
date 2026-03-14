@@ -27,7 +27,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-primary">@alarm.ProgramMetaDataObject?.Items?.First().Title</h3>
+                                <h3 class="font-semibold text-primary">@alarm.ProgramMetaDataObject?.Didl?.Items?.FirstOrDefault()?.Title</h3>
                                 <p class="text-sm text-secondary">@GetRoomName(alarm.RoomUUID)</p>
                             </div>
                         </div>

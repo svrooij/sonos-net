@@ -1,8 +1,11 @@
 ﻿@page "/control/{SpeakerId}"
 @using Sonos.Web.Blazor.Client;
 @using Microsoft.AspNetCore.SignalR.Client;
+@using Sonos.Web.Blazor.Models;
+@using System.Text.Json;
 @inject SonosWebClient client
 @inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Control player</PageTitle>
 
@@ -18,7 +21,7 @@ else
     <div class="music-player">
         @if (!string.IsNullOrEmpty(Status.CurrentTrack?.AlbumArtUri))
         {
-            <img src="@GetAlbumArtUrl(Status.CurrentTrack.AlbumArtUri)" 
+            <img src="@GetAlbumArtUrl(Status.CurrentTrack!.AlbumArtUri)"
                  alt="Album Art" 
                  class="album-art"
                  onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNjY3ZWVhIiBvcGFjaXR5PSIwLjMiLz4KPHN2ZyB4PSI3NSIgeT0iNzUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAzdjEwLjU1Yy0uNTktLjM0LTEuMjctLjU1LTItLjU1LTIuMjEgMC00IDEuNzktNCA0czEuNzkgNCA0IDRzNC0xLjc5IDQtNFY3aDR2LTRoLTZ6Ii8+Cjwvc3ZnPgo8L3N2Zz4='" />
@@ -34,12 +37,12 @@ else
 
         <div class="track-info">
             <div class="track-title">
-                @(Status.CurrentTrack?.Title ?? "No track playing")
+                @(Status.CurrentTrack?.Title ?? Status.AVTransportMetadata?.Title ?? "No track playing")
             </div>
-            @if (!string.IsNullOrEmpty(Status.CurrentTrack?.Creator))
-            {
-                <div class="track-artist">@Status.CurrentTrack.Creator</div>
-            }
+            <div class="track-artist">
+                @(Status.CurrentTrack?.Creator ?? Status.AVTransportMetadata?.Creator ?? "-")
+            </div>
+            
             @if (!string.IsNullOrEmpty(Status.CurrentTrack?.Album))
             {
                 <div class="track-album">@Status.CurrentTrack.Album</div>
@@ -113,15 +116,24 @@ else
                    @oninput="OnVolumeInput" />
         </div>
     </div>
+
+    <pre class="text-white bg-black">
+            @(JsonSerializer.Serialize(Status, new JsonSerializerOptions() { WriteIndented = true }))
+    </pre>
 }
 
 @code{
-    [Parameter]
-    public string? SpeakerId { get; set; }
-    public Client.Models.SonosEvent? Status { get; set; }
+        [Parameter]
+        public string? SpeakerId { get; set; }
+    public Models.SonosEvent? Status { get; set; }
     private Timer? _refreshTimer;
     private bool _isRefreshing = false;
     private HubConnection? _hubConnection;
+
+    private async void ConsoleLog(object data)
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", data);
+    }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -133,12 +145,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await RefreshStatusAsync();
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(Navigation.ToAbsoluteUri("/api/ws/player"))
             .WithAutomaticReconnect()
             .Build();
-        _hubConnection.On<string, Sonos.Web.Blazor.Client.Models.SonosEvent>("PlayerStatusChanged", async (speakerId, status) =>
+        _hubConnection.On<string, Models.SonosEvent>("PlayerStatusChanged", async (speakerId, status) =>
         {
+            //ConsoleLog(status);
             if (speakerId == SpeakerId)
             {
                 Status = status;
@@ -187,7 +201,11 @@ else
         {
             try
             {
-                Status = await client.Speakers[SpeakerId].Status.GetAsync();
+                var status = await client.Speakers[SpeakerId].Status.GetAsync();
+                if (status != null)
+                {
+                    Status = status.ToSonosEvent();
+                }
             }
             catch (Exception ex)
             {
@@ -261,12 +279,13 @@ else
         }
     }
 
-    private string GetAlbumArtUrl(string albumArtUri)
+    private string GetAlbumArtUrl(string? albumArtUri)
     {
         if (string.IsNullOrEmpty(albumArtUri))
             return string.Empty;
-        
+
         // If it's already a full URL, return as is
+        albumArtUri = albumArtUri.Replace("\u0026", "&");
         if (albumArtUri.StartsWith("http://") || albumArtUri.StartsWith("https://"))
             return albumArtUri;
         

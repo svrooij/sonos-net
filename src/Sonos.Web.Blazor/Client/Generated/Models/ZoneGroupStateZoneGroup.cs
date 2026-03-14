@@ -25,10 +25,10 @@ namespace Sonos.Web.Blazor.Client.Models
         /// <summary>The coordinatorMember property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember2? CoordinatorMember { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember? CoordinatorMember { get; set; }
 #nullable restore
 #else
-        public global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember2 CoordinatorMember { get; set; }
+        public global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember CoordinatorMember { get; set; }
 #endif
         /// <summary>The groupName property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -49,10 +49,10 @@ namespace Sonos.Web.Blazor.Client.Models
         /// <summary>The members property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public UntypedNode? Members { get; set; }
+        public List<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>? Members { get; set; }
 #nullable restore
 #else
-        public UntypedNode Members { get; set; }
+        public List<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember> Members { get; set; }
 #endif
         /// <summary>The zoneGroupMember property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -88,10 +88,10 @@ namespace Sonos.Web.Blazor.Client.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "coordinator", n => { Coordinator = n.GetStringValue(); } },
-                { "coordinatorMember", n => { CoordinatorMember = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember2>(global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember2.CreateFromDiscriminatorValue); } },
+                { "coordinatorMember", n => { CoordinatorMember = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>(global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember.CreateFromDiscriminatorValue); } },
                 { "groupName", n => { GroupName = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
-                { "members", n => { Members = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
+                { "members", n => { Members = n.GetCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>(global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "zoneGroupMember", n => { ZoneGroupMember = n.GetCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>(global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember.CreateFromDiscriminatorValue)?.AsList(); } },
             };
         }
@@ -103,10 +103,10 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("coordinator", Coordinator);
-            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember2>("coordinatorMember", CoordinatorMember);
+            writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>("coordinatorMember", CoordinatorMember);
             writer.WriteStringValue("groupName", GroupName);
             writer.WriteStringValue("id", Id);
-            writer.WriteObjectValue<UntypedNode>("members", Members);
+            writer.WriteCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>("members", Members);
             writer.WriteCollectionOfObjectValues<global::Sonos.Web.Blazor.Client.Models.ZoneGroupStateZoneGroupZoneGroupMember>("zoneGroupMember", ZoneGroupMember);
             writer.WriteAdditionalData(AdditionalData);
         }

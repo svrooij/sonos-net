@@ -66,9 +66,9 @@
                             <div class="p-4 hover:bg-secondary text-primary bover:text-secondary-emphasis transition-colors cursor-pointer">
                                 <div class="flex items-center space-x-4">
                                     <div class="flex-none">
-                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.AlbumArtUri))
+                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.TrackMetadata?.AlbumArtUri))
                                         {
-                                            <img src="@item.TrackMetadata.AlbumArtUri" alt="@item.Title" class="w-28 h-28 rounded object-cover" />
+                                            <img src="@item.TrackMetadata.TrackMetadata?.AlbumArtUri" alt="@item.Title" class="w-28 h-28 rounded object-cover" />
                                         }
                                         else
                                         {
@@ -81,13 +81,13 @@
                                     </div>
                                     <div class="flex-grow-1 min-w-0">
                                         <p class="truncate text-xl">@item.Title</p>
-                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.Artist))
+                                        @if (!string.IsNullOrEmpty(item.TrackMetadata?.TrackMetadata?.Artist))
                                         {
-                                            <p class="truncate text-lg">@item.TrackMetadata.Artist
-                                                @if (!string.IsNullOrEmpty(item.TrackMetadata?.Album))
+                                            <p class="truncate text-lg">
+                                                @item.TrackMetadata?.TrackMetadata?.Artist
+                                                @if (!string.IsNullOrEmpty(item.TrackMetadata?.TrackMetadata?.Album))
                                                 {
-                                                    
-                                                <span> - @item.TrackMetadata.Album</span>
+                                                             <span> - @item.TrackMetadata?.TrackMetadata?.Album</span>
                                             }
                                             </p>
                                         }

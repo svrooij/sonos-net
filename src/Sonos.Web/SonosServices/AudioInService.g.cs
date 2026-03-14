@@ -22,8 +22,10 @@
 namespace Sonos.Web.SonosServices;
 
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Sonos.Base;
 using Sonos.Base.Services;
+using Sonos.Web.Filters;
 
 internal static class AudioInApi
 {
@@ -37,32 +39,39 @@ internal static class AudioInApi
             .WithGroupName("upnp-audio-in");
 
         group.MapGet("/getaudioinputattributes", GetAudioInputAttributesAsync)
+            .Produces<AudioInService.GetAudioInputAttributesResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetAudioInputAttributes", SERVICE_NAME_KEBAB, null)
-            .Produces<AudioInService.GetAudioInputAttributesResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapGet("/getlineinlevel", GetLineInLevelAsync)
+            .Produces<AudioInService.GetLineInLevelResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "GetLineInLevel", SERVICE_NAME_KEBAB, null)
-            .Produces<AudioInService.GetLineInLevelResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/selectaudio", SelectAudioAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SelectAudio", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setaudioinputattributes", SetAudioInputAttributesAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetAudioInputAttributes", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/setlineinlevel", SetLineInLevelAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "SetLineInLevel", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/starttransmissiontogroup", StartTransmissionToGroupAsync)
+            .Produces<AudioInService.StartTransmissionToGroupResponse>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "StartTransmissionToGroup", SERVICE_NAME_KEBAB, null)
-            .Produces<AudioInService.StartTransmissionToGroupResponse>(200);
+            .AddSonosServiceExceptionFilter();
 
         group.MapPost("/stoptransmissiontogroup", StopTransmissionToGroupAsync)
+            .Produces<bool>(200)
             .WithSonosServiceDescription(SERVICE_NAME, "StopTransmissionToGroup", SERVICE_NAME_KEBAB, null)
-            .Produces<bool>(200);
+            .AddSonosServiceExceptionFilter();
 
         return group;
     }
@@ -77,15 +86,9 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.GetAudioInputAttributes(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.GetAudioInputAttributes(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> GetLineInLevelAsync(
@@ -98,20 +101,14 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.GetLineInLevel(cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.GetLineInLevel(cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SelectAudioAsync(
         [FromRoute]string speakerId,
-        [FromBody]AudioInService.SelectAudioRequest body, 
+        [FromBody, Description("Mandatory SelectAudio body")]AudioInService.SelectAudioRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -120,20 +117,14 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.SelectAudio(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.SelectAudio(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetAudioInputAttributesAsync(
         [FromRoute]string speakerId,
-        [FromBody]AudioInService.SetAudioInputAttributesRequest body, 
+        [FromBody, Description("Mandatory SetAudioInputAttributes body")]AudioInService.SetAudioInputAttributesRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -142,20 +133,14 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.SetAudioInputAttributes(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.SetAudioInputAttributes(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> SetLineInLevelAsync(
         [FromRoute]string speakerId,
-        [FromBody]AudioInService.SetLineInLevelRequest body, 
+        [FromBody, Description("Mandatory SetLineInLevel body")]AudioInService.SetLineInLevelRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -164,20 +149,14 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.SetLineInLevel(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.SetLineInLevel(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StartTransmissionToGroupAsync(
         [FromRoute]string speakerId,
-        [FromBody]AudioInService.StartTransmissionToGroupRequest body, 
+        [FromBody, Description("Mandatory StartTransmissionToGroup body")]AudioInService.StartTransmissionToGroupRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -186,20 +165,14 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.StartTransmissionToGroup(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.StartTransmissionToGroup(body, cancellationToken);
+        return Results.Ok(result);
     }
 
     private static async Task<IResult> StopTransmissionToGroupAsync(
         [FromRoute]string speakerId,
-        [FromBody]AudioInService.StopTransmissionToGroupRequest body, 
+        [FromBody, Description("Mandatory StopTransmissionToGroup body")]AudioInService.StopTransmissionToGroupRequest body, 
         [FromServices]SonosManager sonosManager,
         CancellationToken cancellationToken)
     {
@@ -208,14 +181,8 @@ internal static class AudioInApi
         {
             return SonosResults.DeviceNotFoundResult(speakerId);
         }
-        try
-        {
-            var result = await device.AudioInService.StopTransmissionToGroup(body, cancellationToken);
-            return Results.Ok(result);
-        }
-        catch (SonosServiceException ex)
-        {
-            return SonosResults.ServiceExceptionResult(ex);
-        }
+
+        var result = await device.AudioInService.StopTransmissionToGroup(body, cancellationToken);
+        return Results.Ok(result);
     }
 }

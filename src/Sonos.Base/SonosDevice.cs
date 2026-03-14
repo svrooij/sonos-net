@@ -84,7 +84,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
     {
         if (subscribedToEvents && notificationOptions.OnlyWhenPlaying && (Status?.IsPlaying != true))
         {
-            logger?.LogInformation("Skipping notification on {Device} because it is not playing", this);
+            logger?.LogInformation("Skipping notification on {Device} because it is not playing", this.ToString());
             return false;
         }
 
@@ -93,10 +93,8 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
             throw new ArgumentOutOfRangeException(nameof(NotificationOptions.Volume), "Volume must be between 1 and 100");
         }
         await LoadUuid(cancellationToken);
-        if (SonosWebSocket is null)
-        {
-            SonosWebSocket = new SonosWebSocket(ServiceOptions);
-        }
+        // Lazy initialize the WebSocket when we need it for notifications, as not all users will use this feature and it is not needed for other operations
+        SonosWebSocket ??= new SonosWebSocket(ServiceOptions);
         await SonosWebSocket.QueueNoticiationAsync(Uuid, notificationOptions.SoundUri.ToString(), notificationOptions.Volume, cancellationToken);
         return true;
     }
@@ -109,7 +107,35 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
 
     public Task<bool> Previous(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Previous(cancellationToken);
 
+    public async Task<bool> SetTransportUri(SetTransportUriRequest request, CancellationToken cancellationToken = default)
+    {
+        var metadata = request.Metadata;
+        //if (string.IsNullOrEmpty(metadata))
+        //{
+        //    metadata = await Coordinator.MetadataService.GetMetadataForUri(request.TransportUri, cancellationToken);
+        //}
+        return await AVTransportService.SetAVTransportURI(new AVTransportService.SetAVTransportURIRequest { CurrentURI = request.TransportUri, CurrentURIMetaData = metadata}, cancellationToken);
+    }
+
     public Task<bool> Stop(CancellationToken cancellationToken = default) => Coordinator.AVTransportService.Stop(cancellationToken);
+
+    public async Task<bool> SwitchToLineIn(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        return await AVTransportService.SetAVTransportURI(new AVTransportService.SetAVTransportURIRequest { CurrentURI = $"x-rincon-stream:{Uuid}", CurrentURIMetaData = "" }, cancellationToken);
+    }
+
+    public async Task<bool> SwitchToQueue(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        return await AVTransportService.SetAVTransportURI(new AVTransportService.SetAVTransportURIRequest { CurrentURI = $"x-rincon-queue:{Uuid}#0", CurrentURIMetaData = "" }, cancellationToken);
+    }
+
+    public async Task<bool> SwitchToSpdif(CancellationToken cancellationToken = default)
+    {
+        await LoadUuid(cancellationToken);
+        return await AVTransportService.SetAVTransportURI(new AVTransportService.SetAVTransportURIRequest { CurrentURI = $"x-sonos-htastream:{Uuid}:spdif", CurrentURIMetaData = "" }, cancellationToken);
+    }
 
     public async Task<bool> TogglePlayback(CancellationToken cancellationToken = default)
     {
@@ -176,10 +202,19 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
             Status.TransportState = e.TransportState;
         }
 
+        if (e.AVTransportURI is not null && e.AVTransportURI != Status.AVTransportUri)
+        {
+            Status.AVTransportUri = e.AVTransportURI;
+            if (e.AVTransportURIMetaDataObject?.Items is not null)
+            {
+                Status.AVTransportMetadata = e.AVTransportURIMetaDataObject.Items.FirstOrDefault();
+            }
+        }
+
         if (e.CurrentTrackURI is not null && e.CurrentTrackURI != Status.CurrentTrackUri)
         {
             Status.CurrentTrackUri = e.CurrentTrackURI;
-            if (e.CurrentTrackMetaDataObject?.Items is not null)
+            if (e.CurrentTrackMetaDataObject?.Items.Any() == true)
             {
                 Status.CurrentTrack = e.CurrentTrackMetaDataObject.Items.FirstOrDefault();
             }
@@ -188,7 +223,7 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         if (e.NextTrackURI is not null && e.NextTrackURI != Status.NextTrackUri)
         {
             Status.NextTrackUri = e.NextTrackURI;
-            if (e.NextTrackMetaDataObject?.Items is not null)
+            if (e.NextTrackMetaDataObject?.Items.Any() == true)
             {
                 Status.NextTrack = e.NextTrackMetaDataObject.Items.FirstOrDefault();
             }
@@ -196,12 +231,18 @@ public partial class SonosDevice : IDisposable, IAsyncDisposable
         OnStatusChanged?.Invoke(this, Status);
     }
 
-    public async Task<HttpResponseMessage> GetAlbumArtAsync(string queryString, CancellationToken cancellationToken = default)
+    //public async Task<HttpResponseMessage> GetAlbumArtAsync(string queryString, CancellationToken cancellationToken = default)
+    //{
+    //    var baseUri = new Uri(ServiceOptions.DeviceUri, $"/getaa?{queryString.TrimStart('?')}");
+    //    var fullUri = new Uri(baseUri, queryString);
+    //    var httpClient = ServiceOptions.ServiceProvider.GetHttpClient();
+    //    return await httpClient.GetAsync(fullUri, cancellationToken);
+    //}
+
+    public Uri GenerateAlbumArtUrl(string queryString)
     {
         var baseUri = new Uri(ServiceOptions.DeviceUri, $"/getaa?{queryString.TrimStart('?')}");
-        var fullUri = new Uri(baseUri, queryString);
-        using var httpClient = ServiceOptions.ServiceProvider.GetHttpClient();
-        return await httpClient.GetAsync(fullUri, cancellationToken);
+        return new Uri(baseUri, queryString);
     }
 
     public override string ToString()
