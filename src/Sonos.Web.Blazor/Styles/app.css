@@ -31,6 +31,10 @@
     --color-shadow: rgba(0, 0, 0, 0.3);
     --color-backdrop: rgba(0, 0, 0, 0.5);
   }
+
+  .mini-player-glass {
+    background: rgba(17, 24, 39, 0.8);
+  }
 }
 
 /* Custom component styles */
@@ -367,6 +371,71 @@
 
   .music-player {
     @apply bg-gradient-to-br from-sonos-primary to-sonos-secondary rounded-2xl p-8 text-white shadow-2xl max-w-lg mx-auto;
+  }
+
+  /* Mini Player Bar */
+  .mini-player-glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--color-border-accent);
+    box-shadow: 0 -4px 30px var(--color-shadow);
+  }
+
+  .mini-player-select {
+    appearance: none;
+    background-color: var(--color-bg-accent);
+    border: 1px solid var(--color-border-accent);
+    color: var(--color-text-primary);
+    @apply text-xs sm:text-sm rounded-lg px-2 py-1.5 sm:px-3 sm:py-1.5 pr-7 focus:outline-none focus:ring-2 focus:ring-sonos-primary cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%236b7280'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    max-width: 10rem;
+  }
+
+  .mini-player-art-placeholder {
+    background-color: var(--color-bg-accent);
+    color: var(--color-text-secondary);
+  }
+
+  .mini-player-btn {
+    color: var(--color-text-secondary);
+    @apply inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-200 hover:scale-110;
+  }
+
+  .mini-player-btn:hover {
+    color: var(--color-text-accent);
+    background-color: var(--color-bg-accent);
+  }
+
+  .mini-player-btn-primary {
+    color: white;
+    @apply bg-gradient-to-r from-sonos-primary to-sonos-secondary shadow-md;
+  }
+
+  .mini-player-btn-primary:hover {
+    color: white;
+    background-color: transparent;
+    @apply shadow-lg scale-110;
+  }
+
+  .mini-player-volume {
+    @apply w-24 h-1.5 rounded-full appearance-none cursor-pointer;
+    background: var(--color-border);
+  }
+
+  .mini-player-volume::-webkit-slider-thumb {
+    @apply appearance-none w-3.5 h-3.5 rounded-full bg-sonos-primary shadow-sm cursor-pointer;
+    -webkit-appearance: none;
+  }
+
+  .mini-player-volume::-moz-range-thumb {
+    @apply w-3.5 h-3.5 rounded-full bg-sonos-primary shadow-sm cursor-pointer border-0;
+  }
+
+  .mini-player-volume:focus {
+    @apply outline-none;
   }
 
   /* Enhanced button styles */

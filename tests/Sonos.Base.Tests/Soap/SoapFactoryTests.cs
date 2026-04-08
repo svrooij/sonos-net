@@ -6,8 +6,7 @@ namespace Sonos.Base.Soap.Tests;
 
 public class SoapFactoryTests
 {
-    private const string xmlInputNextRequest = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
+    private const string xmlInputNextRequest = @"<s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
   <s:Body>
     <u:Next xmlns:u=""urn:schemas-upnp-org:service:AVTransport:1"">
       <InstanceID>0</InstanceID>

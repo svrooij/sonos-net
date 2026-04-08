@@ -27,5 +27,7 @@ builder.Services.AddSingleton<PlayerService>();
 
 
 var host = builder.Build();
-await host.Services.GetRequiredService<PlayerService>().Initialize();
+var playerService = host.Services.GetRequiredService<PlayerService>();
+await playerService.Initialize();
+await playerService.InitializeSignalR(new Uri(new Uri(builder.HostEnvironment.BaseAddress), "/api/ws/player"));
 await host.RunAsync();

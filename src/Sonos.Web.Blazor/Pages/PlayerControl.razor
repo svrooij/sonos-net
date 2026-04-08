@@ -1,12 +1,12 @@
 ﻿@page "/control/{SpeakerId}"
 @using Sonos.Web.Blazor.Client;
-@using Microsoft.AspNetCore.SignalR.Client;
 @using Sonos.Web.Blazor.Models;
 @using System.Text.Json;
 @inject SonosWebClient client
 @inject NavigationManager Navigation
 @inject Services.PlayerService PlayerService
 @inject IJSRuntime JSRuntime
+@implements IDisposable
 
 <PageTitle>Control player</PageTitle>
 
@@ -126,93 +126,24 @@ else
 @code{
     [Parameter]
     public string? SpeakerId { get; set; }
-    public Models.SonosEvent? Status { get; set; }
-    private Timer? _refreshTimer;
-    private bool _isRefreshing = false;
-    private HubConnection? _hubConnection;
-
-    private async void ConsoleLog(object data)
-    {
-        await JSRuntime.InvokeVoidAsync("console.log", data);
-    }
+    public Models.SonosEvent? Status => PlayerService.CurrentStatus;
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        await RefreshStatusAsync();
-        PlayerService.SelectPlayer(SpeakerId);
-        await _hubConnection!.InvokeAsync<string>("Subscribe", SpeakerId!);
-        //StartAutoRefresh();
+        await PlayerService.SelectPlayerAsync(SpeakerId);
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await RefreshStatusAsync();
-        _hubConnection = new HubConnectionBuilder()
-            .WithUrl(Navigation.ToAbsoluteUri("/api/ws/player"))
-            .WithAutomaticReconnect()
-            .Build();
-        _hubConnection.On<string, Models.SonosEvent>("PlayerStatusChanged", async (speakerId, status) =>
-        {
-            //ConsoleLog(status);
-            if (speakerId == SpeakerId)
-            {
-                Status = status;
-                await InvokeAsync(StateHasChanged);
-            }
-        });
-        await _hubConnection.StartAsync();
-
+        PlayerService.OnStatusChanged += HandleStatusChanged;
     }
 
-    public async ValueTask DisposeAsync()
+    private void HandleStatusChanged(string speakerId, SonosEvent status)
     {
-        if(_hubConnection is not null)
+        if (speakerId == SpeakerId)
         {
-            await _hubConnection.DisposeAsync();
-        }
-    }
-
-    private void StartAutoRefresh()
-    {
-        _refreshTimer?.Dispose();
-        _refreshTimer = new Timer(async _ =>
-        {
-            if (!_isRefreshing)
-            {
-                _isRefreshing = true;
-                try
-                {
-                    await InvokeAsync(async () =>
-                    {
-                        await RefreshStatusAsync();
-                        StateHasChanged();
-                    });
-                }
-                finally
-                {
-                    _isRefreshing = false;
-                }
-            }
-        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
-    }
-
-    public async Task RefreshStatusAsync()
-    {
-        if (SpeakerId is not null)
-        {
-            try
-            {
-                var status = await client.Speakers[SpeakerId].Status.GetAsync();
-                if (status != null)
-                {
-                    Status = status.ToSonosEvent();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error refreshing status: {ex.Message}");
-            }
+            InvokeAsync(StateHasChanged);
         }
     }
 
@@ -290,7 +221,7 @@ else
         albumArtUri = albumArtUri.Replace("\u0026", "&");
         if (albumArtUri.StartsWith("http://") || albumArtUri.StartsWith("https://"))
             return albumArtUri;
-        
+
         // Otherwise, prepend the base URL from Navigation
         var baseUrl = Navigation.BaseUri.TrimEnd('/');
         return $"{baseUrl}{albumArtUri}";
@@ -309,6 +240,6 @@ else
 
     public void Dispose()
     {
-        _refreshTimer?.Dispose();
+        PlayerService.OnStatusChanged -= HandleStatusChanged;
     }
 }
