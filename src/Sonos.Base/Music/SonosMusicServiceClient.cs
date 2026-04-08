@@ -28,8 +28,10 @@ public class SonosMusicServiceClient : IDisposable, IAsyncDisposable
         _httpClient.BaseAddress = options.BaseUri;
     }
 
-    public string? Udn => _options.UDN;
+    public string Name => _options.Name;
     public int? SerialNumber => _options.SerialNumber;
+    public string? Udn => _options.UDN;
+    
 
     /// <summary>
     /// Get the login link for this music service to connect it to your Sonos system.

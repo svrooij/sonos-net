@@ -46,7 +46,7 @@ public static class DidlSerializer
         using var stream = new StringWriter();
         using var writer = XmlWriter.Create(stream, settings);
 
-        var serializer = new XmlSerializer(metadata.GetType(), overrides);
+        var serializer = new XmlSerializer(typeof(Didl), overrides);
         serializer.Serialize(writer, metadata, ns);
         // It seems I need to replace quotes with &quot; to prevent issues with Sonos parsing the metadata.
         return stream.ToString();//.Replace("\"", "&quot;");
@@ -64,9 +64,9 @@ public static class DidlSerializer
         var attributes = new XmlAttributes();
         attributes.XmlIgnore = true;
         var overrides = new XmlAttributeOverrides();
-        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Album), attributes);
-        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.AlbumArtUri), attributes);
-        overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Creator), attributes);
+        //overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Album), attributes);
+        //overrides.Add(typeof(DidlTrack), nameof(DidlTrack.AlbumArtUri), attributes);
+        //overrides.Add(typeof(DidlTrack), nameof(DidlTrack.Creator), attributes);
         overrides.Add(typeof(Resource), nameof(Resource.Duration), attributes);
         return overrides;
     }

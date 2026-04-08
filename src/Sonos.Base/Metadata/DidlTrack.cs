@@ -7,10 +7,10 @@ namespace Sonos.Base.Metadata;
 public class DidlTrack
 {
     [XmlAttribute("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [XmlAttribute("parentID")]
-    public string ParentId { get; set; }
+    public string? ParentId { get; set; }
 
     [XmlAttribute("restricted")]
     public bool Restricted { get; set; }
@@ -18,17 +18,27 @@ public class DidlTrack
     [XmlElement("title", Namespace = "http://purl.org/dc/elements/1.1/")]
     public string Title { get; set; }
 
-    [XmlElement("creator", Namespace = "http://purl.org/dc/elements/1.1/")]
-    public string? Creator { get; set; }
+    [XmlElement("class", Namespace = "urn:schemas-upnp-org:metadata-1-0/upnp/")]
+    public string Class { get; set; }
 
     [XmlElement("album", Namespace = "urn:schemas-upnp-org:metadata-1-0/upnp/")]
     public string? Album { get; set; }
 
-    [XmlElement("class", Namespace = "urn:schemas-upnp-org:metadata-1-0/upnp/")]
-    public string Class { get; set; }
+    [XmlElement("creator", Namespace = "http://purl.org/dc/elements/1.1/")]
+    public string? Creator { get; set; }
+
+
+
+
 
     [XmlElement("albumArtURI", Namespace = "urn:schemas-upnp-org:metadata-1-0/upnp/")]
     public string? AlbumArtUri { get; set; }
+
+    [XmlElement("albumArtist", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/")]
+    public string? AlbumArtist { get; set; }
+
+    [XmlElement("description", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/")]
+    public string? Description { get; set; }
 
     [XmlElement("podcast", Namespace = "urn:schemas-rinconnetworks-com:metadata-1-0/")]
     public string? Podcast { get; set; }

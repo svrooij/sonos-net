@@ -11,14 +11,14 @@ public class DidlDesc
         Value = value;
     }
 
+    [XmlAttribute("id")]
+    public string Id { get; set; } = "cdudn";
+
     /// <summary>
     /// This is a trick to set the correct namespace on the desc element. Do not change the value!
     /// </summary>
     [XmlAttribute("nameSpace")]
     public string NameSpace { get; set; } = "urn:schemas-rinconnetworks-com:metadata-1-0/";
-
-    [XmlAttribute("id")]
-    public string Id { get; set; } = "cdudn";
 
     [XmlText]
     public string Value { get; set; } = "RINCON_AssociatedZPUDN";

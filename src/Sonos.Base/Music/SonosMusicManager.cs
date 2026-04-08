@@ -160,34 +160,117 @@ public class SonosMusicManager
                 options);
     }
 
-    public async Task<MediaPlaybackInformation?> GetMediaPlaybackInformationAsync(ushort serviceId, string mediaId, CancellationToken cancellationToken)
+    public async Task<MediaPlaybackInformation?> GetMediaPlaybackInformationAsync(Models.MediaPlaybackInformationRequest request, CancellationToken cancellationToken)
+    {
+        if (request.TrackId is not null)
+        {
+            // track ID can look like "x-sonos-spotify:spotify%3atrack%3a6rqhFgbbKwnb9MLmUQDhG6?sid=9&flags=8224&sn=1"
+            // it has the format "x-sonos-{serviceType}:{encodedMediaId}?sid={serviceId}&flags={flags}&sn={serialNumber}"
+            // we can parse the service ID, media ID and optionally the serialNumber from the track ID
+
+        }
+        else if (request.ServiceId.HasValue && request.MediaId is not null)
+        {
+            return await GetMediaPlaybackInformationAsync(request.ServiceId!.Value, request.MediaId!, cancellationToken: cancellationToken);
+        }
+        else
+        {
+            var ex = new ArgumentException("Invalid MediaPlaybackInformationRequest. Must have either TrackId or both ServiceId and MediaId.");
+            _logger.LogError(ex, "Invalid MediaPlaybackInformationRequest: {@request}", request);
+        }
+        return null;
+    }
+
+    public async Task<MediaPlaybackInformation?> GetMediaPlaybackInformationAsync(ushort serviceId, string mediaId, int? serialNumberOverride = null, string? originalTrackUri = null, CancellationToken cancellationToken = default)
     {
         var client = await GetClientForServiceAsync(serviceId, cancellationToken);
-        var result = await client.GetMediaMetadataAsync(mediaId, cancellationToken);
-        if (result?.GetMediaMetadataResult is null)
+        MediaMetadata? mediaMetadata = null;
+        try
+        {
+            var result = await client.GetMediaMetadataAsync(mediaId, cancellationToken);
+            
+            mediaMetadata = result.GetMediaMetadataResult;
+        } catch (SmapiException ex)
+        {
+            _logger.LogWarning(ex, "Error loading metadata for {MediaId} from {ServiceId}", mediaId, serviceId);
+            var alt = await client.GetMetadataAsync(mediaId, index: 0, count: 1, cancellationToken: cancellationToken);
+            // If this returns something, and holds data in mediaMetadata, we can assume that the mediaId is a playable container
+            mediaMetadata = new MediaMetadata
+            {
+                ItemType = "playlist",
+                Title = $"Playlist from {client.Name}"
+            };
+        }
+        if (mediaMetadata is null)
         {
             throw new InvalidOperationException($"Failed to retrieve metadata for media ID {mediaId} from service ID {serviceId}. Cannot get playback information.");
         }
-        var trackUri = $":{mediaId}?sid={serviceId}&sn={client.SerialNumber}";
+        
+        var trackUri = $"{mediaId.Replace(":","%3a")}?sid={serviceId}";
+        if (serviceId == 9)
+        {
+            //trackUri += "&flags=8232";
+        }
+        var sn = serialNumberOverride ?? client.SerialNumber;
+        if (sn is not null)
+        {
+            trackUri += $"&sn={sn}";
+        }
         var didl = new DidlTrack
         {
-            Title = result.GetMediaMetadataResult.Title,
+            Title = mediaMetadata.Title,
+            Creator = mediaMetadata.TrackMetadata?.Artist,
+            AlbumArtUri = mediaMetadata.TrackMetadata?.AlbumArtUri,
+            AlbumArtist = mediaMetadata.TrackMetadata?.Artist,
+            Album = mediaMetadata.TrackMetadata?.Album,
             Desc = new DidlDesc
             {
                 Value = client.Udn!
             }
         };
-        if (result.GetMediaMetadataResult.ItemType == "stream")
+        switch(mediaMetadata.ItemType)
         {
-            trackUri = "x-sonosapi-stream" + trackUri;
-            didl.Id = mediaId; // seems not needed?
-            didl.Class = "object.item.audioItem.audioBroadcast";
-        } else if (result.GetMediaMetadataResult.ItemType == "program")
-        {
-            trackUri = "x-sonosapi-radio" + trackUri;
-            didl.Id = mediaId; // seems not needed?
-            didl.Class = "object.item.audioItem.audioBroadcast";
+            case "program":
+                didl.Class = "object.item.audioItem.audioBroadcast";
+                return new MediaPlaybackInformation(PlaybackType.Stream, $"x-sonosapi-radio:{trackUri}", didl);
+            case "stream":
+                didl.Class = "object.item.audioItem.audioBroadcast";
+                return new MediaPlaybackInformation(PlaybackType.Stream, $"x-sonosapi-stream:{trackUri}", didl);
+            case "track":
+                didl.Class = "object.item.audioItem.musicTrack";
+                didl.Description = "Songs";
+                var prefix = client.Name.ToLower() switch
+                {
+                    "spotify" => "x-sonos-spotify",
+                    "apple music" => "x-sonos-http:song",
+                    _ => "x-sonos-http:tr" // This might not be correct.
+                };
+                didl.Id = client.Name.ToLower() switch
+                {
+                    "apple music" => $"10032020song%3a{mediaId}",
+                    "deezer" => $"10032020tr%3a{mediaId}",
+                    "spotify" => $"10032028{mediaId.Replace(":", "%3a")}",
+                    _ => null
+                };
+                didl.Restricted = true;
+                return new MediaPlaybackInformation(PlaybackType.Track, $"{prefix}:{trackUri}", didl);
+            case "container":
+                break;
+            case "playlist":
+                didl.Class = "object.container.playlistContainer";
+                didl.Id = $"1006206c{mediaId.Replace(":", "%3a")}";
+                //didl.Id = client.Name.ToLower() switch
+                //{
+                //    "apple music" => $"1006206c{mediaId}",
+                //    "deezer" => $"1006006cplaylist_spotify%3aplaylist-{mediaId}",
+                //    "spotify" => $"1006206c{mediaId.Replace(":", "%3a")}",
+                //    _ => null
+                //};
+                // Prefix might not be correct....
+                return new MediaPlaybackInformation(PlaybackType.Container, $"x-rincon-cpcontainer:1006206c{trackUri}", didl);
         }
-        return new MediaPlaybackInformation(trackUri, didl);
+
+        _logger.LogWarning("Unknown item type {ItemType} for media ID {MediaId} from service ID {ServiceId}. Defaulting to audio item class.", mediaMetadata.ItemType, mediaId, serviceId);
+        return null;
     }
 }

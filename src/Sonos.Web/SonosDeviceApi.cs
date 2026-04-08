@@ -150,12 +150,7 @@ internal static class SonosDeviceApi
             .ProducesProblem(404)
             .AddSonosServiceExceptionFilter();
 
-        controls.MapPost("/{speakerId}/switchtostream", SwitchToStream)
-            .WithSummary(nameof(SwitchToStream))
-            .WithDescription("Try to switch to a stream from a service")
-            .Produces<bool>(204)
-            .ProducesProblem(404)
-            .AddSonosServiceExceptionFilter();
+        
 
         controls.MapPost("/{speakerId}/switchtoqueue", SwitchToQueue)
             .WithSummary(nameof(SwitchToQueue))
@@ -171,12 +166,23 @@ internal static class SonosDeviceApi
             .ProducesProblem(404)
             .AddSonosServiceExceptionFilter();
 
-
-
         controls.MapPost("/{speakerId}/toggle", TogglePlayback)
             .WithSummary("Toggle playback")
             .WithDescription("Toggle speaker playback")
             .Produces<bool>(200)
+            .ProducesProblem(404)
+            .AddSonosServiceExceptionFilter();
+
+        controls.MapPost("/{speakerId}/try-playback", TryPlayback)
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                operation.Summary = "Try playback";
+                operation.Description = "Try start playback for any track uri or service id + media id combination.\rWill query the respective media service and will add tracks to queue, start streams and replace the queue for playlists";
+                operation.Responses ??= new();
+                operation.Responses["204"].Description = "Playback succeded";
+                return Task.CompletedTask;
+            })
+            .Produces<bool>(204)
             .ProducesProblem(404)
             .AddSonosServiceExceptionFilter();
 
@@ -297,25 +303,7 @@ internal static class SonosDeviceApi
         return Results.Ok(result);
     }
 
-    private static async Task<IResult> SwitchToStream([FromRoute]string speakerId, [FromBody]Models.SwitchToStreamRequest switchToStreamRequest, [FromServices]SonosManager sonosManager, [FromServices]SonosMusicManager sonosMusicManager, CancellationToken cancellationToken = default)
-    {
-        var device = sonosManager.GetSonosDevice(speakerId);
-        if (device is null)
-        {
-            return SonosResults.DeviceNotFoundResult(speakerId);
-        }
-        var mediaPlaybackInfo = await sonosMusicManager.GetMediaPlaybackInformationAsync((ushort)switchToStreamRequest.ServiceId, switchToStreamRequest.MediaId, cancellationToken);
-        await device.AVTransportService.SetAVTransportURI(new Base.Services.AVTransportService.SetAVTransportURIRequest
-        {
-            CurrentURI = mediaPlaybackInfo?.TrackUri!,
-            CurrentURIMetaDataObject = new Base.Metadata.Didl(mediaPlaybackInfo!.Metadata)
-        }, cancellationToken);
-        if (switchToStreamRequest.Play)
-        {
-            await device.Play(cancellationToken);
-        }
-        return Results.NoContent();
-    }
+    
 
     private static async Task<IResult> SwitchToQueue(string speakerId, SonosManager sonosManager, CancellationToken cancellationToken)
     {
@@ -348,6 +336,59 @@ internal static class SonosDeviceApi
         }
         var result = await device.TogglePlayback(cancellationToken);
         return Results.Ok(result);
+    }
+
+    private static async Task<IResult> TryPlayback([FromRoute] string speakerId, [FromBody] Models.TryPlaybackRequest tryPlaybackRequest, [FromServices] SonosManager sonosManager, [FromServices] SonosMusicManager sonosMusicManager, CancellationToken cancellationToken = default)
+    {
+        var device = sonosManager.GetSonosDevice(speakerId);
+        if (device is null)
+        {
+            return SonosResults.DeviceNotFoundResult(speakerId);
+        }
+        var mediaPlaybackInfo = await sonosMusicManager.GetMediaPlaybackInformationAsync(new Base.Music.Models.MediaPlaybackInformationRequest(tryPlaybackRequest.TrackUri, (ushort?)tryPlaybackRequest.ServiceId, tryPlaybackRequest.MediaId), cancellationToken);
+
+        if (mediaPlaybackInfo is null)
+        {
+            return Results.Problem("Unable to get media information for the provided track uri", statusCode: 400);
+        }
+
+        switch (mediaPlaybackInfo.PlaybackType)
+        {
+            case Base.Music.Models.PlaybackType.Track:
+                await device.AVTransportService.AddURIToQueue(new Base.Services.AVTransportService.AddURIToQueueRequest
+                {
+                    EnqueuedURI = mediaPlaybackInfo.TrackUri,
+                    EnqueuedURIMetaDataObject = new Base.Metadata.Didl(mediaPlaybackInfo.Metadata),
+                    DesiredFirstTrackNumberEnqueued = tryPlaybackRequest.AddToStart ? 1 : 0,
+                    EnqueueAsNext = tryPlaybackRequest.PlayAsNextSong
+                }, cancellationToken);
+                break;
+            case Base.Music.Models.PlaybackType.Stream:
+                await device.AVTransportService.SetAVTransportURI(new Base.Services.AVTransportService.SetAVTransportURIRequest
+                {
+                    CurrentURI = mediaPlaybackInfo?.TrackUri!,
+                    CurrentURIMetaDataObject = new Base.Metadata.Didl(mediaPlaybackInfo!.Metadata)
+                }, cancellationToken);
+                break;
+            case Base.Music.Models.PlaybackType.Container:
+                await device.AVTransportService.RemoveAllTracksFromQueue(cancellationToken);
+                await device.AVTransportService.AddURIToQueue(new Base.Services.AVTransportService.AddURIToQueueRequest
+                {
+                    EnqueuedURI = mediaPlaybackInfo.TrackUri,
+                    EnqueuedURIMetaDataObject = new Base.Metadata.Didl(mediaPlaybackInfo.Metadata),
+                    DesiredFirstTrackNumberEnqueued = 0,
+                    EnqueueAsNext = false
+                }, cancellationToken);
+                break;
+            default:
+                return Results.Problem("Unsupported playback type", statusCode: 400);
+        }
+
+        if (tryPlaybackRequest.Play)
+        {
+            await device.Play(cancellationToken);
+        }
+        return Results.NoContent();
     }
 
     private static async Task<IResult> VolumeGet(string speakerId, string? channel, SonosManager sonosManager, CancellationToken cancellationToken)

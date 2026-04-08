@@ -6,4 +6,11 @@ using Sonos.Base.Metadata;
 
 namespace Sonos.Base.Music.Models;
 
-public record MediaPlaybackInformation(string TrackUri, DidlTrack Metadata);
+public record MediaPlaybackInformation(PlaybackType PlaybackType, string TrackUri, DidlTrack Metadata);
+public enum PlaybackType
+{
+    Unknown,
+    Stream,
+    Track,
+    Container,
+}

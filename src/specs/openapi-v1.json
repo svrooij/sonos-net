@@ -531,68 +531,6 @@
         }
       }
     },
-    "/speakers/{speakerId}/switchtostream": {
-      "post": {
-        "tags": [
-          "Sonos Speakers"
-        ],
-        "summary": "SwitchToStream",
-        "description": "Try to switch to a stream from a service",
-        "parameters": [
-          {
-            "name": "speakerId",
-            "in": "path",
-            "description": "UUID of the Sonos speaker",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SwitchToStreamRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "204": {
-            "description": "No Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Speaker ID incorrect",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Sonos service error",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/speakers/{speakerId}/switchtoqueue": {
       "post": {
         "tags": [
@@ -718,6 +656,68 @@
         "responses": {
           "200": {
             "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker ID incorrect",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sonos service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/speakers/{speakerId}/try-playback": {
+      "post": {
+        "tags": [
+          "Sonos Speakers"
+        ],
+        "summary": "Try playback",
+        "description": "Try start playback for any track uri or service id + media id combination.\rWill query the respective media service and will add tracks to queue, start streams and replace the queue for playlists",
+        "parameters": [
+          {
+            "name": "speakerId",
+            "in": "path",
+            "description": "UUID of the Sonos speaker",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TryPlaybackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Playback succeded",
             "content": {
               "application/json": {
                 "schema": {
@@ -14480,12 +14480,12 @@
       "DidlDesc": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "nameSpace": {
             "type": "string",
             "description": "This is a trick to set the correct namespace on the desc element. Do not change the value!"
-          },
-          "id": {
-            "type": "string"
           },
           "value": {
             "type": "string"
@@ -14496,10 +14496,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "parentId": {
-            "type": "string"
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "restricted": {
             "type": "boolean"
@@ -14507,11 +14513,8 @@
           "title": {
             "type": "string"
           },
-          "creator": {
-            "type": [
-              "null",
-              "string"
-            ]
+          "class": {
+            "type": "string"
           },
           "album": {
             "type": [
@@ -14519,10 +14522,25 @@
               "string"
             ]
           },
-          "class": {
-            "type": "string"
+          "creator": {
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "albumArtUri": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "albumArtist": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "description": {
             "type": [
               "null",
               "string"
@@ -17490,25 +17508,6 @@
           }
         }
       },
-      "SwitchToStreamRequest": {
-        "type": "object",
-        "properties": {
-          "serviceId": {
-            "type": "integer",
-            "description": "Id of the music service to switch to",
-            "format": "int32"
-          },
-          "mediaId": {
-            "type": "string",
-            "description": "Id of the media item to switch to."
-          },
-          "play": {
-            "type": "boolean",
-            "description": "Start playback immediately after switching to the stream. If false, the stream will be loaded but not played until the user initiates playback."
-          }
-        },
-        "description": "Represents a request to switch to a specific media stream within a service."
-      },
       "TrackMetadata": {
         "type": "object",
         "properties": {
@@ -17568,6 +17567,44 @@
             ]
           }
         }
+      },
+      "TryPlaybackRequest": {
+        "type": "object",
+        "properties": {
+          "trackUri": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Track uri of the item to switch to."
+          },
+          "serviceId": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "description": "Id of the music service to switch to",
+            "format": "int32"
+          },
+          "mediaId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Id of the media item to switch to."
+          },
+          "addToStart": {
+            "type": "boolean"
+          },
+          "playAsNextSong": {
+            "type": "boolean"
+          },
+          "play": {
+            "type": "boolean",
+            "description": "Start playback immediately after the try play requests succeeds. If false, the media will be loaded but not played."
+          }
+        },
+        "description": "Represents a request try to start playback of a media item."
       },
       "UpdateAlarmRequest": {
         "type": "object",

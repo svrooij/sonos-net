@@ -18,13 +18,18 @@ internal class QuoteEscapingXmlWriter : XmlTextWriter
             text = text
                 .Replace("\"", "&quot;")
                 .Replace("<", "&lt;")
-                .Replace(">", "&gt;\n");
+                .Replace(">", "&gt;");
             base.WriteRaw(text);
         } else
         {
             base.WriteString(text);
         }
         //base.WriteString(text);
+    }
+
+    public override void WriteValue(bool value)
+    {
+        base.WriteRaw(value ? "1" : "0");
     }
 
     // This is overriden to not close the stream when the writer is closed, as the stream will be disposed by the caller.

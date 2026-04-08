@@ -1,4 +1,4 @@
-﻿<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.2.1">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Scalar.Aspire" Version="0.9.8" />
+    <PackageReference Include="Scalar.Aspire" Version="0.9.20" />
       <PackageReference Include="Aspire.Hosting.Yarp" Version="*" />
   </ItemGroup>
 
