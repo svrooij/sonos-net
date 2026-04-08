@@ -34,14 +34,14 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Virtuallinein.Play
         {
         }
         /// <summary>
-        /// `Play` action for `VirtualLineIn` serviceSee [action description](https://sonos.svrooij.io/services/virtual-line-in#play) for more details
+        /// `Play` action for `VirtualLineIn` serviceSee [Play](https://sonos.svrooij.io/services/virtual-line-in#play) in VirtualLineIn for more details
         /// </summary>
         /// <returns>A <see cref="bool"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<bool?> PostAsync(global::Sonos.Web.Blazor.Client.Models.PlayRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -56,12 +56,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Virtuallinein.Play
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendPrimitiveAsync<bool?>(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// `Play` action for `VirtualLineIn` serviceSee [action description](https://sonos.svrooij.io/services/virtual-line-in#play) for more details
+        /// `Play` action for `VirtualLineIn` serviceSee [Play](https://sonos.svrooij.io/services/virtual-line-in#play) in VirtualLineIn for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

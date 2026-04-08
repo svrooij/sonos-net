@@ -46,7 +46,7 @@ namespace Sonos.Web.Blazor.Client.Speakers
         {
         }
         /// <summary>
-        /// Get all known speaker UUIDs
+        /// Get a list of know speaker ids
         /// </summary>
         /// <returns>A List&lt;string&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -65,7 +65,7 @@ namespace Sonos.Web.Blazor.Client.Speakers
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Get all known speaker UUIDs
+        /// Get a list of know speaker ids
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

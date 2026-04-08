@@ -6,6 +6,7 @@ using Microsoft.Kiota.Abstractions;
 using Sonos.Web.Blazor.Client.Models;
 using Sonos.Web.Blazor.Client.Musicservices.Item.Browse;
 using Sonos.Web.Blazor.Client.Musicservices.Item.CompleteLogin;
+using Sonos.Web.Blazor.Client.Musicservices.Item.MediaMetadata;
 using Sonos.Web.Blazor.Client.Musicservices.Item.TriggerLogin;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,11 @@ namespace Sonos.Web.Blazor.Client.Musicservices.Item
         public global::Sonos.Web.Blazor.Client.Musicservices.Item.CompleteLogin.CompleteLoginRequestBuilder CompleteLogin
         {
             get => new global::Sonos.Web.Blazor.Client.Musicservices.Item.CompleteLogin.CompleteLoginRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The mediaMetadata property</summary>
+        public global::Sonos.Web.Blazor.Client.Musicservices.Item.MediaMetadata.MediaMetadataRequestBuilder MediaMetadata
+        {
+            get => new global::Sonos.Web.Blazor.Client.Musicservices.Item.MediaMetadata.MediaMetadataRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The triggerLogin property</summary>
         public global::Sonos.Web.Blazor.Client.Musicservices.Item.TriggerLogin.TriggerLoginRequestBuilder TriggerLogin

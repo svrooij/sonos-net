@@ -34,14 +34,14 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Deviceproperties.Getautoplayvolu
         {
         }
         /// <summary>
-        /// `GetAutoplayVolume` action for `DeviceProperties` serviceSee [action description](https://sonos.svrooij.io/services/device-properties#getautoplayvolume) for more details
+        /// `GetAutoplayVolume` action for `DeviceProperties` serviceSee [GetAutoplayVolume](https://sonos.svrooij.io/services/device-properties#getautoplayvolume) in DeviceProperties for more details
         /// </summary>
         /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.GetAutoplayVolumeResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Sonos.Web.Blazor.Client.Models.GetAutoplayVolumeResponse?> PostAsync(global::Sonos.Web.Blazor.Client.Models.GetAutoplayVolumeRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -56,12 +56,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Deviceproperties.Getautoplayvolu
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.GetAutoplayVolumeResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.GetAutoplayVolumeResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// `GetAutoplayVolume` action for `DeviceProperties` serviceSee [action description](https://sonos.svrooij.io/services/device-properties#getautoplayvolume) for more details
+        /// `GetAutoplayVolume` action for `DeviceProperties` serviceSee [GetAutoplayVolume](https://sonos.svrooij.io/services/device-properties#getautoplayvolume) in DeviceProperties for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

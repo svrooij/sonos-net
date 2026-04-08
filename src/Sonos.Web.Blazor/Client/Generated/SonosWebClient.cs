@@ -51,7 +51,7 @@ namespace Sonos.Web.Blazor.Client
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
             if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
             {
-                RequestAdapter.BaseUrl = "/api";
+                RequestAdapter.BaseUrl = "http://localhost/api";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);
         }

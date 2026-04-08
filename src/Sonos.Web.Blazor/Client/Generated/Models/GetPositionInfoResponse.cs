@@ -52,7 +52,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string TrackMetaData { get; set; }
 #endif
-        /// <summary>Parsed version of TrackMetaData</summary>
+        /// <summary>The trackMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.Didl? TrackMetaDataObject { get; set; }

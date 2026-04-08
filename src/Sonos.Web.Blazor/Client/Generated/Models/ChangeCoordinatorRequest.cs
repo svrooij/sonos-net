@@ -46,6 +46,8 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string NewTransportSettings { get; set; }
 #endif
+        /// <summary>The restartSink property</summary>
+        public bool? RestartSink { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.ChangeCoordinatorRequest"/> and sets the default values.
         /// </summary>
@@ -75,6 +77,7 @@ namespace Sonos.Web.Blazor.Client.Models
                 { "currentCoordinator", n => { CurrentCoordinator = n.GetStringValue(); } },
                 { "newCoordinator", n => { NewCoordinator = n.GetStringValue(); } },
                 { "newTransportSettings", n => { NewTransportSettings = n.GetStringValue(); } },
+                { "restartSink", n => { RestartSink = n.GetBoolValue(); } },
             };
         }
         /// <summary>
@@ -88,6 +91,7 @@ namespace Sonos.Web.Blazor.Client.Models
             writer.WriteStringValue("currentCoordinator", CurrentCoordinator);
             writer.WriteStringValue("newCoordinator", NewCoordinator);
             writer.WriteStringValue("newTransportSettings", NewTransportSettings);
+            writer.WriteBoolValue("restartSink", RestartSink);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

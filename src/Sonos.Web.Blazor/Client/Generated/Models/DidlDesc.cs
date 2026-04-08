@@ -22,6 +22,14 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Id { get; set; }
 #endif
+        /// <summary>This is a trick to set the correct namespace on the desc element. Do not change the value!</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? NameSpace { get; set; }
+#nullable restore
+#else
+        public string NameSpace { get; set; }
+#endif
         /// <summary>The value property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -56,6 +64,7 @@ namespace Sonos.Web.Blazor.Client.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "id", n => { Id = n.GetStringValue(); } },
+                { "nameSpace", n => { NameSpace = n.GetStringValue(); } },
                 { "value", n => { Value = n.GetStringValue(); } },
             };
         }
@@ -67,6 +76,7 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("id", Id);
+            writer.WriteStringValue("nameSpace", NameSpace);
             writer.WriteStringValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }

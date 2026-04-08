@@ -22,7 +22,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string ContainerMetaData { get; set; }
 #endif
-        /// <summary>Generate ContainerMetaData xml from Didl data</summary>
+        /// <summary>The containerMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.Didl? ContainerMetaDataObject { get; set; }
@@ -58,7 +58,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string EnqueuedURIsMetaData { get; set; }
 #endif
-        /// <summary>Generate EnqueuedURIsMetaData xml from Didl data</summary>
+        /// <summary>The enqueuedURIsMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.Didl? EnqueuedURIsMetaDataObject { get; set; }

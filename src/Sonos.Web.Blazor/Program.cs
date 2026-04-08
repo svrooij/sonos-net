@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 using Sonos.Web.Blazor;
 using Sonos.Web.Blazor.Client;
+using Sonos.Web.Blazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,7 +23,9 @@ builder.Services.AddHttpClient<SonosWebClientFactory>((sp, client) =>
 
 
 builder.Services.AddTransient(sp => sp.GetRequiredService<SonosWebClientFactory>().CreateClient());
+builder.Services.AddSingleton<PlayerService>();
 
 
-
-await builder.Build().RunAsync();
+var host = builder.Build();
+await host.Services.GetRequiredService<PlayerService>().Initialize();
+await host.RunAsync();

@@ -30,7 +30,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string EnqueuedURIMetaData { get; set; }
 #endif
-        /// <summary>Generate EnqueuedURIMetaData xml from Didl data</summary>
+        /// <summary>The enqueuedURIMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.Didl? EnqueuedURIMetaDataObject { get; set; }

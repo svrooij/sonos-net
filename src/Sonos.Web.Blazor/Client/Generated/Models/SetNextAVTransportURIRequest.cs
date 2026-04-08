@@ -30,7 +30,7 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string NextURIMetaData { get; set; }
 #endif
-        /// <summary>Generate NextURIMetaData xml from Didl data</summary>
+        /// <summary>The nextURIMetaDataObject property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Sonos.Web.Blazor.Client.Models.Didl? NextURIMetaDataObject { get; set; }

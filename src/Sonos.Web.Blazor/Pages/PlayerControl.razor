@@ -5,6 +5,7 @@
 @using System.Text.Json;
 @inject SonosWebClient client
 @inject NavigationManager Navigation
+@inject Services.PlayerService PlayerService
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Control player</PageTitle>
@@ -123,8 +124,8 @@ else
 }
 
 @code{
-        [Parameter]
-        public string? SpeakerId { get; set; }
+    [Parameter]
+    public string? SpeakerId { get; set; }
     public Models.SonosEvent? Status { get; set; }
     private Timer? _refreshTimer;
     private bool _isRefreshing = false;
@@ -139,6 +140,7 @@ else
     {
         await base.OnParametersSetAsync();
         await RefreshStatusAsync();
+        PlayerService.SelectPlayer(SpeakerId);
         await _hubConnection!.InvokeAsync<string>("Subscribe", SpeakerId!);
         //StartAutoRefresh();
     }

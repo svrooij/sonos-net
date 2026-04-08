@@ -14,7 +14,7 @@ namespace Sonos.Web.Blazor.Client.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Booleans return `1` / `0`, rest number as specified</summary>
+        /// <summary>Booleans return `1` / `0`; `DialogLevel` returns a string value representing the dialog intensity level, rest return number as specified</summary>
         public int? CurrentValue { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::Sonos.Web.Blazor.Client.Models.GetEQResponse"/> and sets the default values.

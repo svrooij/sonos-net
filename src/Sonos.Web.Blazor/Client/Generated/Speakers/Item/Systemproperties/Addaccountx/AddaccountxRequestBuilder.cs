@@ -34,14 +34,14 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Systemproperties.Addaccountx
         {
         }
         /// <summary>
-        /// `AddAccountX` action for `SystemProperties` serviceSee [action description](https://sonos.svrooij.io/services/system-properties#addaccountx) for more details
+        /// `AddAccountX` action for `SystemProperties` serviceSee [AddAccountX](https://sonos.svrooij.io/services/system-properties#addaccountx) in SystemProperties for more details
         /// </summary>
         /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.AddAccountXResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Sonos.Web.Blazor.Client.Models.AddAccountXResponse?> PostAsync(global::Sonos.Web.Blazor.Client.Models.AddAccountXRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -56,12 +56,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Systemproperties.Addaccountx
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.AddAccountXResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.AddAccountXResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// `AddAccountX` action for `SystemProperties` serviceSee [action description](https://sonos.svrooij.io/services/system-properties#addaccountx) for more details
+        /// `AddAccountX` action for `SystemProperties` serviceSee [AddAccountX](https://sonos.svrooij.io/services/system-properties#addaccountx) in SystemProperties for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

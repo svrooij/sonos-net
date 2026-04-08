@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject Services.PlayerService PlayerService
+
 <div class="min-h-screen main-bg flex flex-col">
     <!-- Top Navigation Bar -->
     <header class="header-bg border-b sticky top-0 z-40">
@@ -114,6 +116,7 @@
                             </svg>
                             Music services
                         </NavLink>
+                        <span>@PlayerService.SelectedPlayer?.Name</span>
                     </div>
                     
                     <!-- Desktop API Link (Bottom of menu) -->

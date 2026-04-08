@@ -34,13 +34,13 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Renderingcontrol.Getheadphonecon
         {
         }
         /// <summary>
-        /// `GetHeadphoneConnected` action for `RenderingControl` serviceSee [action description](https://sonos.svrooij.io/services/rendering-control#getheadphoneconnected) for more details
+        /// `GetHeadphoneConnected` action for `RenderingControl` serviceSee [GetHeadphoneConnected](https://sonos.svrooij.io/services/rendering-control#getheadphoneconnected) in RenderingControl for more details
         /// </summary>
         /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.GetHeadphoneConnectedResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Sonos.Web.Blazor.Client.Models.GetHeadphoneConnectedResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -54,12 +54,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Renderingcontrol.Getheadphonecon
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.GetHeadphoneConnectedResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.GetHeadphoneConnectedResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// `GetHeadphoneConnected` action for `RenderingControl` serviceSee [action description](https://sonos.svrooij.io/services/rendering-control#getheadphoneconnected) for more details
+        /// `GetHeadphoneConnected` action for `RenderingControl` serviceSee [GetHeadphoneConnected](https://sonos.svrooij.io/services/rendering-control#getheadphoneconnected) in RenderingControl for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

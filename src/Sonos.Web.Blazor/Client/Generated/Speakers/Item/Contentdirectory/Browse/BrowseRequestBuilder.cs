@@ -34,14 +34,14 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Contentdirectory.Browse
         {
         }
         /// <summary>
-        /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the &amp;#x60;TotalMatches&amp;#x60; and - if necessary - do additional requests with higher &amp;#x60;StartingIndex&amp;#x60;. In case of duplicates only the first is returned! Example: albums with same title, even if artists are differentSee [action description](https://sonos.svrooij.io/services/content-directory#browse) for more details
+        /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the &amp;#x60;TotalMatches&amp;#x60; and - if necessary - do additional requests with higher &amp;#x60;StartingIndex&amp;#x60;. In case of duplicates only the first is returned! Example: albums with same title, even if artists are differentSee [Browse](https://sonos.svrooij.io/services/content-directory#browse) in ContentDirectory for more details
         /// </summary>
         /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.BrowseResponse"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Sonos.Web.Blazor.Client.Models.BrowseResponse?> PostAsync(global::Sonos.Web.Blazor.Client.Models.BrowseRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -56,12 +56,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Contentdirectory.Browse
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.BrowseResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.BrowseResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the &amp;#x60;TotalMatches&amp;#x60; and - if necessary - do additional requests with higher &amp;#x60;StartingIndex&amp;#x60;. In case of duplicates only the first is returned! Example: albums with same title, even if artists are differentSee [action description](https://sonos.svrooij.io/services/content-directory#browse) for more details
+        /// Browse for content: Music library (A), share(S:), Sonos playlists(SQ:), Sonos favorites(FV:2), radio stations(R:0/0), radio shows(R:0/1), queue(Q:)). Recommendation: Send one request, check the &amp;#x60;TotalMatches&amp;#x60; and - if necessary - do additional requests with higher &amp;#x60;StartingIndex&amp;#x60;. In case of duplicates only the first is returned! Example: albums with same title, even if artists are differentSee [Browse](https://sonos.svrooij.io/services/content-directory#browse) in ContentDirectory for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

@@ -13,16 +13,22 @@ using Sonos.Web.Blazor.Client.Speakers.Item.Grouprenderingcontrol;
 using Sonos.Web.Blazor.Client.Speakers.Item.Htcontrol;
 using Sonos.Web.Blazor.Client.Speakers.Item.Musicservices;
 using Sonos.Web.Blazor.Client.Speakers.Item.Next;
+using Sonos.Web.Blazor.Client.Speakers.Item.Notify;
 using Sonos.Web.Blazor.Client.Speakers.Item.Pause;
 using Sonos.Web.Blazor.Client.Speakers.Item.Play;
 using Sonos.Web.Blazor.Client.Speakers.Item.Previous;
 using Sonos.Web.Blazor.Client.Speakers.Item.Qplay;
 using Sonos.Web.Blazor.Client.Speakers.Item.Queue;
 using Sonos.Web.Blazor.Client.Speakers.Item.Renderingcontrol;
+using Sonos.Web.Blazor.Client.Speakers.Item.Settransporturi;
 using Sonos.Web.Blazor.Client.Speakers.Item.Status;
 using Sonos.Web.Blazor.Client.Speakers.Item.Stop;
+using Sonos.Web.Blazor.Client.Speakers.Item.Switchtolinein;
+using Sonos.Web.Blazor.Client.Speakers.Item.Switchtoqueue;
+using Sonos.Web.Blazor.Client.Speakers.Item.Switchtotv;
 using Sonos.Web.Blazor.Client.Speakers.Item.Systemproperties;
 using Sonos.Web.Blazor.Client.Speakers.Item.Toggle;
+using Sonos.Web.Blazor.Client.Speakers.Item.TryPlayback;
 using Sonos.Web.Blazor.Client.Speakers.Item.Virtuallinein;
 using Sonos.Web.Blazor.Client.Speakers.Item.Volume;
 using Sonos.Web.Blazor.Client.Speakers.Item.Zonegrouptopology;
@@ -93,6 +99,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item
         {
             get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Next.NextRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The notify property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.Notify.NotifyRequestBuilder Notify
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Notify.NotifyRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The pause property</summary>
         public global::Sonos.Web.Blazor.Client.Speakers.Item.Pause.PauseRequestBuilder Pause
         {
@@ -123,6 +134,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item
         {
             get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Renderingcontrol.RenderingcontrolRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The settransporturi property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.Settransporturi.SettransporturiRequestBuilder Settransporturi
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Settransporturi.SettransporturiRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The status property</summary>
         public global::Sonos.Web.Blazor.Client.Speakers.Item.Status.StatusRequestBuilder Status
         {
@@ -133,6 +149,21 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item
         {
             get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Stop.StopRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The switchtolinein property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtolinein.SwitchtolineinRequestBuilder Switchtolinein
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtolinein.SwitchtolineinRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The switchtoqueue property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtoqueue.SwitchtoqueueRequestBuilder Switchtoqueue
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtoqueue.SwitchtoqueueRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The switchtotv property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtotv.SwitchtotvRequestBuilder Switchtotv
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Switchtotv.SwitchtotvRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The systemproperties property</summary>
         public global::Sonos.Web.Blazor.Client.Speakers.Item.Systemproperties.SystempropertiesRequestBuilder Systemproperties
         {
@@ -142,6 +173,11 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item
         public global::Sonos.Web.Blazor.Client.Speakers.Item.Toggle.ToggleRequestBuilder Toggle
         {
             get => new global::Sonos.Web.Blazor.Client.Speakers.Item.Toggle.ToggleRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The tryPlayback property</summary>
+        public global::Sonos.Web.Blazor.Client.Speakers.Item.TryPlayback.TryPlaybackRequestBuilder TryPlayback
+        {
+            get => new global::Sonos.Web.Blazor.Client.Speakers.Item.TryPlayback.TryPlaybackRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The virtuallinein property</summary>
         public global::Sonos.Web.Blazor.Client.Speakers.Item.Virtuallinein.VirtuallineinRequestBuilder Virtuallinein

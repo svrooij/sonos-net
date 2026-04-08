@@ -8,7 +8,7 @@ using System;
 namespace Sonos.Web.Blazor.Client.Models
 {
     /// <summary>
-    /// The player responsible for the queue
+    /// Represents a Sonos device with a unique identifier and a name.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SonosDevice : IAdditionalDataHolder, IParsable

@@ -34,13 +34,13 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Htcontrol.Isremoteconfigured
         {
         }
         /// <summary>
-        /// `IsRemoteConfigured` action for `HTControl` serviceSee [action description](https://sonos.svrooij.io/services/ht-control#isremoteconfigured) for more details
+        /// `IsRemoteConfigured` action for `HTControl` serviceSee [IsRemoteConfigured](https://sonos.svrooij.io/services/ht-control#isremoteconfigured) in HTControl for more details
         /// </summary>
         /// <returns>A <see cref="global::Sonos.Web.Blazor.Client.Models.IsRemoteConfiguredResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 404 status code</exception>
-        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 422 status code</exception>
+        /// <exception cref="global::Sonos.Web.Blazor.Client.Models.ProblemDetails">When receiving a 409 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Sonos.Web.Blazor.Client.Models.IsRemoteConfiguredResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -54,12 +54,12 @@ namespace Sonos.Web.Blazor.Client.Speakers.Item.Htcontrol.Isremoteconfigured
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
                 { "404", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
-                { "422", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
+                { "409", global::Sonos.Web.Blazor.Client.Models.ProblemDetails.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Sonos.Web.Blazor.Client.Models.IsRemoteConfiguredResponse>(requestInfo, global::Sonos.Web.Blazor.Client.Models.IsRemoteConfiguredResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// `IsRemoteConfigured` action for `HTControl` serviceSee [action description](https://sonos.svrooij.io/services/ht-control#isremoteconfigured) for more details
+        /// `IsRemoteConfigured` action for `HTControl` serviceSee [IsRemoteConfigured](https://sonos.svrooij.io/services/ht-control#isremoteconfigured) in HTControl for more details
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

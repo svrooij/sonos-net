@@ -22,6 +22,14 @@ namespace Sonos.Web.Blazor.Client.Models
 #else
         public string Album { get; set; }
 #endif
+        /// <summary>The albumArtist property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? AlbumArtist { get; set; }
+#nullable restore
+#else
+        public string AlbumArtist { get; set; }
+#endif
         /// <summary>The albumArtUri property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -53,6 +61,14 @@ namespace Sonos.Web.Blazor.Client.Models
 #nullable restore
 #else
         public global::Sonos.Web.Blazor.Client.Models.DidlTrack.DidlTrack_desc Desc { get; set; }
+#endif
+        /// <summary>The description property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Description { get; set; }
+#nullable restore
+#else
+        public string Description { get; set; }
 #endif
         /// <summary>The id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -147,9 +163,11 @@ namespace Sonos.Web.Blazor.Client.Models
             {
                 { "album", n => { Album = n.GetStringValue(); } },
                 { "albumArtUri", n => { AlbumArtUri = n.GetStringValue(); } },
+                { "albumArtist", n => { AlbumArtist = n.GetStringValue(); } },
                 { "class", n => { Class = n.GetStringValue(); } },
                 { "creator", n => { Creator = n.GetStringValue(); } },
                 { "desc", n => { Desc = n.GetObjectValue<global::Sonos.Web.Blazor.Client.Models.DidlTrack.DidlTrack_desc>(global::Sonos.Web.Blazor.Client.Models.DidlTrack.DidlTrack_desc.CreateFromDiscriminatorValue); } },
+                { "description", n => { Description = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetStringValue(); } },
                 { "parentId", n => { ParentId = n.GetStringValue(); } },
                 { "podcast", n => { Podcast = n.GetStringValue(); } },
@@ -169,10 +187,12 @@ namespace Sonos.Web.Blazor.Client.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("album", Album);
+            writer.WriteStringValue("albumArtist", AlbumArtist);
             writer.WriteStringValue("albumArtUri", AlbumArtUri);
             writer.WriteStringValue("class", Class);
             writer.WriteStringValue("creator", Creator);
             writer.WriteObjectValue<global::Sonos.Web.Blazor.Client.Models.DidlTrack.DidlTrack_desc>("desc", Desc);
+            writer.WriteStringValue("description", Description);
             writer.WriteStringValue("id", Id);
             writer.WriteStringValue("parentId", ParentId);
             writer.WriteStringValue("podcast", Podcast);
