@@ -16,7 +16,7 @@ public class SonosTrack
     /// <summary>
     /// Title of the song
     /// </summary>
-    public string Title { get; set; }
+    public string? Title { get; set; }
     /// <summary>
     /// Artist of the song
     /// </summary>

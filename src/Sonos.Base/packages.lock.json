@@ -129,6 +129,7 @@
         "contentHash": "DO8XrJkp5x4PddDuc/CH37yDBCs9BYN6ijlKyR3vMb55BP1Vwh90vOX8bNfnKxr5B2qEI3D8bvbY1fFbDveDHQ=="
       }
     },
+    "net10.0/linux-x64": {},
     "net8.0": {
       "Microsoft.Extensions.Caching.Abstractions": {
         "type": "Direct",
@@ -255,6 +256,7 @@
         "resolved": "8.0.0",
         "contentHash": "bXJEZrW9ny8vjMF1JV253WeLhpEVzFo1lyaZu1vQ4ZxWUlVvknZ/+ftFgVheLubb4eZPSwwxBeqS1JkCOjxd8g=="
       }
-    }
+    },
+    "net8.0/linux-x64": {}
   }
 }

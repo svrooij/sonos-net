@@ -14,7 +14,7 @@
     <ContainerImageTags>dev</ContainerImageTags>
       <OpenApiDocumentsDirectory>..\\specs</OpenApiDocumentsDirectory>
       <OpenApiGenerateDocumentsOptions>--file-name openapi-v1</OpenApiGenerateDocumentsOptions>
-      <OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
+      <OpenApiGenerateDocuments>False</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>

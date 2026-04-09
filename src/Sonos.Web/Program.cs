@@ -19,7 +19,7 @@ builder.AddServiceDefaults();
 builder.Services.AddOpenApi(api =>
 {
     api.ShouldInclude = (desc) => true;
-    api.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
+    api.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_1;
     api.AddSchemaTransformer<Sonos.Web.OpenApi.SonosSchemaTransformer>();
     api.AddOperationTransformer<Sonos.Web.OpenApi.RemoveInstanceIdTransformer>();
     api.AddOperationTransformer<Sonos.Web.OpenApi.DocumentOperationTransformer>();
@@ -33,8 +33,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 
-
-    builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
+builder.Services.Configure<Sonos.Base.Events.Http.SonosEventReceiverOptions>(conf =>
 {
     conf.Host = builder.Configuration.GetValue<string?>("SONOS_EVENT_HOST");
     conf.Port = builder.Configuration.GetValue<int?>("SONOS_EVENT_PORT") ?? 6329;
@@ -42,8 +41,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.Services.AddMemoryCache();
 //builder.Services.AddHttpClient();
-
-bool specsServer = false;
 
 // If the crappy OpenAPI generator is not running
 if (Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider")
@@ -54,10 +51,7 @@ if (Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider")
     builder.Services.AddHostedService(sp => (Sonos.Base.Events.Http.SonosEventReceiver)sp.GetRequiredService<ISonosEventBus>());
 
     builder.Services.AddHostedService<SonosWorker>();
-    specsServer = true;
 }
-
-
 
 builder.Services.AddHttpClient(SonosServiceProvider.HttpClientName, httpClient =>
 {
@@ -84,20 +78,8 @@ if (builder.Configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER") == true)
 {
     // Assume HTTPS termination is handled by the container orchestrator (e.g., Kubernetes, Docker Swarm)
     app.UseForwardedHeaders();
-}
-else
-{
-    //app.UseHttpsRedirection();
-}
 
-
-// Enable serving static files for Blazor WebAssembly
-if (false)
-{
-    //app.UseBlazorFrameworkFiles();
-} else
-{
-#if !DEBUG //maybe test for existence of wwwroot/index.html instead?
+    // Fix the content type for .dat files, this is to serve the Blazor WebAssembly files from the wwwroot folder.
     var provider = new FileExtensionContentTypeProvider();
     provider.Mappings[".dat"] = "application/octet-stream";
     app.UseStaticFiles(new StaticFileOptions
@@ -106,9 +88,12 @@ if (false)
         ContentTypeProvider = provider,
         ServeUnknownFileTypes = false
     });
-#endif
 }
-//app.UseBlazorFrameworkFiles();
+else
+{
+    //app.UseHttpsRedirection();
+}
+
 
 
 // Configure routing

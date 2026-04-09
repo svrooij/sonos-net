@@ -228,9 +228,9 @@
         }
     }
 
-    private async Task TryPlayback(string mediaId)
+    private async Task TryPlayback(string? mediaId)
     {
-        if (PlayerService.SelectedPlayer is null || !MusicServiceId.HasValue)
+        if (PlayerService.SelectedPlayer is null || !MusicServiceId.HasValue || string.IsNullOrEmpty(mediaId))
         {
             return;
         }
