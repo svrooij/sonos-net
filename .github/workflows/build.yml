@@ -180,7 +180,7 @@ jobs:
       - name: 🐳 Publish to docker
         shell: pwsh
         run: |
-          dotnet publish --os linux --arch amd64 --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Web/Sonos.Web.csproj
+          dotnet publish --os linux --arch amd64 --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) /t:PublishContainer ./src/Sonos.Web/Sonos.Web.csproj
         env:
           CONTAINER_IMAGE_TAGS: ${{ contains(github.ref_name, 'beta') && format('{0};beta', github.ref_name) || format('{0};latest', github.ref_name) }}
           INCLUDE_API_DOCS: false
