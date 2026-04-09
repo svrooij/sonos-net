@@ -1,0 +1,14 @@
+{
+  "name": "sonos-web-blazor",
+  "version": "1.0.0",
+  "description": "Tailwind CSS for Sonos Web Blazor application",
+  "scripts": {
+    "build-css": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/tailwind.css --watch",
+    "build-css-prod": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.4.0"
+  }
+}

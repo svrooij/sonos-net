@@ -1,4 +1,22 @@
-﻿namespace Sonos.Base.Services;
+﻿/*
+ * Sonos-net
+ *
+ * Repository https://github.com/svrooij/sonos-net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Sonos.Base.Services;
 
 public partial class ZoneGroupTopologyService
 {
@@ -80,6 +98,11 @@ public partial class ZoneGroupTopologyService
             }
         }
 
+        [System.Xml.Serialization.XmlIgnore]
+
+        public ZoneGroupStateZoneGroupZoneGroupMember CoordinatorMember => ZoneGroupMember.Single(m => m.UUID == Coordinator);
+        public ZoneGroupStateZoneGroupZoneGroupMember[] Members => ZoneGroupMember.Where(m => m.UUID != Coordinator).ToArray();
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
         public string ID
@@ -92,6 +115,28 @@ public partial class ZoneGroupTopologyService
             {
                 this.idField = value;
             }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public string GroupName
+        {
+            get
+            {
+                if (ZoneGroupMember.Length == 1)
+                {
+                    return CoordinatorMember.ZoneName;
+                }
+                if (ZoneGroupMember.Length == 2)
+                {
+                    return $"{CoordinatorMember.ZoneName} + {ZoneGroupMember.Single(m => m.UUID != Coordinator).ZoneName}";
+                }
+                return $"{CoordinatorMember.ZoneName} + {ZoneGroupMember.Length - 1} speakers";
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"ZoneGroup {GroupName} ({Coordinator})";
         }
     }
 
@@ -109,47 +154,47 @@ public partial class ZoneGroupTopologyService
 
         private string iconField;
 
-        private byte configurationField;
+        private int configurationField;
 
         private string softwareVersionField;
 
-        private byte sWGenField;
+        private int sWGenField;
 
         private string minCompatibleVersionField;
 
         private string legacyCompatibleVersionField;
 
-        private byte bootSeqField;
+        private int bootSeqField;
 
-        private byte tVConfigurationErrorField;
+        private int tVConfigurationErrorField;
 
-        private byte hdmiCecAvailableField;
+        private int hdmiCecAvailableField;
 
-        private byte wirelessModeField;
+        private int wirelessModeField;
 
-        private byte wirelessLeafOnlyField;
+        private int wirelessLeafOnlyField;
 
         private ushort channelFreqField;
 
-        private byte behindWifiExtenderField;
+        private int behindWifiExtenderField;
 
-        private byte wifiEnabledField;
+        private int wifiEnabledField;
 
-        private byte ethLinkField;
+        private int ethLinkField;
 
-        private byte orientationField;
+        private int orientationField;
 
-        private byte roomCalibrationStateField;
+        private int roomCalibrationStateField;
 
-        private byte secureRegStateField;
+        private int secureRegStateField;
 
-        private byte voiceConfigStateField;
+        private int voiceConfigStateField;
 
-        private byte micEnabledField;
+        private int micEnabledField;
 
-        private byte airPlayEnabledField;
+        private int airPlayEnabledField;
 
-        private byte idleStateField;
+        private int idleStateField;
 
         private string moreInfoField;
 
@@ -185,6 +230,15 @@ public partial class ZoneGroupTopologyService
             }
         }
 
+        public Uri BaseUri
+        {
+            get
+            {
+                var uri = new Uri(Location);
+                return new Uri($"{uri.Scheme}://{uri.Authority}/");
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
         public string ZoneName
@@ -215,7 +269,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Configuration
+        public int Configuration
         {
             get
             {
@@ -243,7 +297,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SWGen
+        public int SWGen
         {
             get
             {
@@ -285,7 +339,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte BootSeq
+        public int BootSeq
         {
             get
             {
@@ -299,7 +353,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte TVConfigurationError
+        public int TVConfigurationError
         {
             get
             {
@@ -313,7 +367,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte HdmiCecAvailable
+        public int HdmiCecAvailable
         {
             get
             {
@@ -327,7 +381,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WirelessMode
+        public int WirelessMode
         {
             get
             {
@@ -341,7 +395,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WirelessLeafOnly
+        public int WirelessLeafOnly
         {
             get
             {
@@ -369,7 +423,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte BehindWifiExtender
+        public int BehindWifiExtender
         {
             get
             {
@@ -383,7 +437,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte WifiEnabled
+        public int WifiEnabled
         {
             get
             {
@@ -397,7 +451,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte EthLink
+        public int EthLink
         {
             get
             {
@@ -411,7 +465,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Orientation
+        public int Orientation
         {
             get
             {
@@ -425,7 +479,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte RoomCalibrationState
+        public int RoomCalibrationState
         {
             get
             {
@@ -439,7 +493,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SecureRegState
+        public int SecureRegState
         {
             get
             {
@@ -453,7 +507,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte VoiceConfigState
+        public int VoiceConfigState
         {
             get
             {
@@ -467,7 +521,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte MicEnabled
+        public int MicEnabled
         {
             get
             {
@@ -481,7 +535,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte AirPlayEnabled
+        public int AirPlayEnabled
         {
             get
             {
@@ -495,7 +549,7 @@ public partial class ZoneGroupTopologyService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte IdleState
+        public int IdleState
         {
             get
             {
@@ -548,5 +602,140 @@ public partial class ZoneGroupTopologyService
                 this.hHSSLPortField = value;
             }
         }
+
+        public override string ToString()
+        {
+            return $"ZoneGroupMember {ZoneName} ({UUID})";
+        }
     }
+
+    /// <summary>
+    /// Represents the xml document containing a collection of third-party media servers.
+    /// </summary>
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRoot("MediaServers", Namespace = "", IsNullable = false)]
+    public partial class ThirdPartyMediaServersResponse
+    {
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElement("Service")]
+        public ThirdPartyMediaServer[] Servers { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a third-party media server and its associated account information.
+    /// </summary>
+    /// <remarks>This class is typically used for serialization and deserialization of media server data, including
+    /// account credentials and server metadata. Property values correspond to XML attributes and may be required for
+    /// integration with external systems or services.</remarks>
+    [Serializable()]
+    [System.ComponentModel.DesignerCategory("code")]
+    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+    public partial class ThirdPartyMediaServer
+    {
+        /// <summary>
+        /// Gets the unique music service device name (UDN)
+        /// </summary>
+        /// <remarks>Looks like `SA_RINCON2311_X_#Svc2311-0-Token` for spotify</remarks>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string UDN { get; set; }
+
+        /// <summary>
+        /// Number of accounts for this media service.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int NumAccounts { get; set; }
+
+        /// <summary>
+        /// Md0 value, unknown purpose.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Md0")]
+        public string Md { get; set; }
+
+        /// <summary>
+        /// Internal username for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Username0")]
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Nickname associated with the media service account, not provided by all services.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Nickname0")]
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// Value of SerialNum0, purpose unknown.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("SerialNum0")]
+        public int SerialNum { get; set; }
+
+        /// <summary>
+        /// Value of Flags0, purpose unknown.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Flags0")]
+        public int Flags { get; set; }
+
+        /// <summary>
+        /// Tier of the media service, 1 = free, 3 = premium
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Tier0")]
+        public int Tier { get; set; }
+
+        /// <summary>
+        /// Access token for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Token0")]
+        public string? Token { get; set; }
+
+        /// <summary>
+        /// Refresh key for the media service account.
+        /// </summary>
+        [System.Xml.Serialization.XmlAttribute("Key0")]
+        public string? Key { get; set; }
+    }
+
+    public partial class ThirdPartyMediaServer
+    {
+        private int? serviceId;
+        /// <summary>
+        /// Gets the unique identifier for the service associated with this instance.
+        /// </summary>
+        /// <remarks>The service identifier is derived from the UDN (Unique Device Name) property.</remarks>
+        /// <exception cref="FormatException">Thrown when the UDN is not in the expected format.</exception>"
+        public int ServiceId
+        {
+            get
+            {
+                if (!serviceId.HasValue)
+                {
+                    // UDN looks like: SA_RINCON2311_X_#Svc2311-0-Token, extract the number after RINCON using a generated regular expression
+                    if (string.IsNullOrEmpty(UDN) || !RegularExpressions.UdnRegex().IsMatch(UDN))
+                    {
+                        throw new FormatException($"UDN '{UDN}' is not in the expected format.");
+                    }
+
+                    var result = RegularExpressions.UdnRegex().Match(UDN);
+                    // Don't ask me how I found out about this encoding, but Sonos encodes the service id like this: ServiceId = (encodedServiceNumber - 7) / 256
+                    var encodedServiceNumber = int.Parse(result.Groups["ServiceId"].Value);
+                    serviceId = (encodedServiceNumber - 7)/256;
+                }
+                return serviceId.Value;
+            }
+        }
+        public override string ToString()
+        {
+            return $"ThirdPartyMediaServer UDN={UDN}, Username={Username}, Nickname={Nickname}, Tier={Tier}";
+        }
+    }
+
+
+
+}
+
+public static partial class RegularExpressions
+{
+    [System.Text.RegularExpressions.GeneratedRegex(@"^SA_RINCON(?<ServiceId>\d+)_X_#.*$")]
+    internal static partial System.Text.RegularExpressions.Regex UdnRegex();
 }

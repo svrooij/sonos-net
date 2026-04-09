@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Client\Generated\kiota-lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Client\Generated\kiota-lock.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Kiota.Bundle" Version="1.22.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+  <!-- Tailwind CSS Build Targets -->
+  <Target Name="NpmInstall" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+    <Message Text="Installing npm packages..." Importance="high" />
+    <Exec Command="npm install" />
+  </Target>
+
+  <Target Name="BuildTailwindCss" BeforeTargets="BeforeBuild" DependsOnTargets="NpmInstall">
+    <Message Text="Building Tailwind CSS..." Importance="high" />
+    <Exec Command="npm run build-css-prod" />
+  </Target>
+
+  <!-- Clean up generated CSS on Clean -->
+  <Target Name="CleanTailwindCss" BeforeTargets="Clean">
+    <Delete Files="wwwroot/css/tailwind.css" />
+  </Target>
+
+  <!-- Development watch mode (optional - for manual use) -->
+  <Target Name="WatchTailwindCss">
+    <Message Text="Starting Tailwind CSS watch mode..." Importance="high" />
+    <Exec Command="npm run build-css" />
+  </Target>
+
+    <Target Name="RestoreTools" Outputs="../../.vs/tools_restored.txt">
+        <Exec Command="dotnet tool restore -v q" Condition="!Exists('../../.vs/tools_restored.txt')" />
+        <WriteLinesToFile File="../../.vs/tools_restored.txt" Lines="Tools were automatically restored, this file is just to keep track of that." Condition="!Exists('../../.vs/tools_restored.txt')" />
+    </Target>
+
+    <!-- This is the target responsible for generating the client. BeforeTargets=CollectPackageReferences is the magic sauce here. -->
+    <Target Name="AutoGenerateRestClient" BeforeTargets="CollectPackageReferences" Outputs="Client/Generated/SonosWebClient.cs" DependsOnTargets="RestoreTools">
+        <Message Text="Genering REST Client" Importance="High" Condition="!Exists('./Client/Generated/SonosWebClient.cs')" />
+        <Exec Command="dotnet kiota generate -l CSharp -c SonosWebClient -n Sonos.Web.Blazor.Client -d ../specs/openapi-v1.json -o ./Client/Generated --co  --ll error" Condition="!Exists('./Client/Generated/SonosWebClient.cs') AND Exists('../specs/openapi-v1.json')" />
+        <!-- If the client generation fails, we want to fail the build with a clear error message -->
+        <OnError ExecuteTargets="ClientGenerationError" />
+    </Target>
+
+    <!-- Error target, that will be executed if the client generation fails. -->
+    <Target Name="ClientGenerationError">
+        <Error Text="SonosWebClient could not be generated" />
+    </Target>
+
+    <!-- This target is called when you do a dotnet clean on the project -->
+    <Target Name="CleanGenerateRestClient" AfterTargets="CoreClean">
+        <RemoveDir Directories="Client/Generated" />
+    </Target>
+    <!-- This target allows you to regenerate the client by running dotnet msbuild -t:GenerateRestClient -->
+    <Target Name="GenerateRestClient" DependsOnTargets="CleanGenerateRestClient;AutoGenerateRestClient" />
+
+</Project>

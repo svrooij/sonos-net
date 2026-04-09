@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<LangVersion>10.0</LangVersion>
+	  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	  <PackageId>Sonos.Base.Events.Http</PackageId>
+	  <Authors>Stephan van Rooij</Authors>
+	  <PackageProjectUrl>https://github.com/svrooij/sonos-net</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/svrooij/sonos-net.git</RepositoryUrl>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>Sonos</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;CS8616;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CS8616;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sonos.Base\Sonos.Base.csproj" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include=".\README.md" Pack="true" PackagePath="\README.md" />
+		<None Include="..\..\LICENSE.md" Pack="true" PackagePath="\LICENSE.md" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,276 @@
+@using Sonos.Web.Blazor.Client
+@using Sonos.Web.Blazor.Models
+@using Sonos.Web.Blazor.Services
+@inject SonosWebClient client
+@inject NavigationManager Navigation
+@inject PlayerService PlayerService
+@implements IDisposable
+
+<div class="fixed bottom-0 left-0 right-0 z-50 mini-player-glass">
+    <div class="max-w-7xl mx-auto px-3 py-2 sm:px-4 sm:py-2.5">
+        <div class="flex items-center gap-2 sm:gap-3">
+
+            <!-- Player Selector -->
+            <div class="flex-shrink-0">
+                <select class="mini-player-select"
+                        value="@_selectedPlayerId"
+                        @onchange="OnPlayerSelected">
+                    <option value="">Select player</option>
+                    @foreach (var player in PlayerService.Players)
+                    {
+                        <option value="@player.Id">@player.Name</option>
+                    }
+                </select>
+            </div>
+
+            @if (Status is not null)
+            {
+                <!-- Album Art -->
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex-shrink-0 shadow-md">
+                    @if (!string.IsNullOrEmpty(Status.CurrentTrack?.AlbumArtUri))
+                    {
+                        <img src="@GetAlbumArtUrl(Status.CurrentTrack.AlbumArtUri)"
+                             alt="Album Art"
+                             class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="w-full h-full items-center justify-center mini-player-art-placeholder" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4v-4h-6z"/>
+                            </svg>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="w-full h-full flex items-center justify-center mini-player-art-placeholder">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4v-4h-6z"/>
+                            </svg>
+                        </div>
+                    }
+                </div>
+
+                <!-- Track Info -->
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate" style="color: var(--color-text-primary);">
+                        @(Status.CurrentTrack?.Title ?? Status.AVTransportMetadata?.Title ?? "No track")
+                    </p>
+                    <p class="text-xs truncate" style="color: var(--color-text-secondary);">
+                        @(Status.CurrentTrack?.Creator ?? Status.AVTransportMetadata?.Creator ?? "-")
+                    </p>
+                </div>
+
+                <!-- Transport Controls -->
+                <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
+                    <!-- Previous (lg+ only) -->
+                    <button class="hidden lg:inline-flex mini-player-btn" @onclick="PreviousAsync" title="Previous">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Play/Pause -->
+                    <button class="mini-player-btn mini-player-btn-primary" @onclick="TogglePlaybackAsync" title="@(Status.IsPlaying ? "Pause" : "Play")">
+                        @if (Status.IsPlaying)
+                        {
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        }
+                        else
+                        {
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="m7 4 10 6L7 16V4z"/>
+                            </svg>
+                        }
+                    </button>
+
+                    <!-- Next -->
+                    <button class="mini-player-btn" @onclick="NextAsync" title="Next">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Volume Section (md+ only) -->
+                <div class="hidden md:flex items-center gap-1.5 flex-shrink-0">
+                    <!-- Mute toggle (lg+ only) -->
+                    <button class="hidden lg:inline-flex mini-player-btn" @onclick="ToggleMuteAsync" title="@(Status.Muted ? "Unmute" : "Mute")">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            @if (Status.Muted)
+                            {
+                                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                            }
+                            else if ((Status.Volume ?? 0) > 50)
+                            {
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            }
+                            else if ((Status.Volume ?? 0) > 0)
+                            {
+                                <path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>
+                            }
+                            else
+                            {
+                                <path d="M7 9v6h4l5 5V4l-5 5H7z"/>
+                            }
+                        </svg>
+                    </button>
+
+                    <input type="range"
+                           min="0"
+                           max="100"
+                           value="@(Status.Volume ?? 0)"
+                           class="mini-player-volume"
+                           @onchange="OnVolumeChanged"
+                           @oninput="OnVolumeInput" />
+                    <span class="text-xs w-8 text-right tabular-nums" style="color: var(--color-text-secondary);">
+                        @(Status.Volume ?? 0)%
+                    </span>
+                </div>
+            }
+            else if (_selectedPlayerId is not null)
+            {
+                <div class="flex-1 flex items-center gap-2">
+                    <div class="loading-spinner" style="width: 1.25rem; height: 1.25rem; margin: 0;"></div>
+                    <span class="text-sm" style="color: var(--color-text-secondary);">Loading...</span>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private SonosEvent? Status => PlayerService.CurrentStatus;
+    private string? _selectedPlayerId;
+
+    protected override void OnInitialized()
+    {
+        _selectedPlayerId = PlayerService.SelectedPlayer?.Id;
+        PlayerService.OnPlayerChanged += HandlePlayerChanged;
+        PlayerService.OnStatusChanged += HandleStatusChanged;
+    }
+
+    private void HandlePlayerChanged(string? playerId)
+    {
+        _selectedPlayerId = playerId;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleStatusChanged(string speakerId, SonosEvent status)
+    {
+        if (speakerId == _selectedPlayerId)
+        {
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task OnPlayerSelected(ChangeEventArgs e)
+    {
+        var id = e.Value?.ToString();
+        await PlayerService.SelectPlayerAsync(string.IsNullOrEmpty(id) ? null : id);
+    }
+
+    private async Task TogglePlaybackAsync()
+    {
+        if (_selectedPlayerId is null) return;
+        try
+        {
+            await client.Speakers[_selectedPlayerId].Toggle.PostAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling playback: {ex.Message}");
+        }
+    }
+
+    private async Task NextAsync()
+    {
+        if (_selectedPlayerId is null) return;
+        try
+        {
+            await client.Speakers[_selectedPlayerId].Next.PostAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error skipping to next: {ex.Message}");
+        }
+    }
+
+    private async Task PreviousAsync()
+    {
+        if (_selectedPlayerId is null) return;
+        try
+        {
+            await client.Speakers[_selectedPlayerId].Previous.PostAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error skipping to previous: {ex.Message}");
+        }
+    }
+
+    private async Task ToggleMuteAsync()
+    {
+        if (_selectedPlayerId is null || Status is null) return;
+        try
+        {
+            await client.Speakers[_selectedPlayerId].Renderingcontrol.Setmute.PostAsync(
+                new Sonos.Web.Blazor.Client.Models.SetMuteRequest
+                {
+                    Channel = "Master",
+                    DesiredMute = !Status.Muted
+                });
+            Status.Muted = !Status.Muted;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling mute: {ex.Message}");
+        }
+    }
+
+    private async Task OnVolumeChanged(ChangeEventArgs e)
+    {
+        if (_selectedPlayerId is null) return;
+        if (int.TryParse(e.Value?.ToString(), out int newVolume))
+        {
+            try
+            {
+                await client.Speakers[_selectedPlayerId].Volume.PostAsync(newVolume);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error setting volume: {ex.Message}");
+            }
+        }
+    }
+
+    private void OnVolumeInput(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int newVolume) && Status is not null)
+        {
+            Status.Volume = newVolume;
+            StateHasChanged();
+        }
+    }
+
+    private string GetAlbumArtUrl(string? albumArtUri)
+    {
+        if (string.IsNullOrEmpty(albumArtUri))
+            return string.Empty;
+
+        albumArtUri = albumArtUri.Replace("\u0026", "&");
+        if (albumArtUri.StartsWith("http://") || albumArtUri.StartsWith("https://"))
+            return albumArtUri;
+
+        var baseUrl = Navigation.BaseUri.TrimEnd('/');
+        return $"{baseUrl}{albumArtUri}";
+    }
+
+    public void Dispose()
+    {
+        PlayerService.OnPlayerChanged -= HandlePlayerChanged;
+        PlayerService.OnStatusChanged -= HandleStatusChanged;
+    }
+}

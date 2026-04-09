@@ -1,4 +1,22 @@
-﻿namespace Sonos.Base.Services;
+﻿/*
+ * Sonos-net
+ *
+ * Repository https://github.com/svrooij/sonos-net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Sonos.Base.Services;
 
 public partial class AlarmClockService
 {
@@ -33,7 +51,7 @@ public partial class AlarmClockService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class Alarm
     {
-        private byte idField;
+        private int idField;
 
         private System.DateTime startTimeField;
 
@@ -41,7 +59,7 @@ public partial class AlarmClockService
 
         private string recurrenceField;
 
-        private byte enabledField;
+        private int enabledField;
 
         private string roomUUIDField;
 
@@ -51,13 +69,13 @@ public partial class AlarmClockService
 
         private string playModeField;
 
-        private byte volumeField;
+        private int volumeField;
 
-        private byte includeLinkedZonesField;
+        private int includeLinkedZonesField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte ID
+        public int ID
         {
             get
             {
@@ -113,7 +131,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Enabled
+        public int Enabled
         {
             get
             {
@@ -167,6 +185,13 @@ public partial class AlarmClockService
             }
         }
 
+        //[System.Xml.Serialization.XmlIgnore]
+        public Metadata.Didl? ProgramMetaDataObject
+        {
+            get { return Metadata.DidlSerializer.DeserializeMetadata(this.programMetaDataField); }
+            set { ProgramMetaData = Metadata.DidlSerializer.SerializeMetadata(value); }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
         public string PlayMode
@@ -183,7 +208,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Volume
+        public int Volume
         {
             get
             {
@@ -197,7 +222,7 @@ public partial class AlarmClockService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte IncludeLinkedZones
+        public int IncludeLinkedZones
         {
             get
             {

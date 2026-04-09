@@ -1,0 +1,171 @@
+﻿@inherits LayoutComponentBase
+@inject Services.PlayerService PlayerService
+
+<div class="min-h-screen main-bg flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="header-bg border-b sticky top-0 z-40">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left spacer for centering -->
+                <div class="flex-1 md:flex-none"></div>
+                
+                <!-- Centered Title -->
+                <div class="flex items-center justify-center flex-1 md:flex-none">
+                    <h1 class="text-xl sm:text-2xl font-bold text-gradient text-center">Sonos Control</h1>
+                </div>
+
+                <!-- Right side - Menu Button -->
+                <div class="flex items-center justify-end flex-1 md:flex-none">
+                    <button @onclick="ToggleMenu" 
+                            class="hamburger-btn"
+                            aria-label="@(menuOpen ? "Close navigation menu" : "Open navigation menu")"
+                            aria-expanded="@menuOpen.ToString().ToLower()">
+                        <svg class="@(menuOpen ? "hidden" : "block") w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="@(menuOpen ? "block" : "hidden") w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Backdrop for Mobile -->
+    @if (menuOpen)
+    {
+        <div class="fixed inset-0 menu-backdrop z-30 md:hidden" @onclick="CloseMenu"></div>
+    }
+
+    <!-- Navigation Menu - Only visible when open -->
+    @if (menuOpen)
+    {
+        <div class="@GetMenuClasses() z-40 transform transition-all duration-300 ease-in-out">
+            <div class="menu-bg border-b md:border-0">
+                <!-- Mobile Menu (Vertical, Centered) - Full height with scroll -->
+                <div class="md:hidden">
+                    <div class="px-4 py-6 space-y-2 min-h-0 max-h-mobile-menu overflow-y-auto">
+                        <NavLink class="nav-link-mobile" href="" Match="NavLinkMatch.All" @onclick="CloseMenu">
+                            <svg class="w-5 h-5 text-sonos-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                            </svg>
+                            <div class="flex flex-col items-center">
+                                <span class="font-semibold text-lg">Players</span>
+                            </div>
+                        </NavLink>
+                        
+                        <NavLink class="nav-link-mobile" href="alarms" @onclick="CloseMenu">
+                            <svg class="w-5 h-5 text-sonos-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="flex flex-col items-center">
+                                <span class="font-semibold text-lg">Alarms</span>
+                            </div>
+                        </NavLink>
+                        
+                        <NavLink class="nav-link-mobile" href="media" @onclick="CloseMenu">
+                            <svg class="w-5 h-5 text-sonos-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="flex flex-col items-center">
+                                <span class="font-semibold text-lg">Music services</span>
+                            </div>
+                        </NavLink>
+
+                        <!-- Mobile API Link -->
+                        <div class="pt-4 border-t" style="border-color: var(--color-border);">
+                            <a href="/scalar/" class="nav-link-api-mobile" @onclick="CloseMenu" target="_blank">
+                                <svg class="w-5 h-5 text-sonos-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div class="flex flex-col items-center">
+                                    <span class="font-semibold text-lg">Sonos API</span>
+                                </div>
+                            </a>
+                            <a href="https://github.com/svrooij/sonos-net" class="nav-link-api-mobile" @onclick="CloseMenu" target="_blank">
+                                <svg class="w-5 h-5 text-sonos-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div class="flex flex-col items-center">
+                                    <span class="font-semibold text-lg">Sonos NET on Github</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu (Horizontal Row) -->
+                <div class="hidden md:block px-4 sm:px-6 lg:px-8 py-4">
+                    <div class="flex items-center justify-center space-x-8">
+                        <NavLink class="nav-link-desktop" href="" Match="NavLinkMatch.All" @onclick="CloseMenu">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                            </svg>
+                            Players
+                        </NavLink>
+                        <NavLink class="nav-link-desktop" href="alarms" @onclick="CloseMenu">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                            </svg>
+                            Alarms
+                        </NavLink>
+                        <NavLink class="nav-link-desktop" href="media" @onclick="CloseMenu">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            Music services
+                        </NavLink>
+                        <span>@PlayerService.SelectedPlayer?.Name</span>
+                    </div>
+                    
+                    <!-- Desktop API Link (Bottom of menu) -->
+                    <div class="flex justify-center mt-4 pt-4 border-t" style="border-color: var(--color-border);">
+                        <a href="/scalar/" class="nav-link-api-desktop" @onclick="CloseMenu" target="_blank">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                            Sonos API Documentation
+                        </a>
+
+                        <a href="https://github.com/svrooij/sonos-net" class="nav-link-api-desktop ml-2" @onclick="CloseMenu" target="_blank">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                            Sonos.NET on Github
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 pb-20 overflow-auto">
+        @Body
+    </main>
+
+    <!-- Mini Player Bar -->
+    <MiniPlayer />
+</div>
+
+@code {
+    private bool menuOpen = false;
+
+    private void ToggleMenu()
+    {
+        menuOpen = !menuOpen;
+    }
+
+    private void CloseMenu()
+    {
+        menuOpen = false;
+    }
+
+    private string GetMenuClasses()
+    {
+        // On mobile: fixed overlay positioned from top of screen
+        // On desktop: static element that flows naturally in document
+        return "fixed md:static top-16 md:top-auto left-0 right-0 bottom-0 md:bottom-auto opacity-100 translate-y-0";
+    }
+}

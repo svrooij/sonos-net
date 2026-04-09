@@ -1,0 +1,186 @@
+name: 🛠️ Building library
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/*
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+      - develop
+
+
+jobs:
+  build:
+    name: 🛠️ Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v5
+
+      - name: 👨‍🔧 Setup .NET Core SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.x
+            10.x
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🦸‍♂️ Restore steriods
+        uses: actions/cache@v5
+        with:
+          path: ~/.nuget/packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: 🎒 Restore Tools
+        run: dotnet tool restore
+
+      - name: 🎒 Load packages
+        run: dotnet restore
+    
+      - name: 🛠️ Build code
+        run: |
+          dotnet build ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj --configuration Release --no-restore 
+          
+      - name: 🫣 Testing code
+        run: |
+          echo "## 🧪 Test results" >> $GITHUB_STEP_SUMMARY
+          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Tests -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --configuration Release -v minimal --logger GitHubActions '/p:CollectCoverage=true;CoverletOutputFormat="json,lcov,cobertura";MergeWith=${{github.workspace}}/coverage.json;CoverletOutput=${{github.workspace}}/coverage' tests/Sonos.Base.Events.Http.Tests -- RunConfiguration.CollectSourceInformation=true
+  
+      - name: 📝 Code Coverage report
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.4.12
+          reportgenerator -reports:${{github.workspace}}/coverage.cobertura.xml -targetdir:${{github.workspace}}/report -reporttypes:MarkdownSummaryGithub "-filefilters:-*.g.cs;-*.gen.cs" -verbosity:Warning
+          sed -i 's/# Summary/## 📝 Code Coverage/g' ${{github.workspace}}/report/SummaryGithub.md
+          sed -i 's/## Coverage/### Code Coverage details/g' ${{github.workspace}}/report/SummaryGithub.md
+          cat ${{github.workspace}}/report/*.md >> $GITHUB_STEP_SUMMARY
+
+  publish:
+    name: 📦 Publish nuget library
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [build]
+    steps:
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: 👨‍🔧 Setup .NET Core SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.x
+            10.x
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🦸‍♂️ Restore steriods
+        uses: actions/cache@v5
+        with:
+          path: ~/.nuget/packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: 🎒 Restore Tools
+        run: dotnet tool restore
+
+      - name: 🎒 Load packages
+        run: dotnet restore
+
+      - name: 🛠️ Build code
+        shell: pwsh
+        run: dotnet build --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
+
+      - name: 📦 Pack Sonos.Base
+        shell: pwsh
+        run: dotnet pack --configuration Release --no-build -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base/Sonos.Base.csproj
+
+      - name: 📦 Pack Sonos.Base.Events.Http
+        shell: pwsh
+        run: dotnet pack --configuration Release --no-build -p:Version=$("${{ github.ref_name }}".Substring(1)) ./src/Sonos.Base.Events.Http/Sonos.Base.Events.Http.csproj
+
+      - name: ✈️ Publish Sonos.Base to nuget.org
+        run: dotnet nuget push ./src/Sonos.Base/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+      - name: ✈️ Publish Sonos.Base.Events.Http to nuget.org
+        run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+  publish-docker:
+    permissions:
+      contents: read
+      packages: write
+    name: 🐳 Publish Docker image
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [build]
+    steps:
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: 👨‍🔧 Setup .NET Core SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.x
+            10.x
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🦸‍♂️ Restore steriods
+        uses: actions/cache@v5
+        with:
+          path: ~/.nuget/packages
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: 🎒 Restore Tools
+        run: dotnet tool restore
+
+      - name: 🎒 Load packages for Sonos.Web
+        run: dotnet restore ./src/Sonos.Web/Sonos.Web.csproj
+        env:
+          INCLUDE_API_DOCS: false
+
+      - name: 🎒 Load packages for Sonos.Web.Blazor
+        run: dotnet restore ./src/Sonos.Web.Blazor/Sonos.Web.Blazor.csproj
+
+      - name: 🌐 Publish Blazor WASM to Sonos.Web wwwroot
+        run: dotnet publish ./src/Sonos.Web.Blazor/Sonos.Web.Blazor.csproj --configuration Release -o ./src/Sonos.Web/wwwroot -p:StaticWebAssetProjectMode=Default
+
+      - name: 🔑 Login to github container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🐳 Publish to docker
+        shell: pwsh
+        run: |
+          dotnet publish --os linux --arch amd64 --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) /t:PublishContainer ./src/Sonos.Web/Sonos.Web.csproj
+        env:
+          CONTAINER_IMAGE_TAGS: ${{ contains(github.ref_name, 'beta') && format('{0};beta', github.ref_name) || format('{0};latest', github.ref_name) }}
+          INCLUDE_API_DOCS: false

@@ -1,0 +1,6 @@
+@Sonos.Web_HostAddress = http://localhost:5029
+
+GET {{Sonos.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

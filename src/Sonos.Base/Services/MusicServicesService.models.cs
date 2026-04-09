@@ -1,4 +1,22 @@
-﻿namespace Sonos.Base.Services;
+﻿/*
+ * Sonos-net
+ *
+ * Repository https://github.com/svrooij/sonos-net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace Sonos.Base.Services;
 
 public partial class MusicServicesService
 {
@@ -12,7 +30,7 @@ public partial class MusicServicesService
     {
         private MusicService[] serviceField;
 
-        private byte schemaVersionField;
+        private int schemaVersionField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("Service")]
@@ -30,7 +48,7 @@ public partial class MusicServicesService
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte SchemaVersion
+        public int SchemaVersion
         {
             get
             {
@@ -289,13 +307,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationStrings
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {
@@ -328,13 +346,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServicePresentationPresentationMap
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {
@@ -367,13 +385,13 @@ public partial class MusicServicesService
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public partial class ServicesServiceManifest
     {
-        private byte versionField;
+        private int versionField;
 
         private string uriField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttribute()]
-        public byte Version
+        public int Version
         {
             get
             {

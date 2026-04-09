@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sonos Control</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/music-player.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="Sonos.Web.Blazor.styles.css" rel="stylesheet" />
+    <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    
+    <style>
+        /* Loading screen styles with dark mode support */
+        .loading-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dark mode loading screen */
+        @media (prefers-color-scheme: dark) {
+            .loading-screen {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            }
+        }
+
+        /* Animated background particles */
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.1), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: particleMove 20s linear infinite;
+        }
+
+        @keyframes particleMove {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        /* Logo container */
+        .loading-logo {
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Sonos logo/icon */
+        .sonos-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Loading title */
+        .loading-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Loading subtitle */
+        .loading-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Modern progress bar container */
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animated progress bar */
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ffffff, #e0e7ff, #ffffff);
+            background-size: 200% 100%;
+            border-radius: 3px;
+            animation: progressShimmer 1.5s ease-in-out infinite;
+            transition: width 0.3s ease;
+            width: calc(var(--blazor-load-percentage, 0%) * 1%);
+        }
+
+        @keyframes progressShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Loading text */
+        .loading-text {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Spinning loader rings */
+        .loader-rings {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .loader-ring {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            position: absolute;
+            animation: spin 2s linear infinite;
+        }
+
+        .loader-ring:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            border-top-color: #ffffff;
+            animation-duration: 1s;
+        }
+
+        .loader-ring:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            border-top-color: rgba(255,255,255,0.7);
+            animation-duration: 1.5s;
+            animation-direction: reverse;
+            top: 10px;
+            left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .loading-title {
+                font-size: 2rem;
+            }
+            .progress-container {
+                width: 250px;
+            }
+            .sonos-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="loading-screen">
+            <!-- Logo/Icon Section -->
+            <div class="loading-logo">
+                <!-- Sonos-style icon using SVG -->
+                <svg class="sonos-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="white" fill-opacity="0.1" stroke="white" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="35" fill="white" fill-opacity="0.2"/>
+                    <path d="M30 35 Q50 25 70 35 Q50 45 30 35 Z" fill="white"/>
+                    <path d="M30 50 Q50 40 70 50 Q50 60 30 50 Z" fill="white" fill-opacity="0.8"/>
+                    <path d="M30 65 Q50 55 70 65 Q50 75 30 65 Z" fill="white" fill-opacity="0.6"/>
+                </svg>
+            </div>
+
+            <!-- Title Section -->
+            <h1 class="loading-title">Sonos Control</h1>
+            <p class="loading-subtitle">Initializing your music experience...</p>
+
+            <!-- Animated Loader Rings -->
+            <div class="loader-rings">
+                <div class="loader-ring"></div>
+                <div class="loader-ring"></div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <!-- Progress Text -->
+            <div class="loading-text">
+                <span id="progress-text">Loading</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui" style="background: #ff6b6b; color: white; padding: 1rem; border-radius: 8px; margin: 1rem; box-shadow: 0 4px 12px rgba(255,107,107,0.3);">
+        <strong>⚠️ An unhandled error has occurred.</strong>
+        <div style="margin-top: 0.5rem;">
+            <a href="." style="color: white; text-decoration: underline; margin-right: 1rem;">🔄 Reload</a>
+            <span class="dismiss" style="cursor: pointer; background: rgba(255,255,255,0.2); padding: 0.2rem 0.5rem; border-radius: 4px;">✕</span>
+        </div>
+    </div>
+    
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        // Enhanced loading progress with animations
+        window.addEventListener('DOMContentLoaded', function() {
+            const progressText = document.getElementById('progress-text');
+            const loadingMessages = [
+                'Loading components...',
+                'Connecting to Sonos...',
+                'Initializing interface...',
+                'Almost ready...',
+                'Starting application...'
+            ];
+            
+            let messageIndex = 0;
+            const messageInterval = setInterval(() => {
+                if (progressText && messageIndex < loadingMessages.length) {
+                    progressText.textContent = loadingMessages[messageIndex];
+                    messageIndex++;
+                } else {
+                    clearInterval(messageInterval);
+                }
+            }, 800);
+            
+            // Clear interval when Blazor starts
+            const checkBlazor = setInterval(() => {
+                if (window.Blazor) {
+                    clearInterval(messageInterval);
+                    clearInterval(checkBlazor);
+                }
+            }, 100);
+        });
+        
+        //navigator.serviceWorker.register('service-worker.js');
+    </script>
+</body>
+
+</html>
