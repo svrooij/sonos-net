@@ -50,14 +50,22 @@ internal static class SoapFactory
 
     internal static string GenerateXml<TPayload>(string service, string action, TPayload payload) where TPayload : class
     {
-        var envelope = new Soap.Envelope<TPayload>(payload);
-        var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
-        var ns = SoapNamespaces();
+        //var envelope = new Soap.Envelope<TPayload>(payload);
+        //var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
+        //var ns = SoapNamespaces();
 
-        var serializer = new XmlSerializer(envelope.GetType(), overrides);
-        using var textWriter = new Utf8StringWriter();
-        serializer.Serialize(textWriter, envelope, ns);
-        return textWriter.ToString();
+        //var serializer = new XmlSerializer(envelope.GetType(), overrides);
+        //using var textWriter = new Utf8StringWriter
+        //{
+        //    NewLine = string.Empty, // Remove newlines to prevent unwanted whitespace in the output XML.
+        //};
+        //serializer.Serialize(textWriter, envelope, ns);
+        //return textWriter.ToString();
+        using var stream = GenerateXmlStream(service, action, payload);
+        // Read the stream back into a string
+        using var reader = new StreamReader(stream);
+        var result = reader.ReadToEnd();
+        return result;
     }
 
     internal static Stream GenerateXmlStream<TPayload>(string service, string action, TPayload payload) where TPayload : class

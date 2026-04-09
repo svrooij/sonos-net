@@ -6,23 +6,7 @@ namespace Sonos.Base.Soap.Tests;
 
 public class SoapFactoryTests
 {
-    private const string xmlInputNextRequest = @"<s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
-  <s:Body>
-    <u:Next xmlns:u=""urn:schemas-upnp-org:service:AVTransport:1"">
-      <InstanceID>0</InstanceID>
-    </u:Next>
-  </s:Body>
-</s:Envelope>";
-
-    [Fact]
-    public void GeneratesXmlStream_AvTransportNextRequest_GeneratesExpectedXml()
-    {
-        using var stream = SoapFactory.GenerateXmlStream(nameof(Services.SonosService.AVTransport), "Next", new Services.AVTransportService.NextRequest());
-        using var reader = new StreamReader(stream);
-        var xml = reader.ReadToEnd();
-
-        Assert.Equal(xmlInputNextRequest, xml);
-    }
+    private const string xmlInputNextRequest = @"<s:Envelope s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"" xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/""><s:Body><u:Next xmlns:u=""urn:schemas-upnp-org:service:AVTransport:1""><InstanceID>0</InstanceID></u:Next></s:Body></s:Envelope>";
 
     [Fact]
     public void GeneratesXml_AvTransportNextRequest_GeneratesExpectedXml()
