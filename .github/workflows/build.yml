@@ -171,16 +171,17 @@ jobs:
         run: dotnet publish ./src/Sonos.Web.Blazor/Sonos.Web.Blazor.csproj --configuration Release -o ./src/Sonos.Web/wwwroot -p:StaticWebAssetProjectMode=Default
 
       - name: 🔑 Login to github container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p ~/.docker
+          # Disable credential helper to ensure plain-text storage in ~/.docker/config.json,
+          # which is required for dotnet publish /t:PublishContainer to authenticate.
+          echo '{"auths":{},"credsStore":""}' > ~/.docker/config.json
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       
       - name: 🐳 Publish to docker
         shell: pwsh
         run: |
-          dotnet publish --os linux --arch amd64 --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) /t:PublishContainer ./src/Sonos.Web/Sonos.Web.csproj
+          dotnet publish --os linux --arch amd64 --configuration Release -p:Version=$("${{ github.ref_name }}".Substring(1)) /t:PublishContainer -p:ContainerImageTags="$env:CONTAINER_IMAGE_TAGS" ./src/Sonos.Web/Sonos.Web.csproj
         env:
           CONTAINER_IMAGE_TAGS: ${{ contains(github.ref_name, 'beta') && format('{0};beta', github.ref_name) || format('{0};latest', github.ref_name) }}
           INCLUDE_API_DOCS: false
