@@ -146,7 +146,7 @@ internal static class SoapFactory
         {
             throw new FormatException("Response does not contain expected result");
         }
-        return result.Body.Message;
+        return result.Body.Message!;
     }
 
     internal static TOut ParseXml<TOut>(string service, Stream stream) where TOut : class
@@ -159,7 +159,7 @@ internal static class SoapFactory
         {
             throw new FormatException("Response does not contain expected result");
         }
-        return result.Body.Message;
+        return result.Body.Message!;
     }
 
     internal static TOut ParseEmbeddedXml<TOut>(string xml) where TOut : class
