@@ -2,6 +2,11 @@ name: 🛠️ Building library
 
 on:
   workflow_dispatch:
+    inputs:
+      force_nuget_publish:
+        description: 'Force NuGet publish even if source files did not change'
+        type: boolean
+        default: false
   push:
     branches:
       - main
@@ -61,17 +66,63 @@ jobs:
   
       - name: 📝 Code Coverage report
         run: |
-          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.4.12
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.5.4
           reportgenerator -reports:${{github.workspace}}/coverage.cobertura.xml -targetdir:${{github.workspace}}/report -reporttypes:MarkdownSummaryGithub "-filefilters:-*.g.cs;-*.gen.cs" -verbosity:Warning
           sed -i 's/# Summary/## 📝 Code Coverage/g' ${{github.workspace}}/report/SummaryGithub.md
           sed -i 's/## Coverage/### Code Coverage details/g' ${{github.workspace}}/report/SummaryGithub.md
           cat ${{github.workspace}}/report/*.md >> $GITHUB_STEP_SUMMARY
+        env:
+          REPORTGENERATOR_LICENSE: ${{ secrets.REPORTGENERATOR_LICENSE }}
+
+  check-nuget-changes:
+    name: 🔍 Check NuGet source changes
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    outputs:
+      nuget_changed: ${{ steps.changes.outputs.nuget_changed }}
+    steps:
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Detect changes since previous tag
+        id: changes
+        run: |
+          PREVIOUS_TAG=$(git tag --sort=-v:refname | sed -n '2p')
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "No previous tag found, assuming changes"
+            echo "nuget_changed=true" >> $GITHUB_OUTPUT
+            echo "## 📦 NuGet Source Changes" >> $GITHUB_STEP_SUMMARY
+            echo "No previous tag found — assuming source has changed. **Will publish new NuGet packages.**" >> $GITHUB_STEP_SUMMARY
+          else
+            CHANGED=$(git diff --name-only "$PREVIOUS_TAG" HEAD -- src/Sonos.Base/ src/Sonos.Base.Events.Http/)
+            if [ -z "$CHANGED" ]; then
+              echo "No NuGet source changes detected between $PREVIOUS_TAG and ${{ github.ref_name }}"
+              echo "nuget_changed=false" >> $GITHUB_OUTPUT
+              echo "## ⏭️ No NuGet Source Changes" >> $GITHUB_STEP_SUMMARY
+              echo "No changes detected in NuGet source files between \`$PREVIOUS_TAG\` and \`${{ github.ref_name }}\`. Skipping NuGet publish." >> $GITHUB_STEP_SUMMARY
+            else
+              echo "NuGet source changes detected:"
+              echo "$CHANGED"
+              echo "nuget_changed=true" >> $GITHUB_OUTPUT
+              echo "## 📦 NuGet Source Changes Detected" >> $GITHUB_STEP_SUMMARY
+              echo "Changes detected between \`$PREVIOUS_TAG\` and \`${{ github.ref_name }}\`. **Will publish new NuGet packages.**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### 🗂️ Changed files" >> $GITHUB_STEP_SUMMARY
+              echo "$CHANGED" | while IFS= read -r file; do
+                echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+              done
+            fi
+          fi
 
   publish:
     name: 📦 Publish nuget library
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: [build]
+    if: >
+      startsWith(github.ref, 'refs/tags/')
+      && (needs.check-nuget-changes.outputs.nuget_changed == 'true' || github.event.inputs.force_nuget_publish == 'true')
+    needs: [build, check-nuget-changes]
     steps:
       - name: 👨‍💻 Check-out code
         uses: actions/checkout@v5
@@ -123,6 +174,17 @@ jobs:
         run: dotnet nuget push ./src/Sonos.Base.Events.Http/bin/Release/Sonos.Base.*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+      - name: 📝 NuGet publish summary
+        run: |
+          VERSION="${{ github.ref_name }}"
+          VERSION="${VERSION#v}"
+          echo "## 🚀 NuGet Packages Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Package | Version |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| [Sonos.Base](https://www.nuget.org/packages/Sonos.Base/${VERSION}) | \`${VERSION}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| [Sonos.Base.Events.Http](https://www.nuget.org/packages/Sonos.Base.Events.Http/${VERSION}) | \`${VERSION}\` |" >> $GITHUB_STEP_SUMMARY
 
   publish-docker:
     permissions:
@@ -184,3 +246,26 @@ jobs:
         env:
           CONTAINER_IMAGE_TAGS: ${{ contains(github.ref_name, 'beta') && format('{0};beta', github.ref_name) || format('{0};latest', github.ref_name) }}
           INCLUDE_API_DOCS: false
+
+      - name: 📝 Docker publish summary
+        run: |
+          VERSION="${{ github.ref_name }}"
+          if [[ "$VERSION" == *"beta"* ]]; then
+            TAGS="${VERSION};beta"
+          else
+            TAGS="${VERSION};latest"
+          fi
+          IMAGE="ghcr.io/${{ github.repository }}"
+          echo "## 🐳 Docker Image Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "A new container image has been published to the GitHub Container Registry." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** \`${IMAGE}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:**" >> $GITHUB_STEP_SUMMARY
+          IFS=';' read -ra TAG_LIST <<< "$TAGS"
+          for tag in "${TAG_LIST[@]}"; do
+            echo "- \`${IMAGE}:${tag}\`" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 [View on GitHub Packages](https://github.com/${{ github.repository }}/pkgs/container/${{ github.event.repository.name }})" >> $GITHUB_STEP_SUMMARY

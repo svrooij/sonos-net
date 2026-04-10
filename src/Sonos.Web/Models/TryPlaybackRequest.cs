@@ -20,7 +20,14 @@ public class TryPlaybackRequest
     /// </summary>
     public string? MediaId { get; set; }
 
+    /// <summary>
+    /// If this is a song, add it to the start of the queue instead of the end. If false, the song will be added to the end of the queue.
+    /// </summary>
     public bool AddToStart { get; set; }
+
+    /// <summary>
+    /// Issue `Next` command after adding the song to the queue, so that it will play immediately.
+    /// </summary>
     public bool PlayAsNextSong { get; set; }
 
     /// <summary>
