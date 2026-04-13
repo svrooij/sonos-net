@@ -13,9 +13,9 @@
     <ContainerRepository>svrooij/sonos-net</ContainerRepository>
     <ContainerRegistry>ghcr.io</ContainerRegistry>
     <ContainerImageTags>dev</ContainerImageTags>
-      <OpenApiDocumentsDirectory>..\\specs</OpenApiDocumentsDirectory>
-      <OpenApiGenerateDocumentsOptions>--file-name openapi-v1</OpenApiGenerateDocumentsOptions>
-      <OpenApiGenerateDocuments>False</OpenApiGenerateDocuments>
+    <OpenApiDocumentsDirectory>..\\specs</OpenApiDocumentsDirectory>
+    <OpenApiGenerateDocumentsOptions>--file-name openapi-v1</OpenApiGenerateDocumentsOptions>
+    <OpenApiGenerateDocuments>False</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>
