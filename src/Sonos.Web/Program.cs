@@ -1,10 +1,9 @@
+using System.Net.Mime;
 using System.Reflection;
 using System.Text.Json.Serialization;
-
-
 using Microsoft.AspNetCore.StaticFiles;
-
 using Scalar.AspNetCore;
+
 using Sonos.Base;
 using Sonos.Web;
 using Sonos.Web.Music;
@@ -81,7 +80,9 @@ if (builder.Configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER") == true)
 
     // Fix the content type for .dat files, this is to serve the Blazor WebAssembly files from the wwwroot folder.
     var provider = new FileExtensionContentTypeProvider();
-    provider.Mappings[".dat"] = "application/octet-stream";
+    provider.Mappings[".dat"] = MediaTypeNames.Application.Octet;
+    provider.Mappings[".dll"] = MediaTypeNames.Application.Octet;
+    provider.Mappings[".pdb"] = MediaTypeNames.Application.Octet;
     app.UseStaticFiles(new StaticFileOptions
     {
         RedirectToAppendTrailingSlash = true,
