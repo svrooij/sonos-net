@@ -18,11 +18,32 @@
 
 namespace Sonos.Base.Soap;
 
+using System.Collections.Concurrent;
 using System.Xml;
 using System.Xml.Serialization;
 
 internal static class SoapFactory
 {
+    // A serializer created with XmlAttributeOverrides is not cached by the framework: each one generates a dynamic
+    // assembly that is never unloaded. So every serializer is created once and kept here; XmlSerializer is thread-safe.
+    private static readonly ConcurrentDictionary<(Type PayloadType, string Service, string Action), XmlSerializer> requestSerializers = new();
+    private static readonly ConcurrentDictionary<(Type ResponseType, string Service), XmlSerializer> responseSerializers = new();
+    private static readonly Lazy<XmlSerializer> faultSerializer = new(() => new XmlSerializer(typeof(Envelope<UpnpSoapFault>), GenerateFaultResponseOverrides()));
+
+    internal static XmlSerializer GetRequestSerializer<TPayload>(string service, string action) where TPayload : class
+    {
+        return requestSerializers.GetOrAdd(
+            (typeof(TPayload), service, action),
+            static key => new XmlSerializer(typeof(Envelope<TPayload>), GenerateOverrides<EnvelopeBody<TPayload>>(key.Service, key.Action, nameof(EnvelopeBody<TPayload>.Message))));
+    }
+
+    internal static XmlSerializer GetResponseSerializer<TOut>(string service) where TOut : class
+    {
+        return responseSerializers.GetOrAdd(
+            (typeof(TOut), service),
+            static key => new XmlSerializer(typeof(Envelope<TOut>), GenerateResponseOverrides<TOut>(key.Service)));
+    }
+
     internal static HttpRequestMessage CreateRequest<TPayload>(Uri baseUri, string path, TPayload payload, string? action) where TPayload : class
     {
         var attr = SonosServiceRequestAttribute.GetSonosServiceRequestAttribute<TPayload>();
@@ -72,10 +93,9 @@ internal static class SoapFactory
     {
         var stream = new MemoryStream();
         var envelope = new Soap.Envelope<TPayload>(payload);
-        var overrides = GenerateOverrides<EnvelopeBody<TPayload>>(service, action, nameof(envelope.Body.Message));
         var ns = SoapNamespaces();
 
-        var serializer = new XmlSerializer(envelope.GetType(), overrides);
+        var serializer = GetRequestSerializer<TPayload>(service, action);
         
         //// Create XmlWriter with custom settings
         //var settings = new XmlWriterSettings
@@ -138,8 +158,7 @@ internal static class SoapFactory
 
     internal static TOut ParseXml<TOut>(string service, string xml) where TOut : class
     {
-        var overrides = GenerateResponseOverrides<TOut>(service);
-        var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
+        var serializer = GetResponseSerializer<TOut>(service);
         using var textReader = new StringReader(xml);
         var result = (Envelope<TOut>?)serializer.Deserialize(textReader);
         if (result is null)
@@ -151,8 +170,7 @@ internal static class SoapFactory
 
     internal static TOut ParseXml<TOut>(string service, Stream stream) where TOut : class
     {
-        var overrides = GenerateResponseOverrides<TOut>(service);
-        var serializer = new XmlSerializer(typeof(Envelope<TOut>), overrides);
+        var serializer = GetResponseSerializer<TOut>(service);
 
         var result = (Envelope<TOut>?)serializer.Deserialize(stream);
         if (result is null)
@@ -176,8 +194,7 @@ internal static class SoapFactory
 
     internal static UpnpSoapFault? ParseFaultXml(string xml)
     {
-        var overrides = GenerateFaultResponseOverrides();
-        var serializer = new XmlSerializer(typeof(Envelope<UpnpSoapFault>), overrides);
+        var serializer = faultSerializer.Value;
         using var textReader = new StringReader(xml);
         var result = (Envelope<UpnpSoapFault>?)serializer.Deserialize(textReader);
         if (result is null)
@@ -190,8 +207,7 @@ internal static class SoapFactory
 
     internal static UpnpSoapFault? ParseFaultXml(Stream stream)
     {
-        var overrides = GenerateFaultResponseOverrides();
-        var serializer = new XmlSerializer(typeof(Envelope<UpnpSoapFault>), overrides);
+        var serializer = faultSerializer.Value;
         var result = (Envelope<UpnpSoapFault>?)serializer.Deserialize(stream);
         if (result is null)
         {
