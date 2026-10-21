@@ -43,4 +43,47 @@ public class SoapFactoryTests
         var parsedError = SoapFactory.ParseFaultXml(SonosUpnpErrorResponse);
         Assert.NotNull(parsedError);
     }
+
+    [Fact]
+    public void GetRequestSerializer_SameServiceAndAction_ReturnsSameInstance()
+    {
+        var first = SoapFactory.GetRequestSerializer<Services.AVTransportService.NextRequest>(nameof(Services.SonosService.AVTransport), "Next");
+        var second = SoapFactory.GetRequestSerializer<Services.AVTransportService.NextRequest>(nameof(Services.SonosService.AVTransport), "Next");
+
+        Assert.Same(first, second);
+    }
+
+    [Fact]
+    public void GetResponseSerializer_SameService_ReturnsSameInstance()
+    {
+        var first = SoapFactory.GetResponseSerializer<Services.DevicePropertiesService.GetZoneInfoResponse>(nameof(Services.SonosService.DeviceProperties));
+        var second = SoapFactory.GetResponseSerializer<Services.DevicePropertiesService.GetZoneInfoResponse>(nameof(Services.SonosService.DeviceProperties));
+
+        Assert.Same(first, second);
+    }
+
+    [Fact]
+    public void ParseXml_TwoResponseTypesOfOneService_ParsesEachType()
+    {
+        const string xmlGetZoneAttributesResponse = @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetZoneAttributesResponse xmlns:u=""urn:schemas-upnp-org:service:DeviceProperties:1""><CurrentZoneName>Kitchen</CurrentZoneName></u:GetZoneAttributesResponse></s:Body></s:Envelope>";
+
+        var zoneInfo = SoapFactory.ParseXml<Services.DevicePropertiesService.GetZoneInfoResponse>(nameof(Services.SonosService.DeviceProperties), xmlGetZoneInfoResponse);
+        var zoneAttributes = SoapFactory.ParseXml<Services.DevicePropertiesService.GetZoneAttributesResponse>(nameof(Services.SonosService.DeviceProperties), xmlGetZoneAttributesResponse);
+
+        Assert.Equal("AA:2A:1B:AA:AA:AA", zoneInfo.MACAddress);
+        Assert.Equal("Kitchen", zoneAttributes.CurrentZoneName);
+    }
+
+    [Fact]
+    public void GeneratesXml_SharedRequestTypeForTwoActions_UsesTheActionOfEachCall()
+    {
+        // Actions without arguments share one request type per service, so the serializer must not be reused across actions.
+        var timeNow = SoapFactory.GenerateXml(nameof(Services.SonosService.AlarmClock), "GetTimeNow", new Services.AlarmClockService.BaseRequest());
+        var format = SoapFactory.GenerateXml(nameof(Services.SonosService.AlarmClock), "GetFormat", new Services.AlarmClockService.BaseRequest());
+        var timeNowAgain = SoapFactory.GenerateXml(nameof(Services.SonosService.AlarmClock), "GetTimeNow", new Services.AlarmClockService.BaseRequest());
+
+        Assert.Contains("<u:GetTimeNow xmlns:u=\"urn:schemas-upnp-org:service:AlarmClock:1\"", timeNow);
+        Assert.Contains("<u:GetFormat xmlns:u=\"urn:schemas-upnp-org:service:AlarmClock:1\"", format);
+        Assert.Equal(timeNow, timeNowAgain);
+    }
 }
